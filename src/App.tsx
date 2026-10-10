@@ -1,6 +1,7 @@
 import { HashRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 import CharacterPage from './CharacterPage'
 import HomePage from './HomePage'
+import { MenuProvider } from './MenuProvider'
 import './App.css'
 
 function CharacterRoute() {
@@ -12,11 +13,13 @@ function CharacterRoute() {
 function App() {
   return (
     <HashRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/character/:id" element={<CharacterRoute />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <MenuProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/character/:id" element={<CharacterRoute />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </MenuProvider>
     </HashRouter>
   )
 }

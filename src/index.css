@@ -1,4 +1,5 @@
 :root {
+  /* Tema escuro (padrão) */
   --bg: #12151f;
   --panel: #1c2030;
   --line: #2c3247;
@@ -7,9 +8,42 @@
   --muted: #aab1c8;
   --gold: #d3bc8e;
   --accent: #d3bc8e;
+  --on-accent: #1a0f08;
+  --surface-deep: #12151f;
+  --stripe-a: #1a1e2c;
+  --stripe-b: #202537;
+  --hero-sub: #c9cfe2;
+  --badge-bg: #12151fcc;
+  --stars: #f2c14e;
+  --shadow: none;
+  --scrim: rgba(6, 8, 14, 0.62);
+  --drawer-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
   --sans: 'Nunito Sans', system-ui, sans-serif;
   --serif: 'Cormorant Garamond', Georgia, serif;
   color-scheme: dark;
+}
+
+/* Tema areia claro: brancos quentes e tons de areia */
+[data-theme='light'] {
+  --bg: #f6efe3;
+  --panel: #fffaf1;
+  --line: #e8dcc6;
+  --line-strong: #d8c8a8;
+  --text: #3a2e21;
+  --muted: #74634e;
+  --gold: #8a6428;
+  --accent: #8a6428;
+  --on-accent: #2a1c08;
+  --surface-deep: #f1e6d2;
+  --stripe-a: #efe3cd;
+  --stripe-b: #f5ecdb;
+  --hero-sub: #5f4f3b;
+  --badge-bg: #fffaf1d9;
+  --stars: #d08a0c;
+  --shadow: 0 1px 2px rgba(90, 65, 25, 0.08), 0 4px 14px rgba(90, 65, 25, 0.06);
+  --scrim: rgba(58, 42, 22, 0.34);
+  --drawer-shadow: 12px 0 40px rgba(90, 65, 25, 0.22);
+  color-scheme: light;
 }
 
 * {
@@ -26,4 +60,16 @@ body {
 button {
   font-family: inherit;
   cursor: pointer;
+}
+
+/* Suaviza a troca de tema (a classe só existe por uns instantes durante a troca) */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease !important;
 }

@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { characterIcon, getAllCharacters } from './api'
 import { useFavorites } from './favorites'
+import MenuButton from './MenuButton'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
 import { VISION_COLORS } from './visionColors'
@@ -72,8 +73,11 @@ export default function HomePage() {
   return (
     <main className="screen">
       <header className="home-header">
-        <h1 className="home-title">GENSHIN WORLD</h1>
-        <p className="home-sub">Personagens, builds e equipes</p>
+        <div>
+          <h1 className="home-title">GENSHIN WORLD</h1>
+          <p className="home-sub">Personagens, builds e equipes</p>
+        </div>
+        <MenuButton />
       </header>
 
       <label className="search">
