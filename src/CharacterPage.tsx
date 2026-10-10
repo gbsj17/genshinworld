@@ -9,7 +9,6 @@ import {
   characterIcon,
   elementIcon,
   getCharacter,
-  nationIcon,
   imageUrl,
   weaponIcon,
 } from './api'
@@ -117,7 +116,6 @@ export default function CharacterPage({ id }: { id: string }) {
         )}
         <div className="hero__info">
           <div className="badges">
-            <Badge src={nationIcon(character.nation)} label={character.nation} />
             <Badge src={elementIcon(character.vision)} label={character.vision} />
           </div>
           <div className="stars" role="img" aria-label={`${character.rarity} estrelas`}>
