@@ -45,8 +45,22 @@ interface DbCharacter {
     mihoyo_icon?: string
     hoyowiki_icon?: string
     filename_icon?: string
+    filename_iconCard?: string
+    filename_gachaSplash?: string
     portrait?: string
   }
+}
+
+const enka = (file: string) => `https://enka.network/ui/${file}.png`
+
+// Imagens grandes para o topo da ficha, da melhor para a pior.
+function portraitOptions(images: DbCharacter['images']): string[] {
+  if (!images) return []
+  return [
+    images.portrait,
+    images.filename_gachaSplash ? enka(images.filename_gachaSplash) : undefined,
+    images.filename_iconCard ? enka(images.filename_iconCard) : undefined,
+  ].filter((url): url is string => Boolean(url))
 }
 
 // Alternativas de ícone, da mais provável para a menos provável.
@@ -56,9 +70,7 @@ function iconOptions(images: DbCharacter['images']): string[] {
   return [
     images.mihoyo_icon,
     images.hoyowiki_icon,
-    images.filename_icon
-      ? `https://enka.network/ui/${images.filename_icon}.png`
-      : undefined,
+    images.filename_icon ? enka(images.filename_icon) : undefined,
   ].filter((url): url is string => Boolean(url))
 }
 
@@ -91,7 +103,7 @@ async function fromGenshinDb(): Promise<CharacterSummary[]> {
       rarity: c.rarity,
       devId: findDevId(c.name, devIds),
       icons: iconOptions(c.images),
-      portrait: c.images?.portrait,
+      portraits: portraitOptions(c.images),
     }))
   if (result.length === 0) throw new Error('genshin-db: lista vazia')
   return result

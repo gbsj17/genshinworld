@@ -63,7 +63,7 @@ export default function CharacterPage({ id }: { id: string }) {
   const [detail, setDetail] = useState<Character | null>(null)
   const [error, setError] = useState(false)
   const [tab, setTab] = useState<Tab>('overview')
-  const [portraitFailed, setPortraitFailed] = useState(false)
+  const [portraitIndex, setPortraitIndex] = useState(0)
   const { isFavorite, toggle } = useFavorites()
 
   useEffect(() => {
@@ -96,7 +96,14 @@ export default function CharacterPage({ id }: { id: string }) {
   const style = { '--accent': accent } as CSSProperties
   const build = BUILDS[id]
   const devId = character.devId
-  const portrait = devId ? imageUrl(devId, 'portrait') : character.portrait
+  // Tenta cada imagem em ordem; a última alternativa é o ícone do personagem,
+  // para o topo da ficha nunca ficar vazio.
+  const portraitOptions = [
+    ...(devId ? [imageUrl(devId, 'portrait')] : []),
+    ...(character.portraits ?? []),
+    ...(character.icons ?? []),
+  ]
+  const portrait = portraitOptions[portraitIndex]
   const visibleTabs = TABS.filter((t) => {
     if (t.id === 'builds') return Boolean(build)
     if (t.id === 'talents' || t.id === 'constellations') return Boolean(detail)
@@ -125,12 +132,13 @@ export default function CharacterPage({ id }: { id: string }) {
       </header>
 
       <section className="hero">
-        {portrait && !portraitFailed && (
+        {portrait && (
           <img
+            key={portrait}
             className="hero__img"
             src={portrait}
             alt={character.name}
-            onError={() => setPortraitFailed(true)}
+            onError={() => setPortraitIndex((i) => i + 1)}
           />
         )}
         <div className="hero__info">
