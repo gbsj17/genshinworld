@@ -217,7 +217,8 @@
     width: 100%;
     display: block;
     position: relative;
-    height: clamp(460px, calc(100vh - 236px), 780px);
+    --hero-h: clamp(460px, calc(100vh - 272px), 780px);
+    height: var(--hero-h);
     overflow: hidden;
     color: #fff;
     background: #0c0f18;
@@ -403,10 +404,10 @@
     position: fixed;
     z-index: 25;
     left: 50%;
-    bottom: 12px;
-    width: 44px;
-    height: 44px;
-    margin-left: -22px;
+    top: calc(var(--hero-h) + 6px);
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
     padding: 0;
     display: flex;
     align-items: center;
