@@ -22,7 +22,9 @@ export interface CharacterSummary {
   // id do mesmo personagem na genshin.dev (só existe para os mais antigos)
   devId?: string
   icons?: string[]
-  portraits?: string[]
+  portrait?: string
+  // artes do jogo (splash e card), usadas quando não há retrato melhor
+  splash?: string[]
 }
 
 export interface Character {

@@ -15,6 +15,7 @@ import {
 } from './api'
 import type { Character, CharacterSummary } from './types'
 import { BUILDS } from './data/builds'
+import { PREFER_SPLASH } from './data/portraitOverrides'
 
 type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
 
@@ -98,12 +99,16 @@ export default function CharacterPage({ id }: { id: string }) {
   const devId = character.devId
   // Tenta cada imagem em ordem; a última alternativa é o ícone do personagem,
   // para o topo da ficha nunca ficar vazio.
-  const portraitOptions = [
-    ...(devId ? [imageUrl(devId, 'portrait')] : []),
-    ...(character.portraits ?? []),
-    ...(character.icons ?? []),
-  ]
+  const splash = character.splash ?? []
+  const mainPortraits = PREFER_SPLASH.has(id)
+    ? []
+    : [
+        ...(devId ? [imageUrl(devId, 'portrait')] : []),
+        ...(character.portrait ? [character.portrait] : []),
+      ]
+  const portraitOptions = [...mainPortraits, ...splash, ...(character.icons ?? [])]
   const portrait = portraitOptions[portraitIndex]
+  const isArt = Boolean(portrait && !mainPortraits.includes(portrait))
   const visibleTabs = TABS.filter((t) => {
     if (t.id === 'builds') return Boolean(build)
     if (t.id === 'talents' || t.id === 'constellations') return Boolean(detail)
@@ -135,7 +140,7 @@ export default function CharacterPage({ id }: { id: string }) {
         {portrait && (
           <img
             key={portrait}
-            className="hero__img"
+            className={isArt ? 'hero__img hero__img--art' : 'hero__img'}
             src={portrait}
             alt={character.name}
             onError={() => setPortraitIndex((i) => i + 1)}

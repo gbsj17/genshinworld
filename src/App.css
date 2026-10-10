@@ -431,3 +431,11 @@ a.round-btn {
   height: 22px;
   object-fit: contain;
 }
+
+/* Artes do jogo (splash/card) têm muita margem transparente: preenchem o quadro
+   todo e cortam as sobras dos lados, para a personagem ficar do tamanho do retrato. */
+.hero__img--art {
+  width: 100%;
+  object-fit: cover;
+  object-position: 62% 40%;
+}

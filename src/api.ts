@@ -53,11 +53,10 @@ interface DbCharacter {
 
 const enka = (file: string) => `https://enka.network/ui/${file}.png`
 
-// Imagens grandes para o topo da ficha, da melhor para a pior.
-function portraitOptions(images: DbCharacter['images']): string[] {
+// Artes do jogo para o topo da ficha: splash primeiro, depois o card.
+function splashOptions(images: DbCharacter['images']): string[] {
   if (!images) return []
   return [
-    images.portrait,
     images.filename_gachaSplash ? enka(images.filename_gachaSplash) : undefined,
     images.filename_iconCard ? enka(images.filename_iconCard) : undefined,
   ].filter((url): url is string => Boolean(url))
@@ -103,7 +102,8 @@ async function fromGenshinDb(): Promise<CharacterSummary[]> {
       rarity: c.rarity,
       devId: findDevId(c.name, devIds),
       icons: iconOptions(c.images),
-      portraits: portraitOptions(c.images),
+      portrait: c.images?.portrait,
+      splash: splashOptions(c.images),
     }))
   if (result.length === 0) throw new Error('genshin-db: lista vazia')
   return result
