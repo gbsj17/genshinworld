@@ -1,4 +1,4 @@
-import type { Character, CharacterSummary } from './types'
+import type { Character, CharacterSummary, Constellation, Talent } from './types'
 
 const BASE_URL = 'https://genshin.jmp.blue'
 
@@ -221,3 +221,67 @@ function fetchItem(kind: 'weapons' | 'artifacts', name: string): Promise<ItemInf
 
 export const getWeaponInfo = (name: string) => fetchItem('weapons', name)
 export const getArtifactInfo = (name: string) => fetchItem('artifacts', name)
+
+// ---- Talentos e constelações pela genshin-db (cobre todos os personagens) ----
+const clean = (text: unknown): string =>
+  typeof text === 'string' ? text.replace(/\*\*/g, '').replace(/<[^>]+>/g, '').trim() : ''
+
+export interface Details {
+  skillTalents: Talent[]
+  passiveTalents: Talent[]
+  constellations: Constellation[]
+}
+
+const detailCache = new Map<string, Promise<Details>>()
+
+export function getDetails(name: string): Promise<Details> {
+  let cached = detailCache.get(name)
+  if (!cached) {
+    const q = encodeURIComponent(name)
+    cached = Promise.all([
+      fetch(`${DB_URL}/talents?query=${q}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
+      fetch(`${DB_URL}/constellations?query=${q}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
+    ])
+      .then(([tal, con]): Details => {
+        const kinds = ['NORMAL_ATTACK', 'ELEMENTAL_SKILL', 'ELEMENTAL_BURST']
+        const img = (file?: string) => (file ? [enka(file)] : [])
+        const skillTalents = [1, 2, 3, 4]
+          .map((n, i) => ({ s: tal[`combat${n}`], i }))
+          .filter(({ s }) => s?.name)
+          .map(({ s, i }): Talent => ({
+            name: s.name,
+            unlock: '',
+            description: clean(s.description),
+            type: kinds[i] ?? 'ELEMENTAL_SKILL',
+            icons: img(tal.images?.[`filename_combat${i + 1}`]),
+          }))
+        const passiveTalents = [1, 2, 3, 4, 5, 6]
+          .map((n) => ({ s: tal[`passive${n}`], n }))
+          .filter(({ s }) => s?.name)
+          .map(({ s, n }): Talent => ({
+            name: s.name,
+            unlock: '',
+            description: clean(s.description),
+            icons: img(tal.images?.[`filename_passive${n}`]),
+          }))
+        const constellations = [1, 2, 3, 4, 5, 6]
+          .map((n) => ({ c: con[`c${n}`], n }))
+          .filter(({ c }) => c?.name)
+          .map(({ c, n }): Constellation => ({
+            name: c.name,
+            unlock: `Constelação ${n}`,
+            description: clean(c.description),
+            level: n,
+            icons: img(con.images?.[`filename_c${n}`]),
+          }))
+        if (skillTalents.length === 0 && constellations.length === 0) throw new Error('vazio')
+        return { skillTalents, passiveTalents, constellations }
+      })
+      .catch((e) => {
+        detailCache.delete(name)
+        throw e
+      })
+    detailCache.set(name, cached)
+  }
+  return cached
+}

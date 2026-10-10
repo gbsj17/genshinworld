@@ -3,6 +3,7 @@ export interface Talent {
   unlock: string
   description: string
   type?: string
+  icons?: string[]
 }
 
 export interface Constellation {
@@ -10,6 +11,7 @@ export interface Constellation {
   unlock: string
   description: string
   level: number
+  icons?: string[]
 }
 
 export interface CharacterSummary {

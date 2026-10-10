@@ -6,6 +6,7 @@ import MenuButton from './MenuButton'
 import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
+import type { Details } from './api'
 import { Thumb } from './Thumb'
 import { VISION_COLORS } from './visionColors'
 import {
@@ -14,11 +15,12 @@ import {
   iconChain,
   elementIcon,
   getAllCharacters,
+  getDetails,
   getCharacter,
   imageUrl,
   weaponIcon,
 } from './api'
-import type { Character, CharacterSummary } from './types'
+import type { CharacterSummary } from './types'
 import { BUILDS } from './data/builds'
 
 type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
@@ -36,16 +38,18 @@ const SKILL_KIND: Record<string, { label: string; asset: string }> = {
   ELEMENTAL_BURST: { label: 'Supremo elemental', asset: 'talent-burst' },
 }
 
-function Icon({ src }: { src: string }) {
-  const [failed, setFailed] = useState(false)
-  if (failed) return <div className="icon icon--empty" aria-hidden="true" />
+function Icon({ src }: { src: string[] }) {
+  const [index, setIndex] = useState(0)
+  const current = src[index]
+  if (!current) return <div className="icon icon--empty" aria-hidden="true" />
   return (
     <img
+      key={current}
       className="icon"
-      src={src}
+      src={current}
       alt=""
       loading="lazy"
-      onError={() => setFailed(true)}
+      onError={() => setIndex((i) => i + 1)}
     />
   )
 }
@@ -73,7 +77,8 @@ export default function CharacterPage({ id }: { id: string }) {
   // character = dados básicos (de todos os personagens)
   // detail = talentos e constelações (só dos que existem na genshin.dev)
   const [character, setCharacter] = useState<CharacterSummary | null>(null)
-  const [detail, setDetail] = useState<Character | null>(null)
+  const [detail, setDetail] = useState<Details | null>(null)
+  const [detailFailed, setDetailFailed] = useState(false)
   const [picked, setPicked] = useState<PickedItem | null>(null)
   const [all, setAll] = useState<CharacterSummary[]>([])
   const [error, setError] = useState(false)
@@ -90,13 +95,30 @@ export default function CharacterPage({ id }: { id: string }) {
         if (!found) throw new Error('Personagem não encontrado')
         setCharacter(found)
         setAll(list)
-        if (found.devId) {
-          getCharacter(found.devId, controller.signal)
-            .then(setDetail)
-            .catch(() => {
-              // sem detalhes: a ficha continua com os dados básicos
-            })
-        }
+        // Talentos e constelações: genshin-db (todos); genshin.dev só como plano B.
+        getDetails(found.name)
+          .then(setDetail)
+          .catch(() => {
+            if (!found.devId) return setDetailFailed(true)
+            getCharacter(found.devId, controller.signal)
+              .then((d) =>
+                setDetail({
+                  skillTalents: d.skillTalents.map((t) => ({
+                    ...t,
+                    icons: [imageUrl(found.devId!, SKILL_KIND[t.type ?? '']?.asset ?? 'talent-na')],
+                  })),
+                  passiveTalents: d.passiveTalents.map((t, i) => ({
+                    ...t,
+                    icons: [imageUrl(found.devId!, `talent-passive-${i}`)],
+                  })),
+                  constellations: d.constellations.map((c) => ({
+                    ...c,
+                    icons: [imageUrl(found.devId!, `constellation-${c.level}`)],
+                  })),
+                }),
+              )
+              .catch(() => setDetailFailed(true))
+          })
       })
       .catch(() => setError(true))
     return () => controller.abort()
@@ -126,7 +148,6 @@ export default function CharacterPage({ id }: { id: string }) {
   const isArt = Boolean(portrait && !fallbackPortraits.includes(portrait))
   const visibleTabs = TABS.filter((t) => {
     if (t.id === 'builds') return Boolean(build)
-    if (t.id === 'talents' || t.id === 'constellations') return Boolean(detail)
     return true
   })
 
@@ -262,13 +283,17 @@ export default function CharacterPage({ id }: { id: string }) {
             </>
           )}
 
-        {tab === 'talents' && detail && devId && (
+        {(tab === 'talents' || tab === 'constellations') && !detail && (
+          <p className="empty">{detailFailed ? 'Não foi possível carregar.' : 'Carregando...'}</p>
+        )}
+
+        {tab === 'talents' && detail && (
           <>
             {detail.skillTalents.map((t) => {
               const kind = SKILL_KIND[t.type ?? '']
               return (
                 <article className="row" key={t.name}>
-                  <Icon src={imageUrl(devId, kind?.asset ?? 'talent-na')} />
+                  <Icon src={t.icons ?? []} />
                   <div>
                     <span className="row__kind">{kind?.label ?? 'Talento'}</span>
                     <h2>{t.name}</h2>
@@ -277,11 +302,11 @@ export default function CharacterPage({ id }: { id: string }) {
                 </article>
               )
             })}
-            {detail.passiveTalents.map((t, i) => (
+            {detail.passiveTalents.map((t) => (
               <article className="row" key={t.name}>
-                <Icon src={imageUrl(devId, `talent-passive-${i}`)} />
+                <Icon src={t.icons ?? []} />
                 <div>
-                  <span className="row__kind">Passivo · {t.unlock}</span>
+                  <span className="row__kind">Passivo{t.unlock ? ` · ${t.unlock}` : ''}</span>
                   <h2>{t.name}</h2>
                   <p>{t.description}</p>
                 </div>
@@ -292,10 +317,9 @@ export default function CharacterPage({ id }: { id: string }) {
 
         {tab === 'constellations' &&
           detail &&
-          devId &&
           detail.constellations.map((c) => (
             <article className="row" key={c.name}>
-              <Icon src={imageUrl(devId, `constellation-${c.level}`)} />
+              <Icon src={c.icons ?? []} />
               <div>
                 <span className="row__kind">{c.unlock}</span>
                 <h2>{c.name}</h2>
