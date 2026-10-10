@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { getCharacter, imageUrl } from './api'
+import {
+  artifactFlower,
+  characterIcon,
+  getCharacter,
+  imageUrl,
+  weaponIcon,
+} from './api'
 import type { Character } from './types'
 import { BUILDS } from './data/builds'
 
@@ -35,6 +41,35 @@ function Icon({ src }: { src: string }) {
   return (
     <img
       className="icon"
+      src={src}
+      alt=""
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  )
+}
+
+function Thumb({
+  src,
+  label,
+  round,
+}: {
+  src?: string
+  label: string
+  round?: boolean
+}) {
+  const [failed, setFailed] = useState(false)
+  const cls = round ? 'thumb thumb--round' : 'thumb'
+  if (!src || failed) {
+    return (
+      <div className={`${cls} thumb--empty`} aria-hidden="true">
+        {label.charAt(0)}
+      </div>
+    )
+  }
+  return (
+    <img
+      className={cls}
       src={src}
       alt=""
       loading="lazy"
@@ -186,19 +221,25 @@ export default function CharacterPage({ id }: { id: string }) {
           <>
             <h2 className="section-title">Armas</h2>
             {build.weapons.map((w, i) => (
-              <article className="block" key={w.name}>
-                <span className="row__kind">#{i + 1}</span>
-                <h3>{w.name}</h3>
-                <p>{w.note}</p>
+              <article className="block block--row" key={w.name}>
+                <Thumb src={w.id ? weaponIcon(w.id) : undefined} label={w.name} />
+                <div className="block__body">
+                  <span className="row__kind">#{i + 1}</span>
+                  <h3>{w.name}</h3>
+                  <p>{w.note}</p>
+                </div>
               </article>
             ))}
 
             <h2 className="section-title">Artefatos</h2>
             {build.artifacts.map((a, i) => (
-              <article className="block" key={a.name}>
-                <span className="row__kind">#{i + 1}</span>
-                <h3>{a.name}</h3>
-                <p>{a.note}</p>
+              <article className="block block--row" key={a.name}>
+                <Thumb src={artifactFlower(a.id)} label={a.name} />
+                <div className="block__body">
+                  <span className="row__kind">#{i + 1}</span>
+                  <h3>{a.name}</h3>
+                  <p>{a.note}</p>
+                </div>
               </article>
             ))}
             <article className="block">
@@ -215,11 +256,16 @@ export default function CharacterPage({ id }: { id: string }) {
             {build.teams.map((t) => (
               <article className="block" key={t.name}>
                 <span className="row__kind">{t.name}</span>
-                <div className="chips">
+                <div className="members">
                   {t.members.map((m) => (
-                    <span className="chip" key={m}>
-                      {m}
-                    </span>
+                    <div className="member" key={m.name}>
+                      <Thumb
+                        round
+                        src={m.id ? characterIcon(m.id) : undefined}
+                        label={m.name}
+                      />
+                      <span>{m.name}</span>
+                    </div>
                   ))}
                 </div>
                 <p>{t.note}</p>

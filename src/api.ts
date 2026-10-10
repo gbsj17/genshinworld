@@ -6,6 +6,11 @@ export function imageUrl(id: string, asset: string): string {
   return `${BASE_URL}/characters/${id}/${asset}`
 }
 
+export const characterIcon = (id: string) => imageUrl(id, 'icon')
+export const weaponIcon = (id: string) => `${BASE_URL}/weapons/${id}/icon`
+export const artifactFlower = (id: string) =>
+  `${BASE_URL}/artifacts/${id}/flower-of-life`
+
 export async function getCharacter(
   id: string,
   signal?: AbortSignal,
