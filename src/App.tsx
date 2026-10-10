@@ -1,5 +1,6 @@
 import { HashRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 import CharacterPage from './CharacterPage'
+import FavoritesPage from './FavoritesPage'
 import HomePage from './HomePage'
 import ItemsPage from './ItemsPage'
 import NewsPage from './NewsPage'
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<NewsPage />} />
           <Route path="/characters" element={<HomePage />} />
           <Route path="/character/:id" element={<CharacterRoute />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/weapons" element={<ItemsPage kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />

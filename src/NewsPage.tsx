@@ -52,7 +52,7 @@ function Banner({ c }: { c: CharacterSummary }) {
   )
 }
 
-function CharCard({ c }: { c: CharacterSummary }) {
+export function CharCard({ c }: { c: CharacterSummary }) {
   return (
     <Link
       to={`/character/${c.id}`}
@@ -68,7 +68,7 @@ function CharCard({ c }: { c: CharacterSummary }) {
   )
 }
 
-function ItemCard({ kind, e, onPick }: { kind: 'weapon' | 'artifact'; e: ItemEntry; onPick: (p: PickedItem) => void }) {
+export function ItemCard({ kind, e, onPick }: { kind: 'weapon' | 'artifact'; e: ItemEntry; onPick: (p: PickedItem) => void }) {
   return (
     <button className="item-card" onClick={() => onPick({ kind, name: e.name, note: '' })}>
       <ItemIcon kind={kind} name={e.name} />

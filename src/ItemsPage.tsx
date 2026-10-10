@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
+import { useFavorites } from './favorites'
 import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
@@ -33,6 +34,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
   const [type, setType] = useState('')
   const [rarity, setRarity] = useState(0)
   const [picked, setPicked] = useState<PickedItem | null>(null)
+  const { isFavorite, toggle } = useFavorites(isWeapon ? 'weapons' : 'artifacts')
 
   useEffect(() => {
     let active = true
@@ -110,18 +112,29 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
           ) : (
             <div className="item-grid">
               {filtered.map((e) => (
-                <button
-                  key={e.name}
-                  className="item-card"
-                  onClick={() => setPicked({ kind, name: e.name, note: '' })}
-                >
-                  <ItemIcon kind={kind} name={e.name} />
-                  <strong>{e.name}</strong>
-                  <span>
-                    {e.info.rarity > 0 ? `${e.info.rarity}★` : ''}
-                    {isWeapon && e.info.type ? ` · ${e.info.type}` : ''}
-                  </span>
-                </button>
+                <div className="item-wrap" key={e.name}>
+                  <button
+                    className="item-card"
+                    onClick={() => setPicked({ kind, name: e.name, note: '' })}
+                  >
+                    <ItemIcon kind={kind} name={e.name} />
+                    <strong>{e.name}</strong>
+                    <span>
+                      {e.info.rarity > 0 ? `${e.info.rarity}★` : ''}
+                      {isWeapon && e.info.type ? ` · ${e.info.type}` : ''}
+                    </span>
+                  </button>
+                  <button
+                    className="star-btn"
+                    aria-pressed={isFavorite(e.name)}
+                    aria-label={isFavorite(e.name) ? `Remover ${e.name} dos favoritos` : `Adicionar ${e.name} aos favoritos`}
+                    onClick={() => toggle(e.name)}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite(e.name) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
+                    </svg>
+                  </button>
+                </div>
               ))}
             </div>
           )}

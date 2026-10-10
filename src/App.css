@@ -639,3 +639,12 @@ a.member:hover .thumb {
     animation: none;
   }
 }
+
+.modal__fav {
+  margin-left: auto;
+}
+
+.modal__fav[aria-pressed='true'] {
+  color: var(--stars);
+  border-color: var(--stars);
+}

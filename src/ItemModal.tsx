@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { getArtifactInfo, getWeaponInfo } from './api'
 import type { ItemInfo } from './api'
+import { useFavorites } from './favorites'
 import { ItemIcon } from './ItemIcon'
 
 export interface PickedItem {
@@ -14,6 +15,8 @@ export interface PickedItem {
 export default function ItemModal({ item, onClose }: { item: PickedItem; onClose: () => void }) {
   const [info, setInfo] = useState<ItemInfo | null>(null)
   const backRef = useRef<HTMLButtonElement>(null)
+  const { isFavorite, toggle } = useFavorites(item.kind === 'weapon' ? 'weapons' : 'artifacts')
+  const fav = isFavorite(item.name)
 
   useEffect(() => {
     let active = true
@@ -59,6 +62,16 @@ export default function ItemModal({ item, onClose }: { item: PickedItem; onClose
             </svg>
           </button>
           <span className="modal__kind">{item.kind === 'weapon' ? 'Arma' : 'Conjunto de artefatos'}</span>
+          <button
+            className="round-btn modal__fav"
+            aria-pressed={fav}
+            aria-label={fav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+            onClick={() => toggle(item.name)}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill={fav ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
+            </svg>
+          </button>
         </div>
 
         <div className="modal__body">

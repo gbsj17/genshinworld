@@ -88,9 +88,15 @@ export default function Drawer() {
             </svg>
             Início
           </Link>
+          <Link to="/favorites" className="drawer__item" style={step(2)} onClick={closeMenu}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
+            </svg>
+            Favoritos
+          </Link>
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(2)}>
+        <div className="drawer__item drawer__item--row" style={step(3)}>
           <span className="drawer__label">
             Tema
             <small>{isLight ? 'Areia claro' : 'Escuro'}</small>

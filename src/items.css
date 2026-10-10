@@ -72,3 +72,20 @@ a.item-card .thumb {
   height: 64px;
   border: 3px solid var(--ring, var(--gold));
 }
+
+.item-wrap {
+  position: relative;
+  display: flex;
+}
+
+.item-wrap .item-card {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-wrap .star-btn {
+  top: 6px;
+  right: 6px;
+  width: 30px;
+  height: 30px;
+}

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export type TabId = 'home' | 'characters' | 'weapons' | 'artifacts'
+export type TabId = 'home' | 'characters' | 'weapons' | 'artifacts' | 'other'
 
 const sv = {
   width: 25,
@@ -87,7 +87,7 @@ export default function TabBar({
           type="search"
           enterKeyHint="search"
           aria-label="Buscar"
-          placeholder={active === 'home' ? 'Buscar no app' : active === 'characters' ? 'Buscar personagem' : active === 'weapons' ? 'Buscar arma' : 'Buscar artefato'}
+          placeholder={active === 'home' || active === 'other' ? 'Buscar no app' : active === 'characters' ? 'Buscar personagem' : active === 'weapons' ? 'Buscar arma' : 'Buscar artefato'}
           value={query}
           onChange={(e) => onQuery(e.target.value)}
           onKeyDown={(e) => {
