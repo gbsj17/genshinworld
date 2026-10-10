@@ -374,6 +374,7 @@ export default function CharacterPage({ id }: { id: string }) {
                 </div>
               )
             })}
+            {(build.mainStats.length > 0 || build.substats) && (
             <article className="block">
               <span className="row__kind">Atributos principais</span>
               {build.mainStats.map((s) => (
@@ -383,8 +384,9 @@ export default function CharacterPage({ id }: { id: string }) {
               ))}
               <p>{build.substats}</p>
             </article>
+            )}
 
-            <h2 className="section-title">Equipes</h2>
+            {build.teams.length > 0 && <h2 className="section-title">Equipes</h2>}
             {build.teams.map((t) => (
               <article className="block" key={t.name}>
                 <span className="row__kind">{t.name}</span>
