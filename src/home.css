@@ -401,3 +401,10 @@
     transition: none;
   }
 }
+
+.app-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}

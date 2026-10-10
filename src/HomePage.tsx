@@ -5,7 +5,6 @@ import { getAllCharacters, iconChain } from './api'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
 import { useMenu } from './menuContext'
-import MenuButton from './MenuButton'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
 import { VISION_COLORS } from './visionColors'
@@ -160,7 +159,13 @@ export default function HomePage() {
           <span className="home-cap">GENSHIN WORLD</span>
           <h1 className="home-title">Personagens</h1>
         </div>
-        <MenuButton />
+        <img
+          className="app-logo"
+          src={`${import.meta.env.BASE_URL}icons/icon-192.png`}
+          alt="Genshin World"
+          width="48"
+          height="48"
+        />
       </header>
 
       <label className="search">
