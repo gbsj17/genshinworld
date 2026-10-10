@@ -250,6 +250,12 @@ export default function NewsPage() {
           <h1 className="home-title">Genshin World</h1>
           <span className="home-cap">{searching ? 'RESULTADOS' : 'INÍCIO'}</span>
         </div>
+        <nav className="news-nav" aria-label="Seções">
+          <Link to="/" aria-current="page">Início</Link>
+          <Link to="/characters">Personagens</Link>
+          <Link to="/weapons">Armas</Link>
+          <Link to="/artifacts">Artefatos</Link>
+        </nav>
         <label className="news-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
             <circle cx="11" cy="11" r="7" />
