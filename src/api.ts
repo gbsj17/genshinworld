@@ -125,6 +125,11 @@ async function fromGenshinDev(): Promise<CharacterSummary[]> {
   }))
 }
 
+// Endereços de ícone do personagem, do mais confiável para o menos.
+export function iconChain(c: CharacterSummary): string[] {
+  return [...(c.devId ? [characterIcon(c.devId)] : []), ...(c.icons ?? [])]
+}
+
 // A lista completa é grande, então é buscada uma vez só e guardada em memória.
 let allCache: Promise<CharacterSummary[]> | null = null
 

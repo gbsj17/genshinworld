@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { characterIcon, getAllCharacters } from './api'
+import { getAllCharacters, iconChain } from './api'
+import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
 import { Thumb } from './Thumb'
@@ -26,7 +27,7 @@ function Card({ c }: { c: CharacterSummary }) {
     >
       <Thumb
         round
-        src={[...(c.devId ? [characterIcon(c.devId)] : []), ...(c.icons ?? [])]}
+        src={iconChain(c)}
         label={c.name}
       />
       <strong>{c.name}</strong>
@@ -53,6 +54,11 @@ export default function HomePage() {
       active = false
     }
   }, [])
+
+  // Assim que a lista chega, baixa o ícone de todos em segundo plano.
+  useEffect(() => {
+    if (characters) preloadImages(characters.map((c) => iconChain(c)[0]))
+  }, [characters])
 
   const sorted = useMemo(
     () => [...(characters ?? [])].sort((a, b) => a.name.localeCompare(b.name)),
