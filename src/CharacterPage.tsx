@@ -314,7 +314,7 @@ export default function CharacterPage({ id }: { id: string }) {
             <h2 className="section-title">Artefatos</h2>
             {build.artifacts.map((a, i) => (
               <article className="block block--row" key={a.name}>
-                <ItemIcon kind="artifact" name={a.name} fallback={artifactFlower(a.id)} />
+                <ItemIcon kind="artifact" name={a.name} fallback={a.id ? artifactFlower(a.id) : undefined} />
                 <div className="block__body">
                   <span className="row__kind">#{i + 1}</span>
                   <h3>{a.name}</h3>

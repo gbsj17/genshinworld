@@ -1,3 +1,5 @@
+import { GENERATED_BUILDS } from './builds.generated'
+
 export interface Member {
   name: string
   id?: string
@@ -8,7 +10,7 @@ export interface Build {
   patch: string
   sources: { label: string; url: string }[]
   weapons: { name: string; id?: string; icon?: string; note: string }[]
-  artifacts: { name: string; id: string; note: string }[]
+  artifacts: { name: string; id?: string; note: string }[]
   mainStats: { slot: string; value: string }[]
   substats: string
   teams: { name: string; members: Member[]; note: string }[]
@@ -26,6 +28,7 @@ const ICY_TEAMS = {
 // Os "id" são os nomes usados pela API genshin.jmp.blue.
 // Sem "id" = não existe na API, então a tela mostra a inicial do nome.
 export const BUILDS: Record<string, Build> = {
+  ...GENERATED_BUILDS,
   diluc: {
     patch: '6.7',
     sources: [ICY_BUILDS, ICY_TEAMS],
