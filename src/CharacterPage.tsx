@@ -172,7 +172,7 @@ export default function CharacterPage({ id }: { id: string }) {
     <main className="screen sheet-screen" style={style}>
       <section className="hero">
         <div className="hero__bar">
-          <Link to="/" className="glass-btn" aria-label="Voltar">
+          <Link to="/characters" className="glass-btn" aria-label="Voltar">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 5l-7 7 7 7" />
             </svg>

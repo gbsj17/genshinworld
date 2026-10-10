@@ -41,6 +41,7 @@ interface DbCharacter {
   weaponText?: string
   rarity: number
   region?: string
+  version?: string
   images?: {
     mihoyo_icon?: string
     hoyowiki_icon?: string
@@ -104,6 +105,7 @@ async function fromGenshinDb(): Promise<CharacterSummary[]> {
       icons: iconOptions(c.images),
       portrait: c.images?.portrait,
       splash: splashOptions(c.images),
+      version: c.version,
     }))
   if (result.length === 0) throw new Error('genshin-db: lista vazia')
   return result
@@ -168,6 +170,7 @@ export interface ItemInfo {
   effect?: string
   set2?: string
   set4?: string
+  version?: string
 }
 
 const itemCache = new Map<string, Promise<ItemInfo>>()
@@ -206,6 +209,7 @@ function toInfo(kind: 'weapons' | 'artifacts', d: any): ItemInfo {
     effect: kind === 'weapons' ? weaponEffect(d) : undefined,
     set2: d?.effect2Pc,
     set4: d?.effect4Pc,
+    version: typeof d?.version === 'string' ? d.version : undefined,
   }
 }
 
@@ -319,3 +323,16 @@ export function getDetails(name: string): Promise<Details> {
   }
   return cached
 }
+
+// Compara versões como "6.10" > "6.9" (número a número).
+export function compareVersions(a: string, b: string): number {
+  const pa = a.split('.').map(Number)
+  const pb = b.split('.').map(Number)
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const d = (pa[i] || 0) - (pb[i] || 0)
+    if (d) return d
+  }
+  return 0
+}
+
+export const isVersion = (v?: string): v is string => Boolean(v && /^\d+(\.\d+)*$/.test(v))

@@ -1,8 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useMenu } from './menuContext'
 
-export type TabId = 'home' | 'weapons' | 'artifacts'
+export type TabId = 'home' | 'characters' | 'weapons' | 'artifacts'
 
 const sv = {
   width: 22,
@@ -28,7 +27,6 @@ export default function TabBar({
 }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const { openMenu } = useMenu()
 
   const open = () => {
     setSearchOpen(true)
@@ -55,13 +53,13 @@ export default function TabBar({
           </svg>
           Início
         </Link>
-        <button className="tabbar__item" onClick={open}>
-          <svg {...sv} strokeWidth={2.2}>
-            <circle cx="11" cy="11" r="7" />
-            <path d="M20 20l-3.5-3.5" />
+        <Link to="/characters" className="tabbar__item" aria-current={cur('characters')}>
+          <svg {...sv}>
+            <circle cx="9" cy="8" r="3.5" />
+            <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .8 3.5 2.6 3.5 5.6" />
           </svg>
-          Buscar
-        </button>
+          Personagens
+        </Link>
         <Link to="/weapons" className="tabbar__item" aria-current={cur('weapons')}>
           <svg {...sv}>
             <path d="M14.5 4.5L19.5 4.5 19.5 9.5 9 20l-5-5L14.5 4.5zM6.5 12.5l5 5M4 20l3-3" />
@@ -74,11 +72,12 @@ export default function TabBar({
           </svg>
           Artefatos
         </Link>
-        <button className="tabbar__item" onClick={openMenu}>
-          <svg {...sv}>
-            <path d="M4 7h16M4 12h16M4 17h16" />
+        <button className="tabbar__item" onClick={open}>
+          <svg {...sv} strokeWidth={2.2}>
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
           </svg>
-          Menu
+          Pesquisa
         </button>
       </div>
 
@@ -92,7 +91,7 @@ export default function TabBar({
           type="search"
           enterKeyHint="search"
           aria-label="Buscar"
-          placeholder={active === 'home' ? 'Buscar personagem' : active === 'weapons' ? 'Buscar arma' : 'Buscar artefato'}
+          placeholder={active === 'home' ? 'Buscar no app' : active === 'characters' ? 'Buscar personagem' : active === 'weapons' ? 'Buscar arma' : 'Buscar artefato'}
           value={query}
           onChange={(e) => onQuery(e.target.value)}
           onKeyDown={(e) => {

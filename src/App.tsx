@@ -2,6 +2,7 @@ import { HashRouter, Navigate, Route, Routes, useParams } from 'react-router-dom
 import CharacterPage from './CharacterPage'
 import HomePage from './HomePage'
 import ItemsPage from './ItemsPage'
+import NewsPage from './NewsPage'
 import { MenuProvider } from './MenuProvider'
 import './App.css'
 import './responsive.css'
@@ -17,7 +18,8 @@ function App() {
     <HashRouter>
       <MenuProvider>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<NewsPage />} />
+          <Route path="/characters" element={<HomePage />} />
           <Route path="/character/:id" element={<CharacterRoute />} />
           <Route path="/weapons" element={<ItemsPage kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage kind="artifact" />} />

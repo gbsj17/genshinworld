@@ -4,6 +4,7 @@ import type { ItemEntry } from './api'
 import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
+import MenuButton from './MenuButton'
 import TabBar from './TabBar'
 import './home.css'
 import './items.css'
@@ -72,13 +73,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
           <h1 className="home-title">Genshin World</h1>
           <span className="home-cap">{isWeapon ? 'ARMAS' : 'ARTEFATOS'}</span>
         </div>
-        <img
-          className="app-logo"
-          src={`${import.meta.env.BASE_URL}icons/icon-192.png`}
-          alt="Genshin World"
-          width="48"
-          height="48"
-        />
+        <MenuButton />
       </header>
 
       {isWeapon && (

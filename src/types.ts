@@ -27,6 +27,8 @@ export interface CharacterSummary {
   portrait?: string
   // artes do jogo (splash e card), usadas quando não há retrato melhor
   splash?: string[]
+  // versão do jogo em que o personagem chegou (genshin-db)
+  version?: string
 }
 
 export interface Character {

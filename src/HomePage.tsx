@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getAllCharacters, iconChain } from './api'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
+import MenuButton from './MenuButton'
 import TabBar from './TabBar'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
@@ -158,13 +159,7 @@ export default function HomePage() {
           <h1 className="home-title">Genshin World</h1>
           <span className="home-cap">PERSONAGENS</span>
         </div>
-        <img
-          className="app-logo"
-          src={`${import.meta.env.BASE_URL}icons/icon-192.png`}
-          alt="Genshin World"
-          width="48"
-          height="48"
-        />
+        <MenuButton />
       </header>
 
       {favorites.length > 0 && (
@@ -278,7 +273,7 @@ export default function HomePage() {
         </>
       )}
 
-      <TabBar active="home" query={query} onQuery={setQuery} />
+      <TabBar active="characters" query={query} onQuery={setQuery} />
     </main>
   )
 }
