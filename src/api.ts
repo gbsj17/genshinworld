@@ -209,7 +209,7 @@ function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
     effect: kind === 'weapons' ? weaponEffect(d) : undefined,
     set2: d?.effect2Pc,
     set4: d?.effect4Pc,
-    version: typeof d?.version === 'string' ? d.version : undefined,
+    version: typeof d?.version === 'string' || typeof d?.version === 'number' ? String(d.version) : undefined,
   }
 }
 

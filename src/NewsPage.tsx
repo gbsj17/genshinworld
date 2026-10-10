@@ -135,12 +135,21 @@ export default function NewsPage() {
   }, [chars, weapons, artifacts])
 
   const newChars = chars.filter((c) => latest && c.version === latest)
-  const newWeapons = weapons.filter((w) => latest && w.info.version === latest)
-  const newArtifacts = artifacts.filter((a) => latest && a.info.version === latest)
-  const newMaterials = materials
-    .filter((m) => latest && m.info.version === latest && m.info.urls.length > 0)
-    .sort((a, b) => b.info.rarity - a.info.rarity)
-    .slice(0, 30)
+  // Itens da versão mais nova; se a lista não tiver nada nela, usa a versão mais nova da própria lista.
+  const newest = (list: ItemEntry[]): { items: ItemEntry[]; version: string | null } => {
+    const own = list.map((e) => e.info.version).filter(isVersion)
+    if (own.length === 0) return { items: [], version: null }
+    const top = own.reduce((a, b) => (compareVersions(a, b) >= 0 ? a : b))
+    const version = latest && list.some((e) => e.info.version === latest) ? latest : top
+    return { items: list.filter((e) => e.info.version === version), version }
+  }
+  const nw = newest(weapons)
+  const na = newest(artifacts)
+  const nm = newest(materials.filter((m) => m.info.urls.length > 0))
+  const newWeapons = nw.items
+  const newArtifacts = na.items
+  const newMaterials = [...nm.items].sort((a, b) => b.info.rarity - a.info.rarity).slice(0, 30)
+  const tag = (v: string | null) => (v && v !== latest ? ` · ${v}` : '')
 
   const q = normalize(query.trim())
   const searching = q.length > 0
@@ -182,7 +191,7 @@ export default function NewsPage() {
           )}
 
           {newWeapons.length > 0 && (
-            <Section title="Novas armas" to="/weapons">
+            <Section title={`Novas armas${tag(nw.version)}`} to="/weapons">
               <div className="hrow">
                 {newWeapons.map((e) => (
                   <ItemCard key={e.name} kind="weapon" e={e} onPick={setPicked} />
@@ -192,7 +201,7 @@ export default function NewsPage() {
           )}
 
           {newArtifacts.length > 0 && (
-            <Section title="Novos artefatos" to="/artifacts">
+            <Section title={`Novos artefatos${tag(na.version)}`} to="/artifacts">
               <div className="hrow">
                 {newArtifacts.map((e) => (
                   <ItemCard key={e.name} kind="artifact" e={e} onPick={setPicked} />
@@ -202,7 +211,7 @@ export default function NewsPage() {
           )}
 
           {newMaterials.length > 0 && (
-            <Section title="Novos materiais">
+            <Section title={`Novos materiais${tag(nm.version)}`}>
               <div className="hrow hrow--small">
                 {newMaterials.map((m) => (
                   <div className="mat-card" key={m.name}>
