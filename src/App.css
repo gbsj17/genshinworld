@@ -83,19 +83,21 @@
 
 .hero__img {
   position: absolute;
+  left: 0;
   right: 0;
+  margin: 0 auto;
   top: 56px;
   height: calc(100% - 56px);
   max-width: 100%;
   object-fit: contain;
-  object-position: right bottom;
+  object-position: center bottom;
 }
 
 /* Artes do jogo (splash/card) têm margem transparente: preenchem o quadro e cortam as sobras */
 .hero__img--art {
   width: 100%;
   object-fit: cover;
-  object-position: 62% 40%;
+  object-position: 50% 35%;
 }
 
 .hero__bar {

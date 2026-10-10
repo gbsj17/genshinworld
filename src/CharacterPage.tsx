@@ -16,7 +16,6 @@ import {
 } from './api'
 import type { Character, CharacterSummary } from './types'
 import { BUILDS } from './data/builds'
-import { PREFER_SPLASH } from './data/portraitOverrides'
 
 type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
 
@@ -109,15 +108,14 @@ export default function CharacterPage({ id }: { id: string }) {
   // Tenta cada imagem em ordem; a última alternativa é o ícone do personagem,
   // para o topo da ficha nunca ficar vazio.
   const splash = character.splash ?? []
-  const mainPortraits = PREFER_SPLASH.has(id)
-    ? []
-    : [
-        ...(devId ? [imageUrl(devId, 'portrait')] : []),
-        ...(character.portrait ? [character.portrait] : []),
-      ]
-  const portraitOptions = [...mainPortraits, ...splash, ...(character.icons ?? [])]
+  const fallbackPortraits = [
+    ...(devId ? [imageUrl(devId, 'portrait')] : []),
+    ...(character.portrait ? [character.portrait] : []),
+  ]
+  // Splash primeiro (todos iguais e centralizados); retrato só se a splash falhar.
+  const portraitOptions = [...splash, ...fallbackPortraits, ...(character.icons ?? [])]
   const portrait = portraitOptions[portraitIndex]
-  const isArt = Boolean(portrait && !mainPortraits.includes(portrait))
+  const isArt = Boolean(portrait && !fallbackPortraits.includes(portrait))
   const visibleTabs = TABS.filter((t) => {
     if (t.id === 'builds') return Boolean(build)
     if (t.id === 'talents' || t.id === 'constellations') return Boolean(detail)
