@@ -156,13 +156,39 @@ export async function getCharacter(
   return response.json()
 }
 
-// ---- Armas e artefatos: ícone + raridade buscados pelo NOME na genshin-db ----
+// ---- Armas e artefatos: ícone, raridade e detalhes buscados pelo NOME na genshin-db ----
 export interface ItemInfo {
   urls: string[]
   rarity: number
+  // detalhes (podem faltar se a API mudar o formato; a tela só mostra o que existir)
+  type?: string
+  baseAtk?: string
+  stat?: string
+  effectName?: string
+  effect?: string
+  set2?: string
+  set4?: string
 }
 
 const itemCache = new Map<string, Promise<ItemInfo>>()
+
+// Texto de efeito vem com "{0}" e tags de cor; troca pelos valores R1 → R5.
+function weaponEffect(d: Record<string, unknown>): string | undefined {
+  const template = d.effectTemplateRaw
+  if (typeof template !== 'string') return undefined
+  const values = (r: unknown): string[] => {
+    const list = Array.isArray(r) ? r : (r as { values?: unknown })?.values
+    return Array.isArray(list) ? list.map(String) : []
+  }
+  const r1 = values(d.r1)
+  const r5 = values(d.r5)
+  return template
+    .replace(/<[^>]+>/g, '')
+    .replace(/\{(\d+)\}/g, (_, i: string) =>
+      r1[+i] && r5[+i] && r1[+i] !== r5[+i] ? `${r1[+i]} → ${r5[+i]}` : (r1[+i] ?? '…'),
+    )
+    .replace(/\\n/g, '\n')
+}
 
 function fetchItem(kind: 'weapons' | 'artifacts', name: string): Promise<ItemInfo> {
   const key = `${kind}:${name}`
@@ -178,6 +204,13 @@ function fetchItem(kind: 'weapons' | 'artifacts', name: string): Promise<ItemInf
           // Enka primeiro: é o mesmo CDN que já carrega os ícones dos personagens
           urls: [file ? enka(file) : undefined, direct].filter((u): u is string => Boolean(u)),
           rarity: d?.rarity ?? Math.max(...(d?.rarityList ?? [4])),
+          type: d?.weaponText,
+          baseAtk: d?.baseAtkValue ? String(Math.round(d.baseAtkValue)) : undefined,
+          stat: d?.mainStatText ? `${d.mainStatText} ${d.baseStatText ?? ''}`.trim() : undefined,
+          effectName: d?.effectName,
+          effect: kind === 'weapons' ? weaponEffect(d) : undefined,
+          set2: d?.effect2Pc,
+          set4: d?.effect4Pc,
         }
       })
       .catch(() => ({ urls: [], rarity: 0 }))

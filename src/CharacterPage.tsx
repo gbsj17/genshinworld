@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
 import { ItemIcon } from './ItemIcon'
+import ItemModal from './ItemModal'
+import type { PickedItem } from './ItemModal'
 import { Thumb } from './Thumb'
 import { VISION_COLORS } from './visionColors'
 import {
@@ -72,6 +74,7 @@ export default function CharacterPage({ id }: { id: string }) {
   // detail = talentos e constelações (só dos que existem na genshin.dev)
   const [character, setCharacter] = useState<CharacterSummary | null>(null)
   const [detail, setDetail] = useState<Character | null>(null)
+  const [picked, setPicked] = useState<PickedItem | null>(null)
   const [all, setAll] = useState<CharacterSummary[]>([])
   const [error, setError] = useState(false)
   const [tab, setTab] = useState<Tab>('overview')
@@ -79,6 +82,7 @@ export default function CharacterPage({ id }: { id: string }) {
   const { isFavorite, toggle } = useFavorites()
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     const controller = new AbortController()
     getAllCharacters()
       .then((list) => {
@@ -127,12 +131,15 @@ export default function CharacterPage({ id }: { id: string }) {
   })
 
   // Ícone do membro da equipe: procura pelo nome na lista completa (mesma fonte da home)
-  const memberIcons = (m: { name: string; id?: string; icon?: string }) => {
+  const memberHit = (m: { name: string }) => {
     const n = m.name.toLowerCase()
-    const hit = all.find((c) => {
+    return all.find((c) => {
       const cn = c.name.toLowerCase()
       return cn === n || cn.endsWith(` ${n}`) || cn.startsWith(`${n} `)
     })
+  }
+  const memberIcons = (m: { name: string; id?: string; icon?: string }) => {
+    const hit = memberHit(m)
     return [
       ...(hit ? iconChain(hit) : []),
       ...(m.id ? [characterIcon(m.id)] : []),
@@ -300,28 +307,48 @@ export default function CharacterPage({ id }: { id: string }) {
         {tab === 'builds' && build && (
           <>
             <h2 className="section-title">Armas</h2>
-            {build.weapons.map((w, i) => (
-              <article className="block block--row" key={w.name}>
-                <ItemIcon kind="weapon" name={w.name} fallback={w.icon ?? (w.id ? weaponIcon(w.id) : undefined)} />
-                <div className="block__body">
-                  <span className="row__kind">#{i + 1}</span>
-                  <h3>{w.name}</h3>
-                  <p>{w.note}</p>
+            {build.weapons.map((w, i) => {
+              const fallback = w.icon ?? (w.id ? weaponIcon(w.id) : undefined)
+              return (
+                <div
+                  className="block block--row block--click"
+                  key={w.name}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setPicked({ kind: 'weapon', name: w.name, note: w.note, fallback })}
+                  onKeyDown={(e) => e.key === 'Enter' && setPicked({ kind: 'weapon', name: w.name, note: w.note, fallback })}
+                >
+                  <ItemIcon kind="weapon" name={w.name} fallback={fallback} />
+                  <div className="block__body">
+                    <span className="row__kind">#{i + 1}</span>
+                    <h3>{w.name}</h3>
+                    <p>{w.note}</p>
+                  </div>
                 </div>
-              </article>
-            ))}
+              )
+            })}
 
             <h2 className="section-title">Artefatos</h2>
-            {build.artifacts.map((a, i) => (
-              <article className="block block--row" key={a.name}>
-                <ItemIcon kind="artifact" name={a.name} fallback={a.id ? artifactFlower(a.id) : undefined} />
-                <div className="block__body">
-                  <span className="row__kind">#{i + 1}</span>
-                  <h3>{a.name}</h3>
-                  <p>{a.note}</p>
+            {build.artifacts.map((a, i) => {
+              const fallback = a.id ? artifactFlower(a.id) : undefined
+              return (
+                <div
+                  className="block block--row block--click"
+                  key={a.name}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setPicked({ kind: 'artifact', name: a.name, note: a.note, fallback })}
+                  onKeyDown={(e) => e.key === 'Enter' && setPicked({ kind: 'artifact', name: a.name, note: a.note, fallback })}
+                >
+                  <ItemIcon kind="artifact" name={a.name} fallback={fallback} />
+                  <div className="block__body">
+                    <span className="row__kind">#{i + 1}</span>
+                    <h3>{a.name}</h3>
+                    <p>{a.note}</p>
+                  </div>
                 </div>
-              </article>
-            ))}
+              )
+            })}
             <article className="block">
               <span className="row__kind">Atributos principais</span>
               {build.mainStats.map((s) => (
@@ -337,12 +364,24 @@ export default function CharacterPage({ id }: { id: string }) {
               <article className="block" key={t.name}>
                 <span className="row__kind">{t.name}</span>
                 <div className="members">
-                  {t.members.map((m) => (
-                    <div className="member" key={m.name}>
-                      <Thumb round src={memberIcons(m)} label={m.name} />
-                      <span>{m.name}</span>
-                    </div>
-                  ))}
+                  {t.members.map((m) => {
+                    const hit = memberHit(m)
+                    const inner = (
+                      <>
+                        <Thumb round src={memberIcons(m)} label={m.name} />
+                        <span>{m.name}</span>
+                      </>
+                    )
+                    return hit ? (
+                      <Link className="member" key={m.name} to={`/character/${hit.id}`} aria-label={`Abrir ${m.name}`}>
+                        {inner}
+                      </Link>
+                    ) : (
+                      <div className="member" key={m.name}>
+                        {inner}
+                      </div>
+                    )
+                  })}
                 </div>
                 <p>{t.note}</p>
               </article>
@@ -363,6 +402,7 @@ export default function CharacterPage({ id }: { id: string }) {
         )}
       </div>
       </section>
+      {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
   )
 }
