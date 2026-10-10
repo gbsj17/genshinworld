@@ -99,7 +99,15 @@ function HeroSlide({ c, active }: { c: CharacterSummary; active: boolean }) {
 function Hero({ chars }: { chars: CharacterSummary[] }) {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const n = chars.length
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (paused || n < 2) return
@@ -144,6 +152,15 @@ function Hero({ chars }: { chars: CharacterSummary[] }) {
           </div>
         </>
       )}
+      <button
+        className={scrolled ? 'scroll-hint is-hidden' : 'scroll-hint'}
+        aria-label="Ver mais novidades abaixo"
+        onClick={() => window.scrollBy({ top: 360, behavior: 'smooth' })}
+      >
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
     </section>
   )
 }
