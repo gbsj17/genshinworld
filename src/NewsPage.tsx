@@ -81,9 +81,15 @@ function HeroSlide({ c, active }: { c: CharacterSummary; active: boolean }) {
             <span key={t}>{t}</span>
           ))}
         </div>
-        <Link to={`/character/${c.id}`} className="hero-slide__btn" tabIndex={active ? 0 : -1}>
-          Ver ficha
-        </Link>
+        {c.description && <p className="hero-slide__desc">{c.description}</p>}
+        <div className="hero-slide__actions">
+          <Link to={`/character/${c.id}`} className="hero-slide__btn" tabIndex={active ? 0 : -1}>
+            Ver ficha
+          </Link>
+          <Link to={`/character/${c.id}?tab=builds`} className="hero-slide__btn hero-slide__btn--ghost" tabIndex={active ? 0 : -1}>
+            Ver build
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -203,6 +203,7 @@
 
   .news-body {
     width: 100%;
+    padding-top: 6px;
     max-width: 1180px;
     margin: 0 auto;
     padding: 0 16px;
@@ -216,8 +217,7 @@
     width: 100%;
     display: block;
     position: relative;
-    height: min(78vh, 760px);
-    min-height: 520px;
+    height: clamp(430px, 54vh, 560px);
     overflow: hidden;
     color: #fff;
     background: #0c0f18;
@@ -263,12 +263,12 @@
     position: absolute;
     z-index: 2;
     left: 110px;
-    bottom: 110px;
-    width: min(560px, 46%);
+    bottom: 64px;
+    width: min(580px, 46%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 12px;
   }
 
   .hero-slide__tag {
@@ -283,7 +283,7 @@
 
   .hero-slide__name {
     font-family: var(--serif);
-    font-size: clamp(56px, 6.4vw, 92px);
+    font-size: clamp(48px, 5vw, 76px);
     line-height: 0.98;
     text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
   }
@@ -304,10 +304,32 @@
     font-weight: 700;
   }
 
+  .hero-slide__desc {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.88);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-slide__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .hero-slide__actions .hero-slide__btn--ghost {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
   .hero-slide__btn {
-    margin-top: 6px;
-    height: 50px;
-    padding: 0 32px;
+    height: 46px;
+    padding: 0 28px;
     display: inline-flex;
     align-items: center;
     border-radius: 25px;
@@ -353,7 +375,7 @@
     z-index: 3;
     left: 0;
     right: 0;
-    bottom: 48px;
+    bottom: 22px;
     display: flex;
     justify-content: center;
     gap: 10px;

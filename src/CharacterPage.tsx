@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
@@ -83,7 +83,8 @@ export default function CharacterPage({ id }: { id: string }) {
   const [picked, setPicked] = useState<PickedItem | null>(null)
   const [all, setAll] = useState<CharacterSummary[]>([])
   const [error, setError] = useState(false)
-  const [tab, setTab] = useState<Tab>('overview')
+  const [search] = useSearchParams()
+  const [tab, setTab] = useState<Tab>(() => (search.get('tab') === 'builds' ? 'builds' : 'overview'))
   const [portraitIndex, setPortraitIndex] = useState(0)
   const { isFavorite, toggle } = useFavorites()
 

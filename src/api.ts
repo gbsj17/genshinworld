@@ -42,6 +42,7 @@ interface DbCharacter {
   rarity: number
   region?: string
   version?: string
+  description?: string
   id?: number
   images?: {
     mihoyo_icon?: string
@@ -107,6 +108,7 @@ async function fromGenshinDb(): Promise<CharacterSummary[]> {
       portrait: c.images?.portrait,
       splash: splashOptions(c.images),
       version: c.version,
+      description: c.description,
       dbId: typeof c.id === 'number' ? c.id : undefined,
     }))
   if (result.length === 0) throw new Error('genshin-db: lista vazia')
