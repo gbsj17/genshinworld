@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { getCharacter, imageUrl } from './api'
 import type { Character } from './types'
+import { BUILDS } from './data/builds'
 
-type Tab = 'overview' | 'talents' | 'constellations'
+type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'overview', label: 'Visão geral' },
   { id: 'talents', label: 'Talentos' },
   { id: 'constellations', label: 'Constelações' },
+  { id: 'builds', label: 'Builds' },
 ]
 
 const VISION_COLORS: Record<string, string> = {
@@ -66,6 +68,8 @@ export default function CharacterPage({ id }: { id: string }) {
 
   const accent = VISION_COLORS[character.vision] ?? '#d3bc8e'
   const style = { '--accent': accent } as CSSProperties
+  const build = BUILDS[id]
+  const visibleTabs = TABS.filter((t) => t.id !== 'builds' || build)
 
   return (
     <main className="screen" style={style}>
@@ -104,7 +108,7 @@ export default function CharacterPage({ id }: { id: string }) {
       </section>
 
       <div className="tabs">
-        {TABS.map((t) => (
+        {visibleTabs.map((t) => (
           <button
             key={t.id}
             className={t.id === tab ? 'tab tab--active' : 'tab'}
@@ -177,6 +181,64 @@ export default function CharacterPage({ id }: { id: string }) {
               </div>
             </article>
           ))}
+
+        {tab === 'builds' && build && (
+          <>
+            <h2 className="section-title">Armas</h2>
+            {build.weapons.map((w, i) => (
+              <article className="block" key={w.name}>
+                <span className="row__kind">#{i + 1}</span>
+                <h3>{w.name}</h3>
+                <p>{w.note}</p>
+              </article>
+            ))}
+
+            <h2 className="section-title">Artefatos</h2>
+            {build.artifacts.map((a, i) => (
+              <article className="block" key={a.name}>
+                <span className="row__kind">#{i + 1}</span>
+                <h3>{a.name}</h3>
+                <p>{a.note}</p>
+              </article>
+            ))}
+            <article className="block">
+              <span className="row__kind">Atributos principais</span>
+              {build.mainStats.map((s) => (
+                <p key={s.slot}>
+                  <strong>{s.slot}:</strong> {s.value}
+                </p>
+              ))}
+              <p>{build.substats}</p>
+            </article>
+
+            <h2 className="section-title">Equipes</h2>
+            {build.teams.map((t) => (
+              <article className="block" key={t.name}>
+                <span className="row__kind">{t.name}</span>
+                <div className="chips">
+                  {t.members.map((m) => (
+                    <span className="chip" key={m}>
+                      {m}
+                    </span>
+                  ))}
+                </div>
+                <p>{t.note}</p>
+              </article>
+            ))}
+
+            <p className="source">
+              Patch {build.patch}. Fontes:{' '}
+              {build.sources.map((s, i) => (
+                <span key={s.url}>
+                  {i > 0 && ' · '}
+                  <a href={s.url} target="_blank" rel="noreferrer">
+                    {s.label}
+                  </a>
+                </span>
+              ))}
+            </p>
+          </>
+        )}
       </div>
     </main>
   )

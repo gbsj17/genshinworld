@@ -92,10 +92,12 @@
   display: flex;
   gap: 8px;
   padding: 14px 16px 6px;
+  overflow-x: auto;
 }
 
 .tab {
-  flex: 1;
+  flex: 0 0 auto;
+  padding: 0 16px;
   height: 44px;
   border-radius: 12px;
   border: 1px solid var(--line-strong);
@@ -180,4 +182,58 @@
   border: 2px solid var(--accent);
   object-fit: cover;
   background: #12151f;
+}
+
+.section-title {
+  margin: 12px 0 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--gold);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.block h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.block p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: #12151f;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.source {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.source a {
+  color: var(--gold);
 }
