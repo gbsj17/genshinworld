@@ -155,3 +155,36 @@ export async function getCharacter(
   }
   return response.json()
 }
+
+// ---- Armas e artefatos: ícone + raridade buscados pelo NOME na genshin-db ----
+export interface ItemInfo {
+  urls: string[]
+  rarity: number
+}
+
+const itemCache = new Map<string, Promise<ItemInfo>>()
+
+function fetchItem(kind: 'weapons' | 'artifacts', name: string): Promise<ItemInfo> {
+  const key = `${kind}:${name}`
+  let cached = itemCache.get(key)
+  if (!cached) {
+    cached = fetch(`${DB_URL}/${kind}?query=${encodeURIComponent(name)}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((d): ItemInfo => {
+        const im = d?.images ?? {}
+        const file = kind === 'weapons' ? im.filename_icon : im.filename_flower
+        const direct = kind === 'weapons' ? im.mihoyo_icon : im.mihoyo_flower
+        return {
+          // Enka primeiro: é o mesmo CDN que já carrega os ícones dos personagens
+          urls: [file ? enka(file) : undefined, direct].filter((u): u is string => Boolean(u)),
+          rarity: d?.rarity ?? Math.max(...(d?.rarityList ?? [4])),
+        }
+      })
+      .catch(() => ({ urls: [], rarity: 0 }))
+    itemCache.set(key, cached)
+  }
+  return cached
+}
+
+export const getWeaponInfo = (name: string) => fetchItem('weapons', name)
+export const getArtifactInfo = (name: string) => fetchItem('artifacts', name)

@@ -430,3 +430,38 @@
   font-weight: 700;
   color: var(--gold);
 }
+
+/* Ícone padrão de arma/artefato */
+.item-icon {
+  width: 56px;
+  height: 56px;
+  flex: none;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--surface-deep);
+  border: 1px solid var(--line-strong);
+}
+
+.item-icon .thumb {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+.item-icon--r5 {
+  background: linear-gradient(160deg, #a46a3a, #e2b25c);
+  border-color: #e2b25c;
+}
+
+.item-icon--r4 {
+  background: linear-gradient(160deg, #6b5190, #b693da);
+  border-color: #b693da;
+}
+
+.item-icon--r3 {
+  background: linear-gradient(160deg, #46709a, #86b3dc);
+  border-color: #86b3dc;
+}

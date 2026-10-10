@@ -3,11 +3,13 @@ import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
+import { ItemIcon } from './ItemIcon'
 import { Thumb } from './Thumb'
 import { VISION_COLORS } from './visionColors'
 import {
   artifactFlower,
   characterIcon,
+  iconChain,
   elementIcon,
   getAllCharacters,
   getCharacter,
@@ -70,6 +72,7 @@ export default function CharacterPage({ id }: { id: string }) {
   // detail = talentos e constelações (só dos que existem na genshin.dev)
   const [character, setCharacter] = useState<CharacterSummary | null>(null)
   const [detail, setDetail] = useState<Character | null>(null)
+  const [all, setAll] = useState<CharacterSummary[]>([])
   const [error, setError] = useState(false)
   const [tab, setTab] = useState<Tab>('overview')
   const [portraitIndex, setPortraitIndex] = useState(0)
@@ -82,6 +85,7 @@ export default function CharacterPage({ id }: { id: string }) {
         const found = list.find((c) => c.id === id)
         if (!found) throw new Error('Personagem não encontrado')
         setCharacter(found)
+        setAll(list)
         if (found.devId) {
           getCharacter(found.devId, controller.signal)
             .then(setDetail)
@@ -121,6 +125,20 @@ export default function CharacterPage({ id }: { id: string }) {
     if (t.id === 'talents' || t.id === 'constellations') return Boolean(detail)
     return true
   })
+
+  // Ícone do membro da equipe: procura pelo nome na lista completa (mesma fonte da home)
+  const memberIcons = (m: { name: string; id?: string; icon?: string }) => {
+    const n = m.name.toLowerCase()
+    const hit = all.find((c) => {
+      const cn = c.name.toLowerCase()
+      return cn === n || cn.endsWith(` ${n}`) || cn.startsWith(`${n} `)
+    })
+    return [
+      ...(hit ? iconChain(hit) : []),
+      ...(m.id ? [characterIcon(m.id)] : []),
+      ...(m.icon ? [m.icon] : []),
+    ]
+  }
 
   const firstWeapon = build?.weapons[0]
   const firstTeam = build?.teams[0]
@@ -212,7 +230,7 @@ export default function CharacterPage({ id }: { id: string }) {
 
               {firstWeapon && (
                 <button className="shortcut" onClick={() => setTab('builds')}>
-                  <Thumb src={firstWeapon.icon ?? (firstWeapon.id ? weaponIcon(firstWeapon.id) : undefined)} label={firstWeapon.name} />
+                  <ItemIcon kind="weapon" name={firstWeapon.name} fallback={firstWeapon.id ? weaponIcon(firstWeapon.id) : undefined} />
                   <span className="shortcut__body">
                     <span className="shortcut__kind">Melhor arma</span>
                     <span className="shortcut__name">{firstWeapon.name}</span>
@@ -224,7 +242,7 @@ export default function CharacterPage({ id }: { id: string }) {
                 <button className="shortcut" onClick={() => setTab('builds')}>
                   <span className="stack">
                     {firstTeam.members.map((m) => (
-                      <Thumb key={m.name} round src={m.icon ?? (m.id ? characterIcon(m.id) : undefined)} label={m.name} />
+                      <Thumb key={m.name} round src={memberIcons(m)} label={m.name} />
                     ))}
                   </span>
                   <span className="shortcut__body">
@@ -284,10 +302,7 @@ export default function CharacterPage({ id }: { id: string }) {
             <h2 className="section-title">Armas</h2>
             {build.weapons.map((w, i) => (
               <article className="block block--row" key={w.name}>
-                <Thumb
-                  src={w.icon ?? (w.id ? weaponIcon(w.id) : undefined)}
-                  label={w.name}
-                />
+                <ItemIcon kind="weapon" name={w.name} fallback={w.icon ?? (w.id ? weaponIcon(w.id) : undefined)} />
                 <div className="block__body">
                   <span className="row__kind">#{i + 1}</span>
                   <h3>{w.name}</h3>
@@ -299,7 +314,7 @@ export default function CharacterPage({ id }: { id: string }) {
             <h2 className="section-title">Artefatos</h2>
             {build.artifacts.map((a, i) => (
               <article className="block block--row" key={a.name}>
-                <Thumb src={artifactFlower(a.id)} label={a.name} />
+                <ItemIcon kind="artifact" name={a.name} fallback={artifactFlower(a.id)} />
                 <div className="block__body">
                   <span className="row__kind">#{i + 1}</span>
                   <h3>{a.name}</h3>
@@ -324,11 +339,7 @@ export default function CharacterPage({ id }: { id: string }) {
                 <div className="members">
                   {t.members.map((m) => (
                     <div className="member" key={m.name}>
-                      <Thumb
-                        round
-                        src={m.icon ?? (m.id ? characterIcon(m.id) : undefined)}
-                        label={m.name}
-                      />
+                      <Thumb round src={memberIcons(m)} label={m.name} />
                       <span>{m.name}</span>
                     </div>
                   ))}
