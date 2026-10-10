@@ -7,6 +7,7 @@ import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
 import MenuButton from './MenuButton'
+import PcNav from './PcNav'
 import TabBar from './TabBar'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
@@ -244,31 +245,14 @@ export default function NewsPage() {
     list.filter((x) => normalize(x.name).includes(q)).slice(0, 12)
 
   return (
+    <>
+    <PcNav active="home" overlay={!searching && newChars.length > 0} query={query} onQuery={setQuery} placeholder="Buscar personagens, armas e artefatos" />
     <main className={!searching && newChars.length > 0 ? 'screen home news-screen has-hero' : 'screen home news-screen'}>
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>
           <span className="home-cap">{searching ? 'RESULTADOS' : 'INÍCIO'}</span>
         </div>
-        <nav className="news-nav" aria-label="Seções">
-          <Link to="/" aria-current="page">Início</Link>
-          <Link to="/characters">Personagens</Link>
-          <Link to="/weapons">Armas</Link>
-          <Link to="/artifacts">Artefatos</Link>
-        </nav>
-        <label className="news-search">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7" />
-            <path d="M20 20l-3.5-3.5" />
-          </svg>
-          <input
-            type="search"
-            aria-label="Buscar no app"
-            placeholder="Buscar personagens, armas e artefatos"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </label>
         <MenuButton />
       </header>
 
@@ -376,5 +360,6 @@ export default function NewsPage() {
       <TabBar active="home" query={query} onQuery={setQuery} />
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
+    </>
   )
 }

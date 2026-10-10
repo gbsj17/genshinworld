@@ -5,6 +5,7 @@ import { getAllCharacters, iconChain } from './api'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
+import PcNav from './PcNav'
 import TabBar from './TabBar'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
@@ -153,6 +154,8 @@ export default function HomePage() {
     document.getElementById(`letter-${letter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   return (
+    <>
+    <PcNav active="characters" query={query} onQuery={setQuery} placeholder="Buscar personagem" />
     <main className="screen home">
       <header className="home-top">
         <div>
@@ -275,5 +278,6 @@ export default function HomePage() {
 
       <TabBar active="characters" query={query} onQuery={setQuery} />
     </main>
+    </>
   )
 }

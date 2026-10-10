@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
+import PcNav from './PcNav'
 import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
@@ -169,6 +170,8 @@ export default function CharacterPage({ id }: { id: string }) {
   const firstTeam = build?.teams[0]
 
   return (
+    <>
+    <PcNav active="characters" />
     <main className="screen sheet-screen" style={style}>
       <section className="hero">
         <div className="hero__bar">
@@ -431,5 +434,6 @@ export default function CharacterPage({ id }: { id: string }) {
       </section>
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
+    </>
   )
 }

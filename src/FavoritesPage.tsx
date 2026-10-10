@@ -6,6 +6,7 @@ import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
 import MenuButton from './MenuButton'
 import { CharCard, ItemCard } from './NewsPage'
+import PcNav from './PcNav'
 import TabBar from './TabBar'
 import type { CharacterSummary } from './types'
 import './home.css'
@@ -51,6 +52,8 @@ export default function FavoritesPage() {
   const empty = counts[tab] === 0
 
   return (
+    <>
+    <PcNav active="other" />
     <main className="screen home">
       <header className="home-top">
         <div>
@@ -85,5 +88,6 @@ export default function FavoritesPage() {
       <TabBar active="other" query="" onQuery={() => {}} />
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
+    </>
   )
 }

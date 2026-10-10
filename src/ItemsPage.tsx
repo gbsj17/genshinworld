@@ -6,6 +6,7 @@ import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
 import MenuButton from './MenuButton'
+import PcNav from './PcNav'
 import TabBar from './TabBar'
 import './home.css'
 import './items.css'
@@ -69,6 +70,8 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
   const rarities = isWeapon ? [5, 4, 3] : [5, 4]
 
   return (
+    <>
+    <PcNav active={isWeapon ? 'weapons' : 'artifacts'} query={query} onQuery={setQuery} placeholder={isWeapon ? 'Buscar arma' : 'Buscar artefato'} />
     <main className="screen home">
       <header className="home-top">
         <div>
@@ -144,5 +147,6 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
       <TabBar active={isWeapon ? 'weapons' : 'artifacts'} query={query} onQuery={setQuery} />
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
+    </>
   )
 }
