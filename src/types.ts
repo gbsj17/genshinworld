@@ -12,6 +12,15 @@ export interface Constellation {
   level: number
 }
 
+export interface CharacterSummary {
+  id: string
+  name: string
+  vision: string
+  weapon: string
+  nation: string
+  rarity: number
+}
+
 export interface Character {
   name: string
   vision: string

@@ -1,4 +1,4 @@
-import type { Character } from './types'
+import type { Character, CharacterSummary } from './types'
 
 const BASE_URL = 'https://genshin.jmp.blue'
 
@@ -10,6 +10,34 @@ export const characterIcon = (id: string) => imageUrl(id, 'icon')
 export const weaponIcon = (id: string) => `${BASE_URL}/weapons/${id}/icon`
 export const artifactFlower = (id: string) =>
   `${BASE_URL}/artifacts/${id}/flower-of-life`
+
+// A lista completa é grande, então é buscada uma vez só e guardada em memória.
+let allCache: Promise<CharacterSummary[]> | null = null
+
+export function getAllCharacters(): Promise<CharacterSummary[]> {
+  if (!allCache) {
+    allCache = fetch(`${BASE_URL}/characters/all`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`Erro ${response.status}`)
+        return response.json()
+      })
+      .then((list: CharacterSummary[]) =>
+        list.map(({ id, name, vision, weapon, nation, rarity }) => ({
+          id,
+          name,
+          vision,
+          weapon,
+          nation,
+          rarity,
+        })),
+      )
+      .catch((error) => {
+        allCache = null
+        throw error
+      })
+  }
+  return allCache
+}
 
 export async function getCharacter(
   id: string,

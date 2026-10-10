@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { Link } from 'react-router-dom'
+import { useFavorites } from './favorites'
+import { Thumb } from './Thumb'
+import { VISION_COLORS } from './visionColors'
 import {
   artifactFlower,
   characterIcon,
@@ -18,16 +22,6 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'constellations', label: 'Constelações' },
   { id: 'builds', label: 'Builds' },
 ]
-
-const VISION_COLORS: Record<string, string> = {
-  Pyro: '#f07a4a',
-  Hydro: '#4cc2f1',
-  Anemo: '#74c2a8',
-  Cryo: '#9fd6e3',
-  Electro: '#b58cf2',
-  Dendro: '#9be34f',
-  Geo: '#f0b232',
-}
 
 const SKILL_KIND: Record<string, { label: string; asset: string }> = {
   NORMAL_ATTACK: { label: 'Ataque normal', asset: 'talent-na' },
@@ -49,40 +43,12 @@ function Icon({ src }: { src: string }) {
   )
 }
 
-function Thumb({
-  src,
-  label,
-  round,
-}: {
-  src?: string
-  label: string
-  round?: boolean
-}) {
-  const [failed, setFailed] = useState(false)
-  const cls = round ? 'thumb thumb--round' : 'thumb'
-  if (!src || failed) {
-    return (
-      <div className={`${cls} thumb--empty`} aria-hidden="true">
-        {label.charAt(0)}
-      </div>
-    )
-  }
-  return (
-    <img
-      className={cls}
-      src={src}
-      alt=""
-      loading="lazy"
-      onError={() => setFailed(true)}
-    />
-  )
-}
-
 export default function CharacterPage({ id }: { id: string }) {
   const [character, setCharacter] = useState<Character | null>(null)
   const [error, setError] = useState(false)
   const [tab, setTab] = useState<Tab>('overview')
   const [portraitFailed, setPortraitFailed] = useState(false)
+  const { isFavorite, toggle } = useFavorites()
 
   useEffect(() => {
     const controller = new AbortController()
@@ -109,14 +75,19 @@ export default function CharacterPage({ id }: { id: string }) {
   return (
     <main className="screen" style={style}>
       <header className="topbar">
-        <button className="round-btn" aria-label="Voltar">
+        <Link to="/" className="round-btn" aria-label="Voltar">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M15 5l-7 7 7 7" />
           </svg>
-        </button>
+        </Link>
         <span className="topbar__title">PERSONAGEM</span>
-        <button className="round-btn" aria-label="Favoritar">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+        <button
+          className="round-btn"
+          aria-label={isFavorite(id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+          aria-pressed={isFavorite(id)}
+          onClick={() => toggle(id)}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill={isFavorite(id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
             <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
           </svg>
         </button>
