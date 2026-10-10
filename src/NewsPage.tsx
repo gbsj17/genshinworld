@@ -13,12 +13,44 @@ import type { CharacterSummary } from './types'
 import { VISION_COLORS } from './visionColors'
 import './home.css'
 import './items.css'
+import './news.css'
 
 const normalize = (text: string) =>
   text
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
+
+// Banner grande de personagem novo: arte splash, com alternativas se uma falhar.
+function Banner({ c, version }: { c: CharacterSummary; version: string }) {
+  const options = [...(c.splash ?? []), ...iconChain(c)]
+  const [i, setI] = useState(0)
+  const color = VISION_COLORS[c.vision] ?? '#d3bc8e'
+  return (
+    <Link
+      to={`/character/${c.id}`}
+      className="banner"
+      style={{ '--banner': color } as CSSProperties}
+      aria-label={`${c.name}, novo personagem`}
+    >
+      {options[i] && (
+        <img
+          key={options[i]}
+          className="banner__img"
+          src={options[i]}
+          alt=""
+          onError={() => setI((n) => n + 1)}
+        />
+      )}
+      <span className="banner__tag">NOVO · {version}</span>
+      <div className="banner__info">
+        <span className="stars">{'★'.repeat(c.rarity)}</span>
+        <strong>{c.name}</strong>
+        <span>{[c.vision, c.weapon].filter(Boolean).join(' · ')}</span>
+      </div>
+    </Link>
+  )
+}
 
 function CharCard({ c }: { c: CharacterSummary }) {
   return (
@@ -46,11 +78,28 @@ function ItemCard({ kind, e, onPick }: { kind: 'weapon' | 'artifact'; e: ItemEnt
   )
 }
 
+function Section({ title, to, children }: { title: string; to?: string; children: React.ReactNode }) {
+  return (
+    <section className="news-sec">
+      <div className="news-head">
+        <h2 className="news-title">{title}</h2>
+        {to && (
+          <Link to={to} className="news-more">
+            Ver tudo
+          </Link>
+        )}
+      </div>
+      {children}
+    </section>
+  )
+}
+
 // Início: novidades da versão mais recente (e busca geral pelo botão Pesquisa).
 export default function NewsPage() {
   const [chars, setChars] = useState<CharacterSummary[]>([])
   const [weapons, setWeapons] = useState<ItemEntry[]>([])
   const [artifacts, setArtifacts] = useState<ItemEntry[]>([])
+  const [materials, setMaterials] = useState<ItemEntry[]>([])
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
   const [picked, setPicked] = useState<PickedItem | null>(null)
@@ -66,6 +115,10 @@ export default function NewsPage() {
         setLoading(false)
       },
     )
+    // materiais são muitos: carregam por último e não seguram o resto da tela
+    getAllItems('materials')
+      .then((m) => active && setMaterials(m))
+      .catch(() => {})
     return () => {
       active = false
     }
@@ -84,6 +137,10 @@ export default function NewsPage() {
   const newChars = chars.filter((c) => latest && c.version === latest)
   const newWeapons = weapons.filter((w) => latest && w.info.version === latest)
   const newArtifacts = artifacts.filter((a) => latest && a.info.version === latest)
+  const newMaterials = materials
+    .filter((m) => latest && m.info.version === latest && m.info.urls.length > 0)
+    .sort((a, b) => b.info.rarity - a.info.rarity)
+    .slice(0, 30)
 
   const q = normalize(query.trim())
   const searching = q.length > 0
@@ -104,39 +161,58 @@ export default function NewsPage() {
 
       {!loading && !searching && (
         <>
-          <p className="home-count">
-            {latest ? `Novidades da versão ${latest}` : 'Novidades indisponíveis no momento.'}
+          <p className="news-version">
+            {latest ? (
+              <>
+                Versão <strong>{latest}</strong>
+              </>
+            ) : (
+              'Novidades indisponíveis no momento.'
+            )}
           </p>
 
           {newChars.length > 0 && (
-            <>
-              <h2 className="news-title">Novos personagens</h2>
-              <div className="item-grid">
+            <Section title="Novos personagens" to="/characters">
+              <div className="banners">
                 {newChars.map((c) => (
-                  <CharCard key={c.id} c={c} />
+                  <Banner key={c.id} c={c} version={latest as string} />
                 ))}
               </div>
-            </>
+            </Section>
           )}
+
           {newWeapons.length > 0 && (
-            <>
-              <h2 className="news-title">Novas armas</h2>
-              <div className="item-grid">
+            <Section title="Novas armas" to="/weapons">
+              <div className="hrow">
                 {newWeapons.map((e) => (
                   <ItemCard key={e.name} kind="weapon" e={e} onPick={setPicked} />
                 ))}
               </div>
-            </>
+            </Section>
           )}
+
           {newArtifacts.length > 0 && (
-            <>
-              <h2 className="news-title">Novos artefatos</h2>
-              <div className="item-grid">
+            <Section title="Novos artefatos" to="/artifacts">
+              <div className="hrow">
                 {newArtifacts.map((e) => (
                   <ItemCard key={e.name} kind="artifact" e={e} onPick={setPicked} />
                 ))}
               </div>
-            </>
+            </Section>
+          )}
+
+          {newMaterials.length > 0 && (
+            <Section title="Novos materiais">
+              <div className="hrow hrow--small">
+                {newMaterials.map((m) => (
+                  <div className="mat-card" key={m.name}>
+                    <Thumb src={m.info.urls} label={m.name} />
+                    <strong>{m.name}</strong>
+                    {m.info.type && <span>{m.info.type}</span>}
+                  </div>
+                ))}
+              </div>
+            </Section>
           )}
         </>
       )}
@@ -144,34 +220,31 @@ export default function NewsPage() {
       {!loading && searching && (
         <>
           {hit(chars).length > 0 && (
-            <>
-              <h2 className="news-title">Personagens</h2>
+            <Section title="Personagens">
               <div className="item-grid">
                 {hit(chars).map((c) => (
                   <CharCard key={c.id} c={c} />
                 ))}
               </div>
-            </>
+            </Section>
           )}
           {hit(weapons).length > 0 && (
-            <>
-              <h2 className="news-title">Armas</h2>
+            <Section title="Armas">
               <div className="item-grid">
                 {hit(weapons).map((e) => (
                   <ItemCard key={e.name} kind="weapon" e={e} onPick={setPicked} />
                 ))}
               </div>
-            </>
+            </Section>
           )}
           {hit(artifacts).length > 0 && (
-            <>
-              <h2 className="news-title">Artefatos</h2>
+            <Section title="Artefatos">
               <div className="item-grid">
                 {hit(artifacts).map((e) => (
                   <ItemCard key={e.name} kind="artifact" e={e} onPick={setPicked} />
                 ))}
               </div>
-            </>
+            </Section>
           )}
           {hit(chars).length + hit(weapons).length + hit(artifacts).length === 0 && (
             <p className="empty">Nada encontrado.</p>

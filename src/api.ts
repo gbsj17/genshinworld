@@ -194,15 +194,15 @@ function weaponEffect(d: Record<string, unknown>): string | undefined {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function toInfo(kind: 'weapons' | 'artifacts', d: any): ItemInfo {
+function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
   const im = d?.images ?? {}
-  const file = kind === 'weapons' ? im.filename_icon : im.filename_flower
-  const direct = kind === 'weapons' ? im.mihoyo_icon : im.mihoyo_flower
+  const file = kind === 'artifacts' ? im.filename_flower : im.filename_icon
+  const direct = kind === 'artifacts' ? im.mihoyo_flower : im.mihoyo_icon
   return {
     // Enka primeiro: é o mesmo CDN que já carrega os ícones dos personagens
     urls: [file ? enka(file) : undefined, direct].filter((u): u is string => Boolean(u)),
     rarity: d?.rarity ?? Math.max(...(d?.rarityList ?? [4])),
-    type: d?.weaponText,
+    type: d?.weaponText ?? d?.typeText,
     baseAtk: d?.baseAtkValue ? String(Math.round(d.baseAtkValue)) : undefined,
     stat: d?.mainStatText ? `${d.mainStatText} ${d.baseStatText ?? ''}`.trim() : undefined,
     effectName: d?.effectName,
@@ -213,7 +213,7 @@ function toInfo(kind: 'weapons' | 'artifacts', d: any): ItemInfo {
   }
 }
 
-function fetchItem(kind: 'weapons' | 'artifacts', name: string): Promise<ItemInfo> {
+function fetchItem(kind: 'weapons' | 'artifacts' | 'materials', name: string): Promise<ItemInfo> {
   const key = `${kind}:${name}`
   let cached = itemCache.get(key)
   if (!cached) {
@@ -235,7 +235,7 @@ export interface ItemEntry {
 
 const listCache = new Map<string, Promise<ItemEntry[]>>()
 
-export function getAllItems(kind: 'weapons' | 'artifacts'): Promise<ItemEntry[]> {
+export function getAllItems(kind: 'weapons' | 'artifacts' | 'materials'): Promise<ItemEntry[]> {
   let cached = listCache.get(kind)
   if (!cached) {
     cached = fetch(`${DB_URL}/${kind}?query=names&matchCategories=true&verboseCategories=true`)
