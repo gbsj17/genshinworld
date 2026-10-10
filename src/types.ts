@@ -21,7 +21,7 @@ export interface CharacterSummary {
   rarity: number
   // id do mesmo personagem na genshin.dev (só existe para os mais antigos)
   devId?: string
-  icon?: string
+  icons?: string[]
   portrait?: string
 }
 

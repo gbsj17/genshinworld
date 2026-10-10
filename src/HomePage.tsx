@@ -25,7 +25,7 @@ function Card({ c }: { c: CharacterSummary }) {
     >
       <Thumb
         round
-        src={c.devId ? characterIcon(c.devId) : c.icon}
+        src={[...(c.devId ? [characterIcon(c.devId)] : []), ...(c.icons ?? [])]}
         label={c.name}
       />
       <strong>{c.name}</strong>

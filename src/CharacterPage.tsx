@@ -173,10 +173,12 @@ export default function CharacterPage({ id }: { id: string }) {
               <span className="card__label">Arma</span>
               <strong className="card__value">{character.weapon}</strong>
             </div>
-            <div className="card">
-              <span className="card__label">Nação</span>
-              <strong className="card__value">{character.nation}</strong>
-            </div>
+            {character.nation && (
+              <div className="card">
+                <span className="card__label">Nação</span>
+                <strong className="card__value">{character.nation}</strong>
+              </div>
+            )}
             <div className="card">
               <span className="card__label">Raridade</span>
               <strong className="card__value">{character.rarity} estrelas</strong>

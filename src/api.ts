@@ -41,7 +41,25 @@ interface DbCharacter {
   weaponText?: string
   rarity: number
   region?: string
-  images?: { mihoyo_icon?: string; hoyowiki_icon?: string; portrait?: string }
+  images?: {
+    mihoyo_icon?: string
+    hoyowiki_icon?: string
+    filename_icon?: string
+    portrait?: string
+  }
+}
+
+// Alternativas de ícone, da mais provável para a menos provável.
+// A última usa o nome do arquivo de ícone do jogo no CDN do Enka.Network.
+function iconOptions(images: DbCharacter['images']): string[] {
+  if (!images) return []
+  return [
+    images.mihoyo_icon,
+    images.hoyowiki_icon,
+    images.filename_icon
+      ? `https://enka.network/ui/${images.filename_icon}.png`
+      : undefined,
+  ].filter((url): url is string => Boolean(url))
 }
 
 // Os nomes da genshin-db nem sempre batem com os ids da genshin.dev
@@ -72,7 +90,7 @@ async function fromGenshinDb(): Promise<CharacterSummary[]> {
       nation: c.region ?? '',
       rarity: c.rarity,
       devId: findDevId(c.name, devIds),
-      icon: c.images?.mihoyo_icon ?? c.images?.hoyowiki_icon,
+      icons: iconOptions(c.images),
       portrait: c.images?.portrait,
     }))
   if (result.length === 0) throw new Error('genshin-db: lista vazia')
