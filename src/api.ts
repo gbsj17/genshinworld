@@ -7,7 +7,12 @@ export function imageUrl(id: string, asset: string): string {
 }
 
 export const characterIcon = (id: string) => imageUrl(id, 'icon')
-export const weaponIcon = (id: string) => `${BASE_URL}/weapons/${id}/icon`
+const slug = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+export const nationIcon = (nation: string) =>
+  `${BASE_URL}/nations/${slug(nation)}/icon`
+export const elementIcon = (vision: string) =>
+  `${BASE_URL}/elements/${slug(vision)}/icon`
+export const weaponIcon =(id: string) => `${BASE_URL}/weapons/${id}/icon`
 export const artifactFlower = (id: string) =>
   `${BASE_URL}/artifacts/${id}/flower-of-life`
 

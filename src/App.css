@@ -408,3 +408,26 @@ a.round-btn {
   font-size: 14px;
   color: var(--muted);
 }
+
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.badge {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: #12151fcc;
+}
+
+.badge img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}

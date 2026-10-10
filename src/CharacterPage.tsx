@@ -7,7 +7,9 @@ import { VISION_COLORS } from './visionColors'
 import {
   artifactFlower,
   characterIcon,
+  elementIcon,
   getCharacter,
+  nationIcon,
   imageUrl,
   weaponIcon,
 } from './api'
@@ -40,6 +42,17 @@ function Icon({ src }: { src: string }) {
       loading="lazy"
       onError={() => setFailed(true)}
     />
+  )
+}
+
+// Selo redondo com o ícone dentro. Se a API não tiver a imagem, o selo some.
+function Badge({ src, label }: { src: string; label: string }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return null
+  return (
+    <span className="badge" title={label}>
+      <img src={src} alt={label} onError={() => setFailed(true)} />
+    </span>
   )
 }
 
@@ -103,6 +116,10 @@ export default function CharacterPage({ id }: { id: string }) {
           />
         )}
         <div className="hero__info">
+          <div className="badges">
+            <Badge src={nationIcon(character.nation)} label={character.nation} />
+            <Badge src={elementIcon(character.vision)} label={character.vision} />
+          </div>
           <div className="stars" role="img" aria-label={`${character.rarity} estrelas`}>
             {'★'.repeat(character.rarity)}
           </div>
