@@ -217,7 +217,7 @@
     width: 100%;
     display: block;
     position: relative;
-    height: clamp(430px, 54vh, 560px);
+    height: clamp(460px, calc(100vh - 292px), 780px);
     overflow: hidden;
     color: #fff;
     background: #0c0f18;
