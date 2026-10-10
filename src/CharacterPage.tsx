@@ -8,11 +8,12 @@ import {
   artifactFlower,
   characterIcon,
   elementIcon,
+  getAllCharacters,
   getCharacter,
   imageUrl,
   weaponIcon,
 } from './api'
-import type { Character } from './types'
+import type { Character, CharacterSummary } from './types'
 import { BUILDS } from './data/builds'
 
 type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
@@ -56,7 +57,10 @@ function Badge({ src, label }: { src: string; label: string }) {
 }
 
 export default function CharacterPage({ id }: { id: string }) {
-  const [character, setCharacter] = useState<Character | null>(null)
+  // character = dados básicos (de todos os personagens)
+  // detail = talentos e constelações (só dos que existem na genshin.dev)
+  const [character, setCharacter] = useState<CharacterSummary | null>(null)
+  const [detail, setDetail] = useState<Character | null>(null)
   const [error, setError] = useState(false)
   const [tab, setTab] = useState<Tab>('overview')
   const [portraitFailed, setPortraitFailed] = useState(false)
@@ -64,11 +68,20 @@ export default function CharacterPage({ id }: { id: string }) {
 
   useEffect(() => {
     const controller = new AbortController()
-    getCharacter(id, controller.signal)
-      .then(setCharacter)
-      .catch((e: Error) => {
-        if (e.name !== 'AbortError') setError(true)
+    getAllCharacters()
+      .then((list) => {
+        const found = list.find((c) => c.id === id)
+        if (!found) throw new Error('Personagem não encontrado')
+        setCharacter(found)
+        if (found.devId) {
+          getCharacter(found.devId, controller.signal)
+            .then(setDetail)
+            .catch(() => {
+              // sem detalhes: a ficha continua com os dados básicos
+            })
+        }
       })
+      .catch(() => setError(true))
     return () => controller.abort()
   }, [id])
 
@@ -82,7 +95,13 @@ export default function CharacterPage({ id }: { id: string }) {
   const accent = VISION_COLORS[character.vision] ?? '#d3bc8e'
   const style = { '--accent': accent } as CSSProperties
   const build = BUILDS[id]
-  const visibleTabs = TABS.filter((t) => t.id !== 'builds' || build)
+  const devId = character.devId
+  const portrait = devId ? imageUrl(devId, 'portrait') : character.portrait
+  const visibleTabs = TABS.filter((t) => {
+    if (t.id === 'builds') return Boolean(build)
+    if (t.id === 'talents' || t.id === 'constellations') return Boolean(detail)
+    return true
+  })
 
   return (
     <main className="screen" style={style}>
@@ -106,10 +125,10 @@ export default function CharacterPage({ id }: { id: string }) {
       </header>
 
       <section className="hero">
-        {!portraitFailed && (
+        {portrait && !portraitFailed && (
           <img
             className="hero__img"
-            src={imageUrl(id, 'portrait')}
+            src={portrait}
             alt={character.name}
             onError={() => setPortraitFailed(true)}
           />
@@ -123,7 +142,9 @@ export default function CharacterPage({ id }: { id: string }) {
           </div>
           <h1>{character.name}</h1>
           <p>
-            {character.vision} · {character.weapon} · {character.nation}
+            {[character.vision, character.weapon, character.nation]
+              .filter(Boolean)
+              .join(' · ')}
           </p>
         </div>
       </section>
@@ -163,13 +184,13 @@ export default function CharacterPage({ id }: { id: string }) {
           </div>
         )}
 
-        {tab === 'talents' && (
+        {tab === 'talents' && detail && devId && (
           <>
-            {character.skillTalents.map((t) => {
+            {detail.skillTalents.map((t) => {
               const kind = SKILL_KIND[t.type ?? '']
               return (
                 <article className="row" key={t.name}>
-                  <Icon src={imageUrl(id, kind?.asset ?? 'talent-na')} />
+                  <Icon src={imageUrl(devId, kind?.asset ?? 'talent-na')} />
                   <div>
                     <span className="row__kind">{kind?.label ?? 'Talento'}</span>
                     <h2>{t.name}</h2>
@@ -178,9 +199,9 @@ export default function CharacterPage({ id }: { id: string }) {
                 </article>
               )
             })}
-            {character.passiveTalents.map((t, i) => (
+            {detail.passiveTalents.map((t, i) => (
               <article className="row" key={t.name}>
-                <Icon src={imageUrl(id, `talent-passive-${i}`)} />
+                <Icon src={imageUrl(devId, `talent-passive-${i}`)} />
                 <div>
                   <span className="row__kind">Passivo · {t.unlock}</span>
                   <h2>{t.name}</h2>
@@ -192,9 +213,11 @@ export default function CharacterPage({ id }: { id: string }) {
         )}
 
         {tab === 'constellations' &&
-          character.constellations.map((c) => (
+          detail &&
+          devId &&
+          detail.constellations.map((c) => (
             <article className="row" key={c.name}>
-              <Icon src={imageUrl(id, `constellation-${c.level}`)} />
+              <Icon src={imageUrl(devId, `constellation-${c.level}`)} />
               <div>
                 <span className="row__kind">{c.unlock}</span>
                 <h2>{c.name}</h2>
@@ -208,7 +231,10 @@ export default function CharacterPage({ id }: { id: string }) {
             <h2 className="section-title">Armas</h2>
             {build.weapons.map((w, i) => (
               <article className="block block--row" key={w.name}>
-                <Thumb src={w.id ? weaponIcon(w.id) : undefined} label={w.name} />
+                <Thumb
+                  src={w.icon ?? (w.id ? weaponIcon(w.id) : undefined)}
+                  label={w.name}
+                />
                 <div className="block__body">
                   <span className="row__kind">#{i + 1}</span>
                   <h3>{w.name}</h3>
@@ -247,7 +273,7 @@ export default function CharacterPage({ id }: { id: string }) {
                     <div className="member" key={m.name}>
                       <Thumb
                         round
-                        src={m.id ? characterIcon(m.id) : undefined}
+                        src={m.icon ?? (m.id ? characterIcon(m.id) : undefined)}
                         label={m.name}
                       />
                       <span>{m.name}</span>

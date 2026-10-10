@@ -14,26 +14,94 @@ export const weaponIcon =(id: string) => `${BASE_URL}/weapons/${id}/icon`
 export const artifactFlower = (id: string) =>
   `${BASE_URL}/artifacts/${id}/flower-of-life`
 
+const DB_URL = 'https://genshin-db-api.vercel.app/api/v5'
+
+const ELEMENTS: Record<string, string> = {
+  ELEMENT_PYRO: 'Pyro',
+  ELEMENT_HYDRO: 'Hydro',
+  ELEMENT_ANEMO: 'Anemo',
+  ELEMENT_CRYO: 'Cryo',
+  ELEMENT_ELECTRO: 'Electro',
+  ELEMENT_DENDRO: 'Dendro',
+  ELEMENT_GEO: 'Geo',
+}
+
+const WEAPONS: Record<string, string> = {
+  WEAPON_SWORD_ONE_HAND: 'Sword',
+  WEAPON_CLAYMORE: 'Claymore',
+  WEAPON_POLE: 'Polearm',
+  WEAPON_CATALYST: 'Catalyst',
+  WEAPON_BOW: 'Bow',
+}
+
+interface DbCharacter {
+  name: string
+  elementType: string
+  weaponType: string
+  weaponText?: string
+  rarity: number
+  region?: string
+  images?: { mihoyo_icon?: string; hoyowiki_icon?: string; portrait?: string }
+}
+
+// Os nomes da genshin-db nem sempre batem com os ids da genshin.dev
+// (ex.: "Kaedehara Kazuha" aqui é "kazuha" lá), então tenta o nome inteiro,
+// a última palavra e a primeira.
+function findDevId(name: string, devIds: Set<string>): string | undefined {
+  const full = slug(name)
+  const words = full.split('-')
+  return [full, words[words.length - 1], words[0]].find((c) => devIds.has(c))
+}
+
+async function fromGenshinDb(): Promise<CharacterSummary[]> {
+  const [dbResponse, devResponse] = await Promise.all([
+    fetch(`${DB_URL}/characters?query=names&matchCategories=true&verboseCategories=true`),
+    fetch(`${BASE_URL}/characters`),
+  ])
+  if (!dbResponse.ok) throw new Error(`genshin-db: erro ${dbResponse.status}`)
+  const list: DbCharacter[] = await dbResponse.json()
+  const devIds = new Set<string>(devResponse.ok ? await devResponse.json() : [])
+
+  const result = list
+    .filter((c) => ELEMENTS[c.elementType])
+    .map((c) => ({
+      id: slug(c.name),
+      name: c.name,
+      vision: ELEMENTS[c.elementType],
+      weapon: WEAPONS[c.weaponType] ?? c.weaponText ?? '',
+      nation: c.region ?? '',
+      rarity: c.rarity,
+      devId: findDevId(c.name, devIds),
+      icon: c.images?.mihoyo_icon ?? c.images?.hoyowiki_icon,
+      portrait: c.images?.portrait,
+    }))
+  if (result.length === 0) throw new Error('genshin-db: lista vazia')
+  return result
+}
+
+// Plano B: se a genshin-db falhar, usa a lista da genshin.dev (mais antiga).
+async function fromGenshinDev(): Promise<CharacterSummary[]> {
+  const response = await fetch(`${BASE_URL}/characters/all`)
+  if (!response.ok) throw new Error(`Erro ${response.status}`)
+  const list: CharacterSummary[] = await response.json()
+  return list.map(({ id, name, vision, weapon, nation, rarity }) => ({
+    id,
+    name,
+    vision,
+    weapon,
+    nation,
+    rarity,
+    devId: id,
+  }))
+}
+
 // A lista completa é grande, então é buscada uma vez só e guardada em memória.
 let allCache: Promise<CharacterSummary[]> | null = null
 
 export function getAllCharacters(): Promise<CharacterSummary[]> {
   if (!allCache) {
-    allCache = fetch(`${BASE_URL}/characters/all`)
-      .then((response) => {
-        if (!response.ok) throw new Error(`Erro ${response.status}`)
-        return response.json()
-      })
-      .then((list: CharacterSummary[]) =>
-        list.map(({ id, name, vision, weapon, nation, rarity }) => ({
-          id,
-          name,
-          vision,
-          weapon,
-          nation,
-          rarity,
-        })),
-      )
+    allCache = fromGenshinDb()
+      .catch(fromGenshinDev)
       .catch((error) => {
         allCache = null
         throw error

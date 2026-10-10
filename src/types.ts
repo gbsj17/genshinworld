@@ -19,6 +19,10 @@ export interface CharacterSummary {
   weapon: string
   nation: string
   rarity: number
+  // id do mesmo personagem na genshin.dev (só existe para os mais antigos)
+  devId?: string
+  icon?: string
+  portrait?: string
 }
 
 export interface Character {

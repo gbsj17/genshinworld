@@ -1,12 +1,13 @@
 export interface Member {
   name: string
   id?: string
+  icon?: string
 }
 
 export interface Build {
   patch: string
   sources: { label: string; url: string }[]
-  weapons: { name: string; id?: string; note: string }[]
+  weapons: { name: string; id?: string; icon?: string; note: string }[]
   artifacts: { name: string; id: string; note: string }[]
   mainStats: { slot: string; value: string }[]
   substats: string
@@ -30,7 +31,7 @@ export const BUILDS: Record<string, Build> = {
     sources: [ICY_BUILDS, ICY_TEAMS],
     weapons: [
       { name: "Wolf's Gravestone", id: 'wolf-s-gravestone', note: 'Muito ATQ e bônus de ATQ para o time. Melhor opção para Vaporize e Melt.' },
-      { name: 'Gest of the Mighty Wolf', note: 'Taxa CRIT, velocidade de ataque e Dano CRIT extra. Melhor para times Overload com Nicole e Fischl.' },
+      { name: 'Gest of the Mighty Wolf', icon: 'https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_EnsisAquilonis.png', note: 'Taxa CRIT, velocidade de ataque e Dano CRIT extra. Melhor para times Overload com Nicole e Fischl.' },
       { name: 'Serpent Spine', id: 'serpent-spine', note: 'Taxa CRIT e dano que acumula enquanto o Diluc fica em campo.' },
       { name: 'Blackcliff Slasher', id: 'blackcliff-slasher', note: 'Dano CRIT e ATQ ao derrotar inimigos. Bom contra vários alvos.' },
       { name: 'The Unforged', id: 'the-unforged', note: 'Foco em ATQ. Rende mais quando o Diluc está com escudo.' },
@@ -51,7 +52,7 @@ export const BUILDS: Record<string, Build> = {
     teams: [
       {
         name: 'Melt / Plunge',
-        members: [{ name: 'Diluc', id: 'diluc' }, { name: 'Citlali' }, { name: 'Bennett', id: 'bennett' }, { name: 'Xianyun', id: 'xianyun' }],
+        members: [{ name: 'Diluc', id: 'diluc' }, { name: 'Citlali', icon: 'https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_Citlali.png' }, { name: 'Bennett', id: 'bennett' }, { name: 'Xianyun', id: 'xianyun' }],
         note: 'Citlali dá Cryo constante para o Melt e Xianyun ajuda nos ataques de mergulho.',
       },
       {

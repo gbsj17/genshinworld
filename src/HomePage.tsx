@@ -23,7 +23,11 @@ function Card({ c }: { c: CharacterSummary }) {
       className="char-card"
       style={{ '--card-accent': color } as CSSProperties}
     >
-      <Thumb round src={characterIcon(c.id)} label={c.name} />
+      <Thumb
+        round
+        src={c.devId ? characterIcon(c.devId) : c.icon}
+        label={c.name}
+      />
       <strong>{c.name}</strong>
       <span>
         {c.vision} · {c.rarity}★
