@@ -21,7 +21,7 @@
   --seg-bg: #1c2030;
   --seg-active: #2f3650;
   --seg-shadow: none;
-  --nav-bg: #1c2030d9;
+  --nav-bg: #1c2030cc;
   --nav-border: #3a4057b3;
   --nav-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   --sheet-shadow: 0 -10px 40px rgba(0, 0, 0, 0.45);
@@ -56,7 +56,7 @@
   --seg-bg: #f1e6d2;
   --seg-active: #fffaf1;
   --seg-shadow: 0 1px 3px rgba(90, 65, 25, 0.2);
-  --nav-bg: #fffaf1d1;
+  --nav-bg: #fffaf1c4;
   --nav-border: #d8c8a8b3;
   --nav-shadow: 0 10px 30px rgba(90, 65, 25, 0.18);
   --sheet-shadow: 0 -10px 40px rgba(90, 65, 25, 0.14);

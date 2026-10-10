@@ -4,10 +4,16 @@
 }
 
 .home-top {
+  position: sticky;
+  top: 0;
+  z-index: 15;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 22px 20px 0;
+  padding: 18px 20px 10px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .home-cap {
