@@ -146,10 +146,7 @@ export default function CharacterPage({ id }: { id: string }) {
   const portraitOptions = [...splash, ...fallbackPortraits, ...(character.icons ?? [])]
   const portrait = portraitOptions[portraitIndex]
   const isArt = Boolean(portrait && !fallbackPortraits.includes(portrait))
-  const visibleTabs = TABS.filter((t) => {
-    if (t.id === 'builds') return Boolean(build)
-    return true
-  })
+  const visibleTabs = TABS
 
   // Ícone do membro da equipe: procura pelo nome na lista completa (mesma fonte da home)
   const memberHit = (m: { name: string }) => {
@@ -327,6 +324,10 @@ export default function CharacterPage({ id }: { id: string }) {
               </div>
             </article>
           ))}
+
+        {tab === 'builds' && !build && (
+          <p className="empty">Ainda não há build cadastrada para este personagem.</p>
+        )}
 
         {tab === 'builds' && build && (
           <>

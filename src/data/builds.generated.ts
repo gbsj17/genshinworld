@@ -1,6 +1,6 @@
 import type { Build } from './builds'
 
-// Gerado a partir de guias (Icy Veins e similares). Os ids são os mesmos da lista de personagens.
+// Gerado a partir de guias (Icy Veins, Genshin-Builds, Genshin.gg). Os ids são os mesmos da lista de personagens.
 export const GENERATED_BUILDS: Record<string, Build> = {
  "albedo": {
   "patch": "7.1",
@@ -7019,6 +7019,6416 @@ export const GENERATED_BUILDS: Record<string, Build> = {
      }
     ],
     "note": "Qiqi adiciona buff de dano Stellar e cura que compensa a cura fraca da Mizuki."
+   }
+  ]
+ },
+ "aino": {
+  "patch": "7.1 (atualizado em 18 set 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/aino-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/aino-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Flame-Forged Insight",
+    "note": "Arma gratuita com Proficiência Elemental alta, mas não pode mais ser obtida por quem não a tem."
+   },
+   {
+    "name": "Master Key",
+    "note": "Alternativa quase idêntica à anterior, criável de graça em Nod-Krai."
+   },
+   {
+    "name": "Forest Regalia",
+    "note": "Recomendada para equipes Lunar-Bloom."
+   },
+   {
+    "name": "Favonius Greatsword",
+    "note": "Indicada para equipes com alta necessidade de Energia."
+   },
+   {
+    "name": "Wolf's Gravestone",
+    "note": "Geralmente não vale a pena, pois o bônus é pouco confiável e tem pouca duração."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Instructor",
+    "note": "Melhor set de suporte geral, dá bônus de Proficiência Elemental à equipe após uma reação."
+   },
+   {
+    "name": "Silken Moon's Serenade",
+    "note": "Alternativa forte com ativação do bônus mais conveniente."
+   },
+   {
+    "name": "Deepwood Memories",
+    "note": "Recomendado para equipes Lunar-Bloom se ninguém mais o usar."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Taxa CRIT > Dano CRIT > Proficiência Elemental > Recarga de Energia.",
+  "teams": [
+   {
+    "name": "Lunar-Charged",
+    "members": [
+     {
+      "name": "Aino"
+     },
+     {
+      "name": "Flins"
+     },
+     {
+      "name": "Ineffa"
+     },
+     {
+      "name": "Sucrose"
+     }
+    ],
+    "note": "Os grandes bônus de Proficiência Elemental da Sucrose fortalecem a equipe."
+   },
+   {
+    "name": "Lunar-Charged",
+    "members": [
+     {
+      "name": "Aino"
+     },
+     {
+      "name": "Flins"
+     },
+     {
+      "name": "Ineffa"
+     },
+     {
+      "name": "Columbina"
+     }
+    ],
+    "note": "Columbina é o suporte principal e dá a Ressonância Hydro enquanto Aino aplica Hydro fora de campo."
+   },
+   {
+    "name": "Lunar-Charged",
+    "members": [
+     {
+      "name": "Aino"
+     },
+     {
+      "name": "Ineffa"
+     },
+     {
+      "name": "Columbina"
+     },
+     {
+      "name": "Ifa"
+     }
+    ],
+    "note": "Ifa é uma opção mais barata que dá bônus de Dano Lunar-Charged à equipe."
+   }
+  ]
+ },
+ "amber": {
+  "patch": "7.0 (atualizado em 10 ago 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/amber-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/amber-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "The First Great Magic",
+    "note": "Aumenta o Dano de Ataque Carregado e dá ATQ com outro personagem Pyro na equipe."
+   },
+   {
+    "name": "Aqua Simulacra",
+    "note": "Segunda melhor opção, com Dano CRIT e Vida, mas perde dano sem inimigos por perto."
+   },
+   {
+    "name": "Skyward Harp",
+    "note": "Fornece Dano CRIT e um dano físico em área."
+   },
+   {
+    "name": "Ibis Piercer",
+    "note": "Uma das melhores opções gratuitas, obtida em evento do TCG."
+   },
+   {
+    "name": "Hamayumi",
+    "note": "Boa opção gratuita, criável em Inazuma."
+   },
+   {
+    "name": "Thundering Pulse",
+    "note": "Listada entre as demais opções de arco para Sub DPS."
+   },
+   {
+    "name": "Polar Star",
+    "note": "Listada entre as demais opções de arco para Sub DPS."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Shimenawa's Reminiscence",
+    "note": "Para Sub DPS com Tiro Carregado."
+   },
+   {
+    "name": "Crimson Witch of Flames",
+    "note": "Para o estilo Explosive Bunny DPS."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Para a build de suporte."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental ou ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Pyro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade (Sub DPS): Recarga de Energia > Taxa CRIT/Dano CRIT > Proficiência Elemental > ATQ%.",
+  "teams": [
+   {
+    "name": "Melt",
+    "members": [
+     {
+      "name": "Amber"
+     },
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Durin"
+     }
+    ],
+    "note": "O guia diz que Durin e Nicole formam a melhor equipe possível atualmente para Amber."
+   },
+   {
+    "name": "Melt",
+    "members": [
+     {
+      "name": "Amber"
+     },
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Bennett"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Equipe de Melt baseada na aplicação Pyro de Amber e no Cryo."
+   },
+   {
+    "name": "Melt",
+    "members": [
+     {
+      "name": "Amber"
+     },
+     {
+      "name": "Ganyu"
+     },
+     {
+      "name": "Bennett"
+     },
+     {
+      "name": "Layla"
+     }
+    ],
+    "note": "Ganyu é a fonte de dano Cryo e Bennett apoia."
+   }
+  ]
+ },
+ "beidou": {
+  "patch": "5.8 (guia atualizado em 17 jun 2026 para Stellar Reaction)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/beidou-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/beidou-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "A Thousand Blazing Suns",
+    "note": "Alto dano fora de campo graças ao ATQ alto e ao dano de Supremo."
+   },
+   {
+    "name": "Wolf's Gravestone",
+    "note": "ATQ alto e bônus de ATQ para a equipe contra inimigos abaixo de 30% de vida."
+   },
+   {
+    "name": "Redhorn Stonethresher",
+    "note": "Boa pelo Dano CRIT; o efeito de DEF não é útil para Beidou."
+   },
+   {
+    "name": "Fang of the Mountain King",
+    "note": "Opção 5 estrelas ofensiva, mas o efeito nem sempre é totalmente aproveitado."
+   },
+   {
+    "name": "The Unforged",
+    "note": "ATQ alto, especialmente quando Beidou está com escudo."
+   },
+   {
+    "name": "Verdict",
+    "note": "Boa Taxa CRIT e atributos base para o dano de Supremo."
+   },
+   {
+    "name": "Beacon of the Reed Sea",
+    "note": "Boa Taxa CRIT e atributos ofensivos flexíveis."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Melhor set na maioria das equipes."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "2 peças com 2 de Thundering Fury como alternativa a um set completo de Emblem."
+   },
+   {
+    "name": "Thundering Fury",
+    "note": "Usado com 2 peças de Noblesse Oblige como alternativa."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Electro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia confortável > Taxa CRIT/Dano CRIT > ATQ% > Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Stellar Conduct",
+    "members": [
+     {
+      "name": "Beidou"
+     },
+     {
+      "name": "Sandrone"
+     },
+     {
+      "name": "Yae Miko"
+     },
+     {
+      "name": "Qiqi"
+     }
+    ],
+    "note": "Sandrone habilita Stellar Conduct e é uma das melhores parceiras de Beidou."
+   },
+   {
+    "name": "Stellar Conduct",
+    "members": [
+     {
+      "name": "Beidou"
+     },
+     {
+      "name": "Sandrone"
+     },
+     {
+      "name": "Diona"
+     },
+     {
+      "name": "Qiqi"
+     }
+    ],
+    "note": "Variante que troca Yae Miko por Diona."
+   },
+   {
+    "name": "Stellar Conduct",
+    "members": [
+     {
+      "name": "Beidou"
+     },
+     {
+      "name": "Wriothesley"
+     },
+     {
+      "name": "Sandrone"
+     },
+     {
+      "name": "Diona"
+     }
+    ],
+    "note": "Adiciona Wriothesley ao núcleo com Sandrone."
+   }
+  ]
+ },
+ "bennett": {
+  "patch": "6.7 (revisado em 6 ago 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/bennett-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/bennett-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Mistsplitter Reforged",
+    "note": "Melhor arma para a build de suporte de Supremo."
+   },
+   {
+    "name": "Aquila Favonia",
+    "note": "O bônus de Dano Físico é inútil, mas o ATQ base serve ao suporte puro."
+   },
+   {
+    "name": "Skyward Blade",
+    "note": "Opção 5 estrelas confortável que reduz a dependência de Recarga de Energia nos artefatos."
+   },
+   {
+    "name": "The Alley Flash",
+    "note": "Melhor opção 4 estrelas para o bônus de ATQ."
+   },
+   {
+    "name": "Sapwood Blade",
+    "note": "Melhor opção gratuita, criável em Sumeru."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Recomendação mais padrão, dá +20% de ATQ à equipe após o Supremo."
+   },
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Alternativa que regenera Energia quando um aliado ativa um Supremo Nightsoul."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia ou Vida% (suporte puro); ATQ% ou Recarga de Energia (suporte de Supremo)"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida% (suporte puro); Pyro DMG (suporte de Supremo)"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Vida% ou Bônus de Cura (suporte puro); Taxa CRIT ou Dano CRIT (suporte de Supremo)"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Vida% > Vida fixa no suporte puro; no suporte de Supremo, Recarga de Energia > Taxa CRIT/Dano CRIT > Vida% > ATQ%.",
+  "teams": [
+   {
+    "name": "Pyro DPS com Hydro e Anemo",
+    "members": [
+     {
+      "name": "Bennett"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Sucrose"
+     }
+    ],
+    "note": "Bennett dá o bônus de ATQ ao DPS Pyro."
+   },
+   {
+    "name": "Pyro DPS com Geo e Anemo",
+    "members": [
+     {
+      "name": "Bennett"
+     },
+     {
+      "name": "Mavuika"
+     },
+     {
+      "name": "Xilonen"
+     },
+     {
+      "name": "Citlali"
+     }
+    ],
+    "note": "Equipe Pyro que aproveita o bônus de ATQ e a Ressonância Pyro."
+   },
+   {
+    "name": "Cryo DPS",
+    "members": [
+     {
+      "name": "Bennett"
+     },
+     {
+      "name": "Kamisato Ayaka"
+     },
+     {
+      "name": "Shenhe"
+     },
+     {
+      "name": "Furina"
+     }
+    ],
+    "note": "Opção listada no guia sem justificativa específica."
+   }
+  ]
+ },
+ "candace": {
+  "patch": "7.0 (revisado em 6 ago 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/candace-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/candace-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Favonius Lance",
+    "note": "Melhor arma na maioria das builds de suporte pela alta necessidade de Recarga de Energia."
+   },
+   {
+    "name": "Engulfing Lightning",
+    "note": "Opção premium que converte Recarga de Energia em ATQ e aumenta o dano pessoal."
+   },
+   {
+    "name": "Staff of Homa",
+    "note": "Opção ofensiva forte, mas exige Recarga de Energia vinda de areia e substatus."
+   },
+   {
+    "name": "Skyward Spine",
+    "note": "Opção confortável com Recarga de Energia e ATQ base alto."
+   },
+   {
+    "name": "Deathmatch",
+    "note": "Para builds focadas em dano pessoal, com boa Taxa CRIT."
+   },
+   {
+    "name": "The Catch",
+    "note": "Forte opção gratuita que aumenta o Dano de Supremo e dá Recarga de Energia."
+   },
+   {
+    "name": "Kitain Cross Spear",
+    "note": "Pode ser usada em equipe de Vaporize; Proficiência Elemental não é prioridade."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Melhor set na maioria das situações."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Alternativa de suporte se a equipe aproveita bônus de ATQ e ninguém mais usa o set."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida% ou Hydro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Vida% ou Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Taxa CRIT > Vida% > Vida fixa.",
+  "teams": [
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Candace"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "DPS Pyro de Ataque Normal com os bônus de Ataque Normal e a aplicação Hydro de Candace."
+   },
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Candace"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Xilonen"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Mesmo núcleo, com Xilonen no lugar de Kazuha."
+   },
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Candace"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Equipe de Vaporize com Hu Tao como dano Pyro."
+   }
+  ]
+ },
+ "charlotte": {
+  "patch": "6.0 (atualizado em 28 set 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/charlotte-guide-best-builds"
+   },
+   {
+    "label": "Genshin.gg: equipes",
+    "url": "https://genshin.gg/characters/charlotte/"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Prototype Amber",
+    "note": "Melhor opção: regenera Energia com o Supremo e cura, mesmo com Vida como atributo secundário."
+   },
+   {
+    "name": "Favonius Codex",
+    "note": "Ótimo suporte, dá muita Recarga de Energia e reduz a necessidade da equipe."
+   },
+   {
+    "name": "Wine and Song",
+    "note": "Listada pelo guia sem observações."
+   },
+   {
+    "name": "Thrilling Tales of Dragon Slayers",
+    "note": "Listada pelo guia sem observações."
+   },
+   {
+    "name": "Oathsworn Eye",
+    "note": "Listada pelo guia sem observações."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Melhor set para ela."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Alternativa se alguém na equipe já usa Noblesse Oblige."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia ou ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Bônus de Cura, Taxa CRIT (com Favonius Codex) ou ATQ%"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o necessário) > ATQ% > Taxa CRIT (com Favonius Codex) > ATQ fixo.",
+  "teams": [
+   {
+    "name": "Wriothesley Freeze",
+    "members": [
+     {
+      "name": "Charlotte"
+     },
+     {
+      "name": "Wriothesley"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Equipe de Freeze listada no Genshin.gg."
+   },
+   {
+    "name": "Hyperbloom",
+    "members": [
+     {
+      "name": "Charlotte"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Raiden Shogun"
+     }
+    ],
+    "note": "Equipe de Hyperbloom listada no Genshin.gg."
+   },
+   {
+    "name": "Burgeon",
+    "members": [
+     {
+      "name": "Charlotte"
+     },
+     {
+      "name": "Thoma"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Nahida"
+     }
+    ],
+    "note": "Equipe de Burgeon listada no Genshin.gg."
+   }
+  ]
+ },
+ "chevreuse": {
+  "patch": "7.1 (atualizado em 18 set 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/chevreuse-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/chevreuse-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Symphonist of Scents",
+    "note": "A melhor e mais recomendada arma para Chevreuse."
+   },
+   {
+    "name": "Staff of Homa",
+    "note": "Boa escolha se priorizar o dano, e ainda adiciona Vida."
+   },
+   {
+    "name": "Dialogues of the Desert Sages",
+    "note": "Opção 4 estrelas mais recomendada, mas não pode mais ser obtida."
+   },
+   {
+    "name": "Rightful Reward",
+    "note": "Próxima melhor opção, com o mesmo efeito e menos Vida%."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Boa opção 4 estrelas com apoio de Energia, mas sem Vida% e precisa de Taxa CRIT."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Set de bônus geral, usado a menos que outro membro já o tenha."
+   },
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Set de bônus geral, melhor quando nenhum suporte Nightsoul o aproveita."
+   },
+   {
+    "name": "Song of Days Past",
+    "note": "Só se os dois anteriores não estiverem disponíveis ou não couberem na equipe."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida% ou ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida% ou Pyro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Vida%, Taxa CRIT, Dano CRIT ou Bônus de Cura"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Vida% > CRIT > ATQ%.",
+  "teams": [
+   {
+    "name": "Mavuika on-field DPS",
+    "members": [
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Mavuika"
+     },
+     {
+      "name": "Iansan"
+     },
+     {
+      "name": "Ororon"
+     }
+    ],
+    "note": "Iansan dá bons bônus e Ororon adiciona Electro fora de campo."
+   },
+   {
+    "name": "Arlecchino Pyro DPS",
+    "members": [
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Fischl"
+     }
+    ],
+    "note": "Durin e Fischl dão dano fora de campo e mantêm os dois elementos aplicados."
+   },
+   {
+    "name": "Lyney Pyro DPS",
+    "members": [
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Lyney"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Fischl"
+     }
+    ],
+    "note": "Durin e Fischl cobrem a aplicação fora de campo para a redução de RES de Chevreuse."
+   }
+  ]
+ },
+ "chongyun": {
+  "patch": "7.0 (atualizado em 10 ago 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/chongyun-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/chongyun-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Wolf's Gravestone",
+    "note": "Melhor opção geral, aumenta o ATQ dele e o da equipe contra inimigos com pouca vida."
+   },
+   {
+    "name": "Beacon of the Reed Sea",
+    "note": "Melhor para priorizar dano pessoal, pela alta Taxa CRIT e ATQ%."
+   },
+   {
+    "name": "Serpent Spine",
+    "note": "Melhor opção 4 estrelas, mas é arma do Passe de Batalha."
+   },
+   {
+    "name": "Sacrificial Greatsword",
+    "note": "Melhor opção totalmente gratuita, pois é criável e pode resetar a recarga da habilidade."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Recomendação principal, aumenta o ATQ da equipe durante o Supremo."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Alternativa se um aliado já usa Noblesse Oblige."
+   },
+   {
+    "name": "Blizzard Strayer",
+    "note": "Para foco em dano pessoal, adiciona Dano Cryo e Taxa CRIT."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia ou ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Cryo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Taxa CRIT = Dano CRIT > ATQ%.",
+  "teams": [
+   {
+    "name": "Reverse Melt",
+    "members": [
+     {
+      "name": "Chongyun"
+     },
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Bennett"
+     },
+     {
+      "name": "Xiangling"
+     }
+    ],
+    "note": "A infusão Cryo de Chongyun transforma Rosaria em DPS Cryo em campo."
+   },
+   {
+    "name": "Freeze",
+    "members": [
+     {
+      "name": "Chongyun"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Kamisato Ayaka"
+     },
+     {
+      "name": "Shenhe"
+     }
+    ],
+    "note": "Furina aplica Hydro para o Freeze e Ayaka é o DPS Cryo principal."
+   },
+   {
+    "name": "Freeze",
+    "members": [
+     {
+      "name": "Chongyun"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Skirk"
+     },
+     {
+      "name": "Shenhe"
+     }
+    ],
+    "note": "Skirk assume o papel de DPS Cryo no lugar de Ayaka."
+   }
+  ]
+ },
+ "dahlia": {
+  "patch": "6.0 (builds atualizadas em 27 set 2025; equipes atualizadas em 10 out 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/dahlia-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/dahlia"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Favonius Sword",
+    "note": "Melhor opção quando Dahlia também precisa fornecer Recarga de Energia à equipe."
+   },
+   {
+    "name": "Serenity's Call",
+    "note": "Usar quando Recarga de Energia não é necessária; dá muita RE e Vida Máx. aumentada."
+   },
+   {
+    "name": "Key of Khaj-Nisut",
+    "note": "Listada como alternativa."
+   },
+   {
+    "name": "The Dockhand's Assistant",
+    "note": "Listada como alternativa."
+   },
+   {
+    "name": "Fleuve Cendre Ferryman",
+    "note": "Listada como alternativa."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Com 2 peças de Vida + 2 peças de Vida, se precisar de mais bônus de Vida."
+   },
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Usar nos demais casos; exige as reações corretas para dar os bônus."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Vida%"
+   }
+  ],
+  "substats": "Prioridade: Taxa CRIT (com Favonius Sword) > Recarga de Energia (cerca de 200%+) > Vida%.",
+  "teams": [
+   {
+    "name": "Permafrost (Cryo)",
+    "members": [
+     {
+      "name": "Dahlia"
+     },
+     {
+      "name": "Skirk"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Escoffier"
+     }
+    ],
+    "note": "Reações Cryo geram Void Rifts que alimentam o Supremo de Skirk."
+   },
+   {
+    "name": "Anemo Hypercarry",
+    "members": [
+     {
+      "name": "Dahlia"
+     },
+     {
+      "name": "Wanderer"
+     },
+     {
+      "name": "Faruzan"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Faruzan reduz a RES Anemo, Bennett dá ATQ e Dahlia dá velocidade de ataque e escudos."
+   },
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Dahlia"
+     },
+     {
+      "name": "Yoimiya"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "O Hydro fora de campo de Yelan permite Vaporize nos ataques normais de Yoimiya."
+   }
+  ]
+ },
+ "barbara": {
+  "patch": "sem data na página (Genshin.gg, 2026)",
+  "sources": [
+   {
+    "label": "Genshin.gg: builds",
+    "url": "https://genshin.gg/characters/barbara/"
+   },
+   {
+    "label": "Genshin.gg: equipes",
+    "url": "https://genshin.gg/characters/barbara/"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Thrilling Tales of Dragon Slayers",
+    "note": "Primeira opção listada pelo guia."
+   },
+   {
+    "name": "Everlasting Moonglow",
+    "note": "Segunda opção listada pelo guia."
+   },
+   {
+    "name": "Prototype Amber",
+    "note": "Terceira opção listada pelo guia."
+   },
+   {
+    "name": "Favonius Codex",
+    "note": "Quarta opção listada pelo guia."
+   },
+   {
+    "name": "Wine and Song",
+    "note": "Quinta opção listada pelo guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Maiden Beloved",
+    "note": "Conjunto de 4 peças listado como o melhor."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Combinado com 2 peças de Maiden Beloved."
+   },
+   {
+    "name": "Ocean-Hued Clam",
+    "note": "Combinado com 2 peças de Maiden Beloved."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Bônus de Cura"
+   }
+  ],
+  "substats": "Prioridade: Vida% > Vida fixa > Recarga de Energia.",
+  "teams": [
+   {
+    "name": "Nilou Bloom",
+    "members": [
+     {
+      "name": "Barbara"
+     },
+     {
+      "name": "Nilou"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Nahida"
+     }
+    ],
+    "note": "Equipe de Bloom listada no Genshin.gg."
+   },
+   {
+    "name": "Ayaka Freeze",
+    "members": [
+     {
+      "name": "Barbara"
+     },
+     {
+      "name": "Kamisato Ayaka"
+     },
+     {
+      "name": "Shenhe"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Equipe de Freeze listada no Genshin.gg."
+   },
+   {
+    "name": "Electro-Charged",
+    "members": [
+     {
+      "name": "Barbara"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Yae Miko"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Equipe de Electro-Charged listada no Genshin.gg."
+   }
+  ]
+ },
+ "collei": {
+  "patch": "sem data na página (Genshin.gg, 2026)",
+  "sources": [
+   {
+    "label": "Genshin.gg: builds",
+    "url": "https://genshin.gg/characters/collei/"
+   },
+   {
+    "label": "Genshin.gg: equipes",
+    "url": "https://genshin.gg/characters/collei/"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Elegy for the End",
+    "note": "Primeira opção listada pelo guia."
+   },
+   {
+    "name": "Sacrificial Bow",
+    "note": "Segunda opção listada pelo guia."
+   },
+   {
+    "name": "Polar Star",
+    "note": "Terceira opção listada pelo guia."
+   },
+   {
+    "name": "Favonius Warbow",
+    "note": "Quarta opção listada pelo guia."
+   },
+   {
+    "name": "Aqua Simulacra",
+    "note": "Quinta opção listada pelo guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Deepwood Memories",
+    "note": "Conjunto de 4 peças listado como o melhor."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Segunda opção listada pelo guia."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Terceira opção listada pelo guia."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia, ATQ% ou Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Dendro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Taxa CRIT/Dano CRIT > ATQ%/Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Nilou Bloom",
+    "members": [
+     {
+      "name": "Collei"
+     },
+     {
+      "name": "Nilou"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Sangonomiya Kokomi"
+     }
+    ],
+    "note": "Equipe de Bloom listada no Genshin.gg."
+   },
+   {
+    "name": "Keqing Aggravate",
+    "members": [
+     {
+      "name": "Collei"
+     },
+     {
+      "name": "Keqing"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Equipe de Aggravate listada no Genshin.gg."
+   },
+   {
+    "name": "Tighnari Quickswap",
+    "members": [
+     {
+      "name": "Collei"
+     },
+     {
+      "name": "Tighnari"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Equipe de Quickswap listada no Genshin.gg."
+   }
+  ]
+ },
+ "diona": {
+  "patch": "7.0 (atualizado em 10 Aug 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/diona-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/diona-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Sacrificial Bow",
+    "note": "Melhor opção: dá 30,6% de Recarga de Energia e pode zerar o tempo de recarga da habilidade para proteger mais vezes."
+   },
+   {
+    "name": "Elegy for the End",
+    "note": "Melhor 5 estrelas: 55,1% de Recarga de Energia e buffs para a equipe."
+   },
+   {
+    "name": "Favonius Warbow",
+    "note": "Recarga de Energia extra; use Taxa CRIT apenas com esta arma."
+   },
+   {
+    "name": "Silvershower Heartstrings",
+    "note": "Fornece Vida extra."
+   },
+   {
+    "name": "Sequence of Solitude",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "End of the Line",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Recurve Bow",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Principal: aumenta o ATQ da equipe após o Ultimate, ativável a cada rotação com o Sacrificial Bow."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "2 peças, combinada com Emblem of Severed Fate, se outro membro já usar Noblesse Oblige."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "2 peças em conjunto com Tenacity of the Millelith para Vida e Recarga de Energia."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Vida%, depois Bônus de Cura (Taxa CRIT só com Favonius Warbow)"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Vida% > Vida > Taxa CRIT (apenas com Favonius Warbow).",
+  "teams": [
+   {
+    "name": "Stellar-Swirl",
+    "members": [
+     {
+      "name": "Diona"
+     },
+     {
+      "name": "Sandrone"
+     },
+     {
+      "name": "Odette"
+     },
+     {
+      "name": "Sucrose"
+     }
+    ],
+    "note": "O Ultimate de Diona ativa reações Stellar junto com Swirl."
+   },
+   {
+    "name": "Congelamento",
+    "members": [
+     {
+      "name": "Diona"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Wriothesley"
+     },
+     {
+      "name": "Shenhe"
+     }
+    ],
+    "note": "Controle Cryo com o suporte de Shenhe."
+   },
+   {
+    "name": "Razor Superconduct Shatter",
+    "members": [
+     {
+      "name": "Diona"
+     },
+     {
+      "name": "Razor"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Xingqiu"
+     }
+    ],
+    "note": "Oz aciona Superconduct, Razor causa Shatter e Diona mantém a equipe protegida."
+   }
+  ]
+ },
+ "dori": {
+  "patch": "Atualizado em 12 Sep 2025 (revisado para 5.1)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/dori-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/dori"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Favonius Greatsword",
+    "note": "Melhor opção: grande Recarga de Energia, ajuda a atingir os 160% mínimos."
+   },
+   {
+    "name": "Sacrificial Greatsword",
+    "note": "Alternativa que também aumenta a Recarga de Energia."
+   },
+   {
+    "name": "Katsuragikiri Nagamasa",
+    "note": "Alternativa que também aumenta a Recarga de Energia."
+   },
+   {
+    "name": "Forest Regalia",
+    "note": "Alternativa que também aumenta a Recarga de Energia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Ocean-Hued Clam",
+    "note": "Geralmente a melhor para cura e suporte, com bom aumento de dano."
+   },
+   {
+    "name": "Gilded Dreams",
+    "note": "Foca em Proficiência Elemental; a seguinte melhor opção após Ocean-Hued Clam."
+   },
+   {
+    "name": "Thundering Fury",
+    "note": "Também foca em Proficiência Elemental."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Proficiência Elemental ou Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Proficiência Elemental ou Vida%"
+   }
+  ],
+  "substats": "Prioridade: Taxa CRIT (com Favonius Greatsword) > Recarga de Energia até o necessário > Proficiência Elemental > Vida%.",
+  "teams": [
+   {
+    "name": "Time Thunder (Electro)",
+    "members": [
+     {
+      "name": "Dori"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Yae Miko"
+     },
+     {
+      "name": "Kujou Sara"
+     }
+    ],
+    "note": "Baseado no Ultimate de Raiden; Dori sustenta a equipe e fornece energia."
+   },
+   {
+    "name": "Superconduct",
+    "members": [
+     {
+      "name": "Dori"
+     },
+     {
+      "name": "Eula"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Rosaria"
+     }
+    ],
+    "note": "Electro aciona Superconduct e reduz a RES Física, reforçando o Ultimate de Eula."
+   },
+   {
+    "name": "Overload",
+    "members": [
+     {
+      "name": "Dori"
+     },
+     {
+      "name": "Yoimiya"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Pyro de Yoimiya reage com o Electro para causar Overload com frequência."
+   }
+  ]
+ },
+ "faruzan": {
+  "patch": "7.1 (atualizado em 18 Sep 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/faruzan-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/faruzan-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Favonius Warbow",
+    "note": "Geralmente a mais recomendada: alta Recarga de Energia e partículas passivas."
+   },
+   {
+    "name": "Elegy for the End",
+    "note": "Muita Recarga de Energia com buffs de Proficiência e ATQ; precisa de C6 para ativar a passiva com confiabilidade."
+   },
+   {
+    "name": "Breezeborne Refrain",
+    "note": "Forte com DPS Stellar-Swirl como Vesna, especialmente com refinamento alto."
+   },
+   {
+    "name": "Rainbow Serpent's Rain Bow",
+    "note": "Muita Recarga de Energia e ATQ%, mas geralmente inferior ao Favonius."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Normalmente a melhor em C6, com cobertura total do buff; fraca antes disso."
+   },
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Boa alternativa se outro membro usar Tenacity ou se Faruzan não estiver em C6."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Viável, mas o Scroll é preferido pela duração maior."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia, depois ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Anemo DMG, depois ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (conforme a equipe exigir) > Taxa CRIT / Dano CRIT > ATQ%.",
+  "teams": [
+   {
+    "name": "Vesna Stellar-Swirl",
+    "members": [
+     {
+      "name": "Faruzan"
+     },
+     {
+      "name": "Vesna"
+     },
+     {
+      "name": "Vodyanitsa"
+     },
+     {
+      "name": "Odette"
+     }
+    ],
+    "note": "Vesna causa muito dano Anemo Stellar-Swirl, reforçado por Faruzan."
+   },
+   {
+    "name": "Wanderer Anemo Hexerei",
+    "members": [
+     {
+      "name": "Faruzan"
+     },
+     {
+      "name": "Wanderer"
+     },
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Durin"
+     }
+    ],
+    "note": "Wanderer causa só dano Anemo e aproveita todos os buffs; Nicole dá ATQ e Durin reduz RES Anemo."
+   },
+   {
+    "name": "Venti Hexerei",
+    "members": [
+     {
+      "name": "Faruzan"
+     },
+     {
+      "name": "Venti"
+     },
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Durin"
+     }
+    ],
+    "note": "Os ataques normais de Venti causam bom dano Anemo com dois personagens Hexerei na equipe."
+   }
+  ]
+ },
+ "fischl": {
+  "patch": "6.0 (atualizado em 28 Sep 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/fischl-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/fischl"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Polar Star",
+    "note": "Melhor no geral, mas exige ativar o efeito antes de invocar Oz, o que pode atrapalhar a rotação."
+   },
+   {
+    "name": "Aqua Simulacra",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Hunter's Path",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Thundering Pulse",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "The Stringless",
+    "note": "Opção para equipes de Aggravate."
+   },
+   {
+    "name": "Song of Stillness",
+    "note": "Uma das melhores 4 estrelas."
+   },
+   {
+    "name": "Chain Breaker",
+    "note": "Uma das melhores 4 estrelas."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Golden Troupe",
+    "note": "Melhor conjunto, tanto para off-field quanto para Aggravate."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% (ou Proficiência Elemental em Aggravate)"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Electro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o necessário) > Taxa CRIT / Dano CRIT > ATQ% > Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Superconduct",
+    "members": [
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Clorinde"
+     },
+     {
+      "name": "Mavuika"
+     },
+     {
+      "name": "Chevreuse"
+     }
+    ],
+    "note": "Reações de Overload ativam a passiva de Chevreuse, que reduz RES e aumenta ATQ."
+   },
+   {
+    "name": "Electro-Charged",
+    "members": [
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Chasca"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Fischl e Furina fornecem Electro e Hydro para Chasca; Bennett dá ATQ e cura."
+   },
+   {
+    "name": "Overload",
+    "members": [
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Time agressivo de Overload com RES reduzida por Chevreuse e buff de Bennett."
+   }
+  ]
+ },
+ "freminet": {
+  "patch": "6.0 (atualizado em 28 Sep 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/freminet-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/freminet"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Skyward Pride",
+    "note": "Melhor para Freminet Físico: alto ATQ base, Recarga de Energia e bônus de dano."
+   },
+   {
+    "name": "Fang of the Mountain King",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "A Thousand Blazing Suns",
+    "note": "Alternativa para Físico e a melhor para o build Cryo."
+   },
+   {
+    "name": "Song of Broken Pines",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Verdict",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Beacon of the Reed Sea",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Wolf's Gravestone",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Pale Flame",
+    "note": "Build Físico: 4 peças, muito melhor que qualquer combinação de 2 peças."
+   },
+   {
+    "name": "Blizzard Strayer",
+    "note": "Build Cryo: o guia a chama de, de longe, o melhor conjunto."
+   },
+   {
+    "name": "Golden Troupe",
+    "note": "Opção eficiente em resina que serve se você estiver farmando para outros personagens."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Dano Físico (Físico) ou Cryo DMG (Cryo)"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia até o requisito > Taxa CRIT / Dano CRIT > ATQ%.",
+  "teams": [
+   {
+    "name": "Shatter",
+    "members": [
+     {
+      "name": "Freminet"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Mika"
+     }
+    ],
+    "note": "Usa Congelamento e Shatter; Fischl pode fornecer Electro para Superconduct."
+   },
+   {
+    "name": "Shatterbloom",
+    "members": [
+     {
+      "name": "Freminet"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Kuki Shinobu"
+     }
+    ],
+    "note": "Combina Congelamento, Hyperbloom e Shatter."
+   },
+   {
+    "name": "Hypercarry Físico",
+    "members": [
+     {
+      "name": "Freminet"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Mika"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Baseado em Superconduct para reduzir a RES Física; Zhongli fornece escudo."
+   }
+  ]
+ },
+ "gaming": {
+  "patch": "6.0 (atualizado em 1 Oct 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/gaming-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/gaming"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Fruitful Hook",
+    "note": "Melhor opção, mas apenas em R5."
+   },
+   {
+    "name": "A Thousand Blazing Suns",
+    "note": "A segunda melhor opção."
+   },
+   {
+    "name": "Beacon of the Reed Sea",
+    "note": "Poder semelhante a Verdict e Serpent Spine."
+   },
+   {
+    "name": "Verdict",
+    "note": "Poder semelhante a Beacon of the Reed Sea e Serpent Spine."
+   },
+   {
+    "name": "Serpent Spine",
+    "note": "Poder semelhante a Beacon of the Reed Sea e Verdict."
+   },
+   {
+    "name": "Redhorn Stonethresher",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Wolf's Gravestone",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Crimson Witch of Flames",
+    "note": "Muito competitivo; tende a ser melhor em C6."
+   },
+   {
+    "name": "Marechaussee Hunter",
+    "note": "Muito competitivo; combina com a mecânica de manipulação de Vida do Gaming."
+   },
+   {
+    "name": "Long Night's Oath",
+    "note": "Viável, mas mais fraco; útil se sobrar peças de outros DPS de ataque em queda."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental, depois ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Pyro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o requisito) > Taxa CRIT / Dano CRIT > Proficiência Elemental > ATQ%.",
+  "teams": [
+   {
+    "name": "Melt",
+    "members": [
+     {
+      "name": "Gaming"
+     },
+     {
+      "name": "Ganyu"
+     },
+     {
+      "name": "Layla"
+     },
+     {
+      "name": "Xianyun"
+     }
+    ],
+    "note": "Ganyu e Layla mantêm o Cryo; o ataque em queda de Gaming causa Melt."
+   },
+   {
+    "name": "Pure Pyro",
+    "members": [
+     {
+      "name": "Gaming"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Xianyun"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Ataques em queda contínuos de Pyro, com Xianyun e Bennett de suporte."
+   },
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Gaming"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Xianyun"
+     }
+    ],
+    "note": "Pyro de Gaming com Hydro off-field de Furina causa Vaporize."
+   }
+  ]
+ },
+ "gorou": {
+  "patch": "Luna II (atualizado em 20 Oct 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/gorou-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/gorou"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Favonius Warbow",
+    "note": "Melhor opção: gratuita e fornece Recarga de Energia, fazendo de Gorou uma bateria."
+   },
+   {
+    "name": "Sacrificial Bow",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Elegy for the End",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "The Stringless",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "End of the Line",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "The Exile",
+    "note": "Recomendado: conjunto 4 estrelas com Recarga de Energia, competitivo para Gorou."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "2 peças com Husk of Opulent Dreams para mais DEF% e Recarga de Energia."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Bom buff de equipe, mas o ATQ é desperdiçado em Gorou; melhor em outro membro."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "DEF%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "DEF% ou Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia até o requisito > DEF% > Taxa CRIT.",
+  "teams": [
+   {
+    "name": "Itto Mono Geo Hypercarry",
+    "members": [
+     {
+      "name": "Gorou"
+     },
+     {
+      "name": "Arataki Itto"
+     },
+     {
+      "name": "Albedo"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Gorou aumenta DEF e Geo DMG de Itto e Albedo; Zhongli dá escudo e buff de ATQ."
+   },
+   {
+    "name": "Geo com Noelle",
+    "members": [
+     {
+      "name": "Gorou"
+     },
+     {
+      "name": "Arataki Itto"
+     },
+     {
+      "name": "Noelle"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Noelle mantém o dano Geo quando o Ultimate de Itto está em recarga."
+   },
+   {
+    "name": "Geo com Jean",
+    "members": [
+     {
+      "name": "Gorou"
+     },
+     {
+      "name": "Arataki Itto"
+     },
+     {
+      "name": "Albedo"
+     },
+     {
+      "name": "Jean"
+     }
+    ],
+    "note": "Jean cura e reduz a RES elemental com Viridescent Venerer."
+   }
+  ]
+ },
+ "shikanoin-heizou": {
+  "patch": "Atualizado em 12 Sep 2025 (guia sem versão do jogo)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/shikanoin-heizou-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/shikanoin_heizou"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Skyward Atlas",
+    "note": "Melhor catalisador 5 estrelas; o buff acumulativo combina com o estilo de combate de Heizou."
+   },
+   {
+    "name": "Kagura's Verity",
+    "note": "Alternativa 5 estrelas que pode aumentar ainda mais o dano."
+   },
+   {
+    "name": "The Widsith",
+    "note": "Melhor opção 4 estrelas."
+   },
+   {
+    "name": "Sacrificial Fragments",
+    "note": "Segunda melhor 4 estrelas, de preferência acima de R3."
+   },
+   {
+    "name": "Mappa Mare",
+    "note": "Boa opção gratuita."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Viridescent Venerer",
+    "note": "Primeira escolha em 4 peças, pois Heizou causa dano Anemo."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "2 peças junto com Viridescent Venerer para aumentar o dano de Ultimate."
+   },
+   {
+    "name": "Gladiator's Finale",
+    "note": "2 peças para +18% de ATQ como alternativa."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Anemo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia até cerca de 175% > Taxa CRIT > Dano CRIT > ATQ%.",
+  "teams": [
+   {
+    "name": "Anemo Swirl",
+    "members": [
+     {
+      "name": "Shikanoin Heizou"
+     },
+     {
+      "name": "Faruzan"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Faruzan reforça Swirl e dano Anemo; Yelan fornece Hydro para o Swirl."
+   },
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Shikanoin Heizou"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Pyro de Xiangling e Hydro de Xingqiu causam Vaporize; Heizou reduz RES com Viridescent Venerer."
+   },
+   {
+    "name": "Electro-Charged",
+    "members": [
+     {
+      "name": "Shikanoin Heizou"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Sangonomiya Kokomi"
+     }
+    ],
+    "note": "Fischl e Kokomi sustentam Electro-Charged enquanto Heizou espalha elementos."
+   }
+  ]
+ },
+ "iansan": {
+  "patch": "Atualizado em 20 Jun 2026 (guia revisado para 6.5)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/iansan-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/iansan-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Calamity Queller",
+    "note": "Melhor opção: ATQ base muito alto e ATQ%; a Recarga de Energia vem dos artefatos."
+   },
+   {
+    "name": "Engulfing Lightning",
+    "note": "Melhor quando a equipe exige muita Recarga de Energia; converte Recarga em ATQ."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Melhor 4 estrelas para equipes famintas por energia; precisa de Taxa CRIT para ativar a passiva."
+   },
+   {
+    "name": "Missive Windspear",
+    "note": "Alternativa gratuita se obtida em evento passado."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Padrão e quase sempre a melhor escolha."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Use se outro personagem já usar o Scroll ou se Iansan não ativar reações com confiabilidade."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "ATQ% ou Taxa CRIT (Taxa CRIT com Favonius Lance)"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até os limites necessários) > ATQ% > Taxa CRIT (apenas com Favonius Lance).",
+  "teams": [
+   {
+    "name": "Natlan",
+    "members": [
+     {
+      "name": "Iansan"
+     },
+     {
+      "name": "Kinich"
+     },
+     {
+      "name": "Emilie"
+     },
+     {
+      "name": "Mavuika"
+     }
+    ],
+    "note": "Os DPS de Natlan têm mobilidade suficiente para manter os buffs de Iansan ativos."
+   },
+   {
+    "name": "Natlan com Chasca",
+    "members": [
+     {
+      "name": "Iansan"
+     },
+     {
+      "name": "Chasca"
+     },
+     {
+      "name": "Mavuika"
+     },
+     {
+      "name": "Citlali"
+     }
+    ],
+    "note": "Mesma ideia de equipe Natlan com Iansan como suporte."
+   },
+   {
+    "name": "Overload",
+    "members": [
+     {
+      "name": "Iansan"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Fischl"
+     }
+    ],
+    "note": "Equipe de Overload listada pelo guia."
+   }
+  ]
+ },
+ "kachina": {
+  "patch": "6.0 (atualizado em 27 Sep 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/kachina-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/kachina"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Mountain-Bracing Bolt",
+    "note": "Melhor opção: aumenta o dano."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Forte opção de suporte que fornece energia ao grupo."
+   },
+   {
+    "name": "Footprint of the Rainbow",
+    "note": "Craftável de Natlan e a melhor para aumentar o ataque."
+   },
+   {
+    "name": "Deathmatch",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "The Catch",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Principal motivo de levar Kachina: grandes buffs de dano enquanto ela está em Bênção da Nightsoul."
+   },
+   {
+    "name": "Husk of Opulent Dreams",
+    "note": "Listada entre os melhores artefatos."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Listada entre os melhores artefatos."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "DEF% (equipes Geo) ou Recarga de Energia (sem Geo)"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Geo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT, Dano CRIT ou DEF%"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia até o alvo (200-230% sem Geo, 150-180% com Geo) > Taxa CRIT / Dano CRIT > DEF%.",
+  "teams": [
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Kachina"
+     },
+     {
+      "name": "Mualani"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Hydro de Mualani e Pyro de Xiangling causam Vaporize; Kachina reforça o dano."
+   },
+   {
+    "name": "Crystallize Hypercarry",
+    "members": [
+     {
+      "name": "Kachina"
+     },
+     {
+      "name": "Navia"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "O Geo off-field de Kachina gera cristais que alimentam a habilidade de Navia."
+   },
+   {
+    "name": "Pure Pyro",
+    "members": [
+     {
+      "name": "Kachina"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Kazuha reforça e reduz RES; Kachina dá suporte Geo off-field."
+   }
+  ]
+ },
+ "kaeya": {
+  "patch": "Luna II (atualizado em 20 Oct 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/kaeya-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/kaeya"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Mistsplitter Reforged",
+    "note": "Melhor para Kaeya de Congelamento: alto Dano CRIT e bônus de dano elemental."
+   },
+   {
+    "name": "Light of Foliar Incision",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "Absolution",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "Haran Geppaku Futsu",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "Summit Shaper",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "Primordial Jade Cutter",
+    "note": "Alternativa viável e melhor para o build Reverse Melt (Taxa CRIT e ATQ altos)."
+   },
+   {
+    "name": "Azurelight",
+    "note": "Alternativa viável listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Blizzard Strayer",
+    "note": "Melhor conjunto para Congelamento: +15% Cryo DMG e Taxa CRIT extra."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Para Reverse Melt: muita Recarga de Energia e mais dano de Ultimate."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% (Recarga de Energia no Reverse Melt)"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Cryo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Dano CRIT (Taxa CRIT / Dano CRIT no Reverse Melt)"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia até o requisito > Dano CRIT > Taxa CRIT > ATQ% (Congelamento).",
+  "teams": [
+   {
+    "name": "Melt Vaporize",
+    "members": [
+     {
+      "name": "Kaeya"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Ultimates off-field de Xingqiu e Kaeya causam Vaporize e Melt para Hu Tao."
+   },
+   {
+    "name": "Melt",
+    "members": [
+     {
+      "name": "Kaeya"
+     },
+     {
+      "name": "Chongyun"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Cryo de Kaeya derrete em inimigos com Pyro aplicado."
+   },
+   {
+    "name": "Permafrost",
+    "members": [
+     {
+      "name": "Kaeya"
+     },
+     {
+      "name": "Chongyun"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Diona"
+     }
+    ],
+    "note": "Cryo e Hydro causam Congelamento; Diona dá escudo e energia."
+   }
+  ]
+ },
+ "kaveh": {
+  "patch": "6.0 (atualizado em 27 Sep 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/kaveh-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/kaveh"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Flame-Forged Insight",
+    "note": "Melhor opção, a arma de evento."
+   },
+   {
+    "name": "Favonius Greatsword",
+    "note": "Opção de suporte que fornece Recarga de Energia."
+   },
+   {
+    "name": "Master Key",
+    "note": "Para equipes que não precisam de energia e querem mais Proficiência Elemental."
+   },
+   {
+    "name": "Mailed Flower",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Sacrificial Greatsword",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Makhaira Aquamarine",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Wolf's Gravestone",
+    "note": "Alternativa listada pelo guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Deepwood Memories",
+    "note": "Use no Kaveh se ninguém mais da equipe usar; idealmente um suporte Dendro o equipa."
+   },
+   {
+    "name": "Flower of Paradise Lost",
+    "note": "Use quando o Kaveh ativa a maioria das reações de Florescer."
+   },
+   {
+    "name": "Ocean-Hued Clam",
+    "note": "Use quando o Kaveh não ativa a maioria das reações de Florescer."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia / Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Proficiência Elemental"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o necessário) > Proficiência Elemental > Taxa CRIT (com Favonius) > ATQ% > Taxa CRIT / Dano CRIT.",
+  "teams": [
+   {
+    "name": "Bountiful Bloom",
+    "members": [
+     {
+      "name": "Kaveh"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Nilou"
+     },
+     {
+      "name": "Nahida"
+     }
+    ],
+    "note": "Nilou converte os núcleos em Bountiful Cores; Kaveh os detona e amplia o dano com o Burst."
+   },
+   {
+    "name": "Bloom",
+    "members": [
+     {
+      "name": "Kaveh"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Nilou"
+     },
+     {
+      "name": "Baizhu"
+     }
+    ],
+    "note": "Mesma base, com Baizhu aumentando o dano de Florescer e fornecendo cura e escudos."
+   },
+   {
+    "name": "Bountiful Bloom Core",
+    "members": [
+     {
+      "name": "Kaveh"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Nilou"
+     },
+     {
+      "name": "Nahida"
+     }
+    ],
+    "note": "Yelan e Nahida mantêm Hydro e Dendro fora de campo para gerar núcleos continuamente."
+   }
+  ]
+ },
+ "kirara": {
+  "patch": "6.0 (atualizado em 27 Sep 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/kirara-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/kirara"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Key of Khaj-Nisut",
+    "note": "Melhor opção: maximiza o escudo pela Vida e aumenta a Proficiência Elemental do grupo."
+   },
+   {
+    "name": "Sapwood Blade",
+    "note": "Boa opção listada pelo guia."
+   },
+   {
+    "name": "The Dockhand's Assistant",
+    "note": "Boa opção listada pelo guia."
+   },
+   {
+    "name": "Serenity's Call",
+    "note": "Requer Moonsign."
+   },
+   {
+    "name": "Favonius Sword",
+    "note": "Facilita a Recarga de Energia, mas é menos importante."
+   },
+   {
+    "name": "Sacrificial Sword",
+    "note": "Alternativa listada pelo guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Deepwood Memories",
+    "note": "Recomendado em equipes Dendro, pois alguém costuma querer o set; a Kirara dificilmente mantém o efeito ativo."
+   },
+   {
+    "name": "Vourukasha's Glow",
+    "note": "Listado junto com Tenacity of the Millelith como boa opção de set."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Listado junto com Vourukasha's Glow como boa opção de set."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida% / Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Vida% / Taxa CRIT (Taxa CRIT com Favonius)"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o necessário) > Vida% > Taxa CRIT (com Favonius) > Vida.",
+  "teams": [
+   {
+    "name": "Hyperbloom",
+    "members": [
+     {
+      "name": "Kirara"
+     },
+     {
+      "name": "Kamisato Ayato"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Kuki Shinobu"
+     }
+    ],
+    "note": "Hydro do Ayato e Dendro de Nahida e Kirara geram núcleos que a Kuki Shinobu (C2) detona."
+   },
+   {
+    "name": "Bloom",
+    "members": [
+     {
+      "name": "Kirara"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Barbara"
+     },
+     {
+      "name": "Nilou"
+     }
+    ],
+    "note": "Nilou gera Bountiful Cores; dois Hydro prolongam o Burst da Nahida."
+   },
+   {
+    "name": "Spread",
+    "members": [
+     {
+      "name": "Kirara"
+     },
+     {
+      "name": "Alhaitham"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Nahida"
+     }
+    ],
+    "note": "Dendro de Alhaitham, Nahida e Kirara com Electro fora de campo da Raiden gera Spread."
+   }
+  ]
+ },
+ "kujou-sara": {
+  "patch": "7.1 (atualizado em 18 Sep 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/kujou-sara-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/kujou-sara-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Elegy for the End",
+    "note": "Geralmente a melhor para o dano da equipe pelo buff de grupo, embora não para o dano da própria Sara."
+   },
+   {
+    "name": "The Daybreak Chronicles",
+    "note": "Opção de alto nível listada pelo guia."
+   },
+   {
+    "name": "Polar Star",
+    "note": "Opção de alto nível listada pelo guia."
+   },
+   {
+    "name": "Skyward Harp",
+    "note": "Bom valor de CRIT e ATQ base alto; melhor que as de 4 estrelas."
+   },
+   {
+    "name": "Thundering Pulse",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Astral Vulture's Crimson Plumage",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Mouun's Moon",
+    "note": "Opção listada pelo guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Geralmente o melhor set para o dano da equipe, a menos que outro personagem o use."
+   },
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Alternativa caso um aliado use Noblesse Oblige; ela ainda recebe o bônus de 12% de dano elemental."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Geralmente o melhor set para o dano pessoal dela."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia > ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Electro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Taxa CRIT > Dano CRIT > ATQ.",
+  "teams": [
+   {
+    "name": "Electro DPS",
+    "members": [
+     {
+      "name": "Kujou Sara"
+     },
+     {
+      "name": "Flins"
+     },
+     {
+      "name": "Columbina"
+     },
+     {
+      "name": "Sucrose"
+     }
+    ],
+    "note": "Flins é citado como uma das melhores alternativas à Ineffa."
+   },
+   {
+    "name": "Electro DPS",
+    "members": [
+     {
+      "name": "Kujou Sara"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Chevreuse"
+     }
+    ],
+    "note": "Raiden devolve energia e tem janela de dano curta, com bom tempo ativo dos buffs."
+   },
+   {
+    "name": "Electro DPS",
+    "members": [
+     {
+      "name": "Kujou Sara"
+     },
+     {
+      "name": "Varesa"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Chevreuse"
+     }
+    ],
+    "note": "Varesa troca livremente, ajudando a manter os buffs da Sara ativos."
+   }
+  ]
+ },
+ "kuki-shinobu": {
+  "patch": "Sem patch indicado (atualizado em 12 Sep 2025; revisado para 4.7)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/kuki-shinobu-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/kuki_shinobu"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Freedom-Sworn",
+    "note": "Melhor opção para Hyperbloom e Aggravate."
+   },
+   {
+    "name": "Xiphos' Moonlight",
+    "note": "Uma das melhores armas para Hyperbloom."
+   },
+   {
+    "name": "Iron Sting",
+    "note": "Alternativa para Hyperbloom."
+   },
+   {
+    "name": "Key of Khaj-Nisut",
+    "note": "Alternativa para Hyperbloom e curandeira pura."
+   },
+   {
+    "name": "Toukabou Shigure",
+    "note": "Alternativa para Hyperbloom."
+   },
+   {
+    "name": "Favonius Sword",
+    "note": "Melhor opção como curandeira pura; fornece energia à equipe."
+   },
+   {
+    "name": "Primordial Jade Cutter",
+    "note": "Alternativa para a build de Aggravate."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Flower of Paradise Lost",
+    "note": "Set ideal para Hyperbloom."
+   },
+   {
+    "name": "Gilded Dreams",
+    "note": "Segunda opção para Hyperbloom; também serve em Aggravate."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Para curandeira pura: aumenta a cura e o bônus de 4 peças ajuda a equipe."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Proficiência Elemental"
+   }
+  ],
+  "substats": "Prioridade (Hyperbloom): Proficiência Elemental > Vida% > Vida > Recarga de Energia.",
+  "teams": [
+   {
+    "name": "Catalyze / Hyperbloom",
+    "members": [
+     {
+      "name": "Kuki Shinobu"
+     },
+     {
+      "name": "Cyno"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Yelan"
+     }
+    ],
+    "note": "Yelan cria núcleos que a Kuki (C2) detona; Nahida e Cyno mantêm Catalyze."
+   },
+   {
+    "name": "Hyperbloom",
+    "members": [
+     {
+      "name": "Kuki Shinobu"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Yelan"
+     }
+    ],
+    "note": "Dois Hydro e um Electro encurtam o intervalo da Nahida e prolongam seu Burst."
+   },
+   {
+    "name": "Thunder (Electro)",
+    "members": [
+     {
+      "name": "Kuki Shinobu"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Beidou"
+     },
+     {
+      "name": "Kujou Sara"
+     }
+    ],
+    "note": "Sara C6 dá Dano CRIT Electro; a Kuki cura e carrega Tenacity of the Millelith."
+   }
+  ]
+ },
+ "lan-yan": {
+  "patch": "7.1 (atualizado em 18 Sep 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/lan-yan-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/lan-yan-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Angelos' Heptades",
+    "note": "Melhor opção; o ATQ% e o buff ao personagem ativo também reforçam o escudo."
+   },
+   {
+    "name": "Starcaller's Watch",
+    "note": "Buff de dano similar, com Proficiência Elemental em vez de ATQ%."
+   },
+   {
+    "name": "Thrilling Tales of Dragon Slayers",
+    "note": "Melhor opção gratuita, com bom buff de ATQ% ao personagem ativo."
+   },
+   {
+    "name": "Hakushin Ring",
+    "note": "Útil em equipes Electro, mas exige trocas frequentes."
+   },
+   {
+    "name": "Favonius Codex",
+    "note": "Gera partículas de energia; ela precisa de Taxa CRIT razoável."
+   },
+   {
+    "name": "Skyward Atlas",
+    "note": "Opção de ATQ alto; Cashflow Supervision é alternativa para CRIT."
+   },
+   {
+    "name": "Oathsworn Eye",
+    "note": "Bom ATQ e Recarga de Energia, mas não pode mais ser obtida."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Viridescent Venerer",
+    "note": "Recomendado para equipes com DPS Pyro, Hydro, Electro ou Cryo."
+   },
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Set de suporte reserva quando o Viridescent Venerer não ajuda."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "O buff de ATQ só ativa após o Burst, que ela não usa toda rotação."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ% / Anemo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "ATQ% / Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: ATQ% > Taxa CRIT / Dano CRIT.",
+  "teams": [
+   {
+    "name": "PHEC",
+    "members": [
+     {
+      "name": "Lan Yan"
+     },
+     {
+      "name": "Wriothesley"
+     },
+     {
+      "name": "Odette"
+     },
+     {
+      "name": "Yae Miko"
+     }
+    ],
+    "note": "Equipe listada pelo guia, sem notas específicas."
+   },
+   {
+    "name": "PHEC (Quicken)",
+    "members": [
+     {
+      "name": "Lan Yan"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Clorinde"
+     }
+    ],
+    "note": "Fischl facilita o Swirl com Electro rápido fora de campo; Clorinde é parceira de destaque."
+   },
+   {
+    "name": "PHEC (Hydro)",
+    "members": [
+     {
+      "name": "Lan Yan"
+     },
+     {
+      "name": "Xilonen"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Neuvillette"
+     }
+    ],
+    "note": "O escudo da Lan Yan beneficia o DPS Hydro Neuvillette."
+   }
+  ]
+ },
+ "layla": {
+  "patch": "6.0 (atualizado em 27 Sep 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/layla-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/layla"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Key of Khaj-Nisut",
+    "note": "Melhor opção para escudeira, escala com Vida."
+   },
+   {
+    "name": "The Dockhand's Assistant",
+    "note": "Alternativa que escala com Vida."
+   },
+   {
+    "name": "Serenity's Call",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Favonius Sword",
+    "note": "Fornece Recarga de Energia a todo o grupo."
+   },
+   {
+    "name": "Primordial Jade Cutter",
+    "note": "Melhor opção para sub DPS; exige Tiara de Dano CRIT com Blizzard Strayer."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Melhor set como escudeira, aumenta Vida e escudo."
+   },
+   {
+    "name": "Blizzard Strayer",
+    "note": "Melhor set como sub DPS, principalmente em equipes Freeze."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Alternativa que reforça o dano da equipe."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida% / Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Vida% / Taxa CRIT (Taxa CRIT com Favonius Sword)"
+   }
+  ],
+  "substats": "Prioridade (escudeira): Recarga de Energia (até o necessário) > Vida% > Taxa CRIT (com Favonius Sword) > Vida.",
+  "teams": [
+   {
+    "name": "Permafrost Freeze",
+    "members": [
+     {
+      "name": "Layla"
+     },
+     {
+      "name": "Kamisato Ayaka"
+     },
+     {
+      "name": "Shenhe"
+     },
+     {
+      "name": "Xingqiu"
+     }
+    ],
+    "note": "O Hydro do Xingqiu permite que o Cryo congele os inimigos enquanto Ayaka causa o dano."
+   },
+   {
+    "name": "Melt & Vaporize",
+    "members": [
+     {
+      "name": "Layla"
+     },
+     {
+      "name": "Yoimiya"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Xingqiu"
+     }
+    ],
+    "note": "Yoimiya é a DPS; Layla aplica Cryo fora de campo e Yelan e Xingqiu fornecem Hydro."
+   },
+   {
+    "name": "Melting",
+    "members": [
+     {
+      "name": "Layla"
+     },
+     {
+      "name": "Ganyu"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Xingqiu"
+     }
+    ],
+    "note": "Cryo do Ganyu com o Pyro da Xiangling causa Derreter; Layla fornece o escudo."
+   }
+  ]
+ },
+ "lisa": {
+  "patch": "Sem patch indicado (atualizado em 12 Sep 2025; revisado para 5.1)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/lisa-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/lisa"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Kagura's Verity",
+    "note": "Melhor opção: aumenta o dano da Habilidade em até três acúmulos e dá Dano Elemental extra."
+   },
+   {
+    "name": "Lost Prayer to the Sacred Winds",
+    "note": "Concede velocidade de movimento e dano elemental."
+   },
+   {
+    "name": "Solar Pearl",
+    "note": "Boa opção geral de 4 estrelas."
+   },
+   {
+    "name": "Thrilling Tales of Dragon Slayers",
+    "note": "Opção gratuita recomendada, aumenta o ATQ ao entrar em campo."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Thundering Fury",
+    "note": "Melhor set (4 peças), reforça o dano de Aggravate."
+   },
+   {
+    "name": "Gilded Dreams",
+    "note": "Segunda opção (4 peças), ambos os bônus amplificam o Dano Elemental."
+   },
+   {
+    "name": "Thundersoother",
+    "note": "Opção de 4 peças listada pelo guia."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Electro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Taxa CRIT / Dano CRIT > Proficiência Elemental > Recarga de Energia > ATQ% / ATQ.",
+  "teams": [
+   {
+    "name": "Thunder & Overload",
+    "members": [
+     {
+      "name": "Lisa"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Kujou Sara"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Sara C6 dá Dano CRIT Electro; Lisa aplica Electro fora de campo e causa Sobrecarga com o Pyro do Bennett."
+   },
+   {
+    "name": "Superconduct",
+    "members": [
+     {
+      "name": "Lisa"
+     },
+     {
+      "name": "Eula"
+     },
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Lisa e Rosaria causam Supercondutor para reduzir a RES Física e potencializar a Eula."
+   },
+   {
+    "name": "Overload",
+    "members": [
+     {
+      "name": "Lisa"
+     },
+     {
+      "name": "Diluc"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Lisa fornece Electro fora de campo; Kazuha agrupa inimigos e reduz a RES elemental."
+   }
+  ]
+ },
+ "lynette": {
+  "patch": "Luna II (atualizado em 20 Oct 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/lynette-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/lynette"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Favonius Sword",
+    "note": "Melhor opção para DPS fora de campo devido à alta necessidade de energia."
+   },
+   {
+    "name": "Fleuve Cendre Ferryman",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Sacrificial Sword",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Amenoma Kageuchi",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Skyward Blade",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Freedom-Sworn",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Skyrider Sword",
+    "note": "Opção listada pelo guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Viridescent Venerer",
+    "note": "Continua sendo uma das melhores opções gerais."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Melhor se outro personagem Anemo já usa Viridescent Venerer; dá muita Recarga de Energia e dano de Burst."
+   },
+   {
+    "name": "Marechaussee Hunter",
+    "note": "Forte para a build de DPS em campo, aproveitando a perda de Vida dela."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia / ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Anemo DMG / ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade (DPS fora de campo): Recarga de Energia (até o necessário) > Taxa CRIT (com Favonius) > Dano CRIT > ATQ% > Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Lynette"
+     },
+     {
+      "name": "Tartaglia"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Tartaglia é o DPS; Lynette reduz as RES com Viridescent Venerer e Bennett dá buff de ATQ."
+   },
+   {
+    "name": "Overload",
+    "members": [
+     {
+      "name": "Lynette"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Kujou Sara"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Sara precisa de C6 para o Dano CRIT Electro; Lynette agrupa inimigos e reduz as RES."
+   },
+   {
+    "name": "Permafrost Freeze",
+    "members": [
+     {
+      "name": "Lynette"
+     },
+     {
+      "name": "Kamisato Ayaka"
+     },
+     {
+      "name": "Shenhe"
+     },
+     {
+      "name": "Sangonomiya Kokomi"
+     }
+    ],
+    "note": "Shenhe potencializa a Ayaka; Kokomi aplica Hydro para o Congelamento."
+   }
+  ]
+ },
+ "mika": {
+  "patch": "6.0 (atualizado em 28 Sep 2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/mika-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/mika"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Symphonist of Scents",
+    "note": "Melhor opção: grandes bônus pela cura do Mika, mas dificulta a Recarga de Energia."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Ajuda na Recarga de Energia e reduz a necessidade da equipe."
+   },
+   {
+    "name": "Dialogues of the Desert Sages",
+    "note": "Menos de suporte, mas escala com Vida%, importante para o Mika."
+   },
+   {
+    "name": "Engulfing Lightning",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "\"The Catch\"",
+    "note": "Opção gratuita e fácil de obter."
+   },
+   {
+    "name": "Rightful Reward",
+    "note": "Opção listada pelo guia."
+   },
+   {
+    "name": "Prototype Starglitter",
+    "note": "Opção gratuita e fácil de obter."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Melhor escolha, pois aumenta o ATQ da equipe."
+   },
+   {
+    "name": "Ocean-Hued Clam",
+    "note": "Segunda opção caso alguém já use Noblesse Oblige."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia / Vida%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Bônus de Cura / Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o necessário) > Taxa CRIT (com Favonius) > Vida% > Vida.",
+  "teams": [
+   {
+    "name": "Superconduct",
+    "members": [
+     {
+      "name": "Mika"
+     },
+     {
+      "name": "Eula"
+     },
+     {
+      "name": "Yae Miko"
+     },
+     {
+      "name": "Nahida"
+     }
+    ],
+    "note": "Yae Miko aplica Electro fora de campo, Nahida ativa Aggravate e Mika cura e aumenta o Dano Físico."
+   },
+   {
+    "name": "Physical",
+    "members": [
+     {
+      "name": "Mika"
+     },
+     {
+      "name": "Eula"
+     },
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Eula é beneficiada pela VEL. ATQ e Dano Físico do Mika; Rosaria reduz a RES Física no C6."
+   },
+   {
+    "name": "Superconduct",
+    "members": [
+     {
+      "name": "Mika"
+     },
+     {
+      "name": "Eula"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Raiden fornece Electro para o Supercondutor e aumenta a Recarga de Energia da equipe."
+   }
+  ]
+ },
+ "ningguang": {
+  "patch": "Sem patch indicado (atualizado em 12 Sep 2025; revisado para 5.1)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/ningguang-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/ningguang"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Lost Prayer to the Sacred Winds",
+    "note": "Melhor opção listada pelo guia."
+   },
+   {
+    "name": "Kagura's Verity",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Skyward Atlas",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Solar Pearl",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Mappa Mare",
+    "note": "Alternativa listada pelo guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "4 peças: reforça o dano de ataque carregado ao alternar ataques normais com habilidades."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "4 peças: buff de ATQ para a equipe com o Burst; bom ao alternar sub DPS."
+   },
+   {
+    "name": "Archaic Petra",
+    "note": "Combinada em 2 peças com Gladiator's Finale para buscar Taxa CRIT e Dano CRIT altos; o guia diz que não há set único ideal."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Geo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Taxa CRIT > Dano CRIT > ATQ% > ATQ.",
+  "teams": [
+   {
+    "name": "Xiao Core (Hypercarry)",
+    "members": [
+     {
+      "name": "Ningguang"
+     },
+     {
+      "name": "Xiao"
+     },
+     {
+      "name": "Jean"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Ningguang cobre as pausas do Xiao e ativa a Ressonância Geo."
+   },
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Ningguang"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Xingqiu aplica Hydro para o Vaporizar do Hu Tao; Ningguang adiciona dano e Ressonância Geo."
+   },
+   {
+    "name": "Electro",
+    "members": [
+     {
+      "name": "Ningguang"
+     },
+     {
+      "name": "Beidou"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Jean"
+     }
+    ],
+    "note": "Os ataques normais da Ningguang ativam o Electro fora de campo de Beidou e Fischl."
+   }
+  ]
+ },
+ "noelle": {
+  "patch": "Sem patch indicado (atualizado em 12 Sep 2025; revisado para 5.1)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/noelle-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/noelle"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Redhorn Stonethresher",
+    "note": "Melhor opção: Dano CRIT e bônus de dano baseado em DEF combinam com a Noelle."
+   },
+   {
+    "name": "Serpent Spine",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Whiteblind",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Skyward Pride",
+    "note": "Alternativa listada pelo guia."
+   },
+   {
+    "name": "Favonius Greatsword",
+    "note": "Recomendada na equipe Taser, onde ela vira bateria de energia para Xingqiu e Beidou."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Husk of Opulent Dreams",
+    "note": "Set de 4 peças listado pelo guia."
+   },
+   {
+    "name": "Marechaussee Hunter",
+    "note": "Ótimo set para a Noelle, especialmente com a Furina."
+   },
+   {
+    "name": "Gladiator's Finale",
+    "note": "Set de 4 peças listado pelo guia."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "DEF%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Geo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Taxa CRIT > Dano CRIT > DEF% > Recarga de Energia > ATQ%.",
+  "teams": [
+   {
+    "name": "Pure Geo",
+    "members": [
+     {
+      "name": "Noelle"
+     },
+     {
+      "name": "Arataki Itto"
+     },
+     {
+      "name": "Gorou"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Itto e Noelle se alternam como DPS; Gorou dá DEF e Geo DMG e Zhongli escudo."
+   },
+   {
+    "name": "Xiao Core",
+    "members": [
+     {
+      "name": "Noelle"
+     },
+     {
+      "name": "Xiao"
+     },
+     {
+      "name": "Jean"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Noelle cobre as pausas do Xiao; Jean dá energia e reduz a RES Anemo."
+   },
+   {
+    "name": "Pure Geo Hypercarry",
+    "members": [
+     {
+      "name": "Noelle"
+     },
+     {
+      "name": "Albedo"
+     },
+     {
+      "name": "Gorou"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Noelle é a DPS focada no Burst, com apoio Geo de Albedo, Gorou e Zhongli."
+   }
+  ]
+ },
+ "ororon": {
+  "patch": "6.0 (atualizado em 28/09/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/ororon-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/ororon"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Elegy for the End",
+    "note": "Melhor arma; equilibra suporte e geração de energia."
+   },
+   {
+    "name": "Polar Star",
+    "note": "Alternativa para maior dano."
+   },
+   {
+    "name": "The First Great Magic",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Favonius Warbow",
+    "note": "Alternativa para regeneração de energia."
+   },
+   {
+    "name": "Alley Hunter",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Chain Breaker",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Range Gauge",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Scroll of the Hero of Cinder City",
+    "note": "Geralmente o melhor conjunto; Ororon pode atuar como buffer com ele."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Próxima melhor opção se outro personagem usar o Scroll."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% / Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Electro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até atingir o requisito) > Taxa CRIT / Dano CRIT > ATQ% > Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Multi-reações",
+    "members": [
+     {
+      "name": "Ororon"
+     },
+     {
+      "name": "Chasca"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Chasca adapta seus tiros aos elementos da equipe; Bennett cura e dá bônus de ATQ."
+   },
+   {
+    "name": "Electro-Charged",
+    "members": [
+     {
+      "name": "Ororon"
+     },
+     {
+      "name": "Clorinde"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Xilonen"
+     }
+    ],
+    "note": "Clorinde e Furina geram Electro-Charged; Xilonen reduz RES e cura."
+   },
+   {
+    "name": "Electro-Charged Cyno hipercarry",
+    "members": [
+     {
+      "name": "Ororon"
+     },
+     {
+      "name": "Cyno"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Xilonen"
+     }
+    ],
+    "note": "Cyno fica em campo e Ororon e Xilonen dão suporte."
+   }
+  ]
+ },
+ "razor": {
+  "patch": "Atualizado em 02/12/2025 (sem versão de patch indicada)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/razor-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/razor"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Wolf's Gravestone",
+    "note": "Melhor arma; grande bônus de ATQ contra inimigos abaixo de 30% de vida."
+   },
+   {
+    "name": "Song of Broken Pines",
+    "note": "Dá ATQ fixo constante e buff de ATQ e Vel. de ATQ para a equipe."
+   },
+   {
+    "name": "The Unforged",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Serpent Spine",
+    "note": "Melhor opção gratuita; dá Taxa CRIT e bônus de dano acumulável."
+   },
+   {
+    "name": "Lithic Blade",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Luxurious Sea-Lord",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Pale Flame",
+    "note": "Conjunto de 4 peças listado entre os melhores."
+   },
+   {
+    "name": "Gladiator's Finale",
+    "note": "Conjunto de 4 peças listado entre os melhores."
+   },
+   {
+    "name": "Bloodstained Chivalry",
+    "note": "Usado em combinação de 2 peças com Pale Flame ou Gladiator's Finale."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Physical DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: ATQ% > Taxa CRIT > Dano CRIT > Recarga de Energia.",
+  "teams": [
+   {
+    "name": "Overload #1",
+    "members": [
+     {
+      "name": "Razor"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Três Pyro geram Overload; Chevreuse reduz RES e Bennett buffa."
+   },
+   {
+    "name": "Overload #2",
+    "members": [
+     {
+      "name": "Razor"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Fischl adiciona dano Electro fora de campo."
+   },
+   {
+    "name": "Overload #3",
+    "members": [
+     {
+      "name": "Razor"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Albedo"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Albedo adiciona dano Geo, Proficiência Elemental e buffs."
+   }
+  ]
+ },
+ "rosaria": {
+  "patch": "5.8 (atualizado em 12/09/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/rosaria-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/rosaria"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Staff of the Scarlet Sands",
+    "note": "Melhor arma no Reverse Melt, cerca de 10% à frente com Gilded Dreams."
+   },
+   {
+    "name": "Crimson Moon's Semblance",
+    "note": "Alternativa para o build Reverse Melt."
+   },
+   {
+    "name": "Staff of Homa",
+    "note": "Alternativa para o build Reverse Melt."
+   },
+   {
+    "name": "Lumidouce Elegy",
+    "note": "Alternativa para Reverse Melt e para o build de suporte."
+   },
+   {
+    "name": "Calamity Queller",
+    "note": "Alternativa para o build Reverse Melt."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Melhor arma no build de suporte; boa se a equipe precisa de partículas."
+   },
+   {
+    "name": "Deathmatch",
+    "note": "Arma do Passe de Batalha, fácil de obter."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Gilded Dreams",
+    "note": "Melhor escolha no Reverse Melt, quase empatada com Lavawalker."
+   },
+   {
+    "name": "Lavawalker",
+    "note": "Quase empata com Gilded Dreams, mas é mais difícil de farmar."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Usado na maioria dos casos no build de suporte."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental ou ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Cryo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade (Reverse Melt): Taxa CRIT > Dano CRIT > Proficiência Elemental > Recarga de Energia > ATQ%.",
+  "teams": [
+   {
+    "name": "Melt/Vaporize com Hu Tao",
+    "members": [
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Vaporize e Melt amplificam Hu Tao; Zhongli dá escudo e ATQ."
+   },
+   {
+    "name": "Superconduct com Eula",
+    "members": [
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Eula"
+     },
+     {
+      "name": "Raiden Shogun"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Superconduct reforça o Burst de Eula."
+   },
+   {
+    "name": "Melt",
+    "members": [
+     {
+      "name": "Rosaria"
+     },
+     {
+      "name": "Chongyun"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Chongyun mantém o Cryo para Melt; Kazuha agrupa e Bennett buffa."
+   }
+  ]
+ },
+ "sayu": {
+  "patch": "Luna II (atualizado em 20/10/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/sayu-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/sayu"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Favonius Greatsword",
+    "note": "Melhor arma; exige alguma Taxa CRIT e ajuda a usar o Burst a cada rotação."
+   },
+   {
+    "name": "Wolf's Gravestone",
+    "note": "Segunda melhor; dá um pequeno buff à equipe."
+   },
+   {
+    "name": "Katsuragikiri Nagamasa",
+    "note": "Melhor opção gratuita; craftável e com boa Recarga de Energia."
+   },
+   {
+    "name": "Flame-Forged Insight",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Mailed Flower",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Skyward Pride",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Sacrificial Greatsword",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Viridescent Venerer",
+    "note": "Melhor conjunto em campo ou fora; reduz RES e aumenta o Swirl."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia / Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ% / Proficiência Elemental"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Bônus de Cura / Proficiência Elemental"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Proficiência Elemental > ATQ% > Taxa CRIT (só com Favonius Greatsword).",
+  "teams": [
+   {
+    "name": "Xiao Swirl",
+    "members": [
+     {
+      "name": "Sayu"
+     },
+     {
+      "name": "Xiao"
+     },
+     {
+      "name": "Chongyun"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Sayu dá energia e Ressonância Anemo; Chongyun (C2) encurta o recarga do Skill de Xiao."
+   },
+   {
+    "name": "Pyro Swirl",
+    "members": [
+     {
+      "name": "Sayu"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Albedo"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "O Skill de Sayu espalha o Pyro de Xiangling para gerar Swirl."
+   },
+   {
+    "name": "Vaporize com Hu Tao",
+    "members": [
+     {
+      "name": "Sayu"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Zhongli"
+     },
+     {
+      "name": "Xingqiu"
+     }
+    ],
+    "note": "O Burst de Xingqiu aplica Hydro para Vaporize; Sayu cura e reduz RES."
+   }
+  ]
+ },
+ "sethos": {
+  "patch": "5.4 (guia atualizado em 12/09/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/sethos-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/sethos"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Hunter's Path",
+    "note": "Melhor arma."
+   },
+   {
+    "name": "Slingshot",
+    "note": "Escolha padrão do guia; a melhor depois de Hunter's Path se o alcance for suficiente."
+   },
+   {
+    "name": "Aqua Simulacra",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "Scion of the Blazing Sun",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "The First Great Magic",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "Skyward Harp",
+    "note": "Alternativa viável listada no guia."
+   },
+   {
+    "name": "Song of Stillness",
+    "note": "Alternativa viável listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Wanderer's Troupe",
+    "note": "Recomendado; aumenta Proficiência Elemental e dano de Ataque Carregado."
+   },
+   {
+    "name": "Desert Pavilion Chronicle",
+    "note": "Pode ser o melhor se o foco for o Burst em vez do Ataque Carregado."
+   },
+   {
+    "name": "Gilded Dreams",
+    "note": "Listado entre os melhores artefatos."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Electro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o requisito) > Taxa CRIT / Dano CRIT > Proficiência Elemental > ATQ%.",
+  "teams": [
+   {
+    "name": "Aggravate",
+    "members": [
+     {
+      "name": "Sethos"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Kirara"
+     }
+    ],
+    "note": "Kirara aplica Dendro para Aggravate; Kazuha agrupa e reduz RES."
+   },
+   {
+    "name": "Hyperbloom",
+    "members": [
+     {
+      "name": "Sethos"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Furina"
+     }
+    ],
+    "note": "Yelan e Furina geram núcleos de Bloom que Sethos detona com Electro."
+   }
+  ]
+ },
+ "sucrose": {
+  "patch": "5.1 (revisado em 22/10/2024; atualizado em 02/12/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/sucrose-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/sucrose"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "A Thousand Floating Dreams",
+    "note": "Melhor arma; foco total em Proficiência Elemental."
+   },
+   {
+    "name": "Wandering Evenstar",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Sacrificial Fragments",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Thrilling Tales of Dragon Slayers",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Viridescent Venerer",
+    "note": "Recomendado; reduz RES inimiga e aumenta dano Anemo e Swirl."
+   },
+   {
+    "name": "Instructor",
+    "note": "Boa para o início do jogo (antes do RA 45) e fácil de obter."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Proficiência Elemental"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (~120% em campo, ~160% fora) > Proficiência Elemental > Taxa CRIT > Dano CRIT.",
+  "teams": [
+   {
+    "name": "Lunar-Charged",
+    "members": [
+     {
+      "name": "Sucrose"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Ineffa"
+     }
+    ],
+    "note": "Xingqiu e Fischl geram Electro-Charged e Ineffa o converte em Lunar-Charged."
+   },
+   {
+    "name": "Vaporize",
+    "members": [
+     {
+      "name": "Sucrose"
+     },
+     {
+      "name": "Klee"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Sucrose agrupa e dá Proficiência Elemental; Klee dispara o Vaporize."
+   },
+   {
+    "name": "Lunar-Bloom",
+    "members": [
+     {
+      "name": "Sucrose"
+     },
+     {
+      "name": "Nefer"
+     },
+     {
+      "name": "Lauma"
+     },
+     {
+      "name": "Aino"
+     }
+    ],
+    "note": "Nefer é a DPS; Sucrose compartilha Proficiência Elemental e agrupa inimigos."
+   }
+  ]
+ },
+ "thoma": {
+  "patch": "6.1 (atualizado em 26/10/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/thoma-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/thoma"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Kitain Cross Spear",
+    "note": "Melhor arma no build Burgeon; aumenta Proficiência Elemental ou Recarga de Energia."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Pode ser mais forte conforme a equipe, mas exige Taxa CRIT."
+   },
+   {
+    "name": "Dragon's Bane",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Moonpiercer",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Black Tassel",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Rightful Reward",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Flower of Paradise Lost",
+    "note": "Melhor conjunto no Burgeon; aumenta Proficiência Elemental e dano de Burgeon."
+   },
+   {
+    "name": "Gilded Dreams",
+    "note": "Também listado entre os melhores artefatos."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Melhor conjunto no build de suporte com escudo."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia / Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Proficiência Elemental"
+   }
+  ],
+  "substats": "Prioridade (Burgeon): Recarga de Energia > Proficiência Elemental > Vida% > Vida.",
+  "teams": [
+   {
+    "name": "Burgeon com Ayato",
+    "members": [
+     {
+      "name": "Thoma"
+     },
+     {
+      "name": "Kamisato Ayato"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Nahida"
+     }
+    ],
+    "note": "Ayato e Yelan formam núcleos de Bloom que o Burst Pyro de Thoma detona."
+   },
+   {
+    "name": "Burgeon com Xingqiu",
+    "members": [
+     {
+      "name": "Thoma"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Yelan"
+     }
+    ],
+    "note": "Xingqiu e Yelan aplicam Hydro ao Dendro de Nahida para Burgeon."
+   },
+   {
+    "name": "Vaporize com Hu Tao",
+    "members": [
+     {
+      "name": "Thoma"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Xingqiu mantém o Hydro para Hu Tao; Thoma dá escudos."
+   }
+  ]
+ },
+ "xiangling": {
+  "patch": "Luna II (atualizado em 02/12/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/xiangling-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/xiangling"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "The Catch",
+    "note": "Melhor arma; muita Recarga de Energia e fácil de obter em R5 pela pesca."
+   },
+   {
+    "name": "Staff of the Scarlet Sands",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Engulfing Lightning",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Kitain Cross Spear",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Wavebreaker's Fin",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Staff of Homa",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Melhor conjunto; dá Recarga de Energia e aumenta muito o dano do Burst."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%, Proficiência Elemental ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Pyro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o requisito, cerca de 200%+) > Taxa CRIT / Dano CRIT > ATQ% > Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Vaporize com Tartaglia",
+    "members": [
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Tartaglia"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "O Burst de Xiangling mantém Pyro para o Hydro de Tartaglia."
+   },
+   {
+    "name": "Vaporize com Kokomi",
+    "members": [
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Sangonomiya Kokomi"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Kokomi dispara Vaporize com Skill e Burst."
+   },
+   {
+    "name": "Vaporize com Xingqiu",
+    "members": [
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Sucrose"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "O Pyro de Xiangling prepara o Hydro de Xingqiu; Sucrose adiciona buffs."
+   }
+  ]
+ },
+ "xingqiu": {
+  "patch": "6.7 (revisado em 11/07/2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/xingqiu-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/xingqiu-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Primordial Jade Cutter",
+    "note": "Melhor para dano pessoal; alta Taxa CRIT, mas sem Recarga de Energia."
+   },
+   {
+    "name": "Sacrificial Sword",
+    "note": "Escolha popular; dá Recarga de Energia e pode resetar o recarga do Skill."
+   },
+   {
+    "name": "Favonius Sword",
+    "note": "Forte opção de 4 estrelas com muita Recarga; gera partículas em acertos CRIT."
+   },
+   {
+    "name": "Sapwood Blade",
+    "note": "Craftável, com ATQ base e Recarga; útil em Hyperbloom."
+   },
+   {
+    "name": "Skyward Blade",
+    "note": "Forte opção de 5 estrelas com ATQ base e Recarga altos."
+   },
+   {
+    "name": "Fleuve Cendre Ferryman",
+    "note": "Opção gratuita obtida pela pesca, com Recarga de Energia."
+   },
+   {
+    "name": "Wolf-Fang",
+    "note": "Boa opção de 4 estrelas do Passe de Batalha, sem Recarga de Energia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Melhor conjunto em quase todas as situações."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Secundário; menos dano pessoal, mas pode dar mais dano à equipe."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia / ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Hydro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o ponto ideal) > Taxa CRIT / Dano CRIT > ATQ%.",
+  "teams": [
+   {
+    "name": "Vaporize com Arlecchino",
+    "members": [
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Arlecchino"
+     },
+     {
+      "name": "Sucrose"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Os Ataques Normais de Arlecchino ativam o Hydro de Xingqiu para Vaporize."
+   },
+   {
+    "name": "Vaporize com Yanfei",
+    "members": [
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Yanfei"
+     },
+     {
+      "name": "Sucrose"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Mesmo núcleo, com Yanfei como dano principal."
+   },
+   {
+    "name": "Vaporize com Hu Tao",
+    "members": [
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Sucrose"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Os Ataques Normais de Hu Tao ativam o Hydro de Xingqiu."
+   }
+  ]
+ },
+ "xinyan": {
+  "patch": "6.1 (atualizado em 26/10/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/xinyan-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/xinyan"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Redhorn Stonethresher",
+    "note": "Melhor arma para Xinyan DPS."
+   },
+   {
+    "name": "A Thousand Blazing Suns",
+    "note": "Listada entre as melhores opções."
+   },
+   {
+    "name": "Verdict",
+    "note": "Ótima alternativa."
+   },
+   {
+    "name": "Serpent Spine",
+    "note": "Ótima alternativa."
+   },
+   {
+    "name": "Skyward Pride",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "The Unforged",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Song of Broken Pines",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Marechaussee Hunter",
+    "note": "Melhor conjunto (2 peças) quando em equipe com Furina."
+   },
+   {
+    "name": "Pale Flame",
+    "note": "Poderoso, mas o efeito de 4 peças é inconsistente."
+   },
+   {
+    "name": "Bloodstained Chivalry",
+    "note": "Em 2 peças com Pale Flame, cada um dá 25% de Physical DMG."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% / Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Physical DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Dano CRIT > Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade (DPS): Dano CRIT > Taxa CRIT > ATQ% > Recarga de Energia > DEF%.",
+  "teams": [
+   {
+    "name": "Físico com Eula",
+    "members": [
+     {
+      "name": "Xinyan"
+     },
+     {
+      "name": "Eula"
+     },
+     {
+      "name": "Beidou"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Cryo e Electro geram Superconduct para o dano físico de Eula."
+   },
+   {
+    "name": "Físico com Razor",
+    "members": [
+     {
+      "name": "Xinyan"
+     },
+     {
+      "name": "Razor"
+     },
+     {
+      "name": "Qiqi"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Superconduct reduz a RES física, aumentando o dano de Razor."
+   },
+   {
+    "name": "Overload",
+    "members": [
+     {
+      "name": "Xinyan"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Pyro e Electro mantêm Overload; Kazuha agrupa e reduz RES."
+   }
+  ]
+ },
+ "yanfei": {
+  "patch": "6.1 (atualizado em 26/10/2025)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/yanfei-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/yanfei"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Surf's Up",
+    "note": "Melhor arma para o build DPS."
+   },
+   {
+    "name": "Vivid Notions",
+    "note": "Geralmente entre as melhores, se a equipe permitir."
+   },
+   {
+    "name": "Tome of the Eternal Flow",
+    "note": "Geralmente entre as melhores, se a equipe permitir."
+   },
+   {
+    "name": "Flowing Purity",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "The Widsith",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Skyward Atlas",
+    "note": "Alternativa listada no guia."
+   },
+   {
+    "name": "Memory of Dust",
+    "note": "Alternativa listada no guia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Crimson Witch of Flames",
+    "note": "Foco em CRIT, ATQ e Pyro DMG."
+   },
+   {
+    "name": "Marechaussee Hunter",
+    "note": "Melhor conjunto se a equipe usa Furina."
+   },
+   {
+    "name": "Gilded Dreams",
+    "note": "Para builds de Proficiência Elemental em equipes Overload."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental / ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Pyro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT / Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade (DPS): Taxa CRIT / Dano CRIT > ATQ% > Proficiência Elemental > Recarga de Energia.",
+  "teams": [
+   {
+    "name": "Vaporize + Burgeon",
+    "members": [
+     {
+      "name": "Yanfei"
+     },
+     {
+      "name": "Yelan"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Yelan permite Vaporize e Nahida prepara Burgeon; Zhongli dá escudo."
+   },
+   {
+    "name": "Vaporize com Xingqiu",
+    "members": [
+     {
+      "name": "Yanfei"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "O Burst de Xingqiu aplica Hydro; Kazuha agrupa e buffa."
+   },
+   {
+    "name": "Vaporize com Venti",
+    "members": [
+     {
+      "name": "Yanfei"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Venti"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Venti agrupa e espalha Hydro, facilitando o Vaporize."
+   }
+  ]
+ },
+ "yaoyao": {
+  "patch": "Atualizado em 12 Set 2025 (sem versão de patch indicada)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/yaoyao-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/yaoyao"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Rightful Reward",
+    "note": "Melhor opção focada em cura: lança de Vida que dá Energia quando ela é curada."
+   },
+   {
+    "name": "Moonpiercer",
+    "note": "Melhor opção focada em Dendro: bônus forte de ATQ que funciona fora de campo."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Alternativa com muita Recarga de Energia para a equipe."
+   },
+   {
+    "name": "Black Tassel",
+    "note": "Listada como alternativa, sem observações."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Deepwood Memories",
+    "note": "Melhor escolha: reduz a RES Dendro dos inimigos atingidos por seus companheiros, mesmo fora de campo."
+   },
+   {
+    "name": "Maiden Beloved",
+    "note": "Alternativa 5 estrelas de cura que aumenta sua cura e funciona fora de campo."
+   },
+   {
+    "name": "Tenacity of the Millelith",
+    "note": "Buff de equipe, mas geralmente inferior porque Yaoyao não gera escudos."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Vida% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Vida%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Bônus de Cura"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até atingir o necessário) > Vida% > Vida > Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Hyperbloom",
+    "members": [
+     {
+      "name": "Yaoyao"
+     },
+     {
+      "name": "Alhaitham"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Raiden Shogun"
+     }
+    ],
+    "note": "Alhaitham aplica Dendro, Xingqiu aplica Hydro e a Habilidade da Raiden dispara Hyperbloom; Yaoyao cura e buffa."
+   },
+   {
+    "name": "Catalyze",
+    "members": [
+     {
+      "name": "Yaoyao"
+     },
+     {
+      "name": "Keqing"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Os ataques da Keqing ativam Catalyze em inimigos com Dendro; Kazuha agrupa e buffa."
+   },
+   {
+    "name": "Bloom Hyperdrive",
+    "members": [
+     {
+      "name": "Yaoyao"
+     },
+     {
+      "name": "Kamisato Ayato"
+     },
+     {
+      "name": "Nahida"
+     },
+     {
+      "name": "Nilou"
+     }
+    ],
+    "note": "Funciona melhor apenas com Dendro e Hydro; a passiva da Nilou gera Núcleos Generosos."
+   }
+  ]
+ },
+ "yun-jin": {
+  "patch": "Atualizado em 12 Set 2025 (revisado para a versão 5.0)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/yun-jin-guide-best-builds"
+   },
+   {
+    "label": "Genshin-Builds: equipes",
+    "url": "https://genshin-builds.com/en/teams/yun_jin"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Engulfing Lightning",
+    "note": "Melhor opção 5 estrelas, principalmente pela Recarga de Energia."
+   },
+   {
+    "name": "Footprint of the Rainbow",
+    "note": "4 estrelas da 5.0 que aumenta muito a DEF, ajudando o buff baseado em DEF."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Muito bem avaliada pela Recarga de Energia e geração extra de partículas."
+   },
+   {
+    "name": "The Catch",
+    "note": "Listada como alternativa."
+   },
+   {
+    "name": "Kitain Cross Spear",
+    "note": "Incluída pela geração de partículas, que ocorre mesmo fora de campo."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Husk of Opulent Dreams",
+    "note": "Conjunto recomendado: o bônus de 4 peças aumenta a DEF, ainda mais fora de campo."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Usado como 2 peças junto com Husk of Opulent Dreams, para +20% de Recarga de Energia."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Recarga de Energia ou DEF%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "DEF%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "DEF%"
+   }
+  ],
+  "substats": "Prioridade: DEF% > Recarga de Energia > DEF > Taxa CRIT / Dano CRIT.",
+  "teams": [
+   {
+    "name": "Vaporize com Yoimiya",
+    "members": [
+     {
+      "name": "Yun Jin"
+     },
+     {
+      "name": "Yoimiya"
+     },
+     {
+      "name": "Xingqiu"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Yun Jin e Bennett potencializam os Ataques Normais da Yoimiya; o Burst do Xingqiu aplica Hydro para Vaporize."
+   },
+   {
+    "name": "Vaporize com Ayato e Hu Tao",
+    "members": [
+     {
+      "name": "Yun Jin"
+     },
+     {
+      "name": "Kamisato Ayato"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Yun Jin amplifica os Ataques Normais dos dois DPS; Zhongli fornece escudo e ATQ."
+   },
+   {
+    "name": "Vaporize com Ayato e Yoimiya",
+    "members": [
+     {
+      "name": "Yun Jin"
+     },
+     {
+      "name": "Kamisato Ayato"
+     },
+     {
+      "name": "Yoimiya"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Ayato aplica Hydro e a Yoimiya dispara Vaporize; Zhongli dá escudo e suporte de ATQ."
+   }
+  ]
+ },
+ "aloy": {
+  "patch": "Atualizado em 10 Ago 2026 (versão 7.0)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/aloy-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/aloy-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Thundering Pulse",
+    "note": "Melhor arma para Aloy: grande Dano CRIT, ATQ% e Dano de Ataque Normal crescente com os acúmulos."
+   },
+   {
+    "name": "Polar Star",
+    "note": "Aumenta o Dano de Habilidade e Burst; busque ao menos 2 acúmulos de Ashen Nightstar."
+   },
+   {
+    "name": "Prototype Crescent",
+    "note": "Melhor opção gratuita, com bom ATQ% e fácil de forjar."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Principal recomendação: +20% de Dano de Burst e buff de ATQ para a equipe."
+   },
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Outra opção para aumentar o Dano de Burst via Recarga de Energia."
+   },
+   {
+    "name": "Blizzard Strayer",
+    "note": "Aumenta o dano pessoal com Dano Cryo e Taxa CRIT, especialmente em equipes Freeze."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Cryo DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia até o necessário > Dano CRIT = Taxa CRIT > ATQ%.",
+  "teams": [
+   {
+    "name": "Freeze",
+    "members": [
+     {
+      "name": "Aloy"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Kamisato Ayaka"
+     },
+     {
+      "name": "Jean"
+     }
+    ],
+    "note": "Furina habilita Marechaussee Hunter; Jean cura e reúne os inimigos nas bombas da Aloy."
+   },
+   {
+    "name": "Melt",
+    "members": [
+     {
+      "name": "Aloy"
+     },
+     {
+      "name": "Xiangling"
+     },
+     {
+      "name": "Bennett"
+     },
+     {
+      "name": "Kaedehara Kazuha"
+     }
+    ],
+    "note": "Bennett buffa o ATQ, Xiangling aplica Pyro e Kazuha traz Swirl."
+   },
+   {
+    "name": "Freeze sem Furina",
+    "members": [
+     {
+      "name": "Aloy"
+     },
+     {
+      "name": "Ganyu"
+     },
+     {
+      "name": "Sangonomiya Kokomi"
+     },
+     {
+      "name": "Shenhe"
+     }
+    ],
+    "note": "Opção sem Furina que usa o Hydro da Kokomi para o Freeze."
+   }
+  ]
+ },
+ "durin": {
+  "patch": "Revisado para a versão 6.7 (6 Ago 2026)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/durin-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/durin-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Athame Artis",
+    "note": "Arma exclusiva e melhor escolha: aumenta o dano de Burst e dá ATQ à equipe."
+   },
+   {
+    "name": "Primordial Jade Cutter",
+    "note": "Alternativa forte com Taxa CRIT e ATQ."
+   },
+   {
+    "name": "Mistsplitter Reforged",
+    "note": "Opção 5 estrelas sólida com bônus de dano elemental."
+   },
+   {
+    "name": "Azurelight",
+    "note": "Aumenta o ATQ após usar a Habilidade, com efeito extra com 0 de Energia."
+   },
+   {
+    "name": "Haran Geppaku Futsu",
+    "note": "Dá bônus de dano de todos os elementos e dano de Ataque Normal."
+   },
+   {
+    "name": "Absolution",
+    "note": "Aumenta o Dano CRIT e o dano via mecânica Bond of Life."
+   },
+   {
+    "name": "Wolf-Fang",
+    "note": "4 estrelas do Passe de Batalha; bom em R5, fraco em R1."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Emblem of Severed Fate",
+    "note": "Geralmente o melhor conjunto do Durin: Recarga de Energia e dano de Burst."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Dá ATQ à equipe após o Burst; muito usado no Modo Luz."
+   },
+   {
+    "name": "Marechaussee Hunter",
+    "note": "Melhor para jogar em campo, especialmente com a Furina."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Pyro DMG"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (100-150%) > Taxa CRIT / Dano CRIT > ATQ% > Proficiência Elemental.",
+  "teams": [
+   {
+    "name": "Durin DPS principal",
+    "members": [
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Mona"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Durin é o DPS principal, com Mona como parceira Hexerei."
+   },
+   {
+    "name": "Durin com Overload",
+    "members": [
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Fischl"
+     },
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Bennett"
+     }
+    ],
+    "note": "Durin como DPS, apoiado por Fischl e Chevreuse."
+   },
+   {
+    "name": "Overload com Klee",
+    "members": [
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Klee"
+     },
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Fischl"
+     }
+    ],
+    "note": "Equipe de Overload com Klee como DPS."
+   }
+  ]
+ },
+ "nicole": {
+  "patch": "Atualizado em 10 Jul 2026 (versão 7.0)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/nicole-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/nicole-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Angelos' Heptades",
+    "note": "Arma exclusiva: ATQ alto maximiza o buff e dá Dano%; sempre use se tiver."
+   },
+   {
+    "name": "Starcaller's Watch",
+    "note": "Mesmo buff de Dano% da Heptades, com duração maior; geralmente a segunda melhor."
+   },
+   {
+    "name": "Skyward Atlas",
+    "note": "Melhor opção da banner padrão; o ATQ é suficiente para maximizar o buff."
+   },
+   {
+    "name": "Thrilling Tales of Dragon Slayers",
+    "note": "Melhor opção gratuita; funciona melhor em rotações de 20s ou mais."
+   },
+   {
+    "name": "Oathsworn Eye",
+    "note": "Boa opção gratuita com ATQ e Recarga de Energia, mas não é mais obtível."
+   },
+   {
+    "name": "Favonius Codex",
+    "note": "Dá Recarga de Energia e partículas, mas exige investimento em Taxa CRIT."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Celestial Gift",
+    "note": "Melhor conjunto: 2 peças dão Recarga de Energia e 4 peças dão bônus elemental à equipe."
+   },
+   {
+    "name": "Noblesse Oblige",
+    "note": "Alternativa se outro membro já usar Celestial Gift; ativa com o Burst."
+   },
+   {
+    "name": "A Day Carved From Rising Winds",
+    "note": "Opção de 2 peças de ATQ% se Celestial Gift estiver com outro suporte."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "ATQ% ou Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade: ATQ% > Recarga de Energia > Taxa CRIT (importante principalmente com Favonius Codex).",
+  "teams": [
+   {
+    "name": "Anemo DPS",
+    "members": [
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Varka"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Prune"
+     }
+    ],
+    "note": "Companheiros Hexerei que escalam com ATQ."
+   },
+   {
+    "name": "Geo DPS",
+    "members": [
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Navia"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Albedo"
+     }
+    ],
+    "note": "Albedo é DPS Geo e suporte Hexerei."
+   },
+   {
+    "name": "Dendro DPS",
+    "members": [
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Durin"
+     },
+     {
+      "name": "Emilie"
+     },
+     {
+      "name": "Kinich"
+     }
+    ],
+    "note": "Emilie e Kinich aproveitam bem os buffs fora de campo da Nicole."
+   }
+  ]
+ },
+ "vesna": {
+  "patch": "Atualizado em 22 Set 2026",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/vesna-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Beyond the Chrysalis",
+    "note": "Exclusiva 5 estrelas: grande Dano CRIT e bônus de dano Stellar-Swirl; provavelmente não é necessária."
+   },
+   {
+    "name": "Whitelake Frostfeather",
+    "note": "Boa alternativa 5 estrelas que funciona bem com reações Stellar."
+   },
+   {
+    "name": "New Bough",
+    "note": "4 estrelas de gacha em R5 com Dano CRIT, ATQ e dano Stellar-Swirl."
+   },
+   {
+    "name": "Emberwell",
+    "note": "Forjável em Snezhnaya, gratuita e decente."
+   },
+   {
+    "name": "Silver Light",
+    "note": "4 estrelas de evento que aumenta a Proficiência Elemental ao usar a Habilidade."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Scarlet Proof",
+    "note": "Geralmente o melhor: ATQ e bônus de Taxa CRIT e dano Stellar-Swirl."
+   },
+   {
+    "name": "Viridescent Venerer",
+    "note": "Alternativa, em geral 1-2% abaixo; melhor sem outro personagem Anemo na equipe."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Taxa CRIT ou Dano CRIT"
+   }
+  ],
+  "substats": "Prioridade: Taxa CRIT > Dano CRIT > ATQ% ≥ Proficiência Elemental > Recarga de Energia.",
+  "teams": [
+   {
+    "name": "Stellar-Swirl com Vodyanitsa",
+    "members": [
+     {
+      "name": "Vesna"
+     },
+     {
+      "name": "Vodyanitsa"
+     },
+     {
+      "name": "Faruzan"
+     },
+     {
+      "name": "Odette"
+     }
+    ],
+    "note": "Vodyanitsa reduz a RES Anemo e cura; Odette é um forte sub-DPS Stellar fora de campo."
+   },
+   {
+    "name": "Stellar-Swirl com Escoffier",
+    "members": [
+     {
+      "name": "Vesna"
+     },
+     {
+      "name": "Vodyanitsa"
+     },
+     {
+      "name": "Faruzan"
+     },
+     {
+      "name": "Escoffier"
+     }
+    ],
+    "note": "Escoffier adiciona dano fora de campo e aplica Cryo de forma consistente."
+   },
+   {
+    "name": "Stellar-Swirl com Nicole",
+    "members": [
+     {
+      "name": "Vesna"
+     },
+     {
+      "name": "Venti"
+     },
+     {
+      "name": "Nicole"
+     },
+     {
+      "name": "Odette"
+     }
+    ],
+    "note": "Nicole dá um grande buff de ATQ à equipe que também aumenta o dano do Vortex Stellar-Swirl."
+   }
+  ]
+ },
+ "illuga": {
+  "patch": "Atualizado em 22 Set 2026 (revisado para a versão 7.1)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/illuga-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/illuga-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Dragon's Bane",
+    "note": "Opção base: 221 de Proficiência Elemental, ideal quando a Energia não é problema."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Melhor opção do guia: Recarga de Energia e Energia para a equipe, com algum investimento em Taxa CRIT."
+   },
+   {
+    "name": "Kitain Cross Spear",
+    "note": "Meio-termo: Proficiência Elemental e dano de Habilidade, com alguma Energia."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Silken Moon's Serenade",
+    "note": "Recomendado a partir de C2: Recarga de Energia e buff de PE e dano Lunar à equipe."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "Proficiência Elemental"
+   },
+   {
+    "slot": "Cálice",
+    "value": "Proficiência Elemental (ou Recarga de Energia)"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Proficiência Elemental"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (cerca de 160%-180% na maioria das equipes) > Proficiência Elemental > Taxa CRIT (só com Favonius Lance).",
+  "teams": [
+   {
+    "name": "Zibai com Gorou",
+    "members": [
+     {
+      "name": "Illuga"
+     },
+     {
+      "name": "Zibai"
+     },
+     {
+      "name": "Columbina"
+     },
+     {
+      "name": "Gorou"
+     }
+    ],
+    "note": "Zibai causa dano Lunar-Crystallize direto, amplificado pelo Burst do Illuga."
+   },
+   {
+    "name": "Zibai com Zhongli",
+    "members": [
+     {
+      "name": "Illuga"
+     },
+     {
+      "name": "Zibai"
+     },
+     {
+      "name": "Columbina"
+     },
+     {
+      "name": "Zhongli"
+     }
+    ],
+    "note": "Columbina habilita a reação e Zhongli adiciona escudo."
+   },
+   {
+    "name": "Geo com Itto",
+    "members": [
+     {
+      "name": "Illuga"
+     },
+     {
+      "name": "Arataki Itto"
+     },
+     {
+      "name": "Columbina"
+     },
+     {
+      "name": "Gorou"
+     }
+    ],
+    "note": "O Burst do Illuga dá buffs de dano Geo, menores que os de Lunar-Crystallize."
+   }
+  ]
+ },
+ "jahoda": {
+  "patch": "Atualizado em 2 Dez 2025 (sem versão de patch indicada)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/jahoda-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/jahoda-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Elegy for the End",
+    "note": "Premium: muita Recarga de Energia, ATQ base alto e PE e ATQ para a equipe."
+   },
+   {
+    "name": "Rainbow Serpent's Rain Bow",
+    "note": "Arma de evento com Recarga de Energia e grande buff de ATQ para o dano pessoal."
+   },
+   {
+    "name": "Favonius Warbow",
+    "note": "Boa opção de suporte, mas o ATQ baixo reduz seu dano e cura."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Viridescent Venerer",
+    "note": "Geralmente o melhor: aumenta o dano de Swirl e reduz a RES elemental inimiga."
+   },
+   {
+    "name": "Silken Moon's Serenade",
+    "note": "Alternativa forte em equipes Moonsign."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "Bônus de Cura ou Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia > Taxa CRIT (com Favonius Warbow) > ATQ%.",
+  "teams": [
+   {
+    "name": "Moonsign com Flins",
+    "members": [
+     {
+      "name": "Jahoda"
+     },
+     {
+      "name": "Flins"
+     },
+     {
+      "name": "Ineffa"
+     },
+     {
+      "name": "Yelan"
+     }
+    ],
+    "note": "Yelan é sugerida como Hydro no lugar da Aino, liberando-a para outra equipe Moonsign."
+   },
+   {
+    "name": "Hyperbloom com Nefer",
+    "members": [
+     {
+      "name": "Jahoda"
+     },
+     {
+      "name": "Nefer"
+     },
+     {
+      "name": "Lauma"
+     },
+     {
+      "name": "Furina"
+     }
+    ],
+    "note": "Competitiva com a Nefer em C6 e ainda viável em constelações menores."
+   },
+   {
+    "name": "Hu Tao com Furina",
+    "members": [
+     {
+      "name": "Jahoda"
+     },
+     {
+      "name": "Hu Tao"
+     },
+     {
+      "name": "Furina"
+     },
+     {
+      "name": "Ineffa"
+     }
+    ],
+    "note": "A cura da Jahoda acumula Fanfare da Furina, e o Hydro da Furina permite a Jahoda usar o frasco Hydro."
+   }
+  ]
+ },
+ "alyosha": {
+  "patch": "Atualizado em 13 Ago 2026 (versão 7.0)",
+  "sources": [
+   {
+    "label": "Icy Veins: builds",
+    "url": "https://www.icy-veins.com/genshin-impact/alyosha-guide-best-builds"
+   },
+   {
+    "label": "Icy Veins: equipes",
+    "url": "https://www.icy-veins.com/genshin-impact/alyosha-team-guide"
+   }
+  ],
+  "weapons": [
+   {
+    "name": "Engulfing Lightning",
+    "note": "Melhor arma: muita Recarga de Energia convertida em ATQ."
+   },
+   {
+    "name": "Symphonist of Scents",
+    "note": "Opção de dano com Dano CRIT; a passiva combina com cura e buffs de ATQ fora de campo."
+   },
+   {
+    "name": "Favonius Lance",
+    "note": "Provavelmente a próxima melhor: Recarga de Energia e Energia para a equipe."
+   },
+   {
+    "name": "Song of the Vigil",
+    "note": "Opção equilibrada para equipes de reação, com Proficiência Elemental, Energia e ATQ."
+   },
+   {
+    "name": "Tamayuratei no Ohanashi",
+    "note": "Dá Recarga de Energia e ATQ, ideal para sub-DPS."
+   },
+   {
+    "name": "The Catch",
+    "note": "Forte para dano fora de campo: aumenta o dano de Burst e a Taxa CRIT."
+   },
+   {
+    "name": "Frostbreath",
+    "note": "Semelhante à Favonius Lance, mas exige reação Cryo ou Hydro a cada 16s."
+   }
+  ],
+  "artifacts": [
+   {
+    "name": "Noblesse Oblige",
+    "note": "Conjunto principal: o buff de ATQ de 4 peças combina com o Burst a cada rotação."
+   },
+   {
+    "name": "Heart of the Furnace",
+    "note": "Opção secundária, se nenhum outro usuário (como Odette) estiver na equipe."
+   }
+  ],
+  "mainStats": [
+   {
+    "slot": "Areia",
+    "value": "ATQ% ou Recarga de Energia"
+   },
+   {
+    "slot": "Cálice",
+    "value": "ATQ%"
+   },
+   {
+    "slot": "Tiara",
+    "value": "ATQ% ou Taxa CRIT"
+   }
+  ],
+  "substats": "Prioridade: Recarga de Energia (até o necessário pela equipe) > ATQ% > Taxa CRIT (só com Favonius Lance).",
+  "teams": [
+   {
+    "name": "Stellar Conduct com Sandrone",
+    "members": [
+     {
+      "name": "Alyosha"
+     },
+     {
+      "name": "Sandrone"
+     },
+     {
+      "name": "Odette"
+     },
+     {
+      "name": "Yae Miko"
+     }
+    ],
+    "note": "Equipe premium de Stellar Conduct."
+   },
+   {
+    "name": "Stellar Conduct com Wriothesley",
+    "members": [
+     {
+      "name": "Alyosha"
+     },
+     {
+      "name": "Wriothesley"
+     },
+     {
+      "name": "Odette"
+     },
+     {
+      "name": "Yae Miko"
+     }
+    ],
+    "note": "Variante trocando Sandrone por Wriothesley."
+   },
+   {
+    "name": "Suporte Electro fora de campo",
+    "members": [
+     {
+      "name": "Alyosha"
+     },
+     {
+      "name": "Varesa"
+     },
+     {
+      "name": "Chevreuse"
+     },
+     {
+      "name": "Fischl"
+     }
+    ],
+    "note": "Alyosha dá aplicação de Electro e buff de ATQ; menos especializada."
    }
   ]
  }
