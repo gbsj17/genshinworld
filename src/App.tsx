@@ -1,6 +1,7 @@
 import { HashRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 import CharacterPage from './CharacterPage'
 import HomePage from './HomePage'
+import ItemsPage from './ItemsPage'
 import { MenuProvider } from './MenuProvider'
 import './App.css'
 import './responsive.css'
@@ -18,6 +19,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/character/:id" element={<CharacterRoute />} />
+          <Route path="/weapons" element={<ItemsPage kind="weapon" />} />
+          <Route path="/artifacts" element={<ItemsPage kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </MenuProvider>

@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { getAllCharacters, iconChain } from './api'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
-import { useMenu } from './menuContext'
+import TabBar from './TabBar'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
 import { VISION_COLORS } from './visionColors'
@@ -95,10 +95,7 @@ export default function HomePage() {
       return 'grid'
     }
   })
-  const [searchOpen, setSearchOpen] = useState(false)
-  const searchRef = useRef<HTMLInputElement>(null)
   const { ids } = useFavorites()
-  const { openMenu } = useMenu()
 
   useEffect(() => {
     let active = true
@@ -114,16 +111,6 @@ export default function HomePage() {
   useEffect(() => {
     if (characters) preloadImages(characters.map((c) => iconChain(c)[0]))
   }, [characters])
-
-  const openSearch = () => {
-    setSearchOpen(true)
-    // espera a animação começar para o teclado abrir sem pular
-    window.setTimeout(() => searchRef.current?.focus(), 120)
-  }
-  const closeSearch = () => {
-    setSearchOpen(false)
-    setQuery('')
-  }
 
   const changeView = (v: View) => {
     setView(v)
@@ -291,74 +278,7 @@ export default function HomePage() {
         </>
       )}
 
-      <nav className={searchOpen ? 'tabbar tabbar--search' : 'tabbar'} aria-label="Navegação">
-        <div className="tabbar__items" aria-hidden={searchOpen} inert={searchOpen}>
-          <button
-            className="tabbar__item"
-            aria-current={scope === 'all' ? 'page' : undefined}
-            onClick={() => {
-              setScope('all')
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5" />
-            </svg>
-            Início
-          </button>
-          <button
-            className="tabbar__item"
-            aria-current={scope === 'favorites' ? 'page' : undefined}
-            onClick={() => {
-              setScope('favorites')
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
-              <path d={STAR_PATH} />
-            </svg>
-            Favoritos
-          </button>
-          <button className="tabbar__item" onClick={openSearch}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3.5-3.5" />
-            </svg>
-            Buscar
-          </button>
-          <button className="tabbar__item" onClick={openMenu}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
-            Menu
-          </button>
-        </div>
-
-        <div className="tabbar__search" aria-hidden={!searchOpen} inert={!searchOpen}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7" />
-            <path d="M20 20l-3.5-3.5" />
-          </svg>
-          <input
-            ref={searchRef}
-            type="search"
-            enterKeyHint="search"
-            aria-label="Buscar personagem"
-            placeholder="Buscar personagem"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') closeSearch()
-              if (e.key === 'Enter') searchRef.current?.blur()
-            }}
-          />
-          <button className="tabbar__close" aria-label="Fechar busca" onClick={closeSearch}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-        </div>
-      </nav>
+      <TabBar active="home" query={query} onQuery={setQuery} />
     </main>
   )
 }

@@ -190,31 +190,65 @@ function weaponEffect(d: Record<string, unknown>): string | undefined {
     .replace(/\\n/g, '\n')
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toInfo(kind: 'weapons' | 'artifacts', d: any): ItemInfo {
+  const im = d?.images ?? {}
+  const file = kind === 'weapons' ? im.filename_icon : im.filename_flower
+  const direct = kind === 'weapons' ? im.mihoyo_icon : im.mihoyo_flower
+  return {
+    // Enka primeiro: é o mesmo CDN que já carrega os ícones dos personagens
+    urls: [file ? enka(file) : undefined, direct].filter((u): u is string => Boolean(u)),
+    rarity: d?.rarity ?? Math.max(...(d?.rarityList ?? [4])),
+    type: d?.weaponText,
+    baseAtk: d?.baseAtkValue ? String(Math.round(d.baseAtkValue)) : undefined,
+    stat: d?.mainStatText ? `${d.mainStatText} ${d.baseStatText ?? ''}`.trim() : undefined,
+    effectName: d?.effectName,
+    effect: kind === 'weapons' ? weaponEffect(d) : undefined,
+    set2: d?.effect2Pc,
+    set4: d?.effect4Pc,
+  }
+}
+
 function fetchItem(kind: 'weapons' | 'artifacts', name: string): Promise<ItemInfo> {
   const key = `${kind}:${name}`
   let cached = itemCache.get(key)
   if (!cached) {
     cached = fetch(`${DB_URL}/${kind}?query=${encodeURIComponent(name)}`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-      .then((d): ItemInfo => {
-        const im = d?.images ?? {}
-        const file = kind === 'weapons' ? im.filename_icon : im.filename_flower
-        const direct = kind === 'weapons' ? im.mihoyo_icon : im.mihoyo_flower
-        return {
-          // Enka primeiro: é o mesmo CDN que já carrega os ícones dos personagens
-          urls: [file ? enka(file) : undefined, direct].filter((u): u is string => Boolean(u)),
-          rarity: d?.rarity ?? Math.max(...(d?.rarityList ?? [4])),
-          type: d?.weaponText,
-          baseAtk: d?.baseAtkValue ? String(Math.round(d.baseAtkValue)) : undefined,
-          stat: d?.mainStatText ? `${d.mainStatText} ${d.baseStatText ?? ''}`.trim() : undefined,
-          effectName: d?.effectName,
-          effect: kind === 'weapons' ? weaponEffect(d) : undefined,
-          set2: d?.effect2Pc,
-          set4: d?.effect4Pc,
-        }
-      })
+      .then((d) => toInfo(kind, d))
       .catch(() => ({ urls: [], rarity: 0 }))
     itemCache.set(key, cached)
+  }
+  return cached
+}
+
+// Lista completa de armas ou artefatos do jogo. Também preenche o cache por nome,
+// então ícones e detalhes abrem na hora, sem uma busca por item.
+export interface ItemEntry {
+  name: string
+  info: ItemInfo
+}
+
+const listCache = new Map<string, Promise<ItemEntry[]>>()
+
+export function getAllItems(kind: 'weapons' | 'artifacts'): Promise<ItemEntry[]> {
+  let cached = listCache.get(kind)
+  if (!cached) {
+    cached = fetch(`${DB_URL}/${kind}?query=names&matchCategories=true&verboseCategories=true`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((list: { name?: string }[]) => {
+        const entries = list
+          .filter((d) => d?.name)
+          .map((d) => ({ name: d.name as string, info: toInfo(kind, d) }))
+        if (entries.length === 0) throw new Error('lista vazia')
+        for (const e of entries) itemCache.set(`${kind}:${e.name}`, Promise.resolve(e.info))
+        return entries
+      })
+      .catch((e) => {
+        listCache.delete(kind)
+        throw e
+      })
+    listCache.set(kind, cached)
   }
   return cached
 }
