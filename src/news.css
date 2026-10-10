@@ -188,3 +188,271 @@
     flex-basis: 110px;
   }
 }
+
+/* ===== Início no PC: banner de tela cheia ===== */
+.news-hero,
+.news-search {
+  display: none;
+}
+
+@media (min-width: 820px) {
+  .screen.home.news-screen {
+    width: 100%;
+    max-width: none;
+    padding: 0 0 120px;
+  }
+
+  .news-body {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .news-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 0 1 560px;
+    height: 54px;
+    padding: 0 22px;
+    border-radius: 27px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--muted);
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .news-search:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent), var(--shadow);
+  }
+
+  .news-search input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 16px;
+  }
+
+  .news-search input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .news-screen .home-top {
+    align-items: center;
+    gap: 24px;
+    padding: 22px 56px;
+  }
+
+  /* com banner: o topo fica por cima da imagem */
+  .has-hero .home-top {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    color: #fff;
+  }
+
+  .has-hero .home-cap {
+    color: #e9d9b0;
+  }
+
+  .has-hero .news-search {
+    background: rgba(16, 20, 32, 0.45);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.75);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .has-hero .news-search input {
+    color: #fff;
+  }
+
+  .has-hero .news-search input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .news-chars {
+    display: none;
+  }
+
+  .news-screen .news-hero {
+    width: 100%;
+    display: block;
+    position: relative;
+    height: min(78vh, 760px);
+    min-height: 520px;
+    overflow: hidden;
+    color: #fff;
+    background: #0c0f18;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.9s ease;
+    background: radial-gradient(ellipse at 70% 40%, color-mix(in srgb, var(--banner) 70%, #0c0f18), #0c0f18 75%);
+  }
+
+  .hero-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hero-slide__img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 78%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 22%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+  }
+
+  .hero-slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, var(--bg) 0%, transparent 26%),
+      linear-gradient(180deg, rgba(10, 12, 20, 0.65) 0%, transparent 24%);
+    pointer-events: none;
+  }
+
+  .hero-slide__info {
+    position: absolute;
+    z-index: 2;
+    left: 110px;
+    bottom: 110px;
+    width: min(560px, 46%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .hero-slide__tag {
+    padding: 5px 12px;
+    border-radius: 14px;
+    background: #d3bc8e;
+    color: #1b1b1b;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-slide__name {
+    font-family: var(--serif);
+    font-size: clamp(56px, 6.4vw, 92px);
+    line-height: 0.98;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-slide__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .hero-slide__chips span {
+    padding: 6px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.16);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .hero-slide__btn {
+    margin-top: 6px;
+    height: 50px;
+    padding: 0 32px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 25px;
+    background: #d3bc8e;
+    color: #1b1b1b;
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .hero-arrow {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    width: 52px;
+    height: 52px;
+    margin-top: -26px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(10, 12, 20, 0.45);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .hero-arrow:hover {
+    background: rgba(10, 12, 20, 0.7);
+  }
+
+  .hero-arrow--prev {
+    left: 20px;
+  }
+
+  .hero-arrow--next {
+    right: 20px;
+  }
+
+  .hero-dots {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    bottom: 48px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: width 0.3s, background 0.3s;
+  }
+
+  .hero-dot.is-active {
+    width: 36px;
+    background: #d3bc8e;
+  }
+}
+
+@media (min-width: 820px) and (prefers-reduced-motion: reduce) {
+  .hero-slide,
+  .hero-dot {
+    transition: none;
+  }
+}

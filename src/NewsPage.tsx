@@ -52,6 +52,95 @@ function Banner({ c }: { c: CharacterSummary }) {
   )
 }
 
+// Slide do banner gigante (só aparece no PC): arte splash à direita, texto à esquerda.
+function HeroSlide({ c, active }: { c: CharacterSummary; active: boolean }) {
+  const options = [...(c.splash ?? []), ...iconChain(c)]
+  const [i, setI] = useState(0)
+  const color = VISION_COLORS[c.vision] ?? '#d3bc8e'
+  return (
+    <div
+      className={active ? 'hero-slide is-active' : 'hero-slide'}
+      style={{ '--banner': color } as CSSProperties}
+      aria-hidden={!active}
+    >
+      {options[i] && (
+        <img
+          key={options[i]}
+          className="hero-slide__img"
+          src={options[i]}
+          alt=""
+          onError={() => setI((n) => n + 1)}
+        />
+      )}
+      <div className="hero-slide__info">
+        <span className="hero-slide__tag">NOVO{c.version ? ` · VERSÃO ${c.version}` : ''}</span>
+        <strong className="hero-slide__name">{c.name}</strong>
+        <div className="hero-slide__chips">
+          {[c.vision, c.weapon, `${c.rarity}★`, c.nation].filter(Boolean).map((t) => (
+            <span key={t}>{t}</span>
+          ))}
+        </div>
+        <Link to={`/character/${c.id}`} className="hero-slide__btn" tabIndex={active ? 0 : -1}>
+          Ver ficha
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+// Carrossel de tela cheia: troca sozinho, pausa com o mouse em cima.
+function Hero({ chars }: { chars: CharacterSummary[] }) {
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const n = chars.length
+
+  useEffect(() => {
+    if (paused || n < 2) return
+    const t = window.setInterval(() => setIndex((i) => (i + 1) % n), 6000)
+    return () => window.clearInterval(t)
+  }, [paused, n, index])
+
+  const go = (d: number) => setIndex((i) => (i + d + n) % n)
+
+  return (
+    <section
+      className="news-hero"
+      aria-label="Novos personagens"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {chars.map((c, k) => (
+        <HeroSlide key={c.id} c={c} active={k === index} />
+      ))}
+      {n > 1 && (
+        <>
+          <button className="hero-arrow hero-arrow--prev" aria-label="Anterior" onClick={() => go(-1)}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M15 5l-7 7 7 7" />
+            </svg>
+          </button>
+          <button className="hero-arrow hero-arrow--next" aria-label="Próximo" onClick={() => go(1)}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <div className="hero-dots">
+            {chars.map((c, k) => (
+              <button
+                key={c.id}
+                className={k === index ? 'hero-dot is-active' : 'hero-dot'}
+                aria-label={`Ir para ${c.name}`}
+                aria-current={k === index}
+                onClick={() => setIndex(k)}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </section>
+  )
+}
+
 export function CharCard({ c }: { c: CharacterSummary }) {
   return (
     <Link
@@ -78,9 +167,9 @@ export function ItemCard({ kind, e, onPick }: { kind: 'weapon' | 'artifact'; e: 
   )
 }
 
-function Section({ title, to, children }: { title: string; to?: string; children: React.ReactNode }) {
+function Section({ title, to, className, children }: { title: string; to?: string; className?: string; children: React.ReactNode }) {
   return (
-    <section className="news-sec">
+    <section className={className ? `news-sec ${className}` : 'news-sec'}>
       <div className="news-head">
         <h2 className="news-title">{title}</h2>
         {to && (
@@ -155,14 +244,31 @@ export default function NewsPage() {
     list.filter((x) => normalize(x.name).includes(q)).slice(0, 12)
 
   return (
-    <main className="screen home">
+    <main className={!searching && newChars.length > 0 ? 'screen home news-screen has-hero' : 'screen home news-screen'}>
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>
           <span className="home-cap">{searching ? 'RESULTADOS' : 'INÍCIO'}</span>
         </div>
+        <label className="news-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+          </svg>
+          <input
+            type="search"
+            aria-label="Buscar no app"
+            placeholder="Buscar personagens, armas e artefatos"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </label>
         <MenuButton />
       </header>
+
+      {!loading && !searching && newChars.length > 0 && <Hero chars={newChars} />}
+
+      <div className="news-body">
 
       {loading && <p className="empty">Carregando...</p>}
 
@@ -179,7 +285,7 @@ export default function NewsPage() {
           </p>
 
           {newChars.length > 0 && (
-            <Section title="Novos personagens" to="/characters">
+            <Section title="Novos personagens" to="/characters" className="news-chars">
               <div className="banners">
                 {newChars.map((c) => (
                   <Banner key={c.id} c={c} />
@@ -258,6 +364,8 @@ export default function NewsPage() {
           )}
         </>
       )}
+
+      </div>
 
       <TabBar active="home" query={query} onQuery={setQuery} />
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
