@@ -58,6 +58,14 @@ function Badge({ src, label }: { src: string; label: string }) {
   )
 }
 
+function Chevron() {
+  return (
+    <svg className="shortcut__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 5l7 7-7 7" />
+    </svg>
+  )
+}
+
 export default function CharacterPage({ id }: { id: string }) {
   // character = dados básicos (de todos os personagens)
   // detail = talentos e constelações (só dos que existem na genshin.dev)
@@ -116,33 +124,32 @@ export default function CharacterPage({ id }: { id: string }) {
     return true
   })
 
+  const firstWeapon = build?.weapons[0]
+  const firstTeam = build?.teams[0]
+
   return (
-    <main className="screen" style={style}>
-      <header className="topbar">
-        <div className="topbar__back">
-          <Link to="/" className="round-btn" aria-label="Voltar">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <main className="screen sheet-screen" style={style}>
+      <section className="hero">
+        <div className="hero__bar">
+          <Link to="/" className="glass-btn" aria-label="Voltar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 5l-7 7 7 7" />
             </svg>
           </Link>
+          <div className="hero__actions">
+            <button
+              className="glass-btn"
+              aria-label={isFavorite(id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+              aria-pressed={isFavorite(id)}
+              onClick={() => toggle(id)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill={isFavorite(id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
+              </svg>
+            </button>
+            <MenuButton variant="glass" />
+          </div>
         </div>
-        <span className="topbar__title">PERSONAGEM</span>
-        <div className="topbar__actions">
-          <button
-            className="round-btn"
-            aria-label={isFavorite(id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-            aria-pressed={isFavorite(id)}
-            onClick={() => toggle(id)}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill={isFavorite(id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
-            </svg>
-          </button>
-          <MenuButton />
-        </div>
-      </header>
-
-      <section className="hero">
         {portrait && (
           <img
             key={portrait}
@@ -152,58 +159,85 @@ export default function CharacterPage({ id }: { id: string }) {
             onError={() => setPortraitIndex((i) => i + 1)}
           />
         )}
-        <div className="hero__info">
-          <div className="badges">
-            <Badge src={elementIcon(character.vision)} label={character.vision} />
-          </div>
-          <div className="stars" role="img" aria-label={`${character.rarity} estrelas`}>
-            {'★'.repeat(character.rarity)}
-          </div>
-          <h1>{character.name}</h1>
-          <p>
-            {[character.vision, character.weapon, character.nation]
-              .filter(Boolean)
-              .join(' · ')}
-          </p>
-        </div>
       </section>
 
-      <div className="tabs">
-        {visibleTabs.map((t) => (
-          <button
-            key={t.id}
-            className={t.id === tab ? 'tab tab--active' : 'tab'}
-            aria-pressed={t.id === tab}
-            onClick={() => setTab(t.id)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      <section className="sheet">
+        <div className="sheet__handle" aria-hidden="true" />
+        <div className="sheet__badges">
+          <Badge src={elementIcon(character.vision)} label={character.vision} />
+          <span className="stars" role="img" aria-label={`${character.rarity} estrelas`}>
+            {'★'.repeat(character.rarity)}
+          </span>
+        </div>
+        <h1>{character.name}</h1>
+        <p className="sheet__sub">
+          {[character.vision, character.weapon, character.nation].filter(Boolean).join(' · ')}
+        </p>
 
-      <div className="content">
-        {tab === 'overview' && (
-          <div className="grid">
-            <div className="card">
-              <span className="card__label">Elemento</span>
-              <strong className="card__value">{character.vision}</strong>
-            </div>
-            <div className="card">
-              <span className="card__label">Arma</span>
-              <strong className="card__value">{character.weapon}</strong>
-            </div>
-            {character.nation && (
-              <div className="card">
-                <span className="card__label">Nação</span>
-                <strong className="card__value">{character.nation}</strong>
+        <div className="segments" role="tablist" aria-label="Seções da ficha">
+          {visibleTabs.map((t) => (
+            <button
+              key={t.id}
+              role="tab"
+              className="segment"
+              aria-selected={t.id === tab}
+              onClick={() => setTab(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="content">
+          {tab === 'overview' && (
+            <>
+              <div className="grid">
+                <div className="card">
+                  <span className="card__label">Elemento</span>
+                  <strong className="card__value">{character.vision}</strong>
+                </div>
+                <div className="card">
+                  <span className="card__label">Arma</span>
+                  <strong className="card__value">{character.weapon}</strong>
+                </div>
+                {character.nation && (
+                  <div className="card">
+                    <span className="card__label">Nação</span>
+                    <strong className="card__value">{character.nation}</strong>
+                  </div>
+                )}
+                <div className="card">
+                  <span className="card__label">Raridade</span>
+                  <strong className="card__value">{character.rarity} estrelas</strong>
+                </div>
               </div>
-            )}
-            <div className="card">
-              <span className="card__label">Raridade</span>
-              <strong className="card__value">{character.rarity} estrelas</strong>
-            </div>
-          </div>
-        )}
+
+              {firstWeapon && (
+                <button className="shortcut" onClick={() => setTab('builds')}>
+                  <Thumb src={firstWeapon.icon ?? (firstWeapon.id ? weaponIcon(firstWeapon.id) : undefined)} label={firstWeapon.name} />
+                  <span className="shortcut__body">
+                    <span className="shortcut__kind">Melhor arma</span>
+                    <span className="shortcut__name">{firstWeapon.name}</span>
+                  </span>
+                  <Chevron />
+                </button>
+              )}
+              {firstTeam && (
+                <button className="shortcut" onClick={() => setTab('builds')}>
+                  <span className="stack">
+                    {firstTeam.members.map((m) => (
+                      <Thumb key={m.name} round src={m.icon ?? (m.id ? characterIcon(m.id) : undefined)} label={m.name} />
+                    ))}
+                  </span>
+                  <span className="shortcut__body">
+                    <span className="shortcut__kind">Equipe sugerida</span>
+                    <span className="shortcut__name">{firstTeam.name}</span>
+                  </span>
+                  <Chevron />
+                </button>
+              )}
+            </>
+          )}
 
         {tab === 'talents' && detail && devId && (
           <>
@@ -319,6 +353,7 @@ export default function CharacterPage({ id }: { id: string }) {
           </>
         )}
       </div>
+      </section>
     </main>
   )
 }

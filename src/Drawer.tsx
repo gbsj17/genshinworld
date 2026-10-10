@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useMenu } from './menuContext'
+import './drawer.css'
 
 // --i controla o atraso de cada item na animação de entrada (um depois do outro)
 const step = (i: number) => ({ '--i': i }) as CSSProperties

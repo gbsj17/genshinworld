@@ -16,9 +16,19 @@
   --badge-bg: #12151fcc;
   --stars: #f2c14e;
   --shadow: none;
+  --glass: #1c2030cc;
+  --search-bg: #1c2030;
+  --seg-bg: #1c2030;
+  --seg-active: #2f3650;
+  --seg-shadow: none;
+  --nav-bg: #1c2030d9;
+  --nav-border: #3a4057b3;
+  --nav-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --sheet-shadow: 0 -10px 40px rgba(0, 0, 0, 0.45);
+  --hero-tint: 22%;
   --scrim: rgba(6, 8, 14, 0.62);
   --drawer-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
-  --sans: 'Nunito Sans', system-ui, sans-serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Roboto, 'Segoe UI', system-ui, sans-serif;
   --serif: 'Cormorant Garamond', Georgia, serif;
   color-scheme: dark;
 }
@@ -31,8 +41,8 @@
   --line-strong: #d8c8a8;
   --text: #3a2e21;
   --muted: #74634e;
-  --gold: #8a6428;
-  --accent: #8a6428;
+  --gold: #7a5620;
+  --accent: #7a5620;
   --on-accent: #2a1c08;
   --surface-deep: #f1e6d2;
   --stripe-a: #efe3cd;
@@ -40,7 +50,17 @@
   --hero-sub: #5f4f3b;
   --badge-bg: #fffaf1d9;
   --stars: #d08a0c;
-  --shadow: 0 1px 2px rgba(90, 65, 25, 0.08), 0 4px 14px rgba(90, 65, 25, 0.06);
+  --shadow: 0 1px 2px rgba(90, 65, 25, 0.08), 0 8px 20px rgba(90, 65, 25, 0.06);
+  --glass: #fffaf1d9;
+  --search-bg: #ffffffb3;
+  --seg-bg: #f1e6d2;
+  --seg-active: #fffaf1;
+  --seg-shadow: 0 1px 3px rgba(90, 65, 25, 0.2);
+  --nav-bg: #fffaf1d1;
+  --nav-border: #d8c8a8b3;
+  --nav-shadow: 0 10px 30px rgba(90, 65, 25, 0.18);
+  --sheet-shadow: 0 -10px 40px rgba(90, 65, 25, 0.14);
+  --hero-tint: 30%;
   --scrim: rgba(58, 42, 22, 0.34);
   --drawer-shadow: 12px 0 40px rgba(90, 65, 25, 0.22);
   color-scheme: light;
@@ -60,6 +80,18 @@ body {
 button {
   font-family: inherit;
   cursor: pointer;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
 /* Suaviza a troca de tema (a classe só existe por uns instantes durante a troca) */
