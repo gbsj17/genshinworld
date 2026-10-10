@@ -3,6 +3,7 @@ import CharacterPage from './CharacterPage'
 import HomePage from './HomePage'
 import { MenuProvider } from './MenuProvider'
 import './App.css'
+import './responsive.css'
 
 function CharacterRoute() {
   const { id } = useParams()

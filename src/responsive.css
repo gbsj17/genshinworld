@@ -1,0 +1,124 @@
+/* ===== Telas grandes (tablet / PC) ===== */
+@media (min-width: 820px) {
+  /* Home: container largo, grade de cards que se adapta à largura */
+  .screen.home {
+    max-width: 1180px;
+    padding: 0 16px 120px;
+  }
+
+  .home-top {
+    padding: 40px 20px 0;
+  }
+
+  .home-title {
+    font-size: 52px;
+  }
+
+  .search {
+    max-width: 560px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 18px;
+  }
+
+  .char-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .char-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  .char-card__art {
+    height: 150px;
+  }
+
+  .char-card__art .thumb {
+    width: 112px;
+    height: 112px;
+  }
+
+  .row-item:hover {
+    background: var(--surface-deep);
+  }
+
+  /* Lista: coluna central, sem o índice solto na borda da janela */
+  .list {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 48px 0 20px;
+  }
+
+  .alpha {
+    right: 24px;
+  }
+
+  /* Ficha: foto fixa à esquerda, informações rolando à direita */
+  .screen.sheet-screen {
+    max-width: 1180px;
+    display: grid;
+    grid-template-columns: minmax(340px, 5fr) 6fr;
+    gap: 28px;
+    align-items: start;
+    padding: 24px 16px 48px;
+  }
+
+  .sheet-screen .hero {
+    position: sticky;
+    top: 24px;
+    height: calc(100vh - 48px);
+    min-height: 480px;
+    border-radius: 28px;
+    border: 1px solid var(--line);
+  }
+
+  .sheet-screen .hero__img {
+    top: 72px;
+    height: calc(100% - 72px);
+  }
+
+  .sheet-screen .sheet {
+    margin-top: 0;
+    padding: 28px;
+    border-radius: 28px;
+    border: 1px solid var(--line);
+  }
+
+  .sheet__handle {
+    display: none;
+  }
+
+  .sheet h1 {
+    font-size: 56px;
+  }
+
+  .segment {
+    flex: 1;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .shortcut {
+    cursor: pointer;
+  }
+
+  .shortcut:hover {
+    background: var(--surface-deep);
+  }
+
+  /* Barra de abas: fica mais discreta no PC */
+  .tabbar {
+    width: 360px;
+  }
+}
+
+@media (min-width: 820px) and (prefers-reduced-motion: reduce) {
+  .char-card {
+    transition: none;
+  }
+}
