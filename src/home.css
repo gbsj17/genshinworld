@@ -356,6 +356,7 @@
 /* Barra de abas flutuante */
 .tabbar {
   position: fixed;
+  overflow: hidden;
   left: 50%;
   bottom: max(16px, env(safe-area-inset-bottom));
   transform: translateX(-50%);
@@ -407,4 +408,78 @@
   height: 48px;
   border-radius: 14px;
   box-shadow: var(--shadow);
+}
+
+/* Itens e busca dividem o mesmo espaço; um sai e o outro entra */
+.tabbar__items,
+.tabbar__search {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  transition:
+    opacity 0.28s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tabbar__items {
+  justify-content: space-around;
+  padding: 0 8px;
+}
+
+.tabbar__search {
+  gap: 10px;
+  padding: 0 10px 0 20px;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(24px) scale(0.96);
+  pointer-events: none;
+}
+
+.tabbar--search .tabbar__items {
+  opacity: 0;
+  transform: translateX(-24px) scale(0.96);
+  pointer-events: none;
+}
+
+.tabbar--search .tabbar__search {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.tabbar__search input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+}
+
+.tabbar__search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.tabbar__close {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabbar__items,
+  .tabbar__search {
+    transition: none;
+  }
 }
