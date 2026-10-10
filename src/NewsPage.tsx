@@ -309,7 +309,7 @@ export default function NewsPage() {
 
           {newWeapons.length > 0 && (
             <Section title="Novas armas" to="/weapons">
-              <div className="hrow">
+              <div className="hrow hrow--fill" style={{ '--n': newWeapons.length } as CSSProperties}>
                 {newWeapons.map((e) => (
                   <ItemCard key={e.name} kind="weapon" e={e} onPick={setPicked} />
                 ))}
@@ -319,7 +319,7 @@ export default function NewsPage() {
 
           {newArtifacts.length > 0 && (
             <Section title="Novos artefatos" to="/artifacts">
-              <div className="hrow">
+              <div className="hrow hrow--fill" style={{ '--n': newArtifacts.length } as CSSProperties}>
                 {newArtifacts.map((e) => (
                   <ItemCard key={e.name} kind="artifact" e={e} onPick={setPicked} />
                 ))}

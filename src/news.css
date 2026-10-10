@@ -203,10 +203,17 @@
 
   .news-body {
     width: 100%;
-    padding-top: 6px;
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 0 16px;
+    padding: 6px 36px 0;
+  }
+
+  .hrow--fill {
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(140px, 1fr));
+    gap: 14px;
+  }
+
+  .hrow--fill .item-card {
+    flex: none;
   }
 
   .news-chars {
