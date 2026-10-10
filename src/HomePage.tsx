@@ -168,8 +168,8 @@ export default function HomePage() {
     <main className="screen home">
       <header className="home-top">
         <div>
-          <span className="home-cap">PERSONAGENS</span>
           <h1 className="home-title">Genshin World</h1>
+          <span className="home-cap">PERSONAGENS</span>
         </div>
         <img
           className="app-logo"

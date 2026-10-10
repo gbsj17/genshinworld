@@ -483,3 +483,8 @@
     transition: none;
   }
 }
+
+.home-cap {
+  display: block;
+  margin-top: 4px;
+}
