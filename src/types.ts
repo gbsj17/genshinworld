@@ -29,6 +29,8 @@ export interface CharacterSummary {
   splash?: string[]
   // versão do jogo em que o personagem chegou (genshin-db)
   version?: string
+  // id numérico na genshin-db (cresce com os lançamentos; usado para achar os mais novos)
+  dbId?: number
 }
 
 export interface Character {

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { compareVersions, getAllCharacters, getAllItems, iconChain, isVersion } from './api'
+import { compareVersions, getAllCharacters, getAllItems, iconChain, isVersion, newestFirst } from './api'
 import type { ItemEntry } from './api'
 import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
@@ -22,7 +22,7 @@ const normalize = (text: string) =>
     .toLowerCase()
 
 // Banner grande de personagem novo: arte splash, com alternativas se uma falhar.
-function Banner({ c, version }: { c: CharacterSummary; version: string }) {
+function Banner({ c }: { c: CharacterSummary }) {
   const options = [...(c.splash ?? []), ...iconChain(c)]
   const [i, setI] = useState(0)
   const color = VISION_COLORS[c.vision] ?? '#d3bc8e'
@@ -42,7 +42,7 @@ function Banner({ c, version }: { c: CharacterSummary; version: string }) {
           onError={() => setI((n) => n + 1)}
         />
       )}
-      <span className="banner__tag">NOVO · {version}</span>
+      <span className="banner__tag">NOVO{c.version ? ` · ${c.version}` : ''}</span>
       <div className="banner__info">
         <span className="stars">{'★'.repeat(c.rarity)}</span>
         <strong>{c.name}</strong>
@@ -134,20 +134,18 @@ export default function NewsPage() {
     return all.length ? all.reduce((a, b) => (compareVersions(a, b) >= 0 ? a : b)) : null
   }, [chars, weapons, artifacts])
 
-  const newChars = chars.filter((c) => latest && c.version === latest)
-  // Itens da versão mais nova; se a lista não tiver nada nela, usa a versão mais nova da própria lista.
-  const newest = (list: ItemEntry[]): { items: ItemEntry[]; version: string | null } => {
+  // Últimos lançados (não só os da versão atual): ordenados por versão e id.
+  const itemKey = (e: ItemEntry) => e.info
+  const newChars = newestFirst(chars, (c) => ({ version: c.version, id: c.dbId })).slice(0, 4)
+  const newWeapons = newestFirst(weapons, itemKey).slice(0, 8)
+  const newArtifacts = newestFirst(artifacts, itemKey).slice(0, 6)
+  const newest = (list: ItemEntry[]) => {
     const own = list.map((e) => e.info.version).filter(isVersion)
-    if (own.length === 0) return { items: [], version: null }
+    if (own.length === 0) return { items: [] as ItemEntry[], version: null }
     const top = own.reduce((a, b) => (compareVersions(a, b) >= 0 ? a : b))
-    const version = latest && list.some((e) => e.info.version === latest) ? latest : top
-    return { items: list.filter((e) => e.info.version === version), version }
+    return { items: list.filter((e) => e.info.version === top), version: top }
   }
-  const nw = newest(weapons)
-  const na = newest(artifacts)
   const nm = newest(materials.filter((m) => m.info.urls.length > 0))
-  const newWeapons = nw.items
-  const newArtifacts = na.items
   const newMaterials = [...nm.items].sort((a, b) => b.info.rarity - a.info.rarity).slice(0, 30)
   const tag = (v: string | null) => (v && v !== latest ? ` · ${v}` : '')
 
@@ -184,14 +182,14 @@ export default function NewsPage() {
             <Section title="Novos personagens" to="/characters">
               <div className="banners">
                 {newChars.map((c) => (
-                  <Banner key={c.id} c={c} version={latest as string} />
+                  <Banner key={c.id} c={c} />
                 ))}
               </div>
             </Section>
           )}
 
           {newWeapons.length > 0 && (
-            <Section title={`Novas armas${tag(nw.version)}`} to="/weapons">
+            <Section title="Novas armas" to="/weapons">
               <div className="hrow">
                 {newWeapons.map((e) => (
                   <ItemCard key={e.name} kind="weapon" e={e} onPick={setPicked} />
@@ -201,7 +199,7 @@ export default function NewsPage() {
           )}
 
           {newArtifacts.length > 0 && (
-            <Section title={`Novos artefatos${tag(na.version)}`} to="/artifacts">
+            <Section title="Novos artefatos" to="/artifacts">
               <div className="hrow">
                 {newArtifacts.map((e) => (
                   <ItemCard key={e.name} kind="artifact" e={e} onPick={setPicked} />

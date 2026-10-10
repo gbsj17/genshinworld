@@ -42,6 +42,7 @@ interface DbCharacter {
   rarity: number
   region?: string
   version?: string
+  id?: number
   images?: {
     mihoyo_icon?: string
     hoyowiki_icon?: string
@@ -106,6 +107,7 @@ async function fromGenshinDb(): Promise<CharacterSummary[]> {
       portrait: c.images?.portrait,
       splash: splashOptions(c.images),
       version: c.version,
+      dbId: typeof c.id === 'number' ? c.id : undefined,
     }))
   if (result.length === 0) throw new Error('genshin-db: lista vazia')
   return result
@@ -171,6 +173,7 @@ export interface ItemInfo {
   set2?: string
   set4?: string
   version?: string
+  id?: number
 }
 
 const itemCache = new Map<string, Promise<ItemInfo>>()
@@ -209,6 +212,7 @@ function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
     effect: kind === 'weapons' ? weaponEffect(d) : undefined,
     set2: d?.effect2Pc,
     set4: d?.effect4Pc,
+    id: typeof d?.id === 'number' ? d.id : undefined,
     version: typeof d?.version === 'string' || typeof d?.version === 'number' ? String(d.version) : undefined,
   }
 }
@@ -336,3 +340,23 @@ export function compareVersions(a: string, b: string): number {
 }
 
 export const isVersion = (v?: string): v is string => Boolean(v && /^\d+(\.\d+)*$/.test(v))
+
+// Ordena do lançamento mais recente para o mais antigo: versão (sem versão = ainda não marcado,
+// tratado como o mais novo) e, em empate, o id numérico da genshin-db.
+export function newestFirst<T>(list: T[], get: (x: T) => { version?: string; id?: number }): T[] {
+  const key = (x: T) => {
+    const { version, id } = get(x)
+    return { v: isVersion(version) ? version : null, id: id ?? 0 }
+  }
+  return [...list].sort((a, b) => {
+    const ka = key(a)
+    const kb = key(b)
+    if (ka.v === null && kb.v !== null) return -1
+    if (kb.v === null && ka.v !== null) return 1
+    if (ka.v && kb.v) {
+      const d = compareVersions(kb.v, ka.v)
+      if (d) return d
+    }
+    return kb.id - ka.id
+  })
+}
