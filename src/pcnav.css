@@ -139,4 +139,54 @@
     top: 108px;
     height: calc(100vh - 132px);
   }
+
+  /* ===== Aproveita a largura em todas as páginas ===== */
+  .screen.home:not(.news-screen) {
+    max-width: 1680px;
+    padding: 28px 36px 80px;
+  }
+
+  .screen.home:not(.news-screen) .cards {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+  }
+
+  .screen.home .item-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 16px;
+  }
+
+  /* ficha: foto mais larga, informações em colunas */
+  main.screen.sheet-screen {
+    max-width: 1680px;
+    grid-template-columns: minmax(420px, 4fr) 7fr;
+    gap: 36px;
+    padding: 28px 56px 64px;
+  }
+
+  main.screen.sheet-screen .sheet {
+    padding: 36px 40px 40px;
+  }
+
+  .sheet-screen .sheet h1 {
+    font-size: 64px;
+  }
+
+  .sheet-screen .content:has(> .row),
+  .sheet-screen .content:has(> .block--row) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+
+  .sheet-screen .content > .section-title,
+  .sheet-screen .content > .block:not(.block--row) {
+    grid-column: 1 / -1;
+  }
+
+  .sheet-screen .content > .row,
+  .sheet-screen .content > .block {
+    margin: 0;
+  }
 }
