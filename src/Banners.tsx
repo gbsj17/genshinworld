@@ -33,19 +33,14 @@ function loadBanners(): Promise<Banner[]> {
 const fmt = (iso: string | null) =>
   iso ? new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : null
 
-function BannerCard({ b, kind, onOpen }: { b: Banner; kind: string; onOpen: () => void }) {
+function BannerCard({ b, onOpen }: { b: Banner; onOpen: () => void }) {
   const [failed, setFailed] = useState(false)
   const end = fmt(b.end)
   return (
     <button className="gacha-card" onClick={onOpen} aria-label={`Ver o que tem no banner ${b.title}`}>
       {!failed && <img className="gacha-card__img" src={b.image} alt="" onError={() => setFailed(true)} />}
-      <span className="gacha-card__shade" />
-      <span className="gacha-card__info">
-        <span className="gacha-card__tag">{kind}</span>
-        <strong>{b.title}</strong>
-        {end && <span>Até {end}</span>}
-        <span className="gacha-card__more">Ver o que tem no banner →</span>
-      </span>
+      {end && <span className="gacha-card__chip gacha-card__chip--end">Até {end}</span>}
+      <span className="gacha-card__chip gacha-card__chip--go">Ver o que tem no banner →</span>
     </button>
   )
 }
@@ -194,7 +189,7 @@ export default function Banners({
       <div className="gacha-wrap">
         {cur && (
           <div className="gacha-col gacha-col--char" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-            <BannerCard key={cur.id} b={cur} kind="BANNER DE PERSONAGEM" onOpen={() => setOpen(cur)} />
+            <BannerCard key={cur.id} b={cur} onOpen={() => setOpen(cur)} />
             {n > 1 && (
               <div className="gacha-ctrl">
                 <button aria-label="Banner anterior" onClick={() => setIndex((index + n - 1) % n)}>
@@ -223,7 +218,7 @@ export default function Banners({
         )}
         {weaponBanner && (
           <div className="gacha-col gacha-col--weapon">
-            <BannerCard b={weaponBanner} kind="BANNER DE ARMA" onOpen={() => setOpen(weaponBanner)} />
+            <BannerCard b={weaponBanner} onOpen={() => setOpen(weaponBanner)} />
           </div>
         )}
       </div>
