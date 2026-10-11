@@ -298,8 +298,6 @@ export default function NewsPage() {
             )}
           </p>
 
-          <Banners chars={chars} onPickWeapon={setPicked} placement="top" />
-
           {newChars.length > 0 && (
             <Section title="Novos personagens" to="/characters" className="news-chars">
               <div className="banners">
@@ -332,7 +330,7 @@ export default function NewsPage() {
           )}
           </div>
 
-          <Banners chars={chars} onPickWeapon={setPicked} placement="low" />
+          <Banners chars={chars} onPickWeapon={setPicked} />
 
           {newMaterials.length > 0 && (
             <Section title={`Novos materiais${tag(nm.version)}`} className="news-mats">

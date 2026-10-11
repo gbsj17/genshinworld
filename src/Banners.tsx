@@ -33,11 +33,11 @@ function loadBanners(): Promise<Banner[]> {
 const fmt = (iso: string | null) =>
   iso ? new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : null
 
-function BannerCard({ b, current, onOpen }: { b: Banner; current?: boolean; onOpen: () => void }) {
+function BannerCard({ b, onOpen }: { b: Banner; onOpen: () => void }) {
   const [failed, setFailed] = useState(false)
   const end = fmt(b.end)
   return (
-    <button className={current ? 'gacha-card is-current' : 'gacha-card'} onClick={onOpen} aria-label={`Ver o que tem no banner ${b.title}`}>
+    <button className="gacha-card" onClick={onOpen} aria-label={`Ver o que tem no banner ${b.title}`}>
       {!failed && <img className="gacha-card__img" src={b.image} alt="" onError={() => setFailed(true)} />}
       {end && <span className="gacha-card__chip gacha-card__chip--end">Até {end}</span>}
       <span className="gacha-card__chip gacha-card__chip--go">Ver o que tem no banner →</span>
@@ -143,20 +143,72 @@ function BannerModal({
   )
 }
 
-// Banners de oração atuais: personagens em carrossel, arma fixo. Só aparece no PC (CSS).
+// Um carrossel de banners (troca sozinho, pausa com o mouse e com a lista aberta)
+function Carousel({
+  items,
+  label,
+  paused,
+  onOpen,
+}: {
+  items: Banner[]
+  label: string
+  paused: boolean
+  onOpen: (b: Banner) => void
+}) {
+  const [index, setIndex] = useState(0)
+  const [hover, setHover] = useState(false)
+  const n = items.length
+
+  useEffect(() => {
+    if (hover || paused || n < 2) return
+    const t = window.setInterval(() => setIndex((i) => (i + 1) % n), 7000)
+    return () => window.clearInterval(t)
+  }, [hover, paused, n, index])
+
+  if (n === 0) return null
+  const k = index % n
+  const cur = items[k]
+  return (
+    <div className="gacha-col" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+      <BannerCard key={cur.id} b={cur} onOpen={() => onOpen(cur)} />
+      {n > 1 && (
+        <div className="gacha-ctrl">
+          <button aria-label={`${label} anterior`} onClick={() => setIndex((k + n - 1) % n)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M15 5l-7 7 7 7" />
+            </svg>
+          </button>
+          <div className="gacha-dots">
+            {items.map((b, i) => (
+              <button
+                key={b.id}
+                className={i === k ? 'gacha-dot is-active' : 'gacha-dot'}
+                aria-label={`Ir para o banner ${i + 1}`}
+                onClick={() => setIndex(i)}
+              />
+            ))}
+          </div>
+          <button aria-label={`${label} seguinte`} onClick={() => setIndex((k + 1) % n)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Banners de oração atuais: carrossel de personagem e carrossel de arma.
 export default function Banners({
   chars,
   onPickWeapon,
-  placement,
 }: {
   chars: CharacterSummary[]
   onPickWeapon: (p: PickedItem) => void
-  placement: 'top' | 'low'
 }) {
   const [banners, setBanners] = useState<Banner[]>([])
-  const [index, setIndex] = useState(0)
   const [open, setOpen] = useState<Banner | null>(null)
-  const [paused, setPaused] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -170,61 +222,16 @@ export default function Banners({
     }
   }, [])
 
-  const characterBanners = banners.filter((b) => b.type === 'character')
-  const weaponBanner = banners.find((b) => b.type === 'weapon')
-  const n = characterBanners.length
-
-  useEffect(() => {
-    if (paused || open || n < 2) return
-    const t = window.setInterval(() => setIndex((i) => (i + 1) % n), 7000)
-    return () => window.clearInterval(t)
-  }, [paused, open, n, index])
-
   if (banners.length === 0) return null
-  const cur = characterBanners[index % Math.max(n, 1)]
 
   return (
-    <section className={`news-sec news-banners news-banners--${placement}`}>
+    <section className="news-sec news-banners">
       <div className="news-head">
         <h2 className="news-title">Banners de oração</h2>
       </div>
       <div className="gacha-wrap">
-        {cur && (
-          <div className="gacha-col gacha-col--char" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-            {characterBanners.map((b) => (
-              <BannerCard key={b.id} b={b} current={b.id === cur.id} onOpen={() => setOpen(b)} />
-            ))}
-            {n > 1 && (
-              <div className="gacha-ctrl">
-                <button aria-label="Banner anterior" onClick={() => setIndex((index + n - 1) % n)}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M15 5l-7 7 7 7" />
-                  </svg>
-                </button>
-                <div className="gacha-dots">
-                  {characterBanners.map((b, k) => (
-                    <button
-                      key={b.id}
-                      className={k === index % n ? 'gacha-dot is-active' : 'gacha-dot'}
-                      aria-label={`Ir para o banner ${k + 1}`}
-                      onClick={() => setIndex(k)}
-                    />
-                  ))}
-                </div>
-                <button aria-label="Próximo banner" onClick={() => setIndex((index + 1) % n)}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-        {weaponBanner && (
-          <div className="gacha-col gacha-col--weapon">
-            <BannerCard b={weaponBanner} onOpen={() => setOpen(weaponBanner)} />
-          </div>
-        )}
+        <Carousel items={banners.filter((b) => b.type === 'character')} label="Banner de personagem" paused={Boolean(open)} onOpen={setOpen} />
+        <Carousel items={banners.filter((b) => b.type === 'weapon')} label="Banner de arma" paused={Boolean(open)} onOpen={setOpen} />
       </div>
       {open && <BannerModal b={open} chars={chars} onClose={() => setOpen(null)} onPickWeapon={onPickWeapon} />}
     </section>

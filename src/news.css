@@ -482,19 +482,6 @@
 }
 
 /* celular: todos os banners empilhados na vertical; PC: carrossel + arma lado a lado */
-.gacha-col--char {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.gacha-ctrl {
-  display: none !important;
-}
-
-.news-banners--low {
-  display: none;
-}
 
 .gacha-wrap {
   display: flex;
@@ -503,12 +490,7 @@
   padding: 12px 20px 0;
 }
 
-.gacha-col--char {
-  flex: 1 1 0;
-  min-width: 0;
-}
-
-.gacha-col--weapon {
+.gacha-col {
   flex: 1 1 0;
   min-width: 0;
 }
@@ -740,26 +722,13 @@
 }
 
 @media (min-width: 820px) {
-  .news-banners--top {
-    display: none;
-  }
-
-  .news-banners--low {
-    display: block;
+  .news-banners {
     margin-bottom: 40px;
   }
 
   .gacha-wrap {
     flex-direction: row;
     gap: 24px;
-  }
-
-  .gacha-col--char .gacha-card:not(.is-current) {
-    display: none;
-  }
-
-  .gacha-ctrl {
-    display: flex !important;
   }
 
   .gacha-modal {
