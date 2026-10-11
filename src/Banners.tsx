@@ -33,11 +33,11 @@ function loadBanners(): Promise<Banner[]> {
 const fmt = (iso: string | null) =>
   iso ? new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : null
 
-function BannerCard({ b, onOpen }: { b: Banner; onOpen: () => void }) {
+function BannerCard({ b, current, onOpen }: { b: Banner; current?: boolean; onOpen: () => void }) {
   const [failed, setFailed] = useState(false)
   const end = fmt(b.end)
   return (
-    <button className="gacha-card" onClick={onOpen} aria-label={`Ver o que tem no banner ${b.title}`}>
+    <button className={current ? 'gacha-card is-current' : 'gacha-card'} onClick={onOpen} aria-label={`Ver o que tem no banner ${b.title}`}>
       {!failed && <img className="gacha-card__img" src={b.image} alt="" onError={() => setFailed(true)} />}
       {end && <span className="gacha-card__chip gacha-card__chip--end">Até {end}</span>}
       <span className="gacha-card__chip gacha-card__chip--go">Ver o que tem no banner →</span>
@@ -147,9 +147,11 @@ function BannerModal({
 export default function Banners({
   chars,
   onPickWeapon,
+  placement,
 }: {
   chars: CharacterSummary[]
   onPickWeapon: (p: PickedItem) => void
+  placement: 'top' | 'low'
 }) {
   const [banners, setBanners] = useState<Banner[]>([])
   const [index, setIndex] = useState(0)
@@ -182,14 +184,16 @@ export default function Banners({
   const cur = characterBanners[index % Math.max(n, 1)]
 
   return (
-    <section className="news-sec news-banners">
+    <section className={`news-sec news-banners news-banners--${placement}`}>
       <div className="news-head">
         <h2 className="news-title">Banners de oração</h2>
       </div>
       <div className="gacha-wrap">
         {cur && (
           <div className="gacha-col gacha-col--char" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-            <BannerCard key={cur.id} b={cur} onOpen={() => setOpen(cur)} />
+            {characterBanners.map((b) => (
+              <BannerCard key={b.id} b={b} current={b.id === cur.id} onOpen={() => setOpen(b)} />
+            ))}
             {n > 1 && (
               <div className="gacha-ctrl">
                 <button aria-label="Banner anterior" onClick={() => setIndex((index + n - 1) % n)}>
