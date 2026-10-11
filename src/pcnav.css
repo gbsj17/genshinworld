@@ -217,4 +217,12 @@
   .screen .home-filters .seg {
     display: none;
   }
+
+  /* modo escuro: brilho dourado suave no fundo (só PC) */
+  :root:not([data-theme='light']) body {
+    background-image:
+      radial-gradient(ellipse 80% 55% at 50% 0%, rgba(211, 188, 142, 0.2), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(211, 188, 142, 0.1), transparent 70%);
+    background-attachment: fixed;
+  }
 }
