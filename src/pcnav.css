@@ -189,4 +189,24 @@
   .sheet-screen .content > .block {
     margin: 0;
   }
+
+  /* Personagens: botão de grade/lista na mesma linha dos filtros; Todos/Favoritos sai (Favoritos está no topo) */
+  .screen .home-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .screen .home-filters .chips {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .screen .home-filters .home-tools {
+    padding: 14px 20px 4px 0;
+  }
+
+  .screen .home-filters .seg {
+    display: none;
+  }
 }

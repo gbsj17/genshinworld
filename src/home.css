@@ -498,3 +498,7 @@
   display: block;
   margin-top: 4px;
 }
+
+.home-filters {
+  display: contents;
+}

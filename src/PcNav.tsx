@@ -8,6 +8,7 @@ const LINKS: { id: TabId; to: string; label: string }[] = [
   { id: 'characters', to: '/characters', label: 'Personagens' },
   { id: 'weapons', to: '/weapons', label: 'Armas' },
   { id: 'artifacts', to: '/artifacts', label: 'Artefatos' },
+  { id: 'other', to: '/favorites', label: 'Favoritos' },
 ]
 
 // Topo de navegação só para PC (a partir de 820px). No celular fica escondido.

@@ -181,6 +181,7 @@ export default function HomePage() {
         </nav>
       )}
 
+      <div className="home-filters">
       <div className="chips">
         {FILTERS.map((f) => (
           <button
@@ -224,6 +225,7 @@ export default function HomePage() {
             </svg>
           )}
         </button>
+      </div>
       </div>
 
       {error && <p className="empty">Não foi possível carregar os personagens.</p>}
