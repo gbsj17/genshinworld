@@ -456,3 +456,23 @@
     transition: none;
   }
 }
+/* armas e artefatos lado a lado, 4 itens cada; materiais só no celular */
+@media (min-width: 820px) {
+  .news-duo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+
+  .news-duo .hrow--fill {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .news-duo .hrow--fill .item-card:nth-child(n + 5) {
+    display: none;
+  }
+
+  .news-mats {
+    display: none;
+  }
+}

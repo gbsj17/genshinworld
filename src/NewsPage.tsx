@@ -307,6 +307,7 @@ export default function NewsPage() {
             </Section>
           )}
 
+          <div className="news-duo">
           {newWeapons.length > 0 && (
             <Section title="Novas armas" to="/weapons">
               <div className="hrow hrow--fill" style={{ '--n': newWeapons.length } as CSSProperties}>
@@ -326,9 +327,10 @@ export default function NewsPage() {
               </div>
             </Section>
           )}
+          </div>
 
           {newMaterials.length > 0 && (
-            <Section title={`Novos materiais${tag(nm.version)}`}>
+            <Section title={`Novos materiais${tag(nm.version)}`} className="news-mats">
               <div className="hrow hrow--small">
                 {newMaterials.map((m) => (
                   <div className="mat-card" key={m.name}>
