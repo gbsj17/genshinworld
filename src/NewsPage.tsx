@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { compareVersions, getAllCharacters, getAllItems, iconChain, isVersion, newestFirst } from './api'
 import type { ItemEntry } from './api'
 import { ItemIcon } from './ItemIcon'
+import Banners from './Banners'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
 import MenuButton from './MenuButton'
@@ -328,6 +329,8 @@ export default function NewsPage() {
             </Section>
           )}
           </div>
+
+          <Banners chars={chars} onPickWeapon={setPicked} />
 
           {newMaterials.length > 0 && (
             <Section title={`Novos materiais${tag(nm.version)}`} className="news-mats">
