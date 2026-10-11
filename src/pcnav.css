@@ -21,7 +21,8 @@
   }
 
   .pcnav--overlay {
-    position: absolute;
+    position: fixed;
+    transition: background-color 0.25s, border-color 0.25s;
     left: 0;
     right: 0;
     background: none;
@@ -29,6 +30,13 @@
     backdrop-filter: none;
     border-bottom: 0;
     color: #fff;
+  }
+
+  .pcnav--overlay.is-solid {
+    background: rgba(14, 17, 28, 0.88);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .pcnav__brand {

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MenuButton from './MenuButton'
 import type { TabId } from './TabBar'
@@ -25,8 +26,17 @@ export default function PcNav({
   onQuery?: (q: string) => void
   placeholder?: string
 }) {
+  // por cima do banner o topo é transparente; ao rolar ele ganha fundo e continua fixo
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  const cls = overlay ? (scrolled ? 'pcnav pcnav--overlay is-solid' : 'pcnav pcnav--overlay') : 'pcnav'
   return (
-    <header className={overlay ? 'pcnav pcnav--overlay' : 'pcnav'}>
+    <header className={cls}>
       <Link to="/" className="pcnav__brand">
         Genshin World
       </Link>
