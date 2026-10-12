@@ -260,6 +260,7 @@ export default function CharacterPage({ id }: { id: string }) {
                 </div>
               </div>
 
+              <div className="overview-left">
               {firstWeapon && (
                 <button className="shortcut" onClick={() => setTab('builds')}>
                   <ItemIcon kind="weapon" name={firstWeapon.name} fallback={firstWeapon.id ? weaponIcon(firstWeapon.id) : undefined} />
@@ -284,6 +285,22 @@ export default function CharacterPage({ id }: { id: string }) {
                   <Chevron />
                 </button>
               )}
+              </div>
+              <div className="overview-right">
+                {(detail?.skillTalents ?? []).slice(0, 3).map((tl) => {
+                  const kind = SKILL_KIND[tl.type ?? '']
+                  return (
+                    <button className="skill-prev" key={tl.name} onClick={() => setTab('talents')}>
+                      <Icon src={tl.icons ?? []} />
+                      <span>
+                        <span className="row__kind">{kind ? t(kind.label) : t('talent')}</span>
+                        <strong>{tl.name}</strong>
+                        <small>{tl.description}</small>
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
             </>
           )}
 
