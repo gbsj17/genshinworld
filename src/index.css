@@ -1,3 +1,11 @@
+/* Fonte do jogo (HYWenHei), recortada só com letras latinas para o nome do app */
+@font-face {
+  font-family: 'HYWenHei';
+  src: url('./fonts/brand.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   /* Tema escuro (padrão) */
   --bg: #12151f;
@@ -30,7 +38,7 @@
   --drawer-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
   --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Roboto, 'Segoe UI', system-ui, sans-serif;
   --serif: 'Cormorant Garamond', Georgia, serif;
-  --brand: 'Noto Sans', var(--sans);
+  --brand: 'HYWenHei', var(--sans);
   color-scheme: dark;
 }
 
