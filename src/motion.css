@@ -69,13 +69,14 @@
 }
 
 /* Entrada das páginas e das listas */
+/* Só opacidade: um transform aqui prenderia a barra inferior (position: fixed) dentro da página */
 .screen {
-  animation: page-in 0.55s var(--ease-out) both;
+  animation: page-in 0.55s ease backwards;
 }
 
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .cards > *,
