@@ -185,12 +185,23 @@
     font-size: 64px;
   }
 
-  .sheet-screen .content:has(> .row),
   .sheet-screen .content:has(> .block--row) {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
     align-items: start;
+  }
+
+  /* Talentos e constelações: colunas que se ajustam à altura de cada bloco, sem buracos entre eles */
+  .sheet-screen .content:has(> .row) {
+    display: block;
+    column-count: 2;
+    column-gap: 14px;
+  }
+
+  .sheet-screen .content > .row {
+    break-inside: avoid;
+    margin: 0 0 14px;
   }
 
   .sheet-screen .content > .section-title,
