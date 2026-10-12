@@ -210,3 +210,62 @@
     transition-delay: 0s !important;
   }
 }
+
+/* ===== Barra de baixo: ao abrir a pesquisa, os ícones são empurrados para a esquerda um a um
+   e o campo de busca se abre a partir do botão de pesquisa ===== */
+.tabbar .tabbar__items,
+.tabbar.tabbar--search .tabbar__items {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.tabbar .tabbar__item {
+  transition:
+    transform 0.6s var(--ease-out),
+    opacity 0.45s ease,
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+.tabbar .tabbar__item:nth-child(1) { transition-delay: 0.2s, 0.2s, 0s, 0s; }
+.tabbar .tabbar__item:nth-child(2) { transition-delay: 0.16s, 0.16s, 0s, 0s; }
+.tabbar .tabbar__item:nth-child(3) { transition-delay: 0.12s, 0.12s, 0s, 0s; }
+.tabbar .tabbar__item:nth-child(4) { transition-delay: 0.08s, 0.08s, 0s, 0s; }
+.tabbar .tabbar__item:nth-child(5) { transition-delay: 0.04s, 0.04s, 0s, 0s; }
+
+.tabbar.tabbar--search .tabbar__item {
+  opacity: 0;
+  transform: translateX(-70px) scale(0.5);
+}
+
+.tabbar.tabbar--search .tabbar__item:nth-child(1) { transition-delay: 0s, 0s, 0s, 0s; }
+.tabbar.tabbar--search .tabbar__item:nth-child(2) { transition-delay: 0.05s, 0.05s, 0s, 0s; }
+.tabbar.tabbar--search .tabbar__item:nth-child(3) { transition-delay: 0.1s, 0.1s, 0s, 0s; }
+.tabbar.tabbar--search .tabbar__item:nth-child(4) { transition-delay: 0.15s, 0.15s, 0s, 0s; }
+.tabbar.tabbar--search .tabbar__item:nth-child(5) { transition-delay: 0.2s, 0.2s, 0s, 0s; }
+
+/* o campo abre da direita para a esquerda */
+.tabbar .tabbar__search {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 100% round 34px);
+  transition: clip-path 0.55s var(--ease-out);
+}
+
+.tabbar.tabbar--search .tabbar__search {
+  clip-path: inset(0 0 0 0 round 34px);
+  transition: clip-path 0.75s var(--ease-out) 0.2s;
+}
+
+.tabbar .tabbar__search > * {
+  opacity: 0;
+  transform: translateX(22px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.tabbar.tabbar--search .tabbar__search > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease 0.5s, transform 0.6s var(--ease-out) 0.45s;
+}
