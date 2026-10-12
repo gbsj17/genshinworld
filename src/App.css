@@ -648,3 +648,14 @@ a.member:hover .thumb {
   color: var(--stars);
   border-color: var(--stars);
 }
+
+/* Tema claro: ícones da API são brancos e sumiam no fundo areia; ganham fundo escuro para aparecerem */
+[data-theme='light'] .icon,
+[data-theme='light'] .badge {
+  background: #3a3350;
+  border-color: var(--gold);
+}
+
+[data-theme='light'] .badge {
+  box-shadow: 0 1px 3px rgba(90, 65, 25, 0.25);
+}
