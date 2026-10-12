@@ -1,3 +1,4 @@
+import { t } from './i18n'
 import { useMenu } from './menuContext'
 
 // variant "glass" = botão translúcido para ficar por cima da imagem da ficha
@@ -6,7 +7,7 @@ export default function MenuButton({ variant }: { variant?: 'glass' }) {
   return (
     <button
       className={variant === 'glass' ? 'glass-btn' : 'round-btn'}
-      aria-label="Abrir menu"
+      aria-label={t('openMenu')}
       aria-haspopup="dialog"
       aria-expanded={open}
       aria-controls="app-menu"

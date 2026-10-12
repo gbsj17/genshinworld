@@ -57,6 +57,15 @@ async function main() {
   )
   if (wishes.length === 0) throw new Error('nenhuma oração encontrada')
 
+  // versão em português (título e imagem), casada pelo id do anúncio; se falhar, só o inglês é usado
+  let ptById = new Map()
+  try {
+    const ptList = await getJson(`${API}/getAnnList?${Q.replace('lang=en', 'lang=pt-pt')}`)
+    ptById = new Map(ptList.data.list.flatMap((g) => g.list).map((a) => [a.ann_id, a]))
+  } catch (e) {
+    console.error('Banners em português indisponíveis:', e.message)
+  }
+
   const contentRes = await getJson(`${API}/getAnnContent?${Q}`)
   const contents = new Map((contentRes.data.list ?? []).map((c) => [c.ann_id, text(c.content ?? '')]))
 
@@ -71,8 +80,10 @@ async function main() {
     const type = /epitome/i.test(a.title) ? 'weapon' : 'character'
     const body = contents.get(a.ann_id) ?? ''
     const f = featured(body, type === 'weapon' ? weaponNames : charNames)
+    const pt = ptById.get(a.ann_id)
     return {
       id: a.ann_id,
+      pt: pt ? { title: pt.title.replace(/<[^>]+>/g, ''), image: pt.banner || a.banner } : undefined,
       title: a.title.replace(/<[^>]+>/g, ''),
       type,
       image: a.banner,

@@ -5,20 +5,14 @@ import { useFavorites } from './favorites'
 import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
+import { t, weaponLabel } from './i18n'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import TabBar from './TabBar'
 import './home.css'
 import './items.css'
 
-const WEAPON_TYPES: [string, string][] = [
-  ['Todas', ''],
-  ['Espada', 'Sword'],
-  ['Montante', 'Claymore'],
-  ['Lança', 'Polearm'],
-  ['Arco', 'Bow'],
-  ['Catalisador', 'Catalyst'],
-]
+const WEAPON_TYPES = ['', 'Sword', 'Claymore', 'Polearm', 'Bow', 'Catalyst']
 
 const normalize = (text: string) =>
   text
@@ -52,7 +46,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
   const sorted = useMemo(
     () =>
       [...(items ?? [])].sort(
-        (a, b) => b.info.rarity - a.info.rarity || a.name.localeCompare(b.name),
+        (a, b) => b.info.rarity - a.info.rarity || a.label.localeCompare(b.label),
       ),
     [items],
   )
@@ -61,9 +55,9 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
     const q = normalize(query.trim())
     return sorted.filter(
       (e) =>
-        (!type || e.info.type === type) &&
+        (!type || e.info.typeKey === type) &&
         (!rarity || e.info.rarity === rarity) &&
-        normalize(e.name).includes(q),
+        normalize(`${e.label} ${e.name}`).includes(q),
     )
   }, [sorted, query, type, rarity])
 
@@ -71,21 +65,21 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
 
   return (
     <>
-    <PcNav active={isWeapon ? 'weapons' : 'artifacts'} query={query} onQuery={setQuery} placeholder={isWeapon ? 'Buscar arma' : 'Buscar artefato'} />
+    <PcNav active={isWeapon ? 'weapons' : 'artifacts'} query={query} onQuery={setQuery} placeholder={isWeapon ? t('searchWeapon') : t('searchArtifact')} />
     <main className="screen home">
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>
-          <span className="home-cap">{isWeapon ? 'ARMAS' : 'ARTEFATOS'}</span>
+          <span className="home-cap">{isWeapon ? t('capWeapons') : t('capArtifacts')}</span>
         </div>
         <MenuButton />
       </header>
 
       {isWeapon && (
         <div className="chips">
-          {WEAPON_TYPES.map(([label, value]) => (
-            <button key={label} className="pill" aria-pressed={type === value} onClick={() => setType(value)}>
-              {label}
+          {WEAPON_TYPES.map((value) => (
+            <button key={value} className="pill" aria-pressed={type === value} onClick={() => setType(value)}>
+              {value ? weaponLabel(value) : t('weaponAll')}
             </button>
           ))}
         </div>
@@ -93,7 +87,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
 
       <div className="chips">
         <button className="pill" aria-pressed={rarity === 0} onClick={() => setRarity(0)}>
-          Todas as raridades
+          {t('allRarities')}
         </button>
         {rarities.map((r) => (
           <button key={r} className="pill" aria-pressed={rarity === r} onClick={() => setRarity(r)}>
@@ -102,16 +96,16 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
         ))}
       </div>
 
-      {error && <p className="empty">Não foi possível carregar a lista.</p>}
-      {!error && !items && <p className="empty">Carregando...</p>}
+      {error && <p className="empty">{t('loadListFail')}</p>}
+      {!error && !items && <p className="empty">{t('loading')}</p>}
 
       {items && (
         <>
           <p className="home-count">
-            {filtered.length} {isWeapon ? 'armas' : 'conjuntos'}
+            {t(isWeapon ? 'countWeapons' : 'countSets', { n: filtered.length })}
           </p>
           {filtered.length === 0 ? (
-            <p className="empty">Nada encontrado.</p>
+            <p className="empty">{t('nothingFound')}</p>
           ) : (
             <div className="item-grid">
               {filtered.map((e) => (
@@ -121,7 +115,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
                     onClick={() => setPicked({ kind, name: e.name, note: '' })}
                   >
                     <ItemIcon kind={kind} name={e.name} />
-                    <strong>{e.name}</strong>
+                    <strong>{e.label}</strong>
                     <span>
                       {e.info.rarity > 0 ? `${e.info.rarity}★` : ''}
                       {isWeapon && e.info.type ? ` · ${e.info.type}` : ''}
@@ -130,7 +124,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
                   <button
                     className="star-btn"
                     aria-pressed={isFavorite(e.name)}
-                    aria-label={isFavorite(e.name) ? `Remover ${e.name} dos favoritos` : `Adicionar ${e.name} aos favoritos`}
+                    aria-label={isFavorite(e.name) ? t('favRemove', { n: e.label }) : t('favAdd', { n: e.label })}
                     onClick={() => toggle(e.name)}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite(e.name) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">

@@ -16,7 +16,9 @@ export interface Constellation {
 
 export interface CharacterSummary {
   id: string
+  // nome para mostrar (idioma escolhido) e nome em inglês (chave das builds e buscas)
   name: string
+  enName: string
   vision: string
   weapon: string
   nation: string

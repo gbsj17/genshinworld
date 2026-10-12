@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { lang, setLang, t } from './i18n'
 import { useMenu } from './menuContext'
 import './drawer.css'
 
@@ -61,18 +62,18 @@ export default function Drawer() {
         className="drawer__panel"
         role="dialog"
         aria-modal="true"
-        aria-label="Menu"
+        aria-label={t('menu')}
         onKeyDown={trapTab}
       >
         <div className="drawer__head" style={step(0)}>
           <div>
             <span className="drawer__title">GENSHIN WORLD</span>
-            <span className="drawer__sub">Personagens, builds e equipes</span>
+            <span className="drawer__sub">{t('menuSub')}</span>
           </div>
           <button
             ref={closeRef}
             className="round-btn"
-            aria-label="Fechar menu"
+            aria-label={t('closeMenu')}
             onClick={closeMenu}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -86,26 +87,26 @@ export default function Drawer() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5" />
             </svg>
-            Início
+            {t('home')}
           </Link>
           <Link to="/favorites" className="drawer__item" style={step(2)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
               <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
             </svg>
-            Favoritos
+            {t('favorites')}
           </Link>
         </nav>
 
         <div className="drawer__item drawer__item--row" style={step(3)}>
           <span className="drawer__label">
-            Tema
-            <small>{isLight ? 'Areia claro' : 'Escuro'}</small>
+            {t('theme')}
+            <small>{isLight ? t('themeLight') : t('themeDark')}</small>
           </span>
           <button
             className="theme-switch"
             role="switch"
             aria-checked={isLight}
-            aria-label="Tema areia claro"
+            aria-label={t('themeSwitch')}
             onClick={toggleTheme}
           >
             <span className="theme-switch__knob">
@@ -118,6 +119,14 @@ export default function Drawer() {
               </svg>
             </span>
           </button>
+        </div>
+
+        <div className="drawer__item drawer__item--row" style={step(4)}>
+          <span className="drawer__label">{t('language')}</span>
+          <div className="lang-switch" role="group" aria-label={t('language')}>
+            <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>
+            <button aria-pressed={lang === 'en'} onClick={() => setLang('en')}>EN-US</button>
+          </div>
         </div>
       </aside>
     </div>

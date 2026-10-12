@@ -1,4 +1,5 @@
 import type { Character, CharacterSummary, Constellation, Talent } from './types'
+import { apiLang, isPt, t } from './i18n'
 
 const BASE_URL = 'https://genshin.jmp.blue'
 
@@ -15,6 +16,9 @@ export const artifactFlower = (id: string) =>
   `${BASE_URL}/artifacts/${id}/flower-of-life`
 
 const DB_URL = 'https://genshin-db-api.vercel.app/api/v5'
+// Os nomes internos (ids, builds) são sempre em inglês: a busca aceita inglês e devolve no idioma escolhido.
+const LQ = `queryLanguages=English&resultLanguage=${apiLang}`
+const LIST_Q = 'query=names&matchCategories=true&verboseCategories=true'
 
 const ELEMENTS: Record<string, string> = {
   ELEMENT_PYRO: 'Pyro',
@@ -86,31 +90,43 @@ function findDevId(name: string, devIds: Set<string>): string | undefined {
 }
 
 async function fromGenshinDb(): Promise<CharacterSummary[]> {
-  const [dbResponse, devResponse] = await Promise.all([
-    fetch(`${DB_URL}/characters?query=names&matchCategories=true&verboseCategories=true`),
+  // A lista em inglês dá os ids e chaves; no português, os textos vêm de uma segunda lista (casada pelo id numérico).
+  const [dbResponse, devResponse, localResponse] = await Promise.all([
+    fetch(`${DB_URL}/characters?${LIST_Q}&resultLanguage=English`),
     fetch(`${BASE_URL}/characters`),
+    isPt ? fetch(`${DB_URL}/characters?${LIST_Q}&resultLanguage=${apiLang}`) : Promise.resolve(null),
   ])
   if (!dbResponse.ok) throw new Error(`genshin-db: erro ${dbResponse.status}`)
   const list: DbCharacter[] = await dbResponse.json()
   const devIds = new Set<string>(devResponse.ok ? await devResponse.json() : [])
+  const local = new Map<number, DbCharacter>()
+  if (localResponse?.ok) {
+    for (const c of (await localResponse.json()) as DbCharacter[]) {
+      if (typeof c.id === 'number') local.set(c.id, c)
+    }
+  }
 
   const result = list
     .filter((c) => ELEMENTS[c.elementType])
-    .map((c) => ({
-      id: slug(c.name),
-      name: c.name,
-      vision: ELEMENTS[c.elementType],
-      weapon: WEAPONS[c.weaponType] ?? c.weaponText ?? '',
-      nation: c.region ?? '',
-      rarity: c.rarity,
-      devId: findDevId(c.name, devIds),
-      icons: iconOptions(c.images),
-      portrait: c.images?.portrait,
-      splash: splashOptions(c.images),
-      version: c.version,
-      description: c.description,
-      dbId: typeof c.id === 'number' ? c.id : undefined,
-    }))
+    .map((c) => {
+      const l = (typeof c.id === 'number' ? local.get(c.id) : undefined) ?? c
+      return {
+        id: slug(c.name),
+        name: l.name,
+        enName: c.name,
+        vision: ELEMENTS[c.elementType],
+        weapon: WEAPONS[c.weaponType] ?? c.weaponText ?? '',
+        nation: l.region ?? '',
+        rarity: c.rarity,
+        devId: findDevId(c.name, devIds),
+        icons: iconOptions(c.images),
+        portrait: c.images?.portrait,
+        splash: splashOptions(c.images),
+        version: c.version,
+        description: l.description,
+        dbId: typeof c.id === 'number' ? c.id : undefined,
+      }
+    })
   if (result.length === 0) throw new Error('genshin-db: lista vazia')
   return result
 }
@@ -123,6 +139,7 @@ async function fromGenshinDev(): Promise<CharacterSummary[]> {
   return list.map(({ id, name, vision, weapon, nation, rarity }) => ({
     id,
     name,
+    enName: name,
     vision,
     weapon,
     nation,
@@ -167,7 +184,9 @@ export interface ItemInfo {
   urls: string[]
   rarity: number
   // detalhes (podem faltar se a API mudar o formato; a tela só mostra o que existir)
+  label?: string // nome no idioma escolhido (o nome em inglês é a chave)
   type?: string
+  typeKey?: string // tipo de arma em inglês (usado nos filtros)
   baseAtk?: string
   stat?: string
   effectName?: string
@@ -206,6 +225,7 @@ function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
   return {
     // Enka primeiro: é o mesmo CDN que já carrega os ícones dos personagens
     urls: [file ? enka(file) : undefined, direct].filter((u): u is string => Boolean(u)),
+    label: typeof d?.name === 'string' ? d.name : undefined,
     rarity: d?.rarity ?? Math.max(...(d?.rarityList ?? [4])),
     type: d?.weaponText ?? d?.typeText,
     baseAtk: d?.baseAtkValue ? String(Math.round(d.baseAtkValue)) : undefined,
@@ -223,7 +243,7 @@ function fetchItem(kind: 'weapons' | 'artifacts' | 'materials', name: string): P
   const key = `${kind}:${name}`
   let cached = itemCache.get(key)
   if (!cached) {
-    cached = fetch(`${DB_URL}/${kind}?query=${encodeURIComponent(name)}`)
+    cached = fetch(`${DB_URL}/${kind}?query=${encodeURIComponent(name)}&${LQ}`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((d) => toInfo(kind, d))
       .catch(() => ({ urls: [], rarity: 0 }))
@@ -235,22 +255,34 @@ function fetchItem(kind: 'weapons' | 'artifacts' | 'materials', name: string): P
 // Lista completa de armas ou artefatos do jogo. Também preenche o cache por nome,
 // então ícones e detalhes abrem na hora, sem uma busca por item.
 export interface ItemEntry {
-  name: string
+  name: string // chave (inglês)
+  label: string // nome para mostrar no idioma escolhido
   info: ItemInfo
 }
 
 const listCache = new Map<string, Promise<ItemEntry[]>>()
 
+const fetchList = (kind: string, language: string): Promise<{ id?: number; name?: string; weaponText?: string }[]> =>
+  fetch(`${DB_URL}/${kind}?${LIST_Q}&resultLanguage=${language}`).then((r) =>
+    r.ok ? r.json() : Promise.reject(new Error(String(r.status))),
+  )
+
 export function getAllItems(kind: 'weapons' | 'artifacts' | 'materials'): Promise<ItemEntry[]> {
   let cached = listCache.get(kind)
   if (!cached) {
-    cached = fetch(`${DB_URL}/${kind}?query=names&matchCategories=true&verboseCategories=true`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-      .then((list: { name?: string }[]) => {
-        const entries = list
+    cached = Promise.all([fetchList(kind, 'English'), isPt ? fetchList(kind, apiLang) : Promise.resolve(null)])
+      .then(([en, local]) => {
+        const byId = new Map<number, { name?: string }>()
+        for (const d of local ?? []) if (typeof d.id === 'number') byId.set(d.id, d)
+        const entries = en
           .filter((d) => d?.name)
-          .map((d) => ({ name: d.name as string, info: toInfo(kind, d) }))
-        if (entries.length === 0) throw new Error('lista vazia')
+          .map((d) => {
+            const l = (typeof d.id === 'number' ? byId.get(d.id) : undefined) ?? d
+            const info = toInfo(kind, { ...d, ...l })
+            info.typeKey = (d as { weaponText?: string }).weaponText ?? info.type
+            return { name: d.name as string, label: (l.name ?? d.name) as string, info }
+          })
+        if (entries.length === 0) throw new Error('empty list')
         for (const e of entries) itemCache.set(`${kind}:${e.name}`, Promise.resolve(e.info))
         return entries
       })
@@ -283,8 +315,8 @@ export function getDetails(name: string): Promise<Details> {
   if (!cached) {
     const q = encodeURIComponent(name)
     cached = Promise.all([
-      fetch(`${DB_URL}/talents?query=${q}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
-      fetch(`${DB_URL}/constellations?query=${q}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
+      fetch(`${DB_URL}/talents?query=${q}&${LQ}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
+      fetch(`${DB_URL}/constellations?query=${q}&${LQ}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
     ])
       .then(([tal, con]): Details => {
         const kinds = ['NORMAL_ATTACK', 'ELEMENTAL_SKILL', 'ELEMENTAL_BURST']
@@ -313,7 +345,7 @@ export function getDetails(name: string): Promise<Details> {
           .filter(({ c }) => c?.name)
           .map(({ c, n }): Constellation => ({
             name: c.name,
-            unlock: `Constelação ${n}`,
+            unlock: t('constellationN', { n }),
             description: clean(c.description),
             level: n,
             icons: img(con.images?.[`filename_c${n}`]),

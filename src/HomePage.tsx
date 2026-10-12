@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { getAllCharacters, iconChain } from './api'
+import { t, weaponLabel } from './i18n'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
@@ -12,7 +13,8 @@ import type { CharacterSummary } from './types'
 import { VISION_COLORS } from './visionColors'
 import './home.css'
 
-const FILTERS = ['Todos', ...Object.keys(VISION_COLORS)]
+const ALL = 'all'
+const FILTERS = [ALL, ...Object.keys(VISION_COLORS)]
 const VIEW_KEY = 'genshinworld:view'
 
 type View = 'grid' | 'list'
@@ -33,7 +35,7 @@ function StarButton({ id, name }: { id: string; name: string }) {
     <button
       className="star-btn"
       aria-pressed={on}
-      aria-label={on ? `Remover ${name} dos favoritos` : `Adicionar ${name} aos favoritos`}
+      aria-label={on ? t('favRemove', { n: name }) : t('favAdd', { n: name })}
       onClick={() => toggle(id)}
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill={on ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
@@ -56,7 +58,7 @@ function Card({ c }: { c: CharacterSummary }) {
         </div>
         <div className="char-card__body">
           <strong>{c.name}</strong>
-          <span>{[c.vision, c.weapon].filter(Boolean).join(' · ')}</span>
+          <span>{[c.vision, weaponLabel(c.weapon)].filter(Boolean).join(' · ')}</span>
         </div>
       </Link>
       <StarButton id={c.id} name={c.name} />
@@ -75,7 +77,7 @@ function ListRow({ c }: { c: CharacterSummary }) {
         <div className="row-item__body">
           <strong>{c.name}</strong>
           <span>
-            {[c.vision, c.weapon].filter(Boolean).join(' · ')} · {c.rarity}★
+            {[c.vision, weaponLabel(c.weapon)].filter(Boolean).join(' · ')} · {c.rarity}★
           </span>
         </div>
       </Link>
@@ -88,7 +90,7 @@ export default function HomePage() {
   const [characters, setCharacters] = useState<CharacterSummary[] | null>(null)
   const [error, setError] = useState(false)
   const [query, setQuery] = useState('')
-  const [vision, setVision] = useState('Todos')
+  const [vision, setVision] = useState(ALL)
   const [scope, setScope] = useState<Scope>('all')
   const [view, setView] = useState<View>(() => {
     try {
@@ -133,8 +135,8 @@ export default function HomePage() {
     return sorted.filter(
       (c) =>
         (scope === 'all' || ids.includes(c.id)) &&
-        (vision === 'Todos' || c.vision === vision) &&
-        normalize(c.name).includes(q),
+        (vision === ALL || c.vision === vision) &&
+        normalize(`${c.name} ${c.enName}`).includes(q),
     )
   }, [sorted, query, vision, scope, ids])
 
@@ -155,18 +157,18 @@ export default function HomePage() {
 
   return (
     <>
-    <PcNav active="characters" query={query} onQuery={setQuery} placeholder="Buscar personagem" />
+    <PcNav active="characters" query={query} onQuery={setQuery} placeholder={t('searchChar')} />
     <main className="screen home">
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>
-          <span className="home-cap">PERSONAGENS</span>
+          <span className="home-cap">{t('capChars')}</span>
         </div>
         <MenuButton />
       </header>
 
       {favorites.length > 0 && (
-        <nav className="stories" aria-label="Favoritos">
+        <nav className="stories" aria-label={t('favorites')}>
           {favorites.map((c) => (
             <Link
               key={c.id}
@@ -190,26 +192,26 @@ export default function HomePage() {
             aria-pressed={f === vision}
             onClick={() => setVision(f)}
           >
-            {f !== 'Todos' && (
+            {f !== ALL && (
               <span className="pill__dot" style={{ '--dot': VISION_COLORS[f] } as CSSProperties} />
             )}
-            {f}
+            {f === ALL ? t('all') : f}
           </button>
         ))}
       </div>
 
       <div className="home-tools">
-        <div className="seg" role="tablist" aria-label="Lista">
+        <div className="seg" role="tablist" aria-label={t('list')}>
           <button role="tab" aria-selected={scope === 'all'} onClick={() => setScope('all')}>
-            Todos
+            {t('all')}
           </button>
           <button role="tab" aria-selected={scope === 'favorites'} onClick={() => setScope('favorites')}>
-            Favoritos
+            {t('favorites')}
           </button>
         </div>
         <button
           className="view-toggle"
-          aria-label={view === 'grid' ? 'Ver em lista' : 'Ver em grade'}
+          aria-label={view === 'grid' ? t('viewList') : t('viewGrid')}
           onClick={() => changeView(view === 'grid' ? 'list' : 'grid')}
         >
           {view === 'grid' ? (
@@ -228,17 +230,17 @@ export default function HomePage() {
       </div>
       </div>
 
-      {error && <p className="empty">Não foi possível carregar os personagens.</p>}
-      {!error && !characters && <p className="empty">Carregando...</p>}
+      {error && <p className="empty">{t('loadCharsFail')}</p>}
+      {!error && !characters && <p className="empty">{t('loading')}</p>}
 
       {characters && (
         <>
-          <p className="home-count">{filtered.length} personagens</p>
+          <p className="home-count">{t('countChars', { n: filtered.length })}</p>
           {filtered.length === 0 ? (
             <p className="empty">
               {scope === 'favorites' && ids.length === 0
-                ? 'Toque na estrela de um personagem para favoritar.'
-                : 'Nenhum personagem encontrado.'}
+                ? t('tapStarChar')
+                : t('noChars')}
             </p>
           ) : view === 'grid' ? (
             <div className="cards">
@@ -260,7 +262,7 @@ export default function HomePage() {
                   </section>
                 ))}
               </div>
-              <nav className="alpha" aria-label="Índice alfabético">
+              <nav className="alpha" aria-label={t('alphaIndex')}>
                 {groups.map(([letter]) => (
                   <a
                     key={letter}

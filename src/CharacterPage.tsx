@@ -4,7 +4,9 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useFavorites } from './favorites'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
-import { ItemIcon } from './ItemIcon'
+import { t, weaponLabel } from './i18n'
+import type { Key } from './i18n'
+import { ItemIcon, ItemName } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
 import type { Details } from './api'
@@ -23,20 +25,21 @@ import {
 } from './api'
 import type { CharacterSummary } from './types'
 import { BUILDS } from './data/builds'
+import { buildText } from './data/buildText'
 
 type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
 
-const TABS: { id: Tab; label: string }[] = [
-  { id: 'overview', label: 'Visão geral' },
-  { id: 'talents', label: 'Talentos' },
-  { id: 'constellations', label: 'Constelações' },
-  { id: 'builds', label: 'Builds' },
+const TABS: { id: Tab; label: Key }[] = [
+  { id: 'overview', label: 'tabOverview' },
+  { id: 'talents', label: 'tabTalents' },
+  { id: 'constellations', label: 'tabConst' },
+  { id: 'builds', label: 'tabBuilds' },
 ]
 
-const SKILL_KIND: Record<string, { label: string; asset: string }> = {
-  NORMAL_ATTACK: { label: 'Ataque normal', asset: 'talent-na' },
-  ELEMENTAL_SKILL: { label: 'Habilidade elemental', asset: 'talent-skill' },
-  ELEMENTAL_BURST: { label: 'Supremo elemental', asset: 'talent-burst' },
+const SKILL_KIND: Record<string, { label: Key; asset: string }> = {
+  NORMAL_ATTACK: { label: 'skillNormal', asset: 'talent-na' },
+  ELEMENTAL_SKILL: { label: 'skillSkill', asset: 'talent-skill' },
+  ELEMENTAL_BURST: { label: 'skillBurst', asset: 'talent-burst' },
 }
 
 function Icon({ src }: { src: string[] }) {
@@ -94,20 +97,20 @@ export default function CharacterPage({ id }: { id: string }) {
     getAllCharacters()
       .then((list) => {
         const found = list.find((c) => c.id === id)
-        if (!found) throw new Error('Personagem não encontrado')
+        if (!found) throw new Error(t('charNotFound'))
         setCharacter(found)
         setAll(list)
         // Talentos e constelações: genshin-db (todos); genshin.dev só como plano B.
-        getDetails(found.name)
+        getDetails(found.enName)
           .then(setDetail)
           .catch(() => {
             if (!found.devId) return setDetailFailed(true)
             getCharacter(found.devId, controller.signal)
               .then((d) =>
                 setDetail({
-                  skillTalents: d.skillTalents.map((t) => ({
-                    ...t,
-                    icons: [imageUrl(found.devId!, SKILL_KIND[t.type ?? '']?.asset ?? 'talent-na')],
+                  skillTalents: d.skillTalents.map((x) => ({
+                    ...x,
+                    icons: [imageUrl(found.devId!, SKILL_KIND[x.type ?? '']?.asset ?? 'talent-na')],
                   })),
                   passiveTalents: d.passiveTalents.map((t, i) => ({
                     ...t,
@@ -127,15 +130,15 @@ export default function CharacterPage({ id }: { id: string }) {
   }, [id])
 
   if (error) {
-    return <main className="screen screen--message">Não foi possível carregar o personagem.</main>
+    return <main className="screen screen--message">{t('loadCharFail')}</main>
   }
   if (!character) {
-    return <main className="screen screen--message">Carregando...</main>
+    return <main className="screen screen--message">{t('loading')}</main>
   }
 
   const accent = VISION_COLORS[character.vision] ?? '#d3bc8e'
   const style = { '--accent': accent } as CSSProperties
-  const build = BUILDS[id]
+  const build = buildText(BUILDS[id])
   const devId = character.devId
   // Tenta cada imagem em ordem; a última alternativa é o ícone do personagem,
   // para o topo da ficha nunca ficar vazio.
@@ -154,7 +157,7 @@ export default function CharacterPage({ id }: { id: string }) {
   const memberHit = (m: { name: string }) => {
     const n = m.name.toLowerCase()
     return all.find((c) => {
-      const cn = c.name.toLowerCase()
+      const cn = c.enName.toLowerCase()
       return cn === n || cn.endsWith(` ${n}`) || cn.startsWith(`${n} `)
     })
   }
@@ -176,7 +179,7 @@ export default function CharacterPage({ id }: { id: string }) {
     <main className="screen sheet-screen" style={style}>
       <section className="hero">
         <div className="hero__bar">
-          <Link to="/characters" className="glass-btn" aria-label="Voltar">
+          <Link to="/characters" className="glass-btn" aria-label={t('back')}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 5l-7 7 7 7" />
             </svg>
@@ -184,7 +187,7 @@ export default function CharacterPage({ id }: { id: string }) {
           <div className="hero__actions">
             <button
               className="glass-btn"
-              aria-label={isFavorite(id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+              aria-label={isFavorite(id) ? t('favRemoveShort') : t('favAddShort')}
               aria-pressed={isFavorite(id)}
               onClick={() => toggle(id)}
             >
@@ -210,25 +213,25 @@ export default function CharacterPage({ id }: { id: string }) {
         <div className="sheet__handle" aria-hidden="true" />
         <div className="sheet__badges">
           <Badge src={elementIcon(character.vision)} label={character.vision} />
-          <span className="stars" role="img" aria-label={`${character.rarity} estrelas`}>
+          <span className="stars" role="img" aria-label={t('stars', { n: character.rarity })}>
             {'★'.repeat(character.rarity)}
           </span>
         </div>
         <h1>{character.name}</h1>
         <p className="sheet__sub">
-          {[character.vision, character.weapon, character.nation].filter(Boolean).join(' · ')}
+          {[character.vision, weaponLabel(character.weapon), character.nation].filter(Boolean).join(' · ')}
         </p>
 
-        <div className="segments" role="tablist" aria-label="Seções da ficha">
-          {visibleTabs.map((t) => (
+        <div className="segments" role="tablist" aria-label={t('sheetSections')}>
+          {visibleTabs.map((tb) => (
             <button
-              key={t.id}
+              key={tb.id}
               role="tab"
               className="segment"
-              aria-selected={t.id === tab}
-              onClick={() => setTab(t.id)}
+              aria-selected={tb.id === tab}
+              onClick={() => setTab(tb.id)}
             >
-              {t.label}
+              {t(tb.label)}
             </button>
           ))}
         </div>
@@ -238,22 +241,22 @@ export default function CharacterPage({ id }: { id: string }) {
             <>
               <div className="grid">
                 <div className="card">
-                  <span className="card__label">Elemento</span>
+                  <span className="card__label">{t('element')}</span>
                   <strong className="card__value">{character.vision}</strong>
                 </div>
                 <div className="card">
-                  <span className="card__label">Arma</span>
-                  <strong className="card__value">{character.weapon}</strong>
+                  <span className="card__label">{t('weapon')}</span>
+                  <strong className="card__value">{weaponLabel(character.weapon)}</strong>
                 </div>
                 {character.nation && (
                   <div className="card">
-                    <span className="card__label">Nação</span>
+                    <span className="card__label">{t('nation')}</span>
                     <strong className="card__value">{character.nation}</strong>
                   </div>
                 )}
                 <div className="card">
-                  <span className="card__label">Raridade</span>
-                  <strong className="card__value">{character.rarity} estrelas</strong>
+                  <span className="card__label">{t('rarity')}</span>
+                  <strong className="card__value">{t('starsCount', { n: character.rarity })}</strong>
                 </div>
               </div>
 
@@ -261,8 +264,8 @@ export default function CharacterPage({ id }: { id: string }) {
                 <button className="shortcut" onClick={() => setTab('builds')}>
                   <ItemIcon kind="weapon" name={firstWeapon.name} fallback={firstWeapon.id ? weaponIcon(firstWeapon.id) : undefined} />
                   <span className="shortcut__body">
-                    <span className="shortcut__kind">Melhor arma</span>
-                    <span className="shortcut__name">{firstWeapon.name}</span>
+                    <span className="shortcut__kind">{t('bestWeapon')}</span>
+                    <span className="shortcut__name"><ItemName kind="weapon" name={firstWeapon.name} /></span>
                   </span>
                   <Chevron />
                 </button>
@@ -275,7 +278,7 @@ export default function CharacterPage({ id }: { id: string }) {
                     ))}
                   </span>
                   <span className="shortcut__body">
-                    <span className="shortcut__kind">Equipe sugerida</span>
+                    <span className="shortcut__kind">{t('suggestedTeam')}</span>
                     <span className="shortcut__name">{firstTeam.name}</span>
                   </span>
                   <Chevron />
@@ -285,31 +288,31 @@ export default function CharacterPage({ id }: { id: string }) {
           )}
 
         {(tab === 'talents' || tab === 'constellations') && !detail && (
-          <p className="empty">{detailFailed ? 'Não foi possível carregar.' : 'Carregando...'}</p>
+          <p className="empty">{detailFailed ? t('loadFail') : t('loading')}</p>
         )}
 
         {tab === 'talents' && detail && (
           <>
-            {detail.skillTalents.map((t) => {
-              const kind = SKILL_KIND[t.type ?? '']
+            {detail.skillTalents.map((tl) => {
+              const kind = SKILL_KIND[tl.type ?? '']
               return (
-                <article className="row" key={t.name}>
-                  <Icon src={t.icons ?? []} />
+                <article className="row" key={tl.name}>
+                  <Icon src={tl.icons ?? []} />
                   <div>
-                    <span className="row__kind">{kind?.label ?? 'Talento'}</span>
-                    <h2>{t.name}</h2>
-                    <p>{t.description}</p>
+                    <span className="row__kind">{kind ? t(kind.label) : t('talent')}</span>
+                    <h2>{tl.name}</h2>
+                    <p>{tl.description}</p>
                   </div>
                 </article>
               )
             })}
-            {detail.passiveTalents.map((t) => (
-              <article className="row" key={t.name}>
-                <Icon src={t.icons ?? []} />
+            {detail.passiveTalents.map((tl) => (
+              <article className="row" key={tl.name}>
+                <Icon src={tl.icons ?? []} />
                 <div>
-                  <span className="row__kind">Passivo{t.unlock ? ` · ${t.unlock}` : ''}</span>
-                  <h2>{t.name}</h2>
-                  <p>{t.description}</p>
+                  <span className="row__kind">{t('passive')}{tl.unlock ? ` · ${tl.unlock}` : ''}</span>
+                  <h2>{tl.name}</h2>
+                  <p>{tl.description}</p>
                 </div>
               </article>
             ))}
@@ -330,12 +333,12 @@ export default function CharacterPage({ id }: { id: string }) {
           ))}
 
         {tab === 'builds' && !build && (
-          <p className="empty">Ainda não há build cadastrada para este personagem.</p>
+          <p className="empty">{t('noBuild')}</p>
         )}
 
         {tab === 'builds' && build && (
           <>
-            <h2 className="section-title">Armas</h2>
+            <h2 className="section-title">{t('weapons')}</h2>
             {build.weapons.map((w, i) => {
               const fallback = w.icon ?? (w.id ? weaponIcon(w.id) : undefined)
               return (
@@ -350,14 +353,14 @@ export default function CharacterPage({ id }: { id: string }) {
                   <ItemIcon kind="weapon" name={w.name} fallback={fallback} />
                   <div className="block__body">
                     <span className="row__kind">#{i + 1}</span>
-                    <h3>{w.name}</h3>
+                    <h3><ItemName kind="weapon" name={w.name} /></h3>
                     <p>{w.note}</p>
                   </div>
                 </div>
               )
             })}
 
-            <h2 className="section-title">Artefatos</h2>
+            <h2 className="section-title">{t('artifacts')}</h2>
             {build.artifacts.map((a, i) => {
               const fallback = a.id ? artifactFlower(a.id) : undefined
               return (
@@ -372,7 +375,7 @@ export default function CharacterPage({ id }: { id: string }) {
                   <ItemIcon kind="artifact" name={a.name} fallback={fallback} />
                   <div className="block__body">
                     <span className="row__kind">#{i + 1}</span>
-                    <h3>{a.name}</h3>
+                    <h3><ItemName kind="artifact" name={a.name} /></h3>
                     <p>{a.note}</p>
                   </div>
                 </div>
@@ -380,7 +383,7 @@ export default function CharacterPage({ id }: { id: string }) {
             })}
             {(build.mainStats.length > 0 || build.substats) && (
             <article className="block">
-              <span className="row__kind">Atributos principais</span>
+              <span className="row__kind">{t('mainStats')}</span>
               {build.mainStats.map((s) => (
                 <p key={s.slot}>
                   <strong>{s.slot}:</strong> {s.value}
@@ -390,21 +393,22 @@ export default function CharacterPage({ id }: { id: string }) {
             </article>
             )}
 
-            {build.teams.length > 0 && <h2 className="section-title">Equipes</h2>}
-            {build.teams.map((t) => (
-              <article className="block" key={t.name}>
-                <span className="row__kind">{t.name}</span>
+            {build.teams.length > 0 && <h2 className="section-title">{t('teams')}</h2>}
+            {build.teams.map((tm) => (
+              <article className="block" key={tm.name}>
+                <span className="row__kind">{tm.name}</span>
                 <div className="members">
-                  {t.members.map((m) => {
+                  {tm.members.map((m) => {
                     const hit = memberHit(m)
+                    const shown = hit ? hit.name : m.name
                     const inner = (
                       <>
-                        <Thumb round src={memberIcons(m)} label={m.name} />
-                        <span>{m.name}</span>
+                        <Thumb round src={memberIcons(m)} label={shown} />
+                        <span>{shown}</span>
                       </>
                     )
                     return hit ? (
-                      <Link className="member" key={m.name} to={`/character/${hit.id}`} aria-label={`Abrir ${m.name}`}>
+                      <Link className="member" key={m.name} to={`/character/${hit.id}`} aria-label={t('open', { n: shown })}>
                         {inner}
                       </Link>
                     ) : (
@@ -414,12 +418,12 @@ export default function CharacterPage({ id }: { id: string }) {
                     )
                   })}
                 </div>
-                <p>{t.note}</p>
+                <p>{tm.note}</p>
               </article>
             ))}
 
             <p className="source">
-              Patch {build.patch}. Fontes:{' '}
+              {t('patch')} {build.patch}. {t('sources')}:{' '}
               {build.sources.map((s, i) => (
                 <span key={s.url}>
                   {i > 0 && ' · '}

@@ -218,3 +218,28 @@ a.drawer__item:focus-visible {
     transition-delay: 0s !important;
   }
 }
+
+.lang-switch {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--surface-deep);
+  border: 1px solid var(--line);
+}
+
+.lang-switch button {
+  border: 0;
+  background: transparent;
+  color: var(--muted, inherit);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.lang-switch button[aria-pressed='true'] {
+  background: var(--accent, #d3bc8e);
+  color: var(--on-accent, #1b1b1b);
+}

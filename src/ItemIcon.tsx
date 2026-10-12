@@ -28,7 +28,22 @@ export function ItemIcon({
   const urls = [...(info?.urls ?? []), ...(fallback ? [fallback] : [])]
   return (
     <div className={`item-icon item-icon--r${info?.rarity ?? 0}`}>
-      {info && <Thumb src={urls} label={name} />}
+      {info && <Thumb src={urls} label={info.label ?? name} />}
     </div>
   )
+}
+
+// Nome da arma/artefato no idioma escolhido (a chave em inglês vale até a API responder).
+export function ItemName({ kind, name }: { kind: 'weapon' | 'artifact'; name: string }) {
+  const [label, setLabel] = useState<string | null>(null)
+  useEffect(() => {
+    let active = true
+    ;(kind === 'weapon' ? getWeaponInfo(name) : getArtifactInfo(name)).then(
+      (i) => active && setLabel(i.label ?? null),
+    )
+    return () => {
+      active = false
+    }
+  }, [kind, name])
+  return <>{label ?? name}</>
 }

@@ -19,6 +19,15 @@
     />
     <script>
       try {
+        var l = localStorage.getItem('genshinworld:lang')
+        if (!l) l = (navigator.language || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en'
+        document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en'
+        if (l === 'en')
+          document
+            .querySelector('meta[name="description"]')
+            .setAttribute('content', 'Characters, builds and teams for Genshin Impact')
+      } catch (e) {}
+      try {
         var t = localStorage.getItem('genshinworld:theme')
         if (t === 'light' || t === 'dark') {
           document.documentElement.setAttribute('data-theme', t)

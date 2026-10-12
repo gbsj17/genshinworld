@@ -7,6 +7,7 @@ import { ItemIcon } from './ItemIcon'
 import Banners from './Banners'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
+import { t, weaponLabel } from './i18n'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import TabBar from './TabBar'
@@ -33,7 +34,7 @@ function Banner({ c }: { c: CharacterSummary }) {
       to={`/character/${c.id}`}
       className="banner"
       style={{ '--banner': color } as CSSProperties}
-      aria-label={`${c.name}, novo personagem`}
+      aria-label={t('newCharAria', { n: c.name })}
     >
       {options[i] && (
         <img
@@ -44,11 +45,11 @@ function Banner({ c }: { c: CharacterSummary }) {
           onError={() => setI((n) => n + 1)}
         />
       )}
-      <span className="banner__tag">NOVO{c.version ? ` · ${c.version}` : ''}</span>
+      <span className="banner__tag">{t('newTag')}{c.version ? ` · ${c.version}` : ''}</span>
       <div className="banner__info">
         <span className="stars">{'★'.repeat(c.rarity)}</span>
         <strong>{c.name}</strong>
-        <span>{[c.vision, c.weapon].filter(Boolean).join(' · ')}</span>
+        <span>{[c.vision, weaponLabel(c.weapon)].filter(Boolean).join(' · ')}</span>
       </div>
     </Link>
   )
@@ -75,20 +76,20 @@ function HeroSlide({ c, active }: { c: CharacterSummary; active: boolean }) {
         />
       )}
       <div className="hero-slide__info">
-        <span className="hero-slide__tag">NOVO{c.version ? ` · VERSÃO ${c.version}` : ''}</span>
+        <span className="hero-slide__tag">{c.version ? t('newVersionTag', { v: c.version }) : t('newTag')}</span>
         <strong className="hero-slide__name">{c.name}</strong>
         <div className="hero-slide__chips">
-          {[c.vision, c.weapon, `${c.rarity}★`, c.nation].filter(Boolean).map((t) => (
+          {[c.vision, weaponLabel(c.weapon), `${c.rarity}★`, c.nation].filter(Boolean).map((t) => (
             <span key={t}>{t}</span>
           ))}
         </div>
         {c.description && <p className="hero-slide__desc">{c.description}</p>}
         <div className="hero-slide__actions">
           <Link to={`/character/${c.id}`} className="hero-slide__btn" tabIndex={active ? 0 : -1}>
-            Ver ficha
+            {t('viewSheet')}
           </Link>
           <Link to={`/character/${c.id}?tab=builds`} className="hero-slide__btn hero-slide__btn--ghost" tabIndex={active ? 0 : -1}>
-            Ver build
+            {t('viewBuild')}
           </Link>
         </div>
       </div>
@@ -121,7 +122,7 @@ function Hero({ chars }: { chars: CharacterSummary[] }) {
   return (
     <section
       className="news-hero"
-      aria-label="Novos personagens"
+      aria-label={t('heroNew')}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -130,12 +131,12 @@ function Hero({ chars }: { chars: CharacterSummary[] }) {
       ))}
       {n > 1 && (
         <>
-          <button className="hero-arrow hero-arrow--prev" aria-label="Anterior" onClick={() => go(-1)}>
+          <button className="hero-arrow hero-arrow--prev" aria-label={t('prev')} onClick={() => go(-1)}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 5l-7 7 7 7" />
             </svg>
           </button>
-          <button className="hero-arrow hero-arrow--next" aria-label="Próximo" onClick={() => go(1)}>
+          <button className="hero-arrow hero-arrow--next" aria-label={t('next')} onClick={() => go(1)}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M9 5l7 7-7 7" />
             </svg>
@@ -145,7 +146,7 @@ function Hero({ chars }: { chars: CharacterSummary[] }) {
               <button
                 key={c.id}
                 className={k === index ? 'hero-dot is-active' : 'hero-dot'}
-                aria-label={`Ir para ${c.name}`}
+                aria-label={t('goTo', { n: c.name })}
                 aria-current={k === index}
                 onClick={() => setIndex(k)}
               />
@@ -155,7 +156,7 @@ function Hero({ chars }: { chars: CharacterSummary[] }) {
       )}
       <button
         className={scrolled ? 'scroll-hint is-hidden' : 'scroll-hint'}
-        aria-label="Ver mais novidades abaixo"
+        aria-label={t('scrollHint')}
         onClick={() => window.scrollBy({ top: 360, behavior: 'smooth' })}
       >
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -186,7 +187,7 @@ export function ItemCard({ kind, e, onPick }: { kind: 'weapon' | 'artifact'; e: 
   return (
     <button className="item-card" onClick={() => onPick({ kind, name: e.name, note: '' })}>
       <ItemIcon kind={kind} name={e.name} />
-      <strong>{e.name}</strong>
+      <strong>{e.label}</strong>
       <span>{e.info.rarity > 0 ? `${e.info.rarity}★` : ''}</span>
     </button>
   )
@@ -199,7 +200,7 @@ function Section({ title, to, className, children }: { title: string; to?: strin
         <h2 className="news-title">{title}</h2>
         {to && (
           <Link to={to} className="news-more">
-            Ver tudo
+            {t('seeAll')}
           </Link>
         )}
       </div>
@@ -265,17 +266,17 @@ export default function NewsPage() {
 
   const q = normalize(query.trim())
   const searching = q.length > 0
-  const hit = <T extends { name: string }>(list: T[]) =>
-    list.filter((x) => normalize(x.name).includes(q)).slice(0, 12)
+  const hit = <T extends { name: string; label?: string; enName?: string }>(list: T[]) =>
+    list.filter((x) => normalize(`${x.label ?? x.name} ${x.enName ?? x.name}`).includes(q)).slice(0, 12)
 
   return (
     <>
-    <PcNav active="home" overlay={!searching && newChars.length > 0} query={query} onQuery={setQuery} placeholder="Buscar personagens, armas e artefatos" />
+    <PcNav active="home" overlay={!searching && newChars.length > 0} query={query} onQuery={setQuery} placeholder={t('searchAll')} />
     <main className={!searching && newChars.length > 0 ? 'screen home news-screen has-hero' : 'screen home news-screen'}>
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>
-          <span className="home-cap">{searching ? 'RESULTADOS' : 'INÍCIO'}</span>
+          <span className="home-cap">{searching ? t('capResults') : t('capHome')}</span>
         </div>
         <MenuButton />
       </header>
@@ -284,22 +285,22 @@ export default function NewsPage() {
 
       <div className="news-body">
 
-      {loading && <p className="empty">Carregando...</p>}
+      {loading && <p className="empty">{t('loading')}</p>}
 
       {!loading && !searching && (
         <>
           <p className="news-version">
             {latest ? (
               <>
-                Versão <strong>{latest}</strong>
+                {t('version')} <strong>{latest}</strong>
               </>
             ) : (
-              'Novidades indisponíveis no momento.'
+              t('newsUnavailable')
             )}
           </p>
 
           {newChars.length > 0 && (
-            <Section title="Novos personagens" to="/characters" className="news-chars">
+            <Section title={t('newChars')} to="/characters" className="news-chars">
               <div className="banners">
                 {newChars.map((c) => (
                   <Banner key={c.id} c={c} />
@@ -310,7 +311,7 @@ export default function NewsPage() {
 
           <div className="news-duo">
           {newWeapons.length > 0 && (
-            <Section title="Novas armas" to="/weapons">
+            <Section title={t('newWeapons')} to="/weapons">
               <div className="hrow hrow--fill" style={{ '--n': newWeapons.length } as CSSProperties}>
                 {newWeapons.map((e) => (
                   <ItemCard key={e.name} kind="weapon" e={e} onPick={setPicked} />
@@ -320,7 +321,7 @@ export default function NewsPage() {
           )}
 
           {newArtifacts.length > 0 && (
-            <Section title="Novos artefatos" to="/artifacts">
+            <Section title={t('newArtifacts')} to="/artifacts">
               <div className="hrow hrow--fill" style={{ '--n': newArtifacts.length } as CSSProperties}>
                 {newArtifacts.map((e) => (
                   <ItemCard key={e.name} kind="artifact" e={e} onPick={setPicked} />
@@ -337,8 +338,8 @@ export default function NewsPage() {
               <div className="hrow hrow--small">
                 {newMaterials.map((m) => (
                   <div className="mat-card" key={m.name}>
-                    <Thumb src={m.info.urls} label={m.name} />
-                    <strong>{m.name}</strong>
+                    <Thumb src={m.info.urls} label={m.label} />
+                    <strong>{m.label}</strong>
                     {m.info.type && <span>{m.info.type}</span>}
                   </div>
                 ))}
@@ -351,7 +352,7 @@ export default function NewsPage() {
       {!loading && searching && (
         <>
           {hit(chars).length > 0 && (
-            <Section title="Personagens">
+            <Section title={t('characters')}>
               <div className="item-grid">
                 {hit(chars).map((c) => (
                   <CharCard key={c.id} c={c} />
@@ -360,7 +361,7 @@ export default function NewsPage() {
             </Section>
           )}
           {hit(weapons).length > 0 && (
-            <Section title="Armas">
+            <Section title={t('weapons')}>
               <div className="item-grid">
                 {hit(weapons).map((e) => (
                   <ItemCard key={e.name} kind="weapon" e={e} onPick={setPicked} />
@@ -369,7 +370,7 @@ export default function NewsPage() {
             </Section>
           )}
           {hit(artifacts).length > 0 && (
-            <Section title="Artefatos">
+            <Section title={t('artifacts')}>
               <div className="item-grid">
                 {hit(artifacts).map((e) => (
                   <ItemCard key={e.name} kind="artifact" e={e} onPick={setPicked} />
@@ -378,7 +379,7 @@ export default function NewsPage() {
             </Section>
           )}
           {hit(chars).length + hit(weapons).length + hit(artifacts).length === 0 && (
-            <p className="empty">Nada encontrado.</p>
+            <p className="empty">{t('nothingFound')}</p>
           )}
         </>
       )}

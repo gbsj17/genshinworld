@@ -4,6 +4,7 @@ import type { ItemEntry } from './api'
 import { useFavorites } from './favorites'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
+import { t } from './i18n'
 import MenuButton from './MenuButton'
 import { CharCard, ItemCard } from './NewsPage'
 import PcNav from './PcNav'
@@ -14,7 +15,7 @@ import './items.css'
 
 type Tab = 'characters' | 'weapons' | 'artifacts'
 
-const LABELS: Record<Tab, string> = { characters: 'Personagens', weapons: 'Armas', artifacts: 'Artefatos' }
+const LABELS: Record<Tab, 'characters' | 'weapons' | 'artifacts'> = { characters: 'characters', weapons: 'weapons', artifacts: 'artifacts' }
 
 // Todos os favoritos num lugar só (acessível pelo menu).
 export default function FavoritesPage() {
@@ -40,7 +41,7 @@ export default function FavoritesPage() {
   const shownChars = chars.filter((c) => favC.ids.includes(c.id))
   // um favorito pode não estar na lista (ainda carregando): mostra pelo nome mesmo assim
   const byName = (list: ItemEntry[], ids: string[]): ItemEntry[] =>
-    ids.map((n) => list.find((e) => e.name === n) ?? { name: n, info: { urls: [], rarity: 0 } })
+    ids.map((n) => list.find((e) => e.name === n) ?? { name: n, label: n, info: { urls: [], rarity: 0 } })
   const shownWeapons = byName(weapons, favW.ids)
   const shownArtifacts = byName(artifacts, favA.ids)
 
@@ -58,22 +59,22 @@ export default function FavoritesPage() {
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>
-          <span className="home-cap">FAVORITOS</span>
+          <span className="home-cap">{t('capFavorites')}</span>
         </div>
         <MenuButton />
       </header>
 
       <div className="home-tools">
-        <div className="seg" role="tablist" aria-label="Tipo de favorito">
-          {(Object.keys(LABELS) as Tab[]).map((t) => (
-            <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)}>
-              {LABELS[t]} ({counts[t]})
+        <div className="seg" role="tablist" aria-label={t('favType')}>
+          {(Object.keys(LABELS) as Tab[]).map((tb) => (
+            <button key={tb} role="tab" aria-selected={tab === tb} onClick={() => setTab(tb)}>
+              {t(LABELS[tb])} ({counts[tb]})
             </button>
           ))}
         </div>
       </div>
 
-      {empty && <p className="empty">Nada favoritado aqui ainda. Toque na estrela de um item para guardar.</p>}
+      {empty && <p className="empty">{t('favEmpty')}</p>}
 
       {!empty && (
         <div className="item-grid">

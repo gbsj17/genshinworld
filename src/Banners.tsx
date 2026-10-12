@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { iconChain } from './api'
-import { ItemIcon } from './ItemIcon'
+import { dateShort, isPt, t, weaponLabel } from './i18n'
+import { ItemIcon, ItemName } from './ItemIcon'
 import type { PickedItem } from './ItemModal'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
@@ -11,6 +12,8 @@ interface Banner {
   title: string
   type: 'character' | 'weapon'
   image: string
+  // versão em português (título e imagem), quando existe
+  pt?: { title: string; image: string }
   start: string | null
   end: string | null
   five: string[]
@@ -30,17 +33,18 @@ function loadBanners(): Promise<Banner[]> {
   return cache
 }
 
-const fmt = (iso: string | null) =>
-  iso ? new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : null
+const fmt = dateShort
+const titleOf = (b: Banner) => (isPt && b.pt?.title) || b.title
+const imageOf = (b: Banner) => (isPt && b.pt?.image) || b.image
 
 function BannerCard({ b, onOpen }: { b: Banner; onOpen: () => void }) {
   const [failed, setFailed] = useState(false)
   const end = fmt(b.end)
   return (
-    <button className="gacha-card" onClick={onOpen} aria-label={`Ver o que tem no banner ${b.title}`}>
-      {!failed && <img className="gacha-card__img" src={b.image} alt="" onError={() => setFailed(true)} />}
-      {end && <span className="gacha-card__chip gacha-card__chip--end">Até {end}</span>}
-      <span className="gacha-card__chip gacha-card__chip--go">Ver o que tem no banner →</span>
+    <button className="gacha-card" onClick={onOpen} aria-label={t('bannerOpen', { t: titleOf(b) })}>
+      {!failed && <img className="gacha-card__img" src={imageOf(b)} alt="" onError={() => setFailed(true)} />}
+      {end && <span className="gacha-card__chip gacha-card__chip--end">{t('bannerUntil', { d: end })}</span>}
+      <span className="gacha-card__chip gacha-card__chip--go">{t('bannerSee')}</span>
     </button>
   )
 }
@@ -67,10 +71,10 @@ function BannerModal({
     }
   }, [onClose])
 
-  const find = (name: string) => chars.find((c) => c.name.toLowerCase() === name.toLowerCase())
+  const find = (name: string) => chars.find((c) => c.enName.toLowerCase() === name.toLowerCase())
   const groups = [
-    { label: '5★ em destaque', items: b.five },
-    { label: '4★ com chance aumentada', items: b.four },
+    { label: t('bannerFive'), items: b.five },
+    { label: t('bannerFour'), items: b.four },
   ].filter((g) => g.items.length > 0)
 
   const row = (name: string) => {
@@ -78,12 +82,12 @@ function BannerModal({
       const c = find(name)
       const inner = (
         <>
-          <Thumb round src={c ? iconChain(c) : undefined} label={name} />
+          <Thumb round src={c ? iconChain(c) : undefined} label={c ? c.name : name} />
           <span className="gacha-row__body">
-            <strong>{name}</strong>
-            <span>{c ? [c.vision, c.weapon].filter(Boolean).join(' · ') : ''}</span>
+            <strong>{c ? c.name : name}</strong>
+            <span>{c ? [c.vision, weaponLabel(c.weapon)].filter(Boolean).join(' · ') : ''}</span>
           </span>
-          {c && <span className="gacha-row__go">Ver detalhes →</span>}
+          {c && <span className="gacha-row__go">{t('seeDetails')}</span>}
         </>
       )
       return c ? (
@@ -107,31 +111,31 @@ function BannerModal({
       >
         <ItemIcon kind="weapon" name={name} />
         <span className="gacha-row__body">
-          <strong>{name}</strong>
+          <strong><ItemName kind="weapon" name={name} /></strong>
         </span>
-        <span className="gacha-row__go">Ver detalhes →</span>
+        <span className="gacha-row__go">{t('seeDetails')}</span>
       </button>
     )
   }
 
   const end = fmt(b.end)
   return (
-    <div className="gacha-modal" role="dialog" aria-modal="true" aria-label={b.title}>
+    <div className="gacha-modal" role="dialog" aria-modal="true" aria-label={titleOf(b)}>
       <div className="gacha-modal__backdrop" onClick={onClose} aria-hidden="true" />
       <div className="gacha-modal__panel">
         <div className="gacha-modal__head">
           <div>
-            <span className="gacha-modal__kind">{b.type === 'weapon' ? 'BANNER DE ARMA' : 'BANNER DE PERSONAGEM'}</span>
-            <h3>{b.title}</h3>
-            {end && <span className="gacha-modal__dates">Disponível até {end}</span>}
+            <span className="gacha-modal__kind">{b.type === 'weapon' ? t('bannerWeaponCaps') : t('bannerCharCaps')}</span>
+            <h3>{titleOf(b)}</h3>
+            {end && <span className="gacha-modal__dates">{t('bannerAvailUntil', { d: end })}</span>}
           </div>
-          <button className="gacha-modal__close" aria-label="Fechar" onClick={onClose}>
+          <button className="gacha-modal__close" aria-label={t('close')} onClick={onClose}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
         </div>
-        {groups.length === 0 && <p className="empty">Veja a lista completa deste banner no jogo.</p>}
+        {groups.length === 0 && <p className="empty">{t('bannerEmpty')}</p>}
         {groups.map((g) => (
           <div key={g.label} className="gacha-group">
             <div className="gacha-group__label">{g.label}</div>
@@ -173,7 +177,7 @@ function Carousel({
       <BannerCard key={cur.id} b={cur} onOpen={() => onOpen(cur)} />
       {n > 1 && (
         <div className="gacha-ctrl">
-          <button aria-label={`${label} anterior`} onClick={() => setIndex((k + n - 1) % n)}>
+          <button aria-label={t('bannerPrev', { l: label })} onClick={() => setIndex((k + n - 1) % n)}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 5l-7 7 7 7" />
             </svg>
@@ -183,12 +187,12 @@ function Carousel({
               <button
                 key={b.id}
                 className={i === k ? 'gacha-dot is-active' : 'gacha-dot'}
-                aria-label={`Ir para o banner ${i + 1}`}
+                aria-label={t('bannerGo', { n: i + 1 })}
                 onClick={() => setIndex(i)}
               />
             ))}
           </div>
-          <button aria-label={`${label} seguinte`} onClick={() => setIndex((k + 1) % n)}>
+          <button aria-label={t('bannerNext', { l: label })} onClick={() => setIndex((k + 1) % n)}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M9 5l7 7-7 7" />
             </svg>
@@ -227,11 +231,11 @@ export default function Banners({
   return (
     <section className="news-sec news-banners">
       <div className="news-head">
-        <h2 className="news-title">Banners de oração</h2>
+        <h2 className="news-title">{t('wishBanners')}</h2>
       </div>
       <div className="gacha-wrap">
-        <Carousel items={banners.filter((b) => b.type === 'character')} label="Banner de personagem" paused={Boolean(open)} onOpen={setOpen} />
-        <Carousel items={banners.filter((b) => b.type === 'weapon')} label="Banner de arma" paused={Boolean(open)} onOpen={setOpen} />
+        <Carousel items={banners.filter((b) => b.type === 'character')} label={t('bannerChar')} paused={Boolean(open)} onOpen={setOpen} />
+        <Carousel items={banners.filter((b) => b.type === 'weapon')} label={t('bannerWeapon')} paused={Boolean(open)} onOpen={setOpen} />
       </div>
       {open && <BannerModal b={open} chars={chars} onClose={() => setOpen(null)} onPickWeapon={onPickWeapon} />}
     </section>
