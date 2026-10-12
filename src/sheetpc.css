@@ -31,6 +31,8 @@
     width: 100%;
     object-fit: cover;
     object-position: 50% 24%;
+    transform: scale(0.9);
+    transform-origin: 50% 24%;
   }
 
   main.screen.sheet-screen .hero::after {
