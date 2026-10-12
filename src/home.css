@@ -503,3 +503,30 @@
 .home-filters {
   display: contents;
 }
+
+/* Celular: sem a aba Todos/Favoritos; o botão de lista/grade fica fixo na linha dos elementos
+   e os filtros passam por baixo dele (igual ao PC, só que no celular) */
+@media (max-width: 819px) {
+  .home-filters {
+    display: block;
+    position: relative;
+  }
+
+  .home-filters .seg {
+    display: none;
+  }
+
+  .home-filters .chips {
+    padding-right: 20px;
+  }
+
+  .home-filters .home-tools {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    height: 38px;
+    padding: 0 20px 0 26px;
+    gap: 0;
+    background: linear-gradient(90deg, transparent 0, var(--bg) 22px);
+  }
+}

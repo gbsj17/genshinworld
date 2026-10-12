@@ -1005,3 +1005,35 @@
     animation: none;
   }
 }
+
+/* Celular, tema claro: o fim do banner funde com o fundo claro, então o texto fica escuro */
+@media (max-width: 819px) {
+  [data-theme='light'] .hero-slide__name,
+  [data-theme='light'] .hero-slide__desc {
+    color: var(--text);
+    text-shadow: none;
+  }
+
+  [data-theme='light'] .hero-slide__chips span {
+    background: rgba(58, 46, 33, 0.1);
+    color: var(--text);
+  }
+
+  [data-theme='light'] .hero-slide__actions .hero-slide__btn--ghost {
+    background: rgba(58, 46, 33, 0.06);
+    color: var(--text);
+    border-color: rgba(58, 46, 33, 0.35);
+  }
+
+  [data-theme='light'] .hero-dot {
+    background: rgba(58, 46, 33, 0.3);
+  }
+
+  [data-theme='light'] .hero-dot.is-active {
+    background: var(--accent);
+  }
+
+  [data-theme='light'] .scroll-hint {
+    color: var(--muted);
+  }
+}
