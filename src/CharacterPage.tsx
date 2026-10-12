@@ -207,15 +207,13 @@ export default function CharacterPage({ id }: { id: string }) {
 
       <section className="sheet">
         <div className="sheet__handle" aria-hidden="true" />
-        <div className="sheet__badges">
+        <h1>{character.name}</h1>
+        <p className="sheet__sub">
           <Badge src={elementIcon(character.vision)} label={character.vision} />
           <span className="stars" role="img" aria-label={t('stars', { n: character.rarity })}>
             {'★'.repeat(character.rarity)}
           </span>
-        </div>
-        <h1>{character.name}</h1>
-        <p className="sheet__sub">
-          {[character.vision, weaponLabel(character.weapon), character.nation].filter(Boolean).join(' · ')}
+          <span>{[character.vision, weaponLabel(character.weapon), character.nation].filter(Boolean).map((x) => ` · ${x}`).join('')}</span>
         </p>
 
         <div className="segments" role="tablist" aria-label={t('sheetSections')}>
