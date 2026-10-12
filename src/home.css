@@ -542,3 +542,10 @@
     pointer-events: none;
   }
 }
+
+/* Elemento selecionado: mesma cor do elemento, com fundo bem clarinho */
+.pill.pill--el[aria-pressed='true'] {
+  background: color-mix(in srgb, var(--tone) 20%, transparent);
+  border-color: var(--tone);
+  color: var(--text);
+}

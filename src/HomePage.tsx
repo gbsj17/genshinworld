@@ -188,7 +188,8 @@ export default function HomePage() {
         {FILTERS.map((f) => (
           <button
             key={f}
-            className="pill"
+            className={f === ALL ? 'pill' : 'pill pill--el'}
+            style={f === ALL ? undefined : ({ '--tone': VISION_COLORS[f] } as CSSProperties)}
             aria-pressed={f === vision}
             onClick={() => setVision(f)}
           >
