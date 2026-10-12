@@ -525,8 +525,20 @@
     top: 13px;
     right: 0;
     height: 38px;
-    padding: 0 20px 0 26px;
+    padding: 0 20px 0 6px;
     gap: 0;
-    background: linear-gradient(90deg, transparent 0, var(--bg) 22px);
+    background: var(--bg);
+  }
+
+  /* degradê curto à esquerda do botão: os filtros somem suavemente, sem pílula cortada */
+  .home-filters .home-tools::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -22px;
+    width: 22px;
+    background: linear-gradient(90deg, transparent, var(--bg));
+    pointer-events: none;
   }
 }
