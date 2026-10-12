@@ -240,28 +240,28 @@ export default function CharacterPage({ id }: { id: string }) {
         <div className="content">
           {tab === 'overview' && (
             <>
-              <div className="grid">
-                <div className="card">
-                  <span className="card__label">{t('element')}</span>
-                  <strong className="card__value">{character.vision}</strong>
-                </div>
-                <div className="card">
-                  <span className="card__label">{t('weapon')}</span>
-                  <strong className="card__value">{weaponLabel(character.weapon)}</strong>
-                </div>
-                {character.nation && (
-                  <div className="card">
-                    <span className="card__label">{t('nation')}</span>
-                    <strong className="card__value">{character.nation}</strong>
-                  </div>
-                )}
-                <div className="card">
-                  <span className="card__label">{t('rarity')}</span>
-                  <strong className="card__value">{t('starsCount', { n: character.rarity })}</strong>
-                </div>
-              </div>
-
               <div className="overview-left">
+                <div className="grid">
+                  <div className="card">
+                    <span className="card__label">{t('element')}</span>
+                    <strong className="card__value">{character.vision}</strong>
+                  </div>
+                  <div className="card">
+                    <span className="card__label">{t('weapon')}</span>
+                    <strong className="card__value">{weaponLabel(character.weapon)}</strong>
+                  </div>
+                  {character.nation && (
+                    <div className="card">
+                      <span className="card__label">{t('nation')}</span>
+                      <strong className="card__value">{character.nation}</strong>
+                    </div>
+                  )}
+                  <div className="card">
+                    <span className="card__label">{t('rarity')}</span>
+                    <strong className="card__value">{t('starsCount', { n: character.rarity })}</strong>
+                  </div>
+                </div>
+
               {firstWeapon && (
                 <button className="shortcut" onClick={() => setTab('builds')}>
                   <ItemIcon kind="weapon" name={firstWeapon.name} fallback={firstWeapon.id ? weaponIcon(firstWeapon.id) : undefined} />

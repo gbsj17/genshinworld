@@ -81,21 +81,42 @@
   }
 
   /* Visão geral: informações em 4 colunas e atalhos lado a lado */
-  .sheet-screen .content:has(> .grid) {
+  .sheet-screen .content:has(> .overview-left) {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
     align-items: start;
   }
 
-  .sheet-screen .content > .grid {
-    grid-column: 1 / -1;
-  }
-
   .overview-left {
     display: grid;
-    grid-auto-rows: 1fr;
+    align-content: start;
     gap: 14px;
+  }
+
+  /* as 4 informações viram um bloco só, sem divisórias */
+  .overview-left > .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    border-radius: 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+  }
+
+  .overview-left > .grid .card {
+    padding: 16px 18px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .overview-left .shortcut {
+    padding: 18px 22px;
+  }
+
+  .overview-left .shortcut__name {
+    font-size: 20px;
   }
 
   .overview-right {
