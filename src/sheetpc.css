@@ -1,0 +1,85 @@
+/* Ficha do personagem no PC (opção A do mockup): banner largo no topo, nome por cima, conteúdo em largura total */
+@media (min-width: 820px) {
+  main.screen.sheet-screen {
+    display: block;
+    max-width: none;
+    width: 100%;
+    padding: 0 0 72px;
+  }
+
+  main.screen.sheet-screen .hero {
+    position: relative;
+    top: auto;
+    height: 440px;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  main.screen.sheet-screen .hero__img {
+    top: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 24%;
+  }
+
+  main.screen.sheet-screen .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(0deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 30%, transparent 62%),
+      linear-gradient(180deg, rgba(10, 12, 20, 0.3) 0%, transparent 24%);
+  }
+
+  main.screen.sheet-screen .hero__bar {
+    left: 56px;
+    right: 56px;
+    top: 24px;
+  }
+
+  main.screen.sheet-screen .sheet {
+    width: 100%;
+    max-width: 1680px;
+    margin: -170px auto 0;
+    padding: 0 56px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .sheet-screen .sheet h1 {
+    font-size: 96px;
+    line-height: 0.95;
+    margin-top: 10px;
+  }
+
+  .sheet-screen .sheet__sub {
+    font-size: 16px;
+  }
+
+  .sheet-screen .segments {
+    max-width: 760px;
+    margin-top: 28px;
+  }
+
+  .sheet-screen .content {
+    margin-top: 22px;
+  }
+
+  /* Visão geral: informações em 4 colunas e atalhos lado a lado */
+  .sheet-screen .content:has(> .grid) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+
+  .sheet-screen .content > .grid {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,2 +1,61 @@
-# genshinworld
-App de curiosidades rápidas 
+# Genshin World
+
+**PT-BR** · [English](#english)
+
+App/site (PWA) com personagens, armas, artefatos, builds e equipes de Genshin Impact, com banners de oração atuais.
+Visual de aplicativo no celular e layout próprio para PC. Funciona em **português (PT-BR)** e **inglês (EN-US)**, com chave de idioma no menu.
+
+🔗 Site: https://gbsj17.github.io/genshinworld/
+
+Criado por **Genival Souza Júnior** · parte da **RUNEbyte** · 2026
+
+## Recursos
+
+- **Início:** novos personagens (banner animado), novas armas e artefatos, banners de oração atuais com lista do que há em cada um.
+- **Personagens:** filtro por elemento, busca, grade/lista, favoritos. Ficha com visão geral, talentos, constelações e builds (armas, artefatos, atributos, equipes).
+- **Armas e Artefatos:** lista completa, filtros, busca e detalhes.
+- **Favoritos** de personagens, armas e artefatos (salvos no aparelho).
+- **Tema** escuro e areia claro; **idioma** PT-BR/EN-US; instalável como app (PWA) e com cache offline.
+
+## Tecnologias
+
+React 19 · TypeScript · Vite 8 · react-router-dom (HashRouter) · GitHub Pages / Actions.
+
+## Como rodar
+
+```bash
+npm ci
+npm run dev       # desenvolvimento
+npm run build     # build de produção (pasta dist)
+npm run preview   # testa o build
+npm run lint
+```
+
+Opcional: `node scripts/fetch-banners.mjs` atualiza `public/banners.json` (precisa de internet).
+
+## Documentação
+
+Detalhes de arquitetura, dados, idiomas, banners e deploy em [`docs/DOCUMENTACAO.md`](docs/DOCUMENTACAO.md).
+
+## Créditos e aviso
+
+Projeto de fã, sem fins comerciais e sem vínculo com a HoYoverse. Genshin Impact e seus personagens, imagens e nomes pertencem à HoYoverse.
+Dados de [genshin-db](https://github.com/theBowja/genshin-db) e [genshin.dev](https://genshin.dev); builds baseadas em guias públicos (Icy Veins, Genshin-Builds, Genshin.gg).
+A fonte do título "Genshin World" é a fonte do jogo (HoYoverse), usada só nas letras do nome; veja a nota de direitos na documentação.
+
+---
+
+## English
+
+Genshin Impact PWA with characters, weapons, artifacts, builds, teams and the current wish banners.
+App-like look on mobile and a dedicated desktop layout. Available in **Portuguese (PT-BR)** and **English (EN-US)**, with a language switch in the menu.
+
+Live: https://gbsj17.github.io/genshinworld/
+
+Created by **Genival Souza Júnior** · part of **RUNEbyte** · 2026
+
+**Stack:** React 19, TypeScript, Vite 8, react-router-dom (HashRouter), GitHub Pages/Actions.
+**Run:** `npm ci && npm run dev` · build with `npm run build`.
+**Docs:** see [`docs/DOCUMENTACAO.md`](docs/DOCUMENTACAO.md) (in Portuguese).
+
+Fan project, not affiliated with HoYoverse. Genshin Impact content belongs to HoYoverse.
