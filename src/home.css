@@ -25,8 +25,9 @@
 
 .home-title {
   margin: 2px 0 0;
-  font-family: var(--serif);
-  font-size: 40px;
+  font-family: var(--brand);
+  font-size: 36px;
+  letter-spacing: 0.01em;
   line-height: 1.05;
   font-weight: 700;
 }

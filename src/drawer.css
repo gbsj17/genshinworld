@@ -83,7 +83,7 @@
 
 .drawer__title {
   display: block;
-  font-family: var(--serif);
+  font-family: var(--brand);
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.08em;

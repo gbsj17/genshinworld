@@ -30,6 +30,7 @@
   --drawer-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
   --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Roboto, 'Segoe UI', system-ui, sans-serif;
   --serif: 'Cormorant Garamond', Georgia, serif;
+  --brand: 'Noto Sans', var(--sans);
   color-scheme: dark;
 }
 
@@ -43,7 +44,7 @@
   --muted: #74634e;
   --gold: #7a5620;
   --accent: #7a5620;
-  --on-accent: #2a1c08;
+  --on-accent: #fffaf1;
   --surface-deep: #f1e6d2;
   --stripe-a: #efe3cd;
   --stripe-b: #f5ecdb;
