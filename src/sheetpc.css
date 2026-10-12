@@ -17,8 +17,9 @@
   }
 
   main.screen.sheet-screen .hero {
-    position: relative;
-    top: auto;
+    position: sticky;
+    top: 0;
+    z-index: 0;
     height: 440px;
     min-height: 0;
     border: 0;
@@ -54,12 +55,14 @@
 
   main.screen.sheet-screen .sheet {
     width: 100%;
-    max-width: 1680px;
-    margin: -170px auto 0;
-    padding: 0 56px;
+    max-width: none;
+    margin: -170px 0 0;
+    padding: 0 max(56px, calc((100% - 1680px) / 2 + 56px));
     border: 0;
     border-radius: 0;
-    background: transparent;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent 0, var(--bg) 300px);
     box-shadow: none;
   }
 
