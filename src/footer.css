@@ -1,0 +1,28 @@
+/* Rodapé de todas as páginas */
+.site-footer {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 8px 20px 120px; /* espaço para a barra de baixo no celular */
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer strong {
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 820px) {
+  .site-footer {
+    max-width: none;
+    padding: 24px 20px 32px;
+    border-top: 1px solid var(--line);
+    margin: 0 36px;
+  }
+}

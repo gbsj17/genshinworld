@@ -4,6 +4,7 @@ import FavoritesPage from './FavoritesPage'
 import HomePage from './HomePage'
 import ItemsPage from './ItemsPage'
 import NewsPage from './NewsPage'
+import Footer from './Footer'
 import { MenuProvider } from './MenuProvider'
 import './App.css'
 import './responsive.css'
@@ -28,6 +29,7 @@ function App() {
           <Route path="/artifacts" element={<ItemsPage kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <Footer />
       </MenuProvider>
     </HashRouter>
   )

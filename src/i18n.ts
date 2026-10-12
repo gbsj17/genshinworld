@@ -80,6 +80,9 @@ const DICT = {
   capArtifacts: ['ARTEFATOS', 'ARTIFACTS'],
   capFavorites: ['FAVORITOS', 'FAVORITES'],
 
+  footerBy: ['Criado por {a}', 'Created by {a}'],
+  footerCompany: ['Faz parte da {c}', 'Part of {c}'],
+
   // início
   newTag: ['NOVO', 'NEW'],
   newVersionTag: ['NOVO · VERSÃO {v}', 'NEW · VERSION {v}'],
