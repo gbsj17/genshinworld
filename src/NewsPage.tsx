@@ -218,6 +218,15 @@ export default function NewsPage() {
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
   const [picked, setPicked] = useState<PickedItem | null>(null)
+  const [scrolled, setScrolled] = useState(false)
+
+  // no celular o título fica fixo por cima do banner; ao rolar ele ganha fundo
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     let active = true
@@ -272,7 +281,7 @@ export default function NewsPage() {
   return (
     <>
     <PcNav active="home" overlay={!searching && newChars.length > 0} query={query} onQuery={setQuery} placeholder={t('searchAll')} />
-    <main className={!searching && newChars.length > 0 ? 'screen home news-screen has-hero' : 'screen home news-screen'}>
+    <main className={`screen home news-screen${!searching && newChars.length > 0 ? ' has-hero' : ''}${scrolled ? ' is-scrolled' : ''}`}>
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>
