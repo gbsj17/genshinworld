@@ -48,14 +48,9 @@ function Icon({ src }: { src: string[] }) {
   const current = src[index]
   if (!current) return <div className="icon icon--empty" aria-hidden="true" />
   return (
-    <img
-      key={current}
-      className="icon"
-      src={current}
-      alt=""
-      loading="lazy"
-      onError={() => setIndex((i) => i + 1)}
-    />
+    <span className="icon">
+      <img key={current} src={current} alt="" loading="lazy" onError={() => setIndex((i) => i + 1)} />
+    </span>
   )
 }
 

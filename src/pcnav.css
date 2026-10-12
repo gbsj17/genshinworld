@@ -199,9 +199,9 @@
     column-gap: 14px;
   }
 
-  .sheet-screen .content > .row {
+  .sheet-screen .content:has(> .row) > .row {
     break-inside: avoid;
-    margin: 0 0 14px;
+    margin: 0 0 16px;
   }
 
   .sheet-screen .content > .section-title,
