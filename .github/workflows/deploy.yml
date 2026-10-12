@@ -27,6 +27,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm test
       - run: node scripts/fetch-banners.mjs
         continue-on-error: true
       - run: npm run build

@@ -5,6 +5,7 @@ import { getAllCharacters, iconChain } from './api'
 import { t, weaponLabel } from './i18n'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
+import ErrorMsg from './ErrorMsg'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import TabBar from './TabBar'
@@ -231,7 +232,7 @@ export default function HomePage() {
       </div>
       </div>
 
-      {error && <p className="empty">{t('loadCharsFail')}</p>}
+      {error && <ErrorMsg text={t('loadCharsFail')} />}
       {!error && !characters && <p className="empty">{t('loading')}</p>}
 
       {characters && (

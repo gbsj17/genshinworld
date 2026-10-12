@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useFavorites } from './favorites'
+import ErrorMsg from './ErrorMsg'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import { t, weaponLabel } from './i18n'
@@ -130,7 +131,7 @@ export default function CharacterPage({ id }: { id: string }) {
   }, [id])
 
   if (error) {
-    return <main className="screen screen--message">{t('loadCharFail')}</main>
+    return <main className="screen screen--message"><ErrorMsg text={t('loadCharFail')} /></main>
   }
   if (!character) {
     return <main className="screen screen--message">{t('loading')}</main>

@@ -6,6 +6,7 @@ import { ItemIcon } from './ItemIcon'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
 import { t, weaponLabel } from './i18n'
+import ErrorMsg from './ErrorMsg'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import TabBar from './TabBar'
@@ -96,7 +97,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
         ))}
       </div>
 
-      {error && <p className="empty">{t('loadListFail')}</p>}
+      {error && <ErrorMsg text={t('loadListFail')} />}
       {!error && !items && <p className="empty">{t('loading')}</p>}
 
       {items && (

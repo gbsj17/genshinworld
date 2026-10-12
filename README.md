@@ -29,6 +29,7 @@ npm run dev       # desenvolvimento
 npm run build     # build de produção (pasta dist)
 npm run preview   # testa o build
 npm run lint
+npm test          # testes (versões, idiomas, builds, favoritos)
 ```
 
 Opcional: `node scripts/fetch-banners.mjs` atualiza `public/banners.json` (precisa de internet).

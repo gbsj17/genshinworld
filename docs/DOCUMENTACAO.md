@@ -84,6 +84,12 @@ Botões e links com `aria-label`, foco gerenciado em menus/modais, e animações
 - As builds refletem guias de terceiros na data da geração; podem ficar desatualizadas.
 - A extração dos destaques dos banners é heurística e pode errar quando o texto do anúncio mudar.
 
-## 12. Ideias futuras
+## 12. Testes e desempenho
+
+- `npm test` (Vitest + jsdom) roda em `src/__tests__`: ordenação por versão, textos/idiomas, builds e favoritos. O deploy só segue se os testes passarem.
+- As páginas de personagens, ficha, armas/artefatos e favoritos carregam sob demanda (code splitting); o pacote principal ficou em ~240 KB.
+- Erros de carregamento mostram o botão "Tentar de novo".
+
+## 13. Ideias futuras
 
 Login com Google e favoritos na nuvem, informações de áreas/mapas das novas versões, empacotar como app Android.

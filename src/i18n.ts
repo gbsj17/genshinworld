@@ -34,6 +34,7 @@ export function setLang(next: Lang) {
 
 const DICT = {
   loading: ['Carregando...', 'Loading...'],
+  retry: ['Tentar de novo', 'Try again'],
   nothingFound: ['Nada encontrado.', 'Nothing found.'],
   loadFail: ['Não foi possível carregar.', 'Could not load.'],
   loadListFail: ['Não foi possível carregar a lista.', 'Could not load the list.'],
