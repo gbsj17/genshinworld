@@ -516,8 +516,11 @@
     display: none;
   }
 
-  .home-filters .chips {
-    padding-right: 20px;
+  /* espaço no fim da fileira, para o último elemento poder sair de baixo do botão */
+  .home-filters .chips::after {
+    content: '';
+    flex: none;
+    width: 64px;
   }
 
   .home-filters .home-tools {
