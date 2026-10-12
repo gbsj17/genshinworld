@@ -1,0 +1,211 @@
+/* Animações e transições extras (carregado por último). Tudo é desligado com "reduzir movimento". */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Cores/sombras que mudam suavemente em botões e cartões */
+.pill,
+.seg button,
+.view-toggle,
+.round-btn,
+.glass-btn,
+.star-btn,
+.item-card,
+.char-card,
+.row-item,
+.shortcut,
+.member,
+.news-more,
+.hero-arrow,
+.hero-slide__btn,
+.gacha-row,
+.gacha-card,
+.gacha-card__chip,
+.gacha-modal__close,
+.gacha-ctrl button,
+.pcnav__links a,
+.tabbar__item,
+.block--click {
+  transition-property: background-color, color, border-color, box-shadow, transform, opacity;
+  transition-duration: 0.35s;
+  transition-timing-function: var(--ease-out);
+}
+
+/* Toque nos botões: afunda um pouco */
+.pill:active,
+.seg button:active,
+.round-btn:active,
+.glass-btn:active,
+.star-btn:active,
+.view-toggle:active,
+.item-card:active,
+.char-card:active,
+.row-item:active,
+.shortcut:active,
+.hero-slide__btn:active,
+.gacha-row:active,
+.tabbar__item:active {
+  transform: scale(0.96);
+  transition-duration: 0.12s;
+}
+
+/* Estrela de favorito: "pulo" ao marcar */
+.star-btn svg,
+.modal__fav svg,
+.glass-btn svg {
+  transition: transform 0.45s var(--ease-out);
+}
+
+.star-btn[aria-pressed='true'] svg,
+.modal__fav[aria-pressed='true'] svg,
+.glass-btn[aria-pressed='true'] svg {
+  animation: star-pop 0.5s var(--ease-out);
+}
+
+@keyframes star-pop {
+  0% { transform: scale(0.6) rotate(-20deg); }
+  60% { transform: scale(1.3) rotate(8deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* Entrada das páginas e das listas */
+.screen {
+  animation: page-in 0.55s var(--ease-out) both;
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.cards > *,
+.item-grid > *,
+.list .row-item,
+.banners > * {
+  animation: card-in 0.6s var(--ease-out) both;
+}
+
+.cards > *:nth-child(2), .item-grid > *:nth-child(2) { animation-delay: 0.04s; }
+.cards > *:nth-child(3), .item-grid > *:nth-child(3) { animation-delay: 0.08s; }
+.cards > *:nth-child(4), .item-grid > *:nth-child(4) { animation-delay: 0.12s; }
+.cards > *:nth-child(5), .item-grid > *:nth-child(5) { animation-delay: 0.16s; }
+.cards > *:nth-child(6), .item-grid > *:nth-child(6) { animation-delay: 0.2s; }
+.cards > *:nth-child(n + 7), .item-grid > *:nth-child(n + 7) { animation-delay: 0.24s; }
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Troca de aba na ficha */
+.content > * {
+  animation: card-in 0.5s var(--ease-out) both;
+}
+
+/* Banner de oração: entra suave ao trocar */
+.gacha-card {
+  animation: gacha-in 0.7s var(--ease-out) both;
+}
+
+@keyframes gacha-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.gacha-dot {
+  transition: width 0.5s var(--ease-out), background-color 0.4s ease !important;
+}
+
+.hero-dot {
+  transition: width 0.5s var(--ease-out), background-color 0.4s ease !important;
+}
+
+/* Lista do banner: abre devagar */
+.gacha-modal__backdrop {
+  animation: modal-fade 0.35s ease both;
+}
+
+.gacha-modal__panel {
+  animation: modal-up 0.5s var(--ease-out) both;
+}
+
+.modal__backdrop {
+  animation-duration: 0.35s;
+}
+
+@media (hover: hover) {
+  .item-card:hover,
+  .gacha-row:hover {
+    transform: translateY(-4px);
+  }
+
+  .gacha-row:hover,
+  .item-card:hover {
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+  }
+
+  .hero-arrow:hover {
+    transform: scale(1.1);
+  }
+
+  .hero-slide__btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .round-btn:hover,
+  .glass-btn:hover {
+    transform: scale(1.08);
+  }
+
+  .star-btn:hover {
+    transform: scale(1.15);
+  }
+}
+
+@media (min-width: 820px) {
+  /* Hero: o texto sobe em sequência e a arte dá um zoom lento */
+  .hero-slide {
+    transition-duration: 1.1s;
+  }
+
+  .hero-slide__img {
+    transform: scale(1.06);
+    transition: transform 7s ease-out;
+  }
+
+  .hero-slide.is-active .hero-slide__img {
+    transform: scale(1);
+  }
+
+  .hero-slide__info > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.8s var(--ease-out);
+  }
+
+  .hero-slide.is-active .hero-slide__info > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-slide.is-active .hero-slide__info > :nth-child(2) { transition-delay: 0.15s; }
+  .hero-slide.is-active .hero-slide__info > :nth-child(3) { transition-delay: 0.3s; }
+  .hero-slide.is-active .hero-slide__info > :nth-child(4) { transition-delay: 0.45s; }
+  .hero-slide.is-active .hero-slide__info > :nth-child(5) { transition-delay: 0.6s; }
+
+  /* Menu de cima: o traço dourado cresce no item atual */
+  .pcnav__links a {
+    transition-duration: 0.4s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

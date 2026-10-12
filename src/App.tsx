@@ -7,6 +7,7 @@ import NewsPage from './NewsPage'
 import { MenuProvider } from './MenuProvider'
 import './App.css'
 import './responsive.css'
+import './motion.css'
 
 function CharacterRoute() {
   const { id } = useParams()
