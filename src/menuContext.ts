@@ -5,6 +5,9 @@ export interface MenuState {
   open: boolean
   openMenu: () => void
   closeMenu: () => void
+  searchOpen: boolean
+  openSearch: () => void
+  closeSearch: () => void
   theme: Theme
   toggleTheme: () => void
 }

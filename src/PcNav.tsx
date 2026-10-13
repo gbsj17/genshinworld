@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { t } from './i18n'
 import type { Key } from './i18n'
 import MenuButton from './MenuButton'
+import { useMenu } from './menuContext'
 import type { TabId } from './TabBar'
 import './pcnav.css'
 
@@ -42,6 +43,7 @@ export default function PcNav({
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+  const { openSearch } = useMenu()
   const cls = overlay ? (scrolled ? 'pcnav pcnav--overlay is-solid' : 'pcnav pcnav--overlay') : 'pcnav'
   return (
     <header className={cls}>
@@ -71,6 +73,12 @@ export default function PcNav({
           />
         </label>
       )}
+      <button className="round-btn pcnav__gsearch" aria-label={t('searchShortcut')} title={t('searchShortcut')} onClick={openSearch}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-3.5-3.5" />
+        </svg>
+      </button>
       <MenuButton />
     </header>
   )

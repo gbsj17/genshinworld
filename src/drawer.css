@@ -115,8 +115,17 @@
   text-decoration: none;
 }
 
-a.drawer__item:hover,
-a.drawer__item:focus-visible {
+button.drawer__item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.drawer__item:is(a, button):hover,
+.drawer__item:is(a, button):focus-visible {
   background: var(--surface-deep);
 }
 
@@ -204,7 +213,8 @@ a.drawer__item:focus-visible {
 
 .theme-switch:focus-visible,
 .round-btn:focus-visible,
-a.drawer__item:focus-visible {
+a.drawer__item:focus-visible,
+button.drawer__item:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }

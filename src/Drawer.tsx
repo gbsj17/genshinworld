@@ -9,7 +9,7 @@ import './drawer.css'
 const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 export default function Drawer() {
-  const { open, closeMenu, theme, toggleTheme } = useMenu()
+  const { open, closeMenu, openSearch, theme, toggleTheme } = useMenu()
   const panelRef = useRef<HTMLElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
 
@@ -83,6 +83,20 @@ export default function Drawer() {
         </div>
 
         <nav className="drawer__nav">
+          <button
+            className="drawer__item"
+            style={step(1)}
+            onClick={() => {
+              closeMenu()
+              openSearch()
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" />
+            </svg>
+            {t('searchApp')}
+          </button>
           <Link to="/" className="drawer__item" style={step(1)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5" />
