@@ -2,11 +2,9 @@
   "name": "Genshin World",
   "short_name": "Genshin World",
   "description": "Personagens, builds e equipes de Genshin Impact",
-  "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#12151f",
   "theme_color": "#12151f",
   "icons": [
