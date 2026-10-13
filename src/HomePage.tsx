@@ -159,7 +159,7 @@ export default function HomePage() {
   return (
     <>
     <PcNav active="characters" query={query} onQuery={setQuery} placeholder={t('searchChar')} />
-    <main className="screen home">
+    <main className={view === 'list' ? 'screen home home--list' : 'screen home'}>
       <header className="home-top">
         <div>
           <h1 className="home-title">Genshin World</h1>

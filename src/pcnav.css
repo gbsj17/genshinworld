@@ -234,6 +234,54 @@
     display: none;
   }
 
+  /* Personagens em lista: interface centralizada e linhas maiores (a lista usa toda a largura do bloco) */
+  .screen.home.home--list:not(.news-screen) {
+    max-width: 1060px;
+  }
+
+  .screen.home--list .list {
+    max-width: none;
+    margin: 0;
+    padding: 0 56px 0 20px;
+  }
+
+  .screen.home--list .list__letter {
+    font-size: 16px;
+    padding: 20px 0 8px;
+  }
+
+  .screen.home--list .row-item {
+    height: 92px;
+    gap: 20px;
+    padding: 0 12px;
+    border-radius: 14px;
+    transition: background 0.2s ease;
+  }
+
+  .screen.home--list .row-item .thumb {
+    width: 68px;
+    height: 68px;
+    border-width: 3px;
+  }
+
+  .screen.home--list .row-item__body strong {
+    font-size: 20px;
+  }
+
+  .screen.home--list .row-item__body span {
+    font-size: 15px;
+  }
+
+  .screen.home--list .row-item .star-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .screen.home--list ~ .alpha,
+  .screen.home--list .alpha {
+    right: max(16px, calc(50% - 530px - 8px));
+  }
+
   /* modo escuro: brilho dourado suave no fundo (só PC) */
   :root:not([data-theme='light']) body {
     background-image:
