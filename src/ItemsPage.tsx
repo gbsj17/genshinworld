@@ -100,7 +100,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
 
       {items && (
         <>
-          <p className="home-count">
+          <p className="home-count" role="status" aria-live="polite">
             {t(isWeapon ? 'countWeapons' : 'countSets', { n: filtered.length })}
           </p>
           {filtered.length === 0 ? (

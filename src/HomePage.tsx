@@ -237,7 +237,7 @@ export default function HomePage() {
 
       {characters && (
         <>
-          <p className="home-count">{t('countChars', { n: filtered.length })}</p>
+          <p className="home-count" role="status" aria-live="polite">{t('countChars', { n: filtered.length })}</p>
           {filtered.length === 0 ? (
             <p className="empty">
               {scope === 'favorites' && ids.length === 0
