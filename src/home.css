@@ -352,16 +352,16 @@
 
 .alpha a {
   --k: 0;
-  width: 22px;
-  padding: 1px 0;
+  width: 28px;
+  padding: clamp(1px, 0.5vh, 5px) 0;
   text-align: center;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--accent);
   text-decoration: none;
   cursor: pointer;
   /* --k vai de 0 (longe) a 1 (embaixo do dedo/mouse): a letra cresce e sai um pouco para a esquerda */
-  transform: translateX(calc(var(--k) * -14px)) scale(calc(1 + var(--k) * 1.1));
+  transform: translateX(calc(var(--k) * -18px)) scale(calc(1 + var(--k) * 0.8));
   transform-origin: right center;
   transition: transform 0.12s ease-out, color 0.12s ease-out;
   opacity: calc(0.65 + var(--k) * 0.35);
