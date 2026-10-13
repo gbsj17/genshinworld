@@ -6,6 +6,7 @@ const HomePage = lazy(() => import('./HomePage'))
 const ItemsPage = lazy(() => import('./ItemsPage'))
 import NewsPage from './NewsPage'
 import Footer from './Footer'
+import Splash from './Splash'
 import { MenuProvider } from './MenuProvider'
 import './App.css'
 import './responsive.css'
@@ -21,6 +22,7 @@ function CharacterRoute() {
 function App() {
   return (
     <HashRouter>
+      <Splash />
       <MenuProvider>
         <Suspense fallback={null}>
         <Routes>
