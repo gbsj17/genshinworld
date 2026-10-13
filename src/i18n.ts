@@ -62,8 +62,6 @@ const DICT = {
   searchArtifact: ['Buscar artefato', 'Search artifact'],
   searchAll: ['Buscar personagens, armas e artefatos', 'Search characters, weapons and artifacts'],
   openMenu: ['Abrir menu', 'Open menu'],
-  searchHint: ['Digite para buscar...', 'Type to search...'],
-  searchShortcut: ['Buscar (Ctrl+K)', 'Search (Ctrl+K)'],
 
   // menu
   menu: ['Menu', 'Menu'],

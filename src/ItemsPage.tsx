@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
 import { useFavorites } from './favorites'
@@ -27,8 +26,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
   const isWeapon = kind === 'weapon'
   const [items, setItems] = useState<ItemEntry[] | null>(null)
   const [error, setError] = useState(false)
-  const [params] = useSearchParams()
-  const [query, setQuery] = useState(params.get('q') ?? '')
+  const [query, setQuery] = useState('')
   const [type, setType] = useState('')
   const [rarity, setRarity] = useState(0)
   const [picked, setPicked] = useState<PickedItem | null>(null)

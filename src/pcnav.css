@@ -290,3 +290,50 @@
     background-attachment: fixed;
   }
 }
+
+/* Barra de busca: sem o contorno quadrado do navegador; ao focar, uma luz dourada corre por dentro da barra */
+.pcnav__search input:focus-visible,
+.tabbar__search input:focus-visible {
+  outline: none;
+}
+
+@media (min-width: 820px) {
+  .pcnav__search {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pcnav__search::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  }
+
+  .pcnav__search:focus-within::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .pcnav__search > svg {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+  }
+
+  .pcnav__search:focus-within > svg {
+    transform: scale(1.18) rotate(-12deg);
+    color: var(--gold);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcnav__search::after,
+  .pcnav__search > svg {
+    transition: none;
+  }
+}
