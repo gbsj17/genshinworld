@@ -34,8 +34,6 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
 
   useEffect(() => {
     let active = true
-    setItems(null)
-    setError(false)
     getAllItems(isWeapon ? 'weapons' : 'artifacts')
       .then((l) => active && setItems(l))
       .catch(() => active && setError(true))

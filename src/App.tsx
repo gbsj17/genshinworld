@@ -28,8 +28,8 @@ function App() {
           <Route path="/characters" element={<HomePage />} />
           <Route path="/character/:id" element={<CharacterRoute />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/weapons" element={<ItemsPage kind="weapon" />} />
-          <Route path="/artifacts" element={<ItemsPage kind="artifact" />} />
+          <Route path="/weapons" element={<ItemsPage key="weapon" kind="weapon" />} />
+          <Route path="/artifacts" element={<ItemsPage key="artifact" kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>
