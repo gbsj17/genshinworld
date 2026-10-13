@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllCharacters, iconChain } from './api'
+import { getAllCharacters, getSkillIcons, iconChain } from './api'
 import { t, weaponLabel } from './i18n'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
@@ -67,7 +67,17 @@ function Card({ c }: { c: CharacterSummary }) {
   )
 }
 
-function ListRow({ c }: { c: CharacterSummary }) {
+function SkillDot({ src }: { src: string }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return null
+  return (
+    <span className="skill-dot">
+      <img src={src} alt="" loading="lazy" onError={() => setFailed(true)} />
+    </span>
+  )
+}
+
+function ListRow({ c, skills }: { c: CharacterSummary; skills?: string[] }) {
   return (
     <div className="row-item" style={accentStyle(c)}>
       <Link
@@ -82,6 +92,13 @@ function ListRow({ c }: { c: CharacterSummary }) {
           </span>
         </div>
       </Link>
+      {skills && (
+        <div className="row-item__skills" aria-hidden="true">
+          {skills.map((src) => (
+            <SkillDot key={src} src={src} />
+          ))}
+        </div>
+      )}
       <StarButton id={c.id} name={c.name} />
     </div>
   )
@@ -101,6 +118,19 @@ export default function HomePage() {
     }
   })
   const { ids } = useFavorites()
+  const [skills, setSkills] = useState<Map<string, string[]> | null>(null)
+
+  // Os ícones das habilidades só são buscados quando a lista é aberta
+  useEffect(() => {
+    if (view !== 'list' || skills) return
+    let active = true
+    getSkillIcons()
+      .then((m) => active && setSkills(m))
+      .catch(() => {})
+    return () => {
+      active = false
+    }
+  }, [view, skills])
 
   useEffect(() => {
     let active = true
@@ -280,7 +310,7 @@ export default function HomePage() {
                       {letter}
                     </h2>
                     {items.map((c) => (
-                      <ListRow key={c.id} c={c} />
+                      <ListRow key={c.id} c={c} skills={skills?.get(c.enName)} />
                     ))}
                   </section>
                 ))}

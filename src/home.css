@@ -584,3 +584,51 @@
   border-color: var(--tone);
   color: var(--text);
 }
+
+/* Ícones das habilidades ativas na lista de personagens */
+.row-item__skills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.skill-dot {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: block;
+  border-radius: 50%;
+  border: 2px solid var(--card-accent);
+  background: var(--surface-deep);
+  overflow: hidden;
+}
+
+.skill-dot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+[data-theme='light'] .skill-dot img {
+  filter: brightness(0);
+}
+
+@media (max-width: 560px) {
+  .row-item__skills {
+    display: none;
+  }
+}
+
+@media (min-width: 820px) {
+  .skill-dot {
+    width: 44px;
+    height: 44px;
+  }
+
+  .row-item__skills {
+    gap: 10px;
+    margin-right: 12px;
+  }
+}

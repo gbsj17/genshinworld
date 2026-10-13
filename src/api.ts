@@ -362,6 +362,34 @@ export function getDetails(name: string): Promise<Details> {
   return cached
 }
 
+// Ícones das 3 habilidades ativas (normal, elemental, supremo) de todos os personagens, numa única busca.
+// A chave é o nome em inglês do personagem.
+let skillCache: Promise<Map<string, string[]>> | null = null
+
+export function getSkillIcons(): Promise<Map<string, string[]>> {
+  if (!skillCache) {
+    skillCache = fetch(`${DB_URL}/talents?${LIST_Q}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((list: { name?: string; images?: Record<string, string> }[]) => {
+        const map = new Map<string, string[]>()
+        for (const d of list) {
+          if (!d?.name || !d.images) continue
+          const icons = [1, 2, 3]
+            .map((n) => d.images?.[`filename_combat${n}`])
+            .filter((f): f is string => Boolean(f))
+            .map(enka)
+          if (icons.length) map.set(d.name, icons)
+        }
+        return map
+      })
+      .catch((e) => {
+        skillCache = null
+        throw e
+      })
+  }
+  return skillCache
+}
+
 // Compara versões como "6.10" > "6.9" (número a número).
 export function compareVersions(a: string, b: string): number {
   const pa = a.split('.').map(Number)
