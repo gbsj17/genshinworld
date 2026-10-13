@@ -1,8 +1,8 @@
 import { isPt, t } from '../i18n'
 import type { Build } from './builds'
-import EN from './builds.en.json'
 
-const MAP = EN as Record<string, string>
+// A tradução só é baixada no modo inglês; quem usa português não paga esses ~190 KB.
+const MAP: Record<string, string> = isPt ? {} : ((await import('./builds.en.json')).default as Record<string, string>)
 const SLOT: Record<string, string> = { Areia: t('slotSands'), Cálice: t('slotGoblet'), Tiara: t('slotCirclet') }
 const tr = (s: string) => (isPt ? s : (MAP[s] ?? s))
 
