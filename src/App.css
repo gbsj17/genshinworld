@@ -665,3 +665,8 @@ a.member:hover .thumb {
 [data-theme='light'] .icon img {
   filter: brightness(0);
 }
+
+/* Tema claro: selo do elemento com fundo branco para o ícone aparecer */
+[data-theme='light'] .badge {
+  background: #fff;
+}
