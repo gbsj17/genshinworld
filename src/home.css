@@ -351,6 +351,7 @@
 }
 
 .alpha a {
+  --k: 0;
   width: 22px;
   padding: 1px 0;
   text-align: center;
@@ -358,6 +359,37 @@
   font-weight: 700;
   color: var(--accent);
   text-decoration: none;
+  cursor: pointer;
+  /* --k vai de 0 (longe) a 1 (embaixo do dedo/mouse): a letra cresce e sai um pouco para a esquerda */
+  transform: translateX(calc(var(--k) * -14px)) scale(calc(1 + var(--k) * 1.1));
+  transform-origin: right center;
+  transition: transform 0.12s ease-out, color 0.12s ease-out;
+  opacity: calc(0.65 + var(--k) * 0.35);
+}
+
+.alpha a:hover {
+  color: var(--gold);
+}
+
+/* letra da seção dá um pulinho ao ser alcançada pelo índice */
+.list__letter.is-flash {
+  animation: letter-flash 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+}
+
+@keyframes letter-flash {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.9); color: var(--gold); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alpha a {
+    transition: none;
+  }
+  .list__letter.is-flash {
+    animation: none;
+  }
 }
 
 /* Barra de abas flutuante */

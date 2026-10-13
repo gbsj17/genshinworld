@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { getAllCharacters, iconChain } from './api'
@@ -153,8 +153,29 @@ export default function HomePage() {
     return [...map.entries()]
   }, [filtered])
 
-  const goToLetter = (letter: string) =>
-    document.getElementById(`letter-${letter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const alphaRef = useRef<HTMLElement>(null)
+
+  const goToLetter = (letter: string) => {
+    const el = document.getElementById(`letter-${letter}`)
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    // a letra da seção dá um pulinho ao chegar
+    el?.classList.remove('is-flash')
+    void el?.offsetWidth
+    el?.classList.add('is-flash')
+  }
+
+  // Efeito "lupa": a letra sob o dedo/mouse cresce e as vizinhas crescem um pouco menos
+  const magnify = (clientY: number | null) => {
+    alphaRef.current?.querySelectorAll<HTMLElement>('a').forEach((a) => {
+      if (clientY === null) {
+        a.style.removeProperty('--k')
+        return
+      }
+      const box = a.getBoundingClientRect()
+      const dist = Math.abs(clientY - (box.top + box.height / 2)) / box.height
+      a.style.setProperty('--k', String(Math.max(0, 1 - dist / 3.2)))
+    })
+  }
 
   return (
     <>
@@ -264,7 +285,15 @@ export default function HomePage() {
                   </section>
                 ))}
               </div>
-              <nav className="alpha" aria-label={t('alphaIndex')}>
+              <nav
+                className="alpha"
+                aria-label={t('alphaIndex')}
+                ref={alphaRef}
+                onPointerMove={(e) => magnify(e.clientY)}
+                onPointerLeave={() => magnify(null)}
+                onPointerCancel={() => magnify(null)}
+                onPointerUp={(e) => e.pointerType !== 'mouse' && magnify(null)}
+              >
                 {groups.map(([letter]) => (
                   <a
                     key={letter}
