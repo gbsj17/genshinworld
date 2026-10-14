@@ -71,6 +71,15 @@ src/
   ItemsPage.tsx      weapons and artifacts (list, filters)
   FavoritesPage.tsx  favorite characters, weapons and artifacts
   DocsPage.tsx       this documentation, in Portuguese or English
+  ComparePage.tsx    compare two characters or two weapons (/compare)
+  TeamsPage.tsx      team builder and resonance (/teams)
+  MaterialsPage.tsx  material calculator (/materials)
+  FarmPage.tsx       domains open by weekday (/farm)
+  WishlistPage.tsx   wishlist with summed materials (/wishlist)
+  PityPage.tsx       pity counter (/pity)
+  MyBuild.tsx        own build, on the sheet's Builds tab
+  Picker.tsx         picker window with search and filters (pickFilters.ts)
+  costs.ts           cost sum per level            share.ts   copy/share link
   ItemModal.tsx      weapon/artifact details
   Banners.tsx        wish banner carousels and banner contents
   PcNav.tsx          top menu (desktop only)    TabBar.tsx   bottom bar (mobile only)
@@ -117,6 +126,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `Details` (`api.ts`): combat talents, passive talents and constellations, each with name, description and icons.
 - `Build` (`data/builds.ts`): `patch`, `sources`, `weapons`, `artifacts`, `mainStats`, `substats` and `teams` (with members and a note).
 - Banner (`public/banners.json`): `updated` and `banners` with title, type (character or weapon), image, end date and the 5★ and 4★ highlights.
+- `Domain` (`api.ts`): `kind` (talent, weapon or artifact), name, region, weekdays and materials. Own build (`MyBuild.tsx`): weapon, sets, main stats, substats and a note, per character.
 
 ## 9. Languages (PT-BR / EN-US)
 
@@ -181,6 +191,8 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - **Menu:** items enter one after another.
 - **Alphabetical index:** magnifier effect on the letters and a small bounce on the section letter on arrival.
 - **Theme:** smooth color change.
+- **Tools** (Farm, Wishlist, Materials, Pity): cards enter in sequence; the pity number pops on each pull and the bar fills and changes color in soft pity.
+- **Picker window:** the backdrop fades and the panel slides up gently.
 - All of them respect the system "reduce motion" setting.
 
 ## 15. Accessibility
@@ -216,7 +228,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 
 ## 18. Tests and lint
 
-- `npm test` (Vitest + jsdom) runs in `src/__tests__`: version comparison and sorting, texts and variable replacement, weapon names per language, builds (every build has weapons, artifacts and sources; every Portuguese note has a translation) and favorites.
+- `npm test` (Vitest + jsdom) runs in `src/__tests__`: version comparison and sorting, texts and variable replacement, weapon names per language, builds (every build has weapons, artifacts and sources; every Portuguese note has a translation), favorites, elemental resonance, material sums and Farm domain grouping.
 - The deploy only continues if tests pass.
 - `npm run lint` uses oxlint; the project has no warnings.
 

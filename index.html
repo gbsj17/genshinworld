@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Genshin World" />
-    <meta property="og:description" content="Characters, builds, teams and wish banners for Genshin Impact" />
+    <meta property="og:description" content="Personagens, builds, equipes e banners de oração de Genshin Impact" />
     <meta name="theme-color" content="#12151f" />
     <meta name="description" content="Personagens, builds e equipes de Genshin Impact" />
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -29,6 +29,10 @@
           document
             .querySelector('meta[name="description"]')
             .setAttribute('content', 'Characters, builds and teams for Genshin Impact')
+        if (l === 'en')
+          document
+            .querySelector('meta[property="og:description"]')
+            .setAttribute('content', 'Characters, builds, teams and wish banners for Genshin Impact')
       } catch (e) {}
       try {
         var t = localStorage.getItem('genshinworld:theme')

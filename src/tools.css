@@ -886,3 +886,11 @@
 .mine .mat__grid {
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
+
+.pity__bar--soft i {
+  background: #ef8a5a;
+}
+
+.pity__bar i {
+  transition: width 0.5s var(--ease-out), background-color 0.4s ease;
+}

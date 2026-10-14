@@ -79,7 +79,7 @@ export default function Picker({
             onChange={(e) => setQuery(e.target.value)}
           />
           <button className="picker__close" aria-label={t('close')} onClick={onClose}>
-            Esc
+            {t('close')}
           </button>
         </div>
         {filters.length > 0 && (

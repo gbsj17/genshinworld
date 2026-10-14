@@ -269,3 +269,33 @@
   transform: none;
   transition: opacity 0.5s ease 0.5s, transform 0.6s var(--ease-out) 0.45s;
 }
+
+/* ===== Ferramentas (Comparar, Equipes, Materiais, Farm, Desejos, Pity): cartões entram em sequência ===== */
+.farm__grid > *,
+.wish__list > *,
+.mat__list > *,
+.pity__hist > *,
+.team__saved > *,
+.picker__list > * {
+  animation: card-in 0.5s var(--ease-out) both;
+}
+
+.farm__grid > *:nth-child(2), .wish__list > *:nth-child(2), .mat__list > *:nth-child(2) { animation-delay: 0.05s; }
+.farm__grid > *:nth-child(3), .wish__list > *:nth-child(3), .mat__list > *:nth-child(3) { animation-delay: 0.1s; }
+.farm__grid > *:nth-child(4), .wish__list > *:nth-child(4), .mat__list > *:nth-child(4) { animation-delay: 0.15s; }
+.farm__grid > *:nth-child(n + 5), .wish__list > *:nth-child(n + 5), .mat__list > *:nth-child(n + 5) { animation-delay: 0.2s; }
+
+/* O número do pity dá um pulinho a cada tiragem */
+.pity__count {
+  display: inline-block;
+  animation: star-pop 0.35s var(--ease-out);
+}
+
+/* Janela de escolha: abre devagar */
+.picker__backdrop {
+  animation: modal-fade 0.3s ease both;
+}
+
+.picker__panel {
+  animation: modal-up 0.4s var(--ease-out) both;
+}

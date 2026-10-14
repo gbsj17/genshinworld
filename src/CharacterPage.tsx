@@ -88,6 +88,7 @@ export default function CharacterPage({ id }: { id: string }) {
   const [tab, setTab] = useState<Tab>(() => (search.get('tab') === 'builds' ? 'builds' : 'overview'))
   const [portraitIndex, setPortraitIndex] = useState(0)
   const { isFavorite, toggle } = useFavorites()
+  const wish = useFavorites('wishlist')
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -192,6 +193,16 @@ export default function CharacterPage({ id }: { id: string }) {
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill={isFavorite(id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
                 <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
+              </svg>
+            </button>
+            <button
+              className="glass-btn"
+              aria-label={wish.isFavorite(id) ? t('wishRemoveShort') : t('wishAddShort')}
+              aria-pressed={wish.isFavorite(id)}
+              onClick={() => wish.toggle(id)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill={wish.isFavorite(id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 3h12v18l-6-4-6 4z" />
               </svg>
             </button>
             <button

@@ -71,6 +71,15 @@ src/
   ItemsPage.tsx      armas e artefatos (lista, filtros)
   FavoritesPage.tsx  favoritos de personagens, armas e artefatos
   DocsPage.tsx       esta documentação, em português ou inglês
+  ComparePage.tsx    comparar dois personagens ou duas armas (/compare)
+  TeamsPage.tsx      montador de equipes e ressonância (/teams)
+  MaterialsPage.tsx  calculadora de materiais (/materials)
+  FarmPage.tsx       domínios abertos por dia da semana (/farm)
+  WishlistPage.tsx   lista de desejos com soma de materiais (/wishlist)
+  PityPage.tsx       contador de pity (/pity)
+  MyBuild.tsx        build própria, na aba Builds da ficha
+  Picker.tsx         janela de escolha com busca e filtros (pickFilters.ts)
+  costs.ts           soma de custos por nível      share.ts   copiar/compartilhar link
   ItemModal.tsx      detalhes de arma/artefato
   Banners.tsx        carrosséis de banners de oração e lista do banner
   PcNav.tsx          menu superior (só PC)      TabBar.tsx   barra inferior (só celular)
@@ -117,6 +126,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `Details` (`api.ts`): talentos de combate, talentos passivos e constelações, cada um com nome, descrição e ícones.
 - `Build` (`data/builds.ts`): `patch`, `sources`, `weapons`, `artifacts`, `mainStats`, `substats` e `teams` (com integrantes e nota).
 - Banner (`public/banners.json`): `updated` e `banners` com título, tipo (personagem ou arma), imagem, data de término e os destaques 5★ e 4★.
+- `Domain` (`api.ts`): `kind` (talento, arma ou artefato), nome, região, dias da semana e materiais. Build própria (`MyBuild.tsx`): arma, conjuntos, atributos principais, substatos e anotação, por personagem.
 
 ## 9. Idiomas (PT-BR / EN-US)
 
@@ -181,6 +191,8 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - **Menu:** os itens entram um depois do outro.
 - **Índice alfabético:** efeito lupa nas letras e pulinho na letra da seção ao chegar.
 - **Tema:** troca suave de cores.
+- **Ferramentas** (Farm, Desejos, Materiais, Pity): os cartões entram em sequência; o número do pity dá um pulinho a cada tiragem e a barra enche e muda de cor no pity suave.
+- **Janela de escolha:** o fundo some com fade e o painel sobe suavemente.
 - Todas respeitam "reduzir movimento" do sistema.
 
 ## 15. Acessibilidade
@@ -216,7 +228,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 
 ## 18. Testes e lint
 
-- `npm test` (Vitest + jsdom) roda em `src/__tests__`: comparação e ordenação de versões, textos e troca de variáveis, nomes de arma por idioma, builds (toda build tem armas, artefatos e fontes; toda nota em português tem tradução) e favoritos.
+- `npm test` (Vitest + jsdom) roda em `src/__tests__`: comparação e ordenação de versões, textos e troca de variáveis, nomes de arma por idioma, builds (toda build tem armas, artefatos e fontes; toda nota em português tem tradução), favoritos, ressonância elemental, soma de materiais e agrupamento dos domínios do Farm.
 - O deploy só segue se os testes passarem.
 - `npm run lint` usa o oxlint; o projeto está sem avisos.
 

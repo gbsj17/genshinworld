@@ -121,14 +121,15 @@ export default function PityPage() {
           </div>
 
           <section className="pity__now" aria-live="polite">
-            <b className="pity__count">{s.pity}</b>
+            <b key={`${s.pity}:${s.total}`} className="pity__count">{s.pity}</b>
             <span>{t('pityCount')}</span>
-            <div className="pity__bar" role="img" aria-label={`${s.pity}/${hard}`}>
+            <div className={s.pity + 1 >= soft ? 'pity__bar pity__bar--soft' : 'pity__bar'} role="img" aria-label={`${s.pity}/${hard}`}>
               <i style={{ width: `${(s.pity / hard) * 100}%` }} />
               <em style={{ left: `${(soft / hard) * 100}%` }} />
             </div>
             <p>{toSoft > 0 ? t('pityToSoft', { n: toSoft, soft }) : t('pityInSoft', { soft })}</p>
             <p>{t('pityToHard', { n: toHard })}</p>
+            {s.pity + 1 >= soft && <p className="pity__flag">{t('pitySoftNow')}</p>}
             {hasGuarantee && <p className="pity__flag">{s.guaranteed ? t('pityGuaranteed') : t('pityFifty')}</p>}
             <p className="tool__muted">{t('pityCost', { n: (s.pity * PRIMOS_PER_PULL).toLocaleString(), total: s.total })}</p>
           </section>

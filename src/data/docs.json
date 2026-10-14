@@ -97,7 +97,7 @@
         "title": "5. Estrutura do projeto",
         "blocks": [
           {
-            "code": "src/\n  App.tsx            rotas (HashRouter), abertura e rodapé\n  Splash.tsx         abertura animada (elementos que viram o logo)\n  NewsPage.tsx       Início (banner animado, novidades, banners de oração)\n  HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos)\n  CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds\n  ItemsPage.tsx      armas e artefatos (lista, filtros)\n  FavoritesPage.tsx  favoritos de personagens, armas e artefatos\n  DocsPage.tsx       esta documentação, em português ou inglês\n  ItemModal.tsx      detalhes de arma/artefato\n  Banners.tsx        carrosséis de banners de oração e lista do banner\n  PcNav.tsx          menu superior (só PC)      TabBar.tsx   barra inferior (só celular)\n  Drawer.tsx         menu lateral (documentação, tema e idioma)\n  Footer.tsx         rodapé\n  api.ts             acesso às APIs, caches, ordenação por lançamento\n  i18n.ts            idioma e dicionário PT/EN\n  favorites.ts       favoritos (localStorage)      theme.ts   tema claro/escuro\n  preload.ts         baixa imagens em segundo plano\n  visionColors.ts    cor de cada elemento\n  types.ts           tipos dos dados\n  __tests__/         testes (Vitest)\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) e docs.json\n  *.css              estilos por área; motion.css (animações), sheetpc.css (ficha no PC)\nscripts/fetch-banners.mjs   gera public/banners.json\nscripts/build-docs.mjs      gera docs/*.md a partir de src/data/docs.json\npublic/                     manifest, service worker (sw.js), ícones, banners.json\n.github/workflows/deploy.yml"
+            "code": "src/\n  App.tsx            rotas (HashRouter), abertura e rodapé\n  Splash.tsx         abertura animada (elementos que viram o logo)\n  NewsPage.tsx       Início (banner animado, novidades, banners de oração)\n  HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos)\n  CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds\n  ItemsPage.tsx      armas e artefatos (lista, filtros)\n  FavoritesPage.tsx  favoritos de personagens, armas e artefatos\n  DocsPage.tsx       esta documentação, em português ou inglês\n  ComparePage.tsx    comparar dois personagens ou duas armas (/compare)\n  TeamsPage.tsx      montador de equipes e ressonância (/teams)\n  MaterialsPage.tsx  calculadora de materiais (/materials)\n  FarmPage.tsx       domínios abertos por dia da semana (/farm)\n  WishlistPage.tsx   lista de desejos com soma de materiais (/wishlist)\n  PityPage.tsx       contador de pity (/pity)\n  MyBuild.tsx        build própria, na aba Builds da ficha\n  Picker.tsx         janela de escolha com busca e filtros (pickFilters.ts)\n  costs.ts           soma de custos por nível      share.ts   copiar/compartilhar link\n  ItemModal.tsx      detalhes de arma/artefato\n  Banners.tsx        carrosséis de banners de oração e lista do banner\n  PcNav.tsx          menu superior (só PC)      TabBar.tsx   barra inferior (só celular)\n  Drawer.tsx         menu lateral (documentação, tema e idioma)\n  Footer.tsx         rodapé\n  api.ts             acesso às APIs, caches, ordenação por lançamento\n  i18n.ts            idioma e dicionário PT/EN\n  favorites.ts       favoritos (localStorage)      theme.ts   tema claro/escuro\n  preload.ts         baixa imagens em segundo plano\n  visionColors.ts    cor de cada elemento\n  types.ts           tipos dos dados\n  __tests__/         testes (Vitest)\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) e docs.json\n  *.css              estilos por área; motion.css (animações), sheetpc.css (ficha no PC)\nscripts/fetch-banners.mjs   gera public/banners.json\nscripts/build-docs.mjs      gera docs/*.md a partir de src/data/docs.json\npublic/                     manifest, service worker (sw.js), ícones, banners.json\n.github/workflows/deploy.yml"
           }
         ]
       },
@@ -144,7 +144,8 @@
               "`ItemEntry` e `ItemInfo` (`api.ts`): `name` (chave em inglês), `label` (nome na tela), `info` com raridade, tipo, ícones, versão e textos (efeito, bônus de 2 e 4 peças, ATQ base e atributo secundário).",
               "`Details` (`api.ts`): talentos de combate, talentos passivos e constelações, cada um com nome, descrição e ícones.",
               "`Build` (`data/builds.ts`): `patch`, `sources`, `weapons`, `artifacts`, `mainStats`, `substats` e `teams` (com integrantes e nota).",
-              "Banner (`public/banners.json`): `updated` e `banners` com título, tipo (personagem ou arma), imagem, data de término e os destaques 5★ e 4★."
+              "Banner (`public/banners.json`): `updated` e `banners` com título, tipo (personagem ou arma), imagem, data de término e os destaques 5★ e 4★.",
+              "`Domain` (`api.ts`): `kind` (talento, arma ou artefato), nome, região, dias da semana e materiais. Build própria (`MyBuild.tsx`): arma, conjuntos, atributos principais, substatos e anotação, por personagem."
             ]
           }
         ]
@@ -251,6 +252,8 @@
               "**Menu:** os itens entram um depois do outro.",
               "**Índice alfabético:** efeito lupa nas letras e pulinho na letra da seção ao chegar.",
               "**Tema:** troca suave de cores.",
+              "**Ferramentas** (Farm, Desejos, Materiais, Pity): os cartões entram em sequência; o número do pity dá um pulinho a cada tiragem e a barra enche e muda de cor no pity suave.",
+              "**Janela de escolha:** o fundo some com fade e o painel sobe suavemente.",
               "Todas respeitam \"reduzir movimento\" do sistema."
             ]
           }
@@ -314,7 +317,7 @@
         "blocks": [
           {
             "ul": [
-              "`npm test` (Vitest + jsdom) roda em `src/__tests__`: comparação e ordenação de versões, textos e troca de variáveis, nomes de arma por idioma, builds (toda build tem armas, artefatos e fontes; toda nota em português tem tradução) e favoritos.",
+              "`npm test` (Vitest + jsdom) roda em `src/__tests__`: comparação e ordenação de versões, textos e troca de variáveis, nomes de arma por idioma, builds (toda build tem armas, artefatos e fontes; toda nota em português tem tradução), favoritos, ressonância elemental, soma de materiais e agrupamento dos domínios do Farm.",
               "O deploy só segue se os testes passarem.",
               "`npm run lint` usa o oxlint; o projeto está sem avisos."
             ]
@@ -502,7 +505,7 @@
         "title": "5. Project structure",
         "blocks": [
           {
-            "code": "src/\n  App.tsx            routes (HashRouter), intro animation and footer\n  Splash.tsx         animated intro (elements that become the logo)\n  NewsPage.tsx       Home (animated banner, news, wish banners)\n  HomePage.tsx       character list (filters, grid/list, favorites)\n  CharacterPage.tsx  profile: overview, talents, constellations, builds\n  ItemsPage.tsx      weapons and artifacts (list, filters)\n  FavoritesPage.tsx  favorite characters, weapons and artifacts\n  DocsPage.tsx       this documentation, in Portuguese or English\n  ItemModal.tsx      weapon/artifact details\n  Banners.tsx        wish banner carousels and banner contents\n  PcNav.tsx          top menu (desktop only)    TabBar.tsx   bottom bar (mobile only)\n  Drawer.tsx         side menu (documentation, theme and language)\n  Footer.tsx         footer\n  api.ts             API access, caches, sorting by release\n  i18n.ts            language and PT/EN dictionary\n  favorites.ts       favorites (localStorage)   theme.ts     light/dark theme\n  preload.ts         downloads images in the background\n  visionColors.ts    color of each element\n  types.ts           data types\n  __tests__/         tests (Vitest)\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) and docs.json\n  *.css              styles per area; motion.css (animations), sheetpc.css (desktop profile)\nscripts/fetch-banners.mjs   generates public/banners.json\nscripts/build-docs.mjs      generates docs/*.md from src/data/docs.json\npublic/                     manifest, service worker (sw.js), icons, banners.json\n.github/workflows/deploy.yml"
+            "code": "src/\n  App.tsx            routes (HashRouter), intro animation and footer\n  Splash.tsx         animated intro (elements that become the logo)\n  NewsPage.tsx       Home (animated banner, news, wish banners)\n  HomePage.tsx       character list (filters, grid/list, favorites)\n  CharacterPage.tsx  profile: overview, talents, constellations, builds\n  ItemsPage.tsx      weapons and artifacts (list, filters)\n  FavoritesPage.tsx  favorite characters, weapons and artifacts\n  DocsPage.tsx       this documentation, in Portuguese or English\n  ComparePage.tsx    compare two characters or two weapons (/compare)\n  TeamsPage.tsx      team builder and resonance (/teams)\n  MaterialsPage.tsx  material calculator (/materials)\n  FarmPage.tsx       domains open by weekday (/farm)\n  WishlistPage.tsx   wishlist with summed materials (/wishlist)\n  PityPage.tsx       pity counter (/pity)\n  MyBuild.tsx        own build, on the sheet's Builds tab\n  Picker.tsx         picker window with search and filters (pickFilters.ts)\n  costs.ts           cost sum per level            share.ts   copy/share link\n  ItemModal.tsx      weapon/artifact details\n  Banners.tsx        wish banner carousels and banner contents\n  PcNav.tsx          top menu (desktop only)    TabBar.tsx   bottom bar (mobile only)\n  Drawer.tsx         side menu (documentation, theme and language)\n  Footer.tsx         footer\n  api.ts             API access, caches, sorting by release\n  i18n.ts            language and PT/EN dictionary\n  favorites.ts       favorites (localStorage)   theme.ts     light/dark theme\n  preload.ts         downloads images in the background\n  visionColors.ts    color of each element\n  types.ts           data types\n  __tests__/         tests (Vitest)\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) and docs.json\n  *.css              styles per area; motion.css (animations), sheetpc.css (desktop profile)\nscripts/fetch-banners.mjs   generates public/banners.json\nscripts/build-docs.mjs      generates docs/*.md from src/data/docs.json\npublic/                     manifest, service worker (sw.js), icons, banners.json\n.github/workflows/deploy.yml"
           }
         ]
       },
@@ -549,7 +552,8 @@
               "`ItemEntry` and `ItemInfo` (`api.ts`): `name` (English key), `label` (screen name), `info` with rarity, type, icons, version and texts (effect, 2 and 4-piece bonus, base ATK and secondary stat).",
               "`Details` (`api.ts`): combat talents, passive talents and constellations, each with name, description and icons.",
               "`Build` (`data/builds.ts`): `patch`, `sources`, `weapons`, `artifacts`, `mainStats`, `substats` and `teams` (with members and a note).",
-              "Banner (`public/banners.json`): `updated` and `banners` with title, type (character or weapon), image, end date and the 5★ and 4★ highlights."
+              "Banner (`public/banners.json`): `updated` and `banners` with title, type (character or weapon), image, end date and the 5★ and 4★ highlights.",
+              "`Domain` (`api.ts`): `kind` (talent, weapon or artifact), name, region, weekdays and materials. Own build (`MyBuild.tsx`): weapon, sets, main stats, substats and a note, per character."
             ]
           }
         ]
@@ -656,6 +660,8 @@
               "**Menu:** items enter one after another.",
               "**Alphabetical index:** magnifier effect on the letters and a small bounce on the section letter on arrival.",
               "**Theme:** smooth color change.",
+              "**Tools** (Farm, Wishlist, Materials, Pity): cards enter in sequence; the pity number pops on each pull and the bar fills and changes color in soft pity.",
+              "**Picker window:** the backdrop fades and the panel slides up gently.",
               "All of them respect the system \"reduce motion\" setting."
             ]
           }
@@ -719,7 +725,7 @@
         "blocks": [
           {
             "ul": [
-              "`npm test` (Vitest + jsdom) runs in `src/__tests__`: version comparison and sorting, texts and variable replacement, weapon names per language, builds (every build has weapons, artifacts and sources; every Portuguese note has a translation) and favorites.",
+              "`npm test` (Vitest + jsdom) runs in `src/__tests__`: version comparison and sorting, texts and variable replacement, weapon names per language, builds (every build has weapons, artifacts and sources; every Portuguese note has a translation), favorites, elemental resonance, material sums and Farm domain grouping.",
               "The deploy only continues if tests pass.",
               "`npm run lint` uses oxlint; the project has no warnings."
             ]
