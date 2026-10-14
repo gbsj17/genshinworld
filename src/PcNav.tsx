@@ -28,7 +28,7 @@ export default function PcNav({
   onQuery,
   placeholder,
 }: {
-  active: TabId
+  active: TabId | null
   overlay?: boolean
   query?: string
   onQuery?: (q: string) => void

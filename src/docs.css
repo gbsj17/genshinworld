@@ -1,0 +1,105 @@
+/* Página de documentação */
+.docs__body {
+  padding: 8px 20px 24px;
+  max-width: 820px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.docs__title {
+  margin: 8px 0 14px;
+  font-family: var(--serif);
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.docs__toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.docs__toc a {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.docs__toc a:hover {
+  background: var(--surface-deep);
+}
+
+.docs__section {
+  padding-top: 22px;
+  scroll-margin-top: 80px;
+}
+
+.docs__section h2 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--gold);
+}
+
+.docs__section p,
+.docs__section li {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.docs__section p {
+  margin: 0 0 10px;
+}
+
+.docs__section ul {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.docs__section code {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--surface-deep);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+.docs__section pre {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-deep);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.docs__section pre code {
+  padding: 0;
+  background: transparent;
+  font-size: inherit;
+  overflow-wrap: normal;
+}
+
+@media (min-width: 820px) {
+  .docs__body {
+    padding-top: 24px;
+  }
+
+  .docs__title {
+    font-size: 44px;
+  }
+
+  .docs__section p,
+  .docs__section li {
+    font-size: 16px;
+  }
+}

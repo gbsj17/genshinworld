@@ -95,9 +95,15 @@ export default function Drawer() {
             </svg>
             {t('favorites')}
           </Link>
+          <Link to="/docs" className="drawer__item" style={step(3)} onClick={closeMenu}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7" />
+            </svg>
+            {t('docs')}
+          </Link>
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(3)}>
+        <div className="drawer__item drawer__item--row" style={step(4)}>
           <span className="drawer__label">
             {t('theme')}
             <small>{isLight ? t('themeLight') : t('themeDark')}</small>
@@ -121,7 +127,7 @@ export default function Drawer() {
           </button>
         </div>
 
-        <div className="drawer__item drawer__item--row" style={step(4)}>
+        <div className="drawer__item drawer__item--row" style={step(5)}>
           <span className="drawer__label">{t('language')}</span>
           <div className="lang-switch" role="group" aria-label={t('language')}>
             <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>

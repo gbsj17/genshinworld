@@ -4,6 +4,7 @@ const CharacterPage = lazy(() => import('./CharacterPage'))
 const FavoritesPage = lazy(() => import('./FavoritesPage'))
 const HomePage = lazy(() => import('./HomePage'))
 const ItemsPage = lazy(() => import('./ItemsPage'))
+const DocsPage = lazy(() => import('./DocsPage'))
 import NewsPage from './NewsPage'
 import Footer from './Footer'
 import Splash from './Splash'
@@ -30,6 +31,7 @@ function App() {
           <Route path="/characters" element={<HomePage />} />
           <Route path="/character/:id" element={<CharacterRoute />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/docs" element={<DocsPage />} />
           <Route path="/weapons" element={<ItemsPage key="weapon" kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage key="artifact" kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />

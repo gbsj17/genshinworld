@@ -22,7 +22,7 @@ export default function TabBar({
   query,
   onQuery,
 }: {
-  active: TabId
+  active: TabId | null
   query: string
   onQuery: (q: string) => void
 }) {

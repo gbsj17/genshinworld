@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { t } from './i18n'
 import './splash.css'
 
 const KEY = 'genshinworld:splash'
@@ -100,7 +101,7 @@ export default function Splash() {
       <canvas ref={canvasRef} className="splash__canvas" />
       <div className={logo ? 'splash__logo is-on' : 'splash__logo'}>
         <b>Genshin World</b>
-        <i>Personagens · Builds · Equipes</i>
+        <i>{t('splashSub')}</i>
       </div>
     </div>
   )

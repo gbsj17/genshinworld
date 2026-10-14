@@ -343,7 +343,7 @@ export default function NewsPage() {
           <Banners chars={chars} onPickWeapon={setPicked} />
 
           {newMaterials.length > 0 && (
-            <Section title={`Novos materiais${tag(nm.version)}`} className="news-mats">
+            <Section title={`${t('newMaterials')}${tag(nm.version)}`} className="news-mats">
               <div className="hrow hrow--small">
                 {newMaterials.map((m) => (
                   <div className="mat-card" key={m.name}>
