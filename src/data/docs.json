@@ -42,7 +42,8 @@
               "**Materiais:** escolha um personagem, a fase de ascensão e os níveis dos 3 talentos para ver o total de materiais e Mora necessários (EXP não incluída).",
               "**Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).",
               "**Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em \"Limpar filtros\".",
-              "**Farm de hoje:** escolha o dia da semana (abre em \"Hoje\") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto."
+              "**Farm de hoje:** escolha o dia da semana (abre em \"Hoje\") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto.",
+              "**Lista de desejos:** adicione os personagens que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos, até o nível de talento que você escolher. A lista fica salva no aparelho. \"Detalhes\" abre a calculadora de Materiais daquele personagem."
             ]
           }
         ]
@@ -53,7 +54,7 @@
         "blocks": [
           {
             "ul": [
-              "**Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Documentação, troca de tema e troca de idioma.",
+              "**Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Documentação, troca de tema e troca de idioma.",
               "**Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.",
               "**Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.",
               "**Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.",
@@ -82,6 +83,7 @@
               "`/#/teams` montador de equipes (`?m=` ids, `?n=` nome).",
               "`/#/materials` calculadora de materiais (`?c=` personagem).",
               "`/#/farm` farm de hoje (domínios por dia da semana).",
+              "`/#/wishlist` lista de desejos.",
               "Qualquer outro endereço volta para o Início."
             ]
           }
@@ -204,6 +206,7 @@
               "`genshinworld:view`: grade ou lista na tela de personagens.",
               "`genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favoritos de personagens, armas e artefatos (listas de nomes/ids).",
               "`genshinworld:teams`: equipes salvas pelo usuário na tela Equipes.",
+              "`genshinworld:wishlist`: ids dos personagens da lista de desejos.",
               "`genshinworld:splash` (sessão): marca que a abertura já apareceu.",
               "**Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.",
               "Nada disso é enviado a lugar nenhum. Se o navegador bloquear o armazenamento, o site funciona do mesmo jeito, só sem lembrar as escolhas."
@@ -439,7 +442,8 @@
               "**Materials:** pick a character, ascension phase and the 3 talent levels to see total materials and Mora needed (EXP not included).",
               "**Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab).",
               "**Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use \"Clear filters\".",
-              "**Today's farm:** pick the weekday (opens on \"Today\") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open."
+              "**Today's farm:** pick the weekday (opens on \"Today\") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open.",
+              "**Wishlist:** add the characters you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents, up to the talent level you choose. The list is saved on the device. \"Details\" opens the Materials calculator for that character."
             ]
           }
         ]
@@ -450,7 +454,7 @@
         "blocks": [
           {
             "ul": [
-              "**Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Documentation, theme switch and language switch.",
+              "**Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Documentation, theme switch and language switch.",
               "**Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.",
               "**Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.",
               "**Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.",
@@ -479,6 +483,7 @@
               "`/#/teams` team builder (`?m=` ids, `?n=` name).",
               "`/#/materials` material calculator (`?c=` character).",
               "`/#/farm` today's farm (domains by weekday).",
+              "`/#/wishlist` wishlist.",
               "Any other address goes back to Home."
             ]
           }
@@ -601,6 +606,7 @@
               "`genshinworld:view`: grid or list on the characters screen.",
               "`genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favorite characters, weapons and artifacts (lists of names/ids).",
               "`genshinworld:teams`: teams saved by the user on the Teams screen.",
+              "`genshinworld:wishlist`: ids of the characters on the wishlist.",
               "`genshinworld:splash` (session): marks that the intro has already shown.",
               "**Service worker cache:** app files, images, API data and fonts.",
               "None of this is sent anywhere. If the browser blocks storage, the site works the same, it just does not remember choices."

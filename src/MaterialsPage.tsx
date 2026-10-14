@@ -7,6 +7,8 @@ import { t } from './i18n'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import Picker from './Picker'
+import { sum } from './costs'
+import type { Range } from './costs'
 import { charFacets, charFilters } from './pickFilters'
 import TabBar from './TabBar'
 import { Thumb } from './Thumb'
@@ -14,23 +16,6 @@ import type { CharacterSummary } from './types'
 import './tools.css'
 
 const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, Number.isFinite(n) ? n : lo))
-
-interface Range {
-  from: number
-  to: number
-}
-
-// soma os custos dos níveis (from, to], ou seja, do nível seguinte ao atual até a meta
-function sum(levels: CostItem[][], firstLevel: number, r: Range): Map<number, CostItem> {
-  const total = new Map<number, CostItem>()
-  for (let lvl = r.from + 1; lvl <= r.to; lvl++) {
-    for (const it of levels[lvl - firstLevel] ?? []) {
-      const prev = total.get(it.id)
-      total.set(it.id, { ...it, count: (prev?.count ?? 0) + it.count })
-    }
-  }
-  return total
-}
 
 function Select({ id, label, value, min, max, onChange, fmt }: { id: string; label: string; value: number; min: number; max: number; onChange: (n: number) => void; fmt: (n: number) => string }) {
   return (

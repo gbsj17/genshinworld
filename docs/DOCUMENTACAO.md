@@ -28,10 +28,11 @@ Resumo do que cada parte do site faz e como usar.
 - **Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).
 - **Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em "Limpar filtros".
 - **Farm de hoje:** escolha o dia da semana (abre em "Hoje") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto.
+- **Lista de desejos:** adicione os personagens que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos, até o nível de talento que você escolher. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Documentação, troca de tema e troca de idioma.
+- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Documentação, troca de tema e troca de idioma.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -52,6 +53,7 @@ O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pa
 - `/#/teams` montador de equipes (`?m=` ids, `?n=` nome).
 - `/#/materials` calculadora de materiais (`?c=` personagem).
 - `/#/farm` farm de hoje (domínios por dia da semana).
+- `/#/wishlist` lista de desejos.
 - Qualquer outro endereço volta para o Início.
 
 ## 5. Estrutura do projeto
@@ -148,6 +150,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:view`: grade ou lista na tela de personagens.
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favoritos de personagens, armas e artefatos (listas de nomes/ids).
 - `genshinworld:teams`: equipes salvas pelo usuário na tela Equipes.
+- `genshinworld:wishlist`: ids dos personagens da lista de desejos.
 - `genshinworld:splash` (sessão): marca que a abertura já apareceu.
 - **Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.
 - Nada disso é enviado a lugar nenhum. Se o navegador bloquear o armazenamento, o site funciona do mesmo jeito, só sem lembrar as escolhas.

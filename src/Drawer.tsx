@@ -119,7 +119,13 @@ export default function Drawer() {
             </svg>
             {t('farm')}
           </Link>
-          <Link to="/docs" className="drawer__item" style={step(7)} onClick={closeMenu}>
+          <Link to="/wishlist" className="drawer__item" style={step(7)} onClick={closeMenu}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z" />
+            </svg>
+            {t('wishlist')}
+          </Link>
+          <Link to="/docs" className="drawer__item" style={step(8)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7" />
             </svg>
@@ -127,7 +133,7 @@ export default function Drawer() {
           </Link>
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(8)}>
+        <div className="drawer__item drawer__item--row" style={step(9)}>
           <span className="drawer__label">
             {t('theme')}
             <small>{isLight ? t('themeLight') : t('themeDark')}</small>
@@ -151,7 +157,7 @@ export default function Drawer() {
           </button>
         </div>
 
-        <div className="drawer__item drawer__item--row" style={step(9)}>
+        <div className="drawer__item drawer__item--row" style={step(10)}>
           <span className="drawer__label">{t('language')}</span>
           <div className="lang-switch" role="group" aria-label={t('language')}>
             <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>
