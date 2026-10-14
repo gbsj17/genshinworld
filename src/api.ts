@@ -489,6 +489,7 @@ const DOMAIN_KIND: Record<string, Domain['kind']> = {
 interface DbDomain {
   id?: number
   entranceId?: number
+  name?: string
   entranceName?: string
   regionName?: string
   domainType?: string
@@ -510,12 +511,14 @@ export function getDomains(): Promise<Domain[]> {
         const byId = new Map<number, DbDomain>()
         for (const d of local ?? []) if (typeof d.id === 'number') byId.set(d.id, d)
         // cada domínio existe em vários níveis (I, II, III...); fica o mais difícil, que tem as melhores recompensas
-        const best = new Map<number, { en: DbDomain; l: DbDomain }>()
+        // (a mesma entrada tem vários domínios, um por grupo de dias, então a chave é o nome sem o número romano)
+        const best = new Map<string, { en: DbDomain; l: DbDomain }>()
         for (const d of en) {
-          if (typeof d.entranceId !== 'number' || !d.domainType || !DOMAIN_KIND[d.domainType]) continue
-          const cur = best.get(d.entranceId)
+          if (!d.name || !d.domainType || !DOMAIN_KIND[d.domainType]) continue
+          const key = d.name.replace(/\s+[IVX]+$/, '')
+          const cur = best.get(key)
           if (!cur || (d.recommendedLevel ?? 0) > (cur.en.recommendedLevel ?? 0)) {
-            best.set(d.entranceId, { en: d, l: (typeof d.id === 'number' ? byId.get(d.id) : undefined) ?? d })
+            best.set(key, { en: d, l: (typeof d.id === 'number' ? byId.get(d.id) : undefined) ?? d })
           }
         }
         const list = [...best.values()].map(({ en: e, l }) => {
@@ -526,7 +529,7 @@ export function getDomains(): Promise<Domain[]> {
             .filter((r) => kind !== 'artifact' || r.rarity === 5)
             .map((r) => ({ name: r.name as string, rarity: r.rarity }))
           return {
-            id: String(e.entranceId),
+            id: String(e.id),
             kind,
             name: l.entranceName ?? e.entranceName ?? '',
             region: l.regionName ?? e.regionName ?? '',
