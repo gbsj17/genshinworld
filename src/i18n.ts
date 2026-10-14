@@ -54,6 +54,7 @@ const DICT = {
   docs: ['Documentação', 'Documentation'],
   searchDocs: ['Buscar na documentação', 'Search the documentation'],
   docsIndex: ['Índice da documentação', 'Documentation index'],
+  docsTopics: ['Tópicos', 'Topics'],
   navigation: ['Navegação', 'Navigation'],
   sections: ['Seções', 'Sections'],
   searchBtn: ['Pesquisa', 'Search'],
