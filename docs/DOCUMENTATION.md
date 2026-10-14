@@ -27,10 +27,11 @@ A summary of what each part of the site does and how to use it.
 - **Materials:** pick a character, ascension phase and the 3 talent levels to see total materials and Mora needed (EXP not included).
 - **Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab).
 - **Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use "Clear filters".
+- **Today's farm:** pick the weekday (opens on "Today") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open.
 
 ## 3. Menu, theme, language, installation and keyboard
 
-- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Documentation, theme switch and language switch.
+- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Documentation, theme switch and language switch.
 - **Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.
 - **Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
@@ -50,6 +51,7 @@ The site uses `HashRouter`, so addresses contain `#` (required on GitHub Pages).
 - `/#/compare` compare characters or weapons (`?a=` and `?b=` characters, `?k=` weapons; the link is shareable).
 - `/#/teams` team builder (`?m=` ids, `?n=` name).
 - `/#/materials` material calculator (`?c=` character).
+- `/#/farm` today's farm (domains by weekday).
 - Any other address goes back to Home.
 
 ## 5. Project structure

@@ -463,3 +463,84 @@ export function newestFirst<T>(list: T[], get: (x: T) => { version?: string; id?
     return kb.id - ka.id
   })
 }
+
+// ---- Domínios (farm do dia): materiais de talento/arma por dia da semana e artefatos ----
+export interface DomainReward {
+  name: string
+  rarity?: number
+}
+
+export interface Domain {
+  id: string
+  kind: 'talent' | 'weapon' | 'artifact'
+  name: string // nome do domínio
+  region: string
+  days: number[] // 0 = domingo ... 6 = sábado; vazio = todos os dias
+  rewards: DomainReward[]
+}
+
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const DOMAIN_KIND: Record<string, Domain['kind']> = {
+  UI_ABYSSUS_AVATAR_PROUD: 'talent',
+  UI_ABYSSUS_WEAPON_PROMOTE: 'weapon',
+  UI_ABYSSUS_RELIC: 'artifact',
+}
+
+interface DbDomain {
+  id?: number
+  entranceId?: number
+  entranceName?: string
+  regionName?: string
+  domainType?: string
+  recommendedLevel?: number
+  daysOfWeek?: string[]
+  rewardPreview?: { id?: number; name?: string; rarity?: number }[]
+}
+
+let domainCache: Promise<Domain[]> | undefined
+
+export function getDomains(): Promise<Domain[]> {
+  if (!domainCache) {
+    const get = (language: string): Promise<DbDomain[]> =>
+      fetch(`${DB_URL}/domains?${LIST_Q}&resultLanguage=${language}`).then((r) =>
+        r.ok ? r.json() : Promise.reject(new Error(String(r.status))),
+      )
+    domainCache = Promise.all([get('English'), isPt ? get(apiLang) : Promise.resolve(null)])
+      .then(([en, local]) => {
+        const byId = new Map<number, DbDomain>()
+        for (const d of local ?? []) if (typeof d.id === 'number') byId.set(d.id, d)
+        // cada domínio existe em vários níveis (I, II, III...); fica o mais difícil, que tem as melhores recompensas
+        const best = new Map<number, { en: DbDomain; l: DbDomain }>()
+        for (const d of en) {
+          if (typeof d.entranceId !== 'number' || !d.domainType || !DOMAIN_KIND[d.domainType]) continue
+          const cur = best.get(d.entranceId)
+          if (!cur || (d.recommendedLevel ?? 0) > (cur.en.recommendedLevel ?? 0)) {
+            best.set(d.entranceId, { en: d, l: (typeof d.id === 'number' ? byId.get(d.id) : undefined) ?? d })
+          }
+        }
+        const list = [...best.values()].map(({ en: e, l }) => {
+          const kind = DOMAIN_KIND[e.domainType as string]
+          const rewards = (l.rewardPreview ?? [])
+            // EXP e Mora são iguais em todo domínio; o que interessa é o material
+            .filter((r) => r.name && ![102, 105, 202].includes(r.id ?? 0))
+            .filter((r) => kind !== 'artifact' || r.rarity === 5)
+            .map((r) => ({ name: r.name as string, rarity: r.rarity }))
+          return {
+            id: String(e.entranceId),
+            kind,
+            name: l.entranceName ?? e.entranceName ?? '',
+            region: l.regionName ?? e.regionName ?? '',
+            days: (e.daysOfWeek ?? []).map((n) => DAY_NAMES.indexOf(n)).filter((n) => n >= 0),
+            rewards,
+          } satisfies Domain
+        })
+        if (list.length === 0) throw new Error('domains: lista vazia')
+        return list
+      })
+      .catch((e) => {
+        domainCache = undefined
+        throw e
+      })
+  }
+  return domainCache
+}

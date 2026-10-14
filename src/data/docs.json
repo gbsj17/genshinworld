@@ -41,7 +41,8 @@
               "**Equipes:** monte uma equipe de até 4 personagens, veja a ressonância elemental ativa, salve com nome, carregue, apague ou copie o link.",
               "**Materiais:** escolha um personagem, a fase de ascensão e os níveis dos 3 talentos para ver o total de materiais e Mora necessários (EXP não incluída).",
               "**Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).",
-              "**Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em \"Limpar filtros\"."
+              "**Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em \"Limpar filtros\".",
+              "**Farm de hoje:** escolha o dia da semana (abre em \"Hoje\") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto."
             ]
           }
         ]
@@ -52,7 +53,7 @@
         "blocks": [
           {
             "ul": [
-              "**Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Documentação, troca de tema e troca de idioma.",
+              "**Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Documentação, troca de tema e troca de idioma.",
               "**Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.",
               "**Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.",
               "**Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.",
@@ -80,6 +81,7 @@
               "`/#/compare` comparar personagens ou armas (`?a=` e `?b=` personagens, `?k=` armas; o link é compartilhável).",
               "`/#/teams` montador de equipes (`?m=` ids, `?n=` nome).",
               "`/#/materials` calculadora de materiais (`?c=` personagem).",
+              "`/#/farm` farm de hoje (domínios por dia da semana).",
               "Qualquer outro endereço volta para o Início."
             ]
           }
@@ -436,7 +438,8 @@
               "**Teams:** build a team of up to 4 characters, see the active elemental resonance, save it with a name, load, delete or copy the link.",
               "**Materials:** pick a character, ascension phase and the 3 talent levels to see total materials and Mora needed (EXP not included).",
               "**Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab).",
-              "**Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use \"Clear filters\"."
+              "**Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use \"Clear filters\".",
+              "**Today's farm:** pick the weekday (opens on \"Today\") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open."
             ]
           }
         ]
@@ -447,7 +450,7 @@
         "blocks": [
           {
             "ul": [
-              "**Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Documentation, theme switch and language switch.",
+              "**Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Documentation, theme switch and language switch.",
               "**Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.",
               "**Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.",
               "**Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.",
@@ -475,6 +478,7 @@
               "`/#/compare` compare characters or weapons (`?a=` and `?b=` characters, `?k=` weapons; the link is shareable).",
               "`/#/teams` team builder (`?m=` ids, `?n=` name).",
               "`/#/materials` material calculator (`?c=` character).",
+              "`/#/farm` today's farm (domains by weekday).",
               "Any other address goes back to Home."
             ]
           }

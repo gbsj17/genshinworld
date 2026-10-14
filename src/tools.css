@@ -596,3 +596,82 @@
   font: inherit;
   cursor: pointer;
 }
+
+/* Farm de hoje */
+.farm__days {
+  padding: 0 0 4px;
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.farm {
+  padding-bottom: 120px;
+}
+
+.farm__date {
+  margin: 4px 0 10px;
+  text-transform: capitalize;
+}
+
+.farm__section {
+  margin-top: 16px;
+}
+
+.farm__section h2 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: var(--gold);
+}
+
+.farm__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.farm__card {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.farm__head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.farm__head small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.farm__rewards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.farm__rewards li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.farm__rewards .thumb {
+  width: 34px;
+  height: 34px;
+}
+
+@media (min-width: 820px) {
+  .farm__grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
