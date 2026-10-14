@@ -5,6 +5,9 @@ const FavoritesPage = lazy(() => import('./FavoritesPage'))
 const HomePage = lazy(() => import('./HomePage'))
 const ItemsPage = lazy(() => import('./ItemsPage'))
 const DocsPage = lazy(() => import('./DocsPage'))
+const ComparePage = lazy(() => import('./ComparePage'))
+const TeamsPage = lazy(() => import('./TeamsPage'))
+const MaterialsPage = lazy(() => import('./MaterialsPage'))
 import NewsPage from './NewsPage'
 import Footer from './Footer'
 import Splash from './Splash'
@@ -32,6 +35,9 @@ function App() {
           <Route path="/character/:id" element={<CharacterRoute />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/docs" element={<DocsPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/teams" element={<TeamsPage />} />
+          <Route path="/materials" element={<MaterialsPage />} />
           <Route path="/weapons" element={<ItemsPage key="weapon" kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage key="artifact" kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />

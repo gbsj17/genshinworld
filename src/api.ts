@@ -390,6 +390,47 @@ export function getSkillIcons(): Promise<Map<string, string[]>> {
   return skillCache
 }
 
+// ---- Custos de materiais (ascensão do personagem e talentos) ----
+export interface CostItem {
+  id: number
+  name: string
+  count: number
+}
+
+export interface Costs {
+  ascend: CostItem[][] // 6 fases de ascensão
+  talent: CostItem[][] // do nível 2 ao 10 (o mesmo custo vale para os 3 talentos)
+}
+
+const costCache = new Map<string, Promise<Costs>>()
+
+const collect = (obj: Record<string, CostItem[]> | undefined, prefix: string, from: number, to: number): CostItem[][] => {
+  const out: CostItem[][] = []
+  for (let i = from; i <= to; i++) out.push(obj?.[`${prefix}${i}`] ?? [])
+  return out
+}
+
+export function getCosts(enName: string): Promise<Costs> {
+  let cached = costCache.get(enName)
+  if (!cached) {
+    const q = encodeURIComponent(enName)
+    const get = (kind: string) =>
+      fetch(`${DB_URL}/${kind}?query=${q}&${LQ}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+    cached = Promise.all([get('characters'), get('talents')])
+      .then(([ch, ta]): Costs => {
+        const costs: Costs = { ascend: collect(ch?.costs, 'ascend', 1, 6), talent: collect(ta?.costs, 'lvl', 2, 10) }
+        if (costs.ascend.every((l) => l.length === 0) && costs.talent.every((l) => l.length === 0)) throw new Error('sem custos')
+        return costs
+      })
+      .catch((e) => {
+        costCache.delete(enName)
+        throw e
+      })
+    costCache.set(enName, cached)
+  }
+  return cached
+}
+
 // Compara versões como "6.10" > "6.9" (número a número).
 export function compareVersions(a: string, b: string): number {
   const pa = a.split('.').map(Number)

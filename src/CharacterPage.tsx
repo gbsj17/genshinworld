@@ -26,6 +26,7 @@ import {
 } from './api'
 import type { CharacterSummary } from './types'
 import { BUILDS } from './data/builds'
+import { shareLink } from './share'
 import { buildText } from './data/buildText'
 
 type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
@@ -86,6 +87,7 @@ export default function CharacterPage({ id }: { id: string }) {
   const [tab, setTab] = useState<Tab>(() => (search.get('tab') === 'builds' ? 'builds' : 'overview'))
   const [portraitIndex, setPortraitIndex] = useState(0)
   const { isFavorite, toggle } = useFavorites()
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -189,6 +191,23 @@ export default function CharacterPage({ id }: { id: string }) {
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill={isFavorite(id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
                 <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z" />
+              </svg>
+            </button>
+            <button
+              className="glass-btn"
+              aria-label={t('shareLink')}
+              onClick={async () => {
+                const base = window.location.href.split('?')[0]
+                const url = tab === 'builds' ? `${base}?tab=builds` : base
+                const r = await shareLink(character.name, url)
+                if (r === 'copied') {
+                  setCopied(true)
+                  window.setTimeout(() => setCopied(false), 1800)
+                }
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1" />
               </svg>
             </button>
             <MenuButton variant="glass" />
@@ -448,6 +467,7 @@ export default function CharacterPage({ id }: { id: string }) {
         )}
       </div>
       </section>
+      {copied && <div className="toast" role="status">{t('linkCopied')}</div>}
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
     </>

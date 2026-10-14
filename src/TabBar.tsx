@@ -21,10 +21,12 @@ export default function TabBar({
   active,
   query,
   onQuery,
+  noSearch,
 }: {
   active: TabId | null
   query: string
   onQuery: (q: string) => void
+  noSearch?: boolean
 }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -70,12 +72,14 @@ export default function TabBar({
             <path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5l6.74-6.76zM16 8L2 22M17.5 15H9" />
           </svg>
         </Link>
-        <button className="tabbar__item" aria-label={t('searchBtn')} onClick={open}>
-          <svg {...sv} strokeWidth={2.2}>
-            <circle cx="11" cy="11" r="7" />
-            <path d="M20 20l-3.5-3.5" />
-          </svg>
-        </button>
+        {!noSearch && (
+          <button className="tabbar__item" aria-label={t('searchBtn')} onClick={open}>
+            <svg {...sv} strokeWidth={2.2}>
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <div className="tabbar__search" aria-hidden={!searchOpen} inert={!searchOpen}>
