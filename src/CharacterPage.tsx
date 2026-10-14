@@ -6,6 +6,7 @@ import ErrorMsg from './ErrorMsg'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import { t, weaponLabel } from './i18n'
+import MyBuild from './MyBuild'
 import type { Key } from './i18n'
 import { ItemIcon, ItemName } from './ItemIcon'
 import ItemModal from './ItemModal'
@@ -361,6 +362,8 @@ export default function CharacterPage({ id }: { id: string }) {
               </div>
             </article>
           ))}
+
+        {tab === 'builds' && <MyBuild charId={character.id} weaponType={character.weapon} />}
 
         {tab === 'builds' && !build && (
           <p className="empty">{t('noBuild')}</p>

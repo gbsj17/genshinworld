@@ -101,6 +101,17 @@ const DICT = {
   pityFeatured: ['destaque', 'featured'],
   pityNotFeatured: ['perdeu o 50/50', 'lost the 50/50'],
   pityNote: ['Você anota as tiragens à mão; nada é enviado a lugar nenhum. Pity suave: Personagem e Padrão 74, Arma 63 (valores aproximados). Garantido: 90 (Personagem e Padrão) e 80 (Arma). A regra 50/50 não considera o Brilho Capturado.', 'You log pulls by hand; nothing is sent anywhere. Soft pity: Character and Standard 74, Weapon 63 (approximate). Guaranteed: 90 (Character and Standard) and 80 (Weapon). The 50/50 rule does not account for Capturing Radiance.'],
+  myBuild: ['Minha build', 'My build'],
+  myBuildHint: ['Monte a sua e ela fica salva no aparelho.', 'Make your own; it stays saved on this device.'],
+  myBuildClear: ['Limpar', 'Clear'],
+  myBuildClearAsk: ['Apagar a sua build deste personagem?', 'Delete your build for this character?'],
+  myBuildAddSet: ['Adicionar conjunto', 'Add set'],
+  myBuildPickSet: ['Escolher conjunto de artefatos', 'Pick an artifact set'],
+  myBuildSubs: ['Substatus, por ordem de prioridade (toque na ordem)', 'Substats, in priority order (tap in order)'],
+  myBuildNote: ['Anotação', 'Note'],
+  slotSands: ['Areia', 'Sands'],
+  slotGoblet: ['Cálice', 'Goblet'],
+  slotCirclet: ['Tiara', 'Circlet'],
   materials: ['Materiais', 'Materials'],
   materialsSub: ['Quanto falta para subir de nível', 'What you need to level up'],
   capCompare: ['COMPARAR', 'COMPARE'],
@@ -291,9 +302,6 @@ const DICT = {
   open: ['Abrir {n}', 'Open {n}'],
   patch: ['Patch', 'Patch'],
   sources: ['Fontes', 'Sources'],
-  slotSands: ['Areia', 'Sands'],
-  slotGoblet: ['Cálice', 'Goblet'],
-  slotCirclet: ['Tiara', 'Circlet'],
 } as const
 
 export type Key = keyof typeof DICT

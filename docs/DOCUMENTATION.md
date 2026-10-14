@@ -30,6 +30,7 @@ A summary of what each part of the site does and how to use it.
 - **Today's farm:** pick the weekday (opens on "Today") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open.
 - **Wishlist:** add the characters you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents, up to the talent level you choose. The list is saved on the device. "Details" opens the Materials calculator for that character.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
+- **My build:** on the sheet's Builds tab, at the top, make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build.
 
 ## 3. Menu, theme, language, installation and keyboard
 
@@ -154,6 +155,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:teams`: teams saved by the user on the Teams screen.
 - `genshinworld:wishlist`: ids of the characters on the wishlist.
 - `genshinworld:pity`: pity counter for each banner and 5★ history.
+- `genshinworld:my-builds`: each character's own build.
 - `genshinworld:splash` (session): marks that the intro has already shown.
 - **Service worker cache:** app files, images, API data and fonts.
 - None of this is sent anywhere. If the browser blocks storage, the site works the same, it just does not remember choices.

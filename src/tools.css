@@ -814,3 +814,75 @@
 .pity__hist span {
   color: var(--muted);
 }
+
+/* Minha build (aba Builds da ficha) */
+.mine {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.mine__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mine__head .section-title {
+  margin: 0;
+}
+
+.mine__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.mine__row .thumb {
+  flex: none;
+  width: 44px;
+  height: 44px;
+}
+
+.mine__row > div {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mine small,
+.mine__label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.mine__sets {
+  display: grid;
+  gap: 8px;
+}
+
+.mine__sets .tool-btn {
+  justify-self: start;
+}
+
+.mine__chips {
+  padding: 0;
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.mine__note {
+  resize: vertical;
+  width: 100%;
+}
+
+.mine .mat__grid {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
