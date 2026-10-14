@@ -30,7 +30,7 @@ A summary of what each part of the site does and how to use it.
 - **Today's farm:** pick the weekday (opens on "Today") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open.
 - **Wishlist:** add the characters you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents, up to the talent level you choose. The list is saved on the device. "Details" opens the Materials calculator for that character.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
-- **My build:** on the sheet's Builds tab, at the top, make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build.
+- **My build:** on the sheet's Builds tab, at the top, make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
 
 ## 3. Menu, theme, language, installation and keyboard
 
@@ -40,6 +40,7 @@ A summary of what each part of the site does and how to use it.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
 - **Install as app:** use the browser's "install" or "add to home screen". After the first visit, the app stores files, images and data and opens fast, even on a weak connection.
 - **Keyboard:** Esc closes the menu, detail windows and the mobile search bar. Tab moves through elements with a visible focus outline. Enter opens items and confirms the search.
+- **"Install the app" button:** at the end of the menu, shown when the browser offers installation (Chrome, Edge and Android) and the app is not installed yet. On iPhone, use Safari's "Add to Home Screen".
 
 ## 4. Routes
 
@@ -88,6 +89,7 @@ src/
   api.ts             API access, caches, sorting by release
   i18n.ts            language and PT/EN dictionary
   favorites.ts       favorites (localStorage)   theme.ts     light/dark theme
+  install.ts         install-app button (browser event)
   preload.ts         downloads images in the background
   visionColors.ts    color of each element
   types.ts           data types

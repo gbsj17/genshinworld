@@ -30,7 +30,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Farm de hoje:** escolha o dia da semana (abre em "Hoje") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto.
 - **Lista de desejos:** adicione os personagens que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos, até o nível de talento que você escolher. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
-- **Minha build:** na aba Builds da ficha, no topo, monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem.
+- **Minha build:** na aba Builds da ficha, no topo, monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
@@ -39,6 +39,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
 - **Instalar como app:** use "instalar" ou "adicionar à tela inicial" do navegador. Depois de aberto uma vez, o app guarda arquivos, imagens e dados e abre rápido, inclusive com internet fraca.
+- **Botão "Instalar o app":** no fim do menu, aparece quando o navegador oferece a instalação (Chrome, Edge e Android) e o app ainda não está instalado. No iPhone, use "Adicionar à Tela de Início" do Safari.
 - **Teclado:** Esc fecha menu, janelas de detalhes e a barra de pesquisa do celular. Tab percorre os elementos com contorno de foco visível. Enter abre itens e confirma a busca.
 
 ## 4. Rotas
@@ -88,6 +89,7 @@ src/
   api.ts             acesso às APIs, caches, ordenação por lançamento
   i18n.ts            idioma e dicionário PT/EN
   favorites.ts       favoritos (localStorage)      theme.ts   tema claro/escuro
+  install.ts         botão de instalar o app (evento do navegador)
   preload.ts         baixa imagens em segundo plano
   visionColors.ts    cor de cada elemento
   types.ts           tipos dos dados

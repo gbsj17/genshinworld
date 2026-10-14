@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { lang, setLang, t } from './i18n'
+import { useInstall } from './install'
 import { useMenu } from './menuContext'
 import './drawer.css'
 
@@ -10,6 +11,7 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 export default function Drawer() {
   const { open, closeMenu, theme, toggleTheme } = useMenu()
+  const { available, install } = useInstall()
   const panelRef = useRef<HTMLElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
 
@@ -170,6 +172,21 @@ export default function Drawer() {
             <button aria-pressed={lang === 'en'} onClick={() => setLang('en')}>EN-US</button>
           </div>
         </div>
+        {available && (
+          <button
+            className="drawer__item drawer__item--btn"
+            style={step(12)}
+            onClick={() => {
+              closeMenu()
+              void install()
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+            </svg>
+            {t('installApp')}
+          </button>
+        )}
       </aside>
     </div>
   )

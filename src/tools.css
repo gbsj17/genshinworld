@@ -894,3 +894,23 @@
 .pity__bar i {
   transition: width 0.5s var(--ease-out), background-color 0.4s ease;
 }
+
+.mine__acts {
+  display: flex;
+  gap: 8px;
+}
+
+.mine__incoming {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px dashed var(--gold);
+}
+
+.mine__incoming p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}

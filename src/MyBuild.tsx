@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
 import { isPt, t } from './i18n'
 import Picker from './Picker'
+import { shareLink } from './share'
 import type { PickFilter, PickOption } from './Picker'
 import { Thumb } from './Thumb'
 import './tools.css'
@@ -61,6 +63,36 @@ const GOBLET = ['HP%', 'ATK%', 'DEF%', 'Elemental DMG', 'Physical DMG', 'Element
 const CIRCLET = ['CRIT Rate', 'CRIT DMG', 'HP%', 'ATK%', 'DEF%', 'Healing Bonus', 'Elemental Mastery']
 const SUBS = ['CRIT Rate', 'CRIT DMG', 'ATK%', 'Elemental Mastery', 'Energy Recharge', 'HP%', 'DEF%', 'Flat ATK']
 
+const str = (v: unknown, max: number) => (typeof v === 'string' ? v.slice(0, max) : '')
+const pickOf = (v: unknown, list: string[]) => (typeof v === 'string' && list.includes(v) ? v : '')
+
+// A build vai inteira dentro do link (nada é enviado a servidor): JSON curto em base64.
+function encode(d: Data): string {
+  const json = JSON.stringify({ w: d.weapon, s: d.sets, a: d.sands, g: d.goblet, c: d.circlet, u: d.subs, n: d.note })
+  return encodeURIComponent(btoa(unescape(encodeURIComponent(json))))
+}
+
+// Lê e limpa uma build vinda de um link; qualquer coisa fora do esperado é descartada.
+function decode(raw: string): Data | null {
+  try {
+    const v = JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(raw))))) as Record<string, unknown>
+    if (!v || typeof v !== 'object') return null
+    const arr = (x: unknown) => (Array.isArray(x) ? x : [])
+    const d: Data = {
+      weapon: str(v.w, 80),
+      sets: arr(v.s).map((x) => str(x, 80)).filter(Boolean).slice(0, 2),
+      sands: pickOf(v.a, SANDS),
+      goblet: pickOf(v.g, GOBLET),
+      circlet: pickOf(v.c, CIRCLET),
+      subs: arr(v.u).filter((x): x is string => typeof x === 'string' && SUBS.includes(x)).slice(0, SUBS.length),
+      note: str(v.n, 300),
+    }
+    return d.weapon || d.sets.length || d.sands || d.goblet || d.circlet || d.subs.length || d.note ? d : null
+  } catch {
+    return null
+  }
+}
+
 function StatSelect({ id, name, value, list, onChange }: { id: string; name: string; value: string; list: string[]; onChange: (v: string) => void }) {
   return (
     <label className="mat__field" htmlFor={id}>
@@ -82,6 +114,13 @@ export default function MyBuild({ charId, weaponType }: { charId: string; weapon
   const [sets, setSets] = useState<ItemEntry[]>([])
   const [picking, setPicking] = useState<'weapon' | 'set' | null>(null)
   const d = store[charId] ?? EMPTY
+  const [params, setParams] = useSearchParams()
+  const [dismissed, setDismissed] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const incoming = useMemo(() => {
+    const raw = params.get('mb')
+    return raw && !dismissed ? decode(raw) : null
+  }, [params, dismissed])
 
   useEffect(() => {
     let active = true
@@ -106,6 +145,27 @@ export default function MyBuild({ charId, weaponType }: { charId: string; weapon
       saveAll(next)
       return next
     })
+  }
+
+  const dropIncoming = () => {
+    setDismissed(true)
+    const next = new URLSearchParams(params)
+    next.delete('mb')
+    setParams(next, { replace: true })
+  }
+  const useIncoming = () => {
+    if (!incoming) return
+    if (store[charId] && !window.confirm(t('myBuildReplaceAsk'))) return
+    update(incoming)
+    dropIncoming()
+  }
+  const share = async () => {
+    const base = window.location.href.split('?')[0]
+    const r = await shareLink(charId, `${base}?tab=builds&mb=${encode(d)}`)
+    if (r === 'copied') {
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1800)
+    }
   }
 
   const weapon = weapons.find((w) => w.name === d.weapon)
@@ -134,8 +194,29 @@ export default function MyBuild({ charId, weaponType }: { charId: string; weapon
     <section className="mine">
       <div className="mine__head">
         <h2 className="section-title">{t('myBuild')}</h2>
-        <button className="tool-btn tool-btn--ghost" onClick={clear} disabled={!store[charId]}>{t('myBuildClear')}</button>
+        <div className="mine__acts">
+          <button className="tool-btn tool-btn--ghost" onClick={share} disabled={!store[charId]}>{copied ? t('linkCopied') : t('myBuildShare')}</button>
+          <button className="tool-btn tool-btn--ghost" onClick={clear} disabled={!store[charId]}>{t('myBuildClear')}</button>
+        </div>
       </div>
+      {incoming && (
+        <div className="mine__incoming" role="status">
+          <strong>{t('myBuildShared')}</strong>
+          <p>
+            {[
+              weapons.find((w) => w.name === incoming.weapon)?.label ?? incoming.weapon,
+              ...incoming.sets.map((n) => sets.find((x) => x.name === n)?.label ?? n),
+              incoming.sands && `${t('slotSands')}: ${label(incoming.sands)}`,
+              incoming.goblet && `${t('slotGoblet')}: ${label(incoming.goblet)}`,
+              incoming.circlet && `${t('slotCirclet')}: ${label(incoming.circlet)}`,
+            ].filter(Boolean).join(' · ')}
+          </p>
+          <div className="mine__acts">
+            <button className="tool-btn" onClick={useIncoming}>{t('myBuildUse')}</button>
+            <button className="tool-btn tool-btn--ghost" onClick={dropIncoming}>{t('myBuildIgnore')}</button>
+          </div>
+        </div>
+      )}
       <p className="tool__muted">{t('myBuildHint')}</p>
 
       <div className="mine__row">

@@ -243,3 +243,13 @@ a.drawer__item:focus-visible {
   background: var(--accent, #d3bc8e);
   color: var(--on-accent, #1b1b1b);
 }
+
+button.drawer__item--btn {
+  width: 100%;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
