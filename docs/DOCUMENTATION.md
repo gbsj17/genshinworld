@@ -22,10 +22,14 @@ A summary of what each part of the site does and how to use it.
 - **Weapons and Artifacts:** full list with filters by type and rarity, search and details in a window (desktop) or drawer (mobile). Favorites work like characters.
 - **Favorites:** gathers starred characters, weapons and artifacts, in tabs. They are saved on the device.
 - **Documentation:** this page, in the chosen language, with an index and search.
+- **Compare:** pick two characters or two weapons and see rarity, stats and base data side by side; the better value is highlighted. The share button copies the comparison link.
+- **Teams:** build a team of up to 4 characters, see the active elemental resonance, save it with a name, load, delete or copy the link.
+- **Materials:** pick a character, ascension phase and the 3 talent levels to see total materials and Mora needed (EXP not included).
+- **Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab).
 
 ## 3. Menu, theme, language, installation and keyboard
 
-- **Menu (three-line button):** Home, Favorites, Documentation, theme switch and language switch.
+- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Documentation, theme switch and language switch.
 - **Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.
 - **Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
@@ -42,6 +46,9 @@ The site uses `HashRouter`, so addresses contain `#` (required on GitHub Pages).
 - `/#/weapons` and `/#/artifacts` lists.
 - `/#/favorites` favorites.
 - `/#/docs` documentation.
+- `/#/compare` compare characters or weapons (`?a=` and `?b=` characters, `?k=` weapons; the link is shareable).
+- `/#/teams` team builder (`?m=` ids, `?n=` name).
+- `/#/materials` material calculator (`?c=` character).
 - Any other address goes back to Home.
 
 ## 5. Project structure
@@ -137,6 +144,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:theme`: theme (`dark` or `light`).
 - `genshinworld:view`: grid or list on the characters screen.
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favorite characters, weapons and artifacts (lists of names/ids).
+- `genshinworld:teams`: teams saved by the user on the Teams screen.
 - `genshinworld:splash` (session): marks that the intro has already shown.
 - **Service worker cache:** app files, images, API data and fonts.
 - None of this is sent anywhere. If the browser blocks storage, the site works the same, it just does not remember choices.
@@ -240,4 +248,4 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 
 ## 24. Future ideas
 
-Google login and cloud favorites, character and weapon comparison, material calculator, user-made teams, redeem codes and event calendar, area and map info for new versions, shareable build links, indexable routes for search engines and packaging as an Android app.
+Google login and cloud favorites, redeem codes and event calendar, area and map info for new versions, indexable routes for search engines and packaging as an Android app.

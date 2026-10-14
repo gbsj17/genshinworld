@@ -22,10 +22,14 @@ Resumo do que cada parte do site faz e como usar.
 - **Armas e Artefatos:** lista completa com filtro por tipo e por raridade, busca e detalhes em janela (no PC) ou gaveta (no celular). Favoritos funcionam igual aos personagens.
 - **Favoritos:** reúne personagens, armas e artefatos marcados com a estrela, em abas. Ficam salvos no aparelho.
 - **Documentação:** esta página, no idioma escolhido, com índice e busca.
+- **Comparar:** escolha dois personagens ou duas armas e veja lado a lado raridade, atributos e dados base; o melhor valor fica destacado. O botão de compartilhar copia o link da comparação.
+- **Equipes:** monte uma equipe de até 4 personagens, veja a ressonância elemental ativa, salve com nome, carregue, apague ou copie o link.
+- **Materiais:** escolha um personagem, a fase de ascensão e os níveis dos 3 talentos para ver o total de materiais e Mora necessários (EXP não incluída).
+- **Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início, Favoritos, Documentação, troca de tema e troca de idioma.
+- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Documentação, troca de tema e troca de idioma.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -42,6 +46,9 @@ O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pa
 - `/#/weapons` e `/#/artifacts` listas.
 - `/#/favorites` favoritos.
 - `/#/docs` documentação.
+- `/#/compare` comparar personagens ou armas (`?a=` e `?b=` personagens, `?k=` armas; o link é compartilhável).
+- `/#/teams` montador de equipes (`?m=` ids, `?n=` nome).
+- `/#/materials` calculadora de materiais (`?c=` personagem).
 - Qualquer outro endereço volta para o Início.
 
 ## 5. Estrutura do projeto
@@ -137,6 +144,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:theme`: tema (`dark` ou `light`).
 - `genshinworld:view`: grade ou lista na tela de personagens.
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favoritos de personagens, armas e artefatos (listas de nomes/ids).
+- `genshinworld:teams`: equipes salvas pelo usuário na tela Equipes.
 - `genshinworld:splash` (sessão): marca que a abertura já apareceu.
 - **Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.
 - Nada disso é enviado a lugar nenhum. Se o navegador bloquear o armazenamento, o site funciona do mesmo jeito, só sem lembrar as escolhas.
@@ -240,4 +248,4 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 
 ## 24. Ideias futuras
 
-Login com Google e favoritos na nuvem, comparar personagens e armas, calculadora de materiais, equipes montadas pelo usuário, códigos de resgate e calendário de eventos, informações de áreas e mapas das novas versões, links compartilháveis de builds, rotas indexáveis para buscadores e empacotar como app Android.
+Login com Google e favoritos na nuvem, códigos de resgate e calendário de eventos, informações de áreas e mapas das novas versões, rotas indexáveis para buscadores e empacotar como app Android.
