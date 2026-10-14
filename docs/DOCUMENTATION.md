@@ -26,6 +26,7 @@ A summary of what each part of the site does and how to use it.
 - **Teams:** build a team of up to 4 characters, see the active elemental resonance, save it with a name, load, delete or copy the link.
 - **Materials:** pick a character, ascension phase and the 3 talent levels to see total materials and Mora needed (EXP not included).
 - **Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab).
+- **Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use "Clear filters".
 
 ## 3. Menu, theme, language, installation and keyboard
 

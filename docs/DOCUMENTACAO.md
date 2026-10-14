@@ -26,6 +26,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Equipes:** monte uma equipe de até 4 personagens, veja a ressonância elemental ativa, salve com nome, carregue, apague ou copie o link.
 - **Materiais:** escolha um personagem, a fase de ascensão e os níveis dos 3 talentos para ver o total de materiais e Mora necessários (EXP não incluída).
 - **Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).
+- **Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em "Limpar filtros".
 
 ## 3. Menu, tema, idioma, instalação e teclado
 

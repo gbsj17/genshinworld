@@ -9,6 +9,13 @@ export interface PickOption {
   search?: string // texto extra para a busca (ex.: nome em inglês)
   thumb: string | string[]
   round?: boolean
+  facets?: Record<string, string> // valor de cada filtro (ex.: { element: 'Pyro', rarity: '5' })
+}
+
+export interface PickFilter {
+  id: string
+  label: string // rótulo do grupo, para leitores de tela
+  values: { value: string; label: string }[]
 }
 
 const normalize = (text: string) =>
@@ -21,16 +28,21 @@ const normalize = (text: string) =>
 export default function Picker({
   title,
   options,
+  filters = [],
   onPick,
   onClose,
 }: {
   title: string
   options: PickOption[]
+  filters?: PickFilter[]
   onPick: (key: string) => void
   onClose: () => void
 }) {
   const [query, setQuery] = useState('')
+  const [active, setActive] = useState<Record<string, string>>({})
   const inputRef = useRef<HTMLInputElement>(null)
+  const toggle = (id: string, value: string) => setActive((a) => ({ ...a, [id]: a[id] === value ? '' : value }))
+  const used = Object.values(active).some(Boolean)
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -46,8 +58,12 @@ export default function Picker({
 
   const shown = useMemo(() => {
     const q = normalize(query.trim())
-    return options.filter((o) => !q || normalize(`${o.label} ${o.search ?? ''}`).includes(q))
-  }, [options, query])
+    return options.filter(
+      (o) =>
+        (!q || normalize(`${o.label} ${o.search ?? ''}`).includes(q)) &&
+        Object.entries(active).every(([id, v]) => !v || o.facets?.[id] === v),
+    )
+  }, [options, query, active])
 
   return (
     <div className="picker" role="dialog" aria-modal="true" aria-label={title}>
@@ -66,6 +82,27 @@ export default function Picker({
             Esc
           </button>
         </div>
+        {filters.length > 0 && (
+          <div className="picker__filters">
+            {filters.map((f) => (
+              <div className="picker__chips" role="group" aria-label={f.label} key={f.id}>
+                {f.values.map((v) => (
+                  <button key={v.value} className="pill" aria-pressed={active[f.id] === v.value} onClick={() => toggle(f.id, v.value)}>
+                    {v.label}
+                  </button>
+                ))}
+              </div>
+            ))}
+            <div className="picker__meta">
+              <span>{t('pickCount', { n: shown.length })}</span>
+              {used && (
+                <button className="picker__clear" onClick={() => setActive({})}>
+                  {t('clearFilters')}
+                </button>
+              )}
+            </div>
+          </div>
+        )}
         <div className="picker__list">
           {shown.length === 0 && <p className="empty">{t('nothingFound')}</p>}
           {shown.map((o) => (

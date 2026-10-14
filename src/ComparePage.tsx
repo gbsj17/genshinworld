@@ -10,6 +10,7 @@ import { ItemName } from './ItemIcon'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import Picker from './Picker'
+import { charFacets, charFilters, weaponFacets, weaponFilters } from './pickFilters'
 import type { PickOption } from './Picker'
 import { shareLink } from './share'
 import TabBar from './TabBar'
@@ -91,10 +92,10 @@ export default function ComparePage() {
       kind === 'characters'
         ? [...chars]
             .sort((a, b) => a.name.localeCompare(b.name))
-            .map((c) => ({ key: c.id, label: c.name, search: c.enName, sub: `${c.vision} · ${c.rarity}★`, thumb: iconChain(c), round: true }))
+            .map((c) => ({ key: c.id, label: c.name, search: c.enName, sub: `${c.vision} · ${c.rarity}★`, thumb: iconChain(c), round: true, facets: charFacets(c) }))
         : [...weapons]
             .sort((a, b) => b.info.rarity - a.info.rarity || a.label.localeCompare(b.label))
-            .map((w) => ({ key: w.name, label: w.label, search: w.name, sub: `${w.info.type ?? ''} · ${w.info.rarity}★`, thumb: w.info.urls })),
+            .map((w) => ({ key: w.name, label: w.label, search: w.name, sub: `${w.info.type ?? ''} · ${w.info.rarity}★`, thumb: w.info.urls, facets: weaponFacets(w) })),
     [kind, chars, weapons],
   )
 
@@ -227,6 +228,7 @@ export default function ComparePage() {
           <Picker
             title={kind === 'characters' ? t('pickChar') : t('pickWeapon')}
             options={options}
+            filters={kind === 'characters' ? charFilters(options) : weaponFilters(options)}
             onClose={() => setPicking(null)}
             onPick={(key) => {
               update({ [picking]: key, ...(kind === 'weapons' ? { k: 'weapons' } : {}) })

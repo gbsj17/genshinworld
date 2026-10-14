@@ -7,6 +7,7 @@ import { t } from './i18n'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import Picker from './Picker'
+import { charFacets, charFilters } from './pickFilters'
 import TabBar from './TabBar'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
@@ -100,7 +101,7 @@ export default function MaterialsPage() {
 
   const options = [...chars]
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((c) => ({ key: c.id, label: c.name, search: c.enName, sub: `${c.vision} · ${c.rarity}★`, thumb: iconChain(c), round: true }))
+    .map((c) => ({ key: c.id, label: c.name, search: c.enName, sub: `${c.vision} · ${c.rarity}★`, thumb: iconChain(c), round: true, facets: charFacets(c) }))
 
   const setTalent = (i: number, patch: Partial<Range>) =>
     setTal((list) =>
@@ -182,6 +183,7 @@ export default function MaterialsPage() {
           <Picker
             title={t('pickChar')}
             options={options}
+            filters={charFilters(options)}
             onClose={() => setPicking(false)}
             onPick={(key) => {
               setCosts(null)

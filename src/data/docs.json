@@ -40,7 +40,8 @@
               "**Comparar:** escolha dois personagens ou duas armas e veja lado a lado raridade, atributos e dados base; o melhor valor fica destacado. O botão de compartilhar copia o link da comparação.",
               "**Equipes:** monte uma equipe de até 4 personagens, veja a ressonância elemental ativa, salve com nome, carregue, apague ou copie o link.",
               "**Materiais:** escolha um personagem, a fase de ascensão e os níveis dos 3 talentos para ver o total de materiais e Mora necessários (EXP não incluída).",
-              "**Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela)."
+              "**Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).",
+              "**Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em \"Limpar filtros\"."
             ]
           }
         ]
@@ -434,7 +435,8 @@
               "**Compare:** pick two characters or two weapons and see rarity, stats and base data side by side; the better value is highlighted. The share button copies the comparison link.",
               "**Teams:** build a team of up to 4 characters, see the active elemental resonance, save it with a name, load, delete or copy the link.",
               "**Materials:** pick a character, ascension phase and the 3 talent levels to see total materials and Mora needed (EXP not included).",
-              "**Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab)."
+              "**Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab).",
+              "**Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use \"Clear filters\"."
             ]
           }
         ]

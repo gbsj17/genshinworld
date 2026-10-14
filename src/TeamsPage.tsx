@@ -8,6 +8,7 @@ import { t } from './i18n'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import Picker from './Picker'
+import { charFacets, charFilters } from './pickFilters'
 import { shareLink } from './share'
 import TabBar from './TabBar'
 import { Thumb } from './Thumb'
@@ -85,7 +86,7 @@ export default function TeamsPage() {
   const options = chars
     .filter((c) => !members.includes(c.id))
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((c) => ({ key: c.id, label: c.name, search: c.enName, sub: `${c.vision} · ${c.rarity}★`, thumb: iconChain(c), round: true }))
+    .map((c) => ({ key: c.id, label: c.name, search: c.enName, sub: `${c.vision} · ${c.rarity}★`, thumb: iconChain(c), round: true, facets: charFacets(c) }))
 
   const resonances = resonancesFor(team.map((c) => c.vision))
   const counts = new Map<string, number>()
@@ -238,7 +239,7 @@ export default function TeamsPage() {
         </div>
 
         {picking !== null && (
-          <Picker title={t('pickChar')} options={options} onClose={() => setPicking(null)} onPick={(id) => pickFor(picking, id)} />
+          <Picker title={t('pickChar')} options={options} filters={charFilters(options)} onClose={() => setPicking(null)} onPick={(id) => pickFor(picking, id)} />
         )}
 
         <TabBar active={null} query="" onQuery={() => {}} noSearch />
