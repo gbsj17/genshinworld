@@ -10,6 +10,7 @@ const TeamsPage = lazy(() => import('./TeamsPage'))
 const MaterialsPage = lazy(() => import('./MaterialsPage'))
 const FarmPage = lazy(() => import('./FarmPage'))
 const WishlistPage = lazy(() => import('./WishlistPage'))
+const PityPage = lazy(() => import('./PityPage'))
 import NewsPage from './NewsPage'
 import Footer from './Footer'
 import Splash from './Splash'
@@ -42,6 +43,7 @@ function App() {
           <Route path="/materials" element={<MaterialsPage />} />
           <Route path="/farm" element={<FarmPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/pity" element={<PityPage />} />
           <Route path="/weapons" element={<ItemsPage key="weapon" kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage key="artifact" kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />

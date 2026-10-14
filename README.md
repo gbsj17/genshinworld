@@ -14,7 +14,7 @@ Criado por **Genival Souza Júnior** · parte da **RUNEbyte** · 2026
 - **Início:** abertura animada, novos personagens (banner animado), novas armas e artefatos, banners de oração atuais com lista do que há em cada um, e busca geral (personagens, armas e artefatos).
 - **Personagens:** filtro por elemento, busca, grade/lista (com ícones das habilidades e índice alfabético), favoritos. Ficha com visão geral, talentos, constelações e builds (armas, artefatos, atributos, equipes).
 - **Armas e Artefatos:** lista completa, filtros, busca e detalhes.
-- **Comparar** personagens e armas, **Equipes** com ressonância elemental, **Materiais** (calculadora de ascensão e talentos), **Farm de hoje** (domínios abertos por dia), **Lista de desejos** (soma de materiais) e **link compartilhável** da ficha/builds.
+- **Comparar** personagens e armas, **Equipes** com ressonância elemental, **Materiais** (calculadora de ascensão e talentos), **Farm de hoje** (domínios abertos por dia), **Lista de desejos** (soma de materiais), **Contador de pity** e **link compartilhável** da ficha/builds.
 - **Favoritos** de personagens, armas e artefatos (salvos no aparelho).
 - **Documentação** do site dentro do menu, em português ou inglês.
 - **Tema** escuro e areia claro; **idioma** PT-BR/EN-US; instalável como app (PWA) e com cache offline.

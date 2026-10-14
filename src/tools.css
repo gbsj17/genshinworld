@@ -727,3 +727,90 @@
   max-width: 220px;
   margin-bottom: 8px;
 }
+
+/* Contador de pity */
+.pity__now {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 6px;
+}
+
+.pity__count {
+  font-size: 56px;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.pity__now p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.pity__flag {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.pity__bar {
+  position: relative;
+  height: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  background: var(--surface-deep);
+  overflow: hidden;
+}
+
+.pity__bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--gold);
+  border-radius: 5px;
+}
+
+.pity__bar em {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--text);
+  opacity: 0.6;
+}
+
+.pity__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pity__btns .tool-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pity__hist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.pity__hist li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.pity__hist span {
+  color: var(--muted);
+}

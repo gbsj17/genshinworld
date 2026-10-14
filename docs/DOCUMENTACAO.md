@@ -29,10 +29,11 @@ Resumo do que cada parte do site faz e como usar.
 - **Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em "Limpar filtros".
 - **Farm de hoje:** escolha o dia da semana (abre em "Hoje") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto.
 - **Lista de desejos:** adicione os personagens que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos, até o nível de talento que você escolher. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
+- **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Documentação, troca de tema e troca de idioma.
+- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Documentação, troca de tema e troca de idioma.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -54,6 +55,7 @@ O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pa
 - `/#/materials` calculadora de materiais (`?c=` personagem).
 - `/#/farm` farm de hoje (domínios por dia da semana).
 - `/#/wishlist` lista de desejos.
+- `/#/pity` contador de pity.
 - Qualquer outro endereço volta para o Início.
 
 ## 5. Estrutura do projeto
@@ -151,6 +153,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favoritos de personagens, armas e artefatos (listas de nomes/ids).
 - `genshinworld:teams`: equipes salvas pelo usuário na tela Equipes.
 - `genshinworld:wishlist`: ids dos personagens da lista de desejos.
+- `genshinworld:pity`: contador de pity de cada banner e histórico de 5★.
 - `genshinworld:splash` (sessão): marca que a abertura já apareceu.
 - **Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.
 - Nada disso é enviado a lugar nenhum. Se o navegador bloquear o armazenamento, o site funciona do mesmo jeito, só sem lembrar as escolhas.
