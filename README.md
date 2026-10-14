@@ -38,7 +38,7 @@ Opcional: `node scripts/fetch-banners.mjs` atualiza `public/banners.json` (preci
 
 ## Documentação
 
-Detalhes de arquitetura, dados, idiomas, banners e deploy em [`docs/DOCUMENTACAO.md`](docs/DOCUMENTACAO.md) (português) e [`docs/DOCUMENTATION.md`](docs/DOCUMENTATION.md) (inglês). O mesmo texto está no site, no menu → Documentação. Para editar, altere `src/data/docs.json` e rode `npm run docs`.
+Guia de uso, arquitetura, dados, idiomas, banners, PWA, desenvolvimento, solução de problemas e deploy em [`docs/DOCUMENTACAO.md`](docs/DOCUMENTACAO.md) (português) e [`docs/DOCUMENTATION.md`](docs/DOCUMENTATION.md) (inglês). O mesmo texto está no site, no menu → Documentação. Para editar, altere `src/data/docs.json` e rode `npm run docs`.
 
 ## Créditos e aviso
 

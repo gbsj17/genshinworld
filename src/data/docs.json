@@ -7,151 +7,379 @@
     "title": "1. Visão geral",
     "blocks": [
      {
-      "p": "PWA estático hospedado no GitHub Pages (`base: '/genshinworld/'`). Não tem servidor próprio: os dados vêm de APIs públicas e de um arquivo gerado no deploy."
+      "p": "O **Genshin World** é um aplicativo web (PWA) de consulta para Genshin Impact: personagens, armas, artefatos, builds recomendadas, equipes e os banners de oração atuais. Tem visual de aplicativo no celular e um layout próprio para PC, e funciona em português (PT-BR) e inglês (EN-US)."
+     },
+     {
+      "ul": [
+       "**Endereço:** https://gbsj17.github.io/genshinworld/",
+       "**Criado por** Genival Souza Júnior, parte da RUNEbyte, 2026.",
+       "**Tecnologias:** React 19, TypeScript, Vite 8, react-router-dom (HashRouter), GitHub Pages e GitHub Actions.",
+       "**Sem servidor próprio:** é um site estático. Os dados vêm de APIs públicas e de um arquivo gerado no deploy (`public/banners.json`). O que a pessoa salva (favoritos, tema, idioma) fica só no aparelho dela.",
+       "Hospedado em `base: '/genshinworld/'` e instalável como app."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "guide",
+    "title": "2. Guia de uso, tela por tela",
+    "blocks": [
+     {
+      "p": "Resumo do que cada parte do site faz e como usar."
+     },
+     {
+      "ul": [
+       "**Abertura:** na primeira vez em cada sessão, os 7 elementos giram, se fecham no centro e formam o logo. Toque ou clique para pular. Não aparece para quem usa \"reduzir movimento\" no sistema.",
+       "**Início:** no celular e no PC, um banner animado mostra os personagens mais novos (troca sozinho a cada 6 segundos; setas e pontos mudam na mão) com os botões \"Ver ficha\" e \"Ver build\". Abaixo ficam as novas armas, os novos artefatos, os banners de oração atuais e os novos materiais. O campo de busca da página procura personagens, armas e artefatos de uma vez (até 12 resultados de cada).",
+       "**Banners de oração:** carrosséis de banner de personagem e de arma (trocam a cada 7 segundos). Clique num banner para ver os itens em destaque (5★ e 4★ com chance aumentada) e a data de término. Só aparecem banners que ainda não terminaram.",
+       "**Personagens:** lista com todos os personagens. Filtre por elemento, busque pelo nome (em português ou inglês), alterne entre grade e lista e marque favoritos com a estrela. Na lista, cada linha mostra os ícones das 3 habilidades ativas (em telas com mais de 560px) e há um índice alfabético com efeito de lupa na lateral.",
+       "**Ficha do personagem:** quatro abas. *Visão geral* (elemento, arma, nação, raridade, melhor arma, equipe sugerida e prévia dos talentos), *Talentos* (ataque normal, habilidade, supremo e passivos com descrição), *Constelações* (C1 a C6) e *Builds* (armas em ordem de preferência, conjuntos de artefatos, atributos principais por slot, substats, equipes e as fontes do guia). Clicar numa arma ou artefato abre os detalhes; clicar num integrante de equipe abre a ficha dele. No PC o banner fica fixo e o conteúdo desliza por cima.",
+       "**Armas e Artefatos:** lista completa com filtro por tipo e por raridade, busca e detalhes em janela (no PC) ou gaveta (no celular). Favoritos funcionam igual aos personagens.",
+       "**Favoritos:** reúne personagens, armas e artefatos marcados com a estrela, em abas. Ficam salvos no aparelho.",
+       "**Documentação:** esta página, no idioma escolhido, com índice e busca."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "controls",
+    "title": "3. Menu, tema, idioma, instalação e teclado",
+    "blocks": [
+     {
+      "ul": [
+       "**Menu (botão com três linhas):** Início, Favoritos, Documentação, troca de tema e troca de idioma.",
+       "**Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.",
+       "**Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.",
+       "**Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.",
+       "**Instalar como app:** use \"instalar\" ou \"adicionar à tela inicial\" do navegador. Depois de aberto uma vez, o app guarda arquivos, imagens e dados e abre rápido, inclusive com internet fraca.",
+       "**Teclado:** Esc fecha menu, janelas de detalhes e a barra de pesquisa do celular. Tab percorre os elementos com contorno de foco visível. Enter abre itens e confirma a busca."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "routes",
+    "title": "4. Rotas",
+    "blocks": [
+     {
+      "p": "O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pages)."
+     },
+     {
+      "ul": [
+       "`/#/` Início.",
+       "`/#/characters` lista de personagens.",
+       "`/#/character/:id` ficha (ex.: `/#/character/albedo`). Com `?tab=builds` abre direto na aba Builds.",
+       "`/#/weapons` e `/#/artifacts` listas.",
+       "`/#/favorites` favoritos.",
+       "`/#/docs` documentação.",
+       "Qualquer outro endereço volta para o Início."
+      ]
      }
     ]
    },
    {
     "id": "structure",
-    "title": "2. Estrutura do projeto",
+    "title": "5. Estrutura do projeto",
     "blocks": [
      {
-      "code": "src/\n  App.tsx            rotas (HashRouter), abertura e rodapé\n  Splash.tsx         abertura animada (elementos que viram o logo)\n  NewsPage.tsx       Início (banner animado, novidades, banners de oração)\n  HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos)\n  CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds\n  ItemsPage.tsx      armas e artefatos (lista, filtros)\n  FavoritesPage.tsx  favoritos de personagens, armas e artefatos\n  DocsPage.tsx       esta documentação, em português ou inglês\n  ItemModal.tsx      detalhes de arma/artefato\n  Banners.tsx        carrosséis de banners de oração e lista do banner\n  PcNav.tsx          menu superior (só PC)      TabBar.tsx   barra inferior (só celular)\n  Drawer.tsx         menu lateral (documentação, tema e idioma)\n  Footer.tsx         rodapé\n  api.ts             acesso às APIs, caches, ordenação por lançamento\n  i18n.ts            idioma e dicionário PT/EN\n  favorites.ts       favoritos (localStorage)      theme.ts   tema claro/escuro\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) e docs.json\n  *.css              estilos por área; motion.css (animações), sheetpc.css (ficha no PC)\nscripts/fetch-banners.mjs   gera public/banners.json\nscripts/build-docs.mjs      gera docs/*.md a partir de src/data/docs.json\npublic/                     manifest, service worker (sw.js), ícones, banners.json\n.github/workflows/deploy.yml"
+      "code": "src/\n  App.tsx            rotas (HashRouter), abertura e rodapé\n  Splash.tsx         abertura animada (elementos que viram o logo)\n  NewsPage.tsx       Início (banner animado, novidades, banners de oração)\n  HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos)\n  CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds\n  ItemsPage.tsx      armas e artefatos (lista, filtros)\n  FavoritesPage.tsx  favoritos de personagens, armas e artefatos\n  DocsPage.tsx       esta documentação, em português ou inglês\n  ItemModal.tsx      detalhes de arma/artefato\n  Banners.tsx        carrosséis de banners de oração e lista do banner\n  PcNav.tsx          menu superior (só PC)      TabBar.tsx   barra inferior (só celular)\n  Drawer.tsx         menu lateral (documentação, tema e idioma)\n  Footer.tsx         rodapé\n  api.ts             acesso às APIs, caches, ordenação por lançamento\n  i18n.ts            idioma e dicionário PT/EN\n  favorites.ts       favoritos (localStorage)      theme.ts   tema claro/escuro\n  preload.ts         baixa imagens em segundo plano\n  visionColors.ts    cor de cada elemento\n  types.ts           tipos dos dados\n  __tests__/         testes (Vitest)\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) e docs.json\n  *.css              estilos por área; motion.css (animações), sheetpc.css (ficha no PC)\nscripts/fetch-banners.mjs   gera public/banners.json\nscripts/build-docs.mjs      gera docs/*.md a partir de src/data/docs.json\npublic/                     manifest, service worker (sw.js), ícones, banners.json\n.github/workflows/deploy.yml"
      }
     ]
    },
    {
-    "id": "layouts",
-    "title": "3. Layouts",
+    "id": "architecture",
+    "title": "6. Arquitetura",
     "blocks": [
      {
       "ul": [
-       "**Celular (< 820px):** visual de app, barra de abas flutuante embaixo, título fixo. O início tem um banner animado de personagens novos.",
-       "**PC (≥ 820px):** menu superior fixo (`PcNav`), banner de tela cheia no início, páginas mais largas. Na ficha, o banner fica fixo no topo e o conteúdo desliza por cima dele. A lista de personagens fica centralizada, com linhas maiores e os ícones das habilidades.",
-       "As regras do PC ficam dentro de `@media (min-width: 820px)`; mexer no PC não deve afetar o celular e vice-versa.",
-       "Ordem de CSS importante: `responsive.css`, `motion.css` e `sheetpc.css` são importados por último em `App.tsx` para vencer regras anteriores."
+       "**Rotas e carregamento:** `App.tsx` define as rotas. Início fica no pacote principal; personagens, ficha, armas/artefatos, favoritos e documentação carregam sob demanda (`lazy` + `Suspense`).",
+       "**Menu:** `MenuProvider` guarda se o menu está aberto e o tema; `Drawer` é o menu lateral e `MenuButton` o botão que o abre.",
+       "**Dados:** `api.ts` é a única porta de entrada para as APIs. Cada função guarda o resultado em memória (Promise em cache), então telas diferentes reaproveitam a mesma busca. Se a busca falha, o cache é limpo e dá para tentar de novo.",
+       "**Favoritos:** `favorites.ts` mantém um estado compartilhado por tipo (`useSyncExternalStore`), assim todas as estrelas atualizam juntas.",
+       "**Páginas na PC e no celular:** o mesmo componente serve os dois; o CSS decide o layout (`@media`). `PcNav` só aparece no PC e `TabBar` só no celular.",
+       "**Imagens:** o componente `Thumb` aceita uma lista de endereços e tenta o próximo se um falhar; se todos falharem, mostra a inicial do nome. `preload.ts` baixa os ícones da lista em segundo plano (e não faz nada com \"Economia de dados\" ligada)."
       ]
      }
     ]
    },
    {
     "id": "data",
-    "title": "4. Dados",
+    "title": "7. Dados e APIs",
     "blocks": [
      {
       "ul": [
-       "**genshin-db** (`genshin-db-api.vercel.app/api/v5`): personagens, armas, artefatos, talentos, constelações, descrições e versão de lançamento; aceita português.",
-       "**genshin.dev** (`genshin.jmp.blue`): ícones de elemento/personagem e plano B de talentos (só inglês).",
-       "**Enka.Network CDN:** imagens (splash, ícones de habilidades).",
-       "**API de anúncios da HoYoverse:** banners de oração (via script no deploy).",
-       "Os itens \"novos\" são ordenados por versão e id numérico (`newestFirst` em `api.ts`).",
-       "Listas grandes são buscadas uma vez e guardadas em memória. Os ícones das habilidades da lista de personagens vêm de uma única busca de talentos, feita só quando a lista é aberta."
+       "**genshin-db** (`genshin-db-api.vercel.app/api/v5`): personagens, armas, artefatos, materiais, talentos, constelações, descrições e versão de lançamento. Aceita português (`resultLanguage=Portuguese`) e busca pelo nome em inglês (`queryLanguages=English`).",
+       "**genshin.dev** (`genshin.jmp.blue`): ícones de personagem e de elemento e plano B de talentos (só inglês).",
+       "**Enka.Network CDN:** imagens de arte (splash) e ícones de habilidades e constelações.",
+       "**API de anúncios da HoYoverse:** banners de oração, lida pelo script `fetch-banners.mjs` no deploy (o navegador não chama essa API).",
+       "**Plano B:** se a genshin-db falhar, a lista de personagens vem da genshin.dev (mais antiga). Talentos e constelações usam a genshin.dev como reserva para quem existe lá. Ícones têm várias alternativas em ordem.",
+       "**Novos itens:** ordenados por versão de lançamento e id numérico (`newestFirst`). Itens sem versão contam como os mais novos.",
+       "**Habilidades na lista de personagens:** uma única busca de talentos, feita só quando a lista é aberta; o nome em inglês do personagem liga cada um aos seus ícones."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "models",
+    "title": "8. Modelos de dados",
+    "blocks": [
+     {
+      "ul": [
+       "`CharacterSummary` (`types.ts`): `id` (nome em minúsculas com hífens), `name` (idioma da tela), `enName` (inglês, chave de buscas e builds), `vision` (elemento), `weapon`, `nation`, `rarity`, `devId` (id na genshin.dev), `icons`, `portrait`, `splash`, `version`, `description`, `dbId`.",
+       "`ItemEntry` e `ItemInfo` (`api.ts`): `name` (chave em inglês), `label` (nome na tela), `info` com raridade, tipo, ícones, versão e textos (efeito, bônus de 2 e 4 peças, ATQ base e atributo secundário).",
+       "`Details` (`api.ts`): talentos de combate, talentos passivos e constelações, cada um com nome, descrição e ícones.",
+       "`Build` (`data/builds.ts`): `patch`, `sources`, `weapons`, `artifacts`, `mainStats`, `substats` e `teams` (com integrantes e nota).",
+       "Banner (`public/banners.json`): `updated` e `banners` com título, tipo (personagem ou arma), imagem, data de término e os destaques 5★ e 4★."
       ]
      }
     ]
    },
    {
     "id": "language",
-    "title": "5. Idiomas (PT-BR / EN-US)",
+    "title": "9. Idiomas (PT-BR / EN-US)",
     "blocks": [
      {
       "ul": [
-       "O idioma fica em `localStorage` (`genshinworld:lang`); sem escolha, usa o idioma do navegador.",
+       "O idioma fica em `localStorage` (`genshinworld:lang`); sem escolha, usa o idioma do navegador. O `index.html` aplica `lang` e a descrição da página antes de carregar o app.",
        "Trocar o idioma salva a escolha e **recarrega a página**, assim todos os dados vêm de novo no idioma certo.",
-       "Textos da interface: dicionário em `src/i18n.ts` (`t('chave')`).",
-       "Dados da API: a lista em inglês dá os ids e chaves (nome em inglês = chave de favoritos, builds e buscas); no português, uma segunda lista fornece os nomes e textos, casada pelo id numérico.",
-       "Builds: os textos originais estão em português; em inglês, cada frase é trocada pela tradução em `src/data/builds.en.json`, que só é baixada no modo inglês. Frase sem tradução aparece em português.",
-       "Para adicionar uma frase nova de build, inclua a tradução no JSON.",
-       "Esta documentação fica em `src/data/docs.json`, com um texto para cada idioma."
+       "**Textos da interface:** dicionário em `src/i18n.ts`, usado com `t('chave')`. Cada chave tem o texto em português e em inglês, e aceita variáveis como `{n}`.",
+       "**Dados da API:** a lista em inglês dá os ids e as chaves (nome em inglês é a chave de favoritos, builds e buscas); em português, uma segunda lista fornece nomes e textos, casada pelo id numérico.",
+       "**Builds:** os textos originais estão em português; em inglês, cada frase é trocada pela tradução em `src/data/builds.en.json`, que só é baixada no modo inglês. Frase sem tradução aparece em português (um teste avisa se faltar).",
+       "**Banners:** título e imagem em português quando existirem no anúncio.",
+       "**Documentação:** `src/data/docs.json`, com um texto para cada idioma.",
+       "Para incluir um novo texto de tela, crie a chave em `i18n.ts` com os dois idiomas e use `t('chave')`."
       ]
      }
     ]
    },
    {
     "id": "builds",
-    "title": "6. Builds",
-    "blocks": [
-     {
-      "p": "`src/data/builds.generated.ts` foi gerado a partir de guias públicos; `builds.ts` tem ajustes manuais (ex.: Diluc). Cada build tem armas, artefatos (com notas), atributos principais, substats, equipes e fontes. Os nomes dos itens são em inglês e viram nomes e ícones no idioma escolhido em tempo de execução."
-     }
-    ]
-   },
-   {
-    "id": "banners",
-    "title": "7. Banners de oração",
-    "blocks": [
-     {
-      "p": "`scripts/fetch-banners.mjs` consulta os anúncios oficiais, identifica os banners de personagem e de arma, e extrai os destaques (5★/4★) casando nomes da genshin-db com o texto do anúncio. Escreve `public/banners.json` (com título e imagem em português quando disponíveis). Roda no deploy e todo dia às 12:00 UTC; se falhar, o deploy continua com o arquivo anterior."
-     },
-     {
-      "p": "O site mostra só banners cujo fim ainda não passou."
-     }
-    ]
-   },
-   {
-    "id": "deploy",
-    "title": "8. Deploy",
-    "blocks": [
-     {
-      "p": "Push na `main` → GitHub Actions (`deploy.yml`): `npm ci` → testes → atualiza banners → `npm run build` → publica no Pages. Também roda manualmente e todo dia (banners)."
-     }
-    ]
-   },
-   {
-    "id": "pwa",
-    "title": "9. PWA e cache",
-    "blocks": [
-     {
-      "p": "`public/sw.js` guarda arquivos, imagens, dados e fontes no aparelho. Para forçar todos a baixar tudo de novo, mude `VERSION` no arquivo."
-     }
-    ]
-   },
-   {
-    "id": "a11y",
-    "title": "10. Acessibilidade e animações",
+    "title": "10. Builds",
     "blocks": [
      {
       "ul": [
-       "Botões e links com `aria-label`, foco visível e gerenciado em menus e modais, contagens de resultado anunciadas por leitores de tela.",
-       "Animações desligadas para quem usa \"reduzir movimento\" no sistema, inclusive a abertura (`Splash.tsx`).",
-       "A abertura aparece uma vez por sessão (`sessionStorage`) e pode ser pulada com um toque ou clique."
+       "`src/data/builds.generated.ts` tem 121 builds, geradas a partir de guias públicos (Icy Veins, Genshin-Builds e Genshin.gg). `builds.ts` junta essas builds e tem ajustes manuais (ex.: Diluc), que têm prioridade.",
+       "Cada build tem armas em ordem de preferência, conjuntos de artefatos (com notas), atributos principais de Areia, Cálice e Tiara, substats, equipes (com integrantes) e as fontes.",
+       "Os nomes dos itens ficam em inglês no arquivo e viram nomes e ícones no idioma escolhido em tempo de execução.",
+       "As builds refletem os guias na data da geração (campo `patch`) e podem ficar desatualizadas.",
+       "**Para adicionar ou editar uma build:** inclua o personagem em `builds.ts` (o `id` é o mesmo da lista de personagens) e, se houver frases novas, a tradução em `builds.en.json`. Rode `npm test`."
       ]
      }
     ]
    },
    {
-    "id": "rights",
-    "title": "11. Direitos e limitações",
+    "id": "banners",
+    "title": "11. Banners de oração",
     "blocks": [
      {
       "ul": [
-       "Projeto de fã; conteúdo de Genshin Impact pertence à HoYoverse.",
-       "A fonte do título (HYWenHei, subconjunto em `src/fonts/brand.woff2`) vem do jogo e é propriedade da HoYoverse: para uso comercial, troque por uma fonte livre.",
-       "As builds refletem guias de terceiros na data da geração; podem ficar desatualizadas.",
-       "A extração dos destaques dos banners é heurística e pode errar quando o texto do anúncio mudar."
+       "`scripts/fetch-banners.mjs` consulta os anúncios oficiais da HoYoverse, identifica os banners de personagem e de arma e extrai os destaques (5★/4★), casando nomes da genshin-db com o texto do anúncio.",
+       "Escreve `public/banners.json`, com título e imagem em português quando disponíveis.",
+       "Roda em todo deploy e todo dia às 12:00 UTC. Se falhar, o deploy continua com o arquivo anterior.",
+       "O site mostra só banners cujo fim ainda não passou.",
+       "A extração dos destaques é heurística e pode errar se o formato do anúncio mudar.",
+       "Para rodar à mão: `node scripts/fetch-banners.mjs` (precisa de internet)."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "storage",
+    "title": "12. O que fica salvo no aparelho",
+    "blocks": [
+     {
+      "ul": [
+       "`genshinworld:lang`: idioma (`pt` ou `en`).",
+       "`genshinworld:theme`: tema (`dark` ou `light`).",
+       "`genshinworld:view`: grade ou lista na tela de personagens.",
+       "`genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favoritos de personagens, armas e artefatos (listas de nomes/ids).",
+       "`genshinworld:splash` (sessão): marca que a abertura já apareceu.",
+       "**Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.",
+       "Nada disso é enviado a lugar nenhum. Se o navegador bloquear o armazenamento, o site funciona do mesmo jeito, só sem lembrar as escolhas."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "layouts",
+    "title": "13. Layouts e estilo",
+    "blocks": [
+     {
+      "ul": [
+       "**Celular (< 820px):** visual de app, barra de abas flutuante embaixo, título fixo no topo. O início tem um banner animado de personagens novos.",
+       "**PC (≥ 820px):** menu superior fixo, banner de tela cheia no início, páginas mais largas. Na ficha, o banner fica fixo no topo e o conteúdo desliza por cima dele; talentos e constelações usam colunas que se ajustam à altura dos blocos. A lista de personagens fica centralizada, com linhas maiores.",
+       "As regras do PC ficam dentro de `@media (min-width: 820px)` e as do celular em `@media (max-width: 819px)`; mexer em um não deve afetar o outro.",
+       "**Ordem do CSS:** `responsive.css`, `motion.css` e `sheetpc.css` são importados por último em `App.tsx` para vencerem regras anteriores.",
+       "**Arquivos de estilo:** `index.css` (variáveis dos temas e base), `App.css`, `home.css`, `items.css`, `news.css`, `pcnav.css`, `drawer.css`, `footer.css`, `splash.css`, `docs.css`, `responsive.css`, `motion.css` e `sheetpc.css`.",
+       "**Temas:** as cores são variáveis (`--bg`, `--panel`, `--text`, `--gold`, `--accent`...). O tema claro redefine essas variáveis em `[data-theme='light']`. Os ícones brancos da API ficam pretos no tema claro.",
+       "**Cores dos elementos** (`visionColors.ts`): Pyro, Hydro, Anemo, Cryo, Electro, Dendro e Geo. A ficha usa a cor do elemento como destaque.",
+       "**Fontes:** Cormorant Garamond (títulos, via Google Fonts) e a fonte do jogo HYWenHei, recortada só com as letras do nome do app."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "motion",
+    "title": "14. Animações e transições",
+    "blocks": [
+     {
+      "ul": [
+       "**Abertura** (`Splash.tsx`): 7 elementos giram e formam o logo, cerca de 3,4 segundos, uma vez por sessão.",
+       "**Páginas:** a tela entra com um fade de opacidade (sem `transform`, para não quebrar elementos fixos como a barra inferior).",
+       "**Início:** o banner anima a troca de personagem; no PC os textos entram em sequência.",
+       "**Busca no celular:** a barra de abas se transforma na barra de busca com animação.",
+       "**Busca no PC:** ao focar, uma luz dourada corre por dentro da barra e a lupa se inclina.",
+       "**Menu:** os itens entram um depois do outro.",
+       "**Índice alfabético:** efeito lupa nas letras e pulinho na letra da seção ao chegar.",
+       "**Tema:** troca suave de cores.",
+       "Todas respeitam \"reduzir movimento\" do sistema."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "a11y",
+    "title": "15. Acessibilidade",
+    "blocks": [
+     {
+      "ul": [
+       "Botões e links com `aria-label`; foco visível, preso dentro do menu lateral enquanto ele está aberto; Esc fecha menu e janelas.",
+       "Contagens de resultado anunciadas por leitores de tela (`aria-live`).",
+       "Animações desligadas para quem usa \"reduzir movimento\".",
+       "O idioma da página (`lang`) acompanha o idioma escolhido.",
+       "Contraste revisado nos dois temas, com ícones ajustados no tema claro."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pwa",
+    "title": "16. PWA e cache",
+    "blocks": [
+     {
+      "ul": [
+       "`public/sw.js` guarda no aparelho os arquivos do app, imagens, dados das APIs e fontes.",
+       "**Abrir o app:** tenta a internet (versão mais nova) e, sem rede, usa a página guardada.",
+       "**Arquivos de `/assets/`:** o nome tem o conteúdo, então ficam guardados para sempre (cache primeiro).",
+       "**Imagens:** baixa uma vez e guarda (até 300).",
+       "**Dados das APIs e fontes:** mostra o que está guardado na hora e atualiza por baixo.",
+       "**Forçar download total:** mude `VERSION` em `public/sw.js`.",
+       "O cache só é ligado na versão publicada, não em `npm run dev`.",
+       "`manifest.webmanifest` define nome, cores e ícones para instalar; os ícones estão em `public/icons`."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "dev",
+    "title": "17. Desenvolvimento",
+    "blocks": [
+     {
+      "ul": [
+       "**Requisitos:** Node 22 e npm.",
+       "`npm ci` instala as dependências.",
+       "`npm run dev` abre o ambiente de desenvolvimento.",
+       "`npm run build` confere os tipos e gera a pasta `dist`; `npm run preview` testa o build.",
+       "`npm run lint` roda o oxlint.",
+       "`npm test` roda os testes.",
+       "`npm run docs` gera `docs/DOCUMENTACAO.md` e `docs/DOCUMENTATION.md` a partir de `src/data/docs.json`.",
+       "**Nova tela:** crie o componente, registre a rota em `App.tsx` (com `lazy` se for grande) e coloque os textos em `i18n.ts`.",
+       "**Cuidado com o CSS:** use a regra da faixa certa (`@media`) e confira o celular e o PC."
       ]
      }
     ]
    },
    {
     "id": "tests",
-    "title": "12. Testes e desempenho",
+    "title": "18. Testes e lint",
     "blocks": [
      {
       "ul": [
-       "`npm test` (Vitest + jsdom) roda em `src/__tests__`: ordenação por versão, textos/idiomas, builds e favoritos. O deploy só segue se os testes passarem. `npm run lint` usa o oxlint.",
-       "As páginas de personagens, ficha, armas/artefatos, favoritos e documentação carregam sob demanda (code splitting); o pacote principal fica em ~240 KB.",
+       "`npm test` (Vitest + jsdom) roda em `src/__tests__`: comparação e ordenação de versões, textos e troca de variáveis, nomes de arma por idioma, builds (toda build tem armas, artefatos e fontes; toda nota em português tem tradução) e favoritos.",
+       "O deploy só segue se os testes passarem.",
+       "`npm run lint` usa o oxlint; o projeto está sem avisos."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "deploy",
+    "title": "19. Deploy",
+    "blocks": [
+     {
+      "ul": [
+       "Push na `main` dispara o GitHub Actions (`.github/workflows/deploy.yml`): `npm ci`, testes, atualização dos banners, `npm run build` e publicação no Pages.",
+       "Também roda manualmente e todo dia às 12:00 UTC (para atualizar os banners).",
+       "Depois do push, o site novo aparece em alguns minutos. Se algo parecer antigo, recarregue com Ctrl+F5; no celular, feche e abra o app."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "performance",
+    "title": "20. Desempenho",
+    "blocks": [
+     {
+      "ul": [
+       "Divisão em pedaços sob demanda: o pacote principal fica em ~220 KB; a ficha ~240 KB.",
+       "A tradução das builds em inglês só é baixada no modo inglês.",
+       "Listas grandes são buscadas uma vez e guardadas em memória; ícones são pré-carregados em segundo plano.",
        "Erros de carregamento mostram o botão \"Tentar de novo\"."
       ]
      }
     ]
    },
    {
-    "id": "future",
-    "title": "13. Ideias futuras",
+    "id": "troubleshooting",
+    "title": "21. Perguntas frequentes e problemas comuns",
     "blocks": [
      {
-      "p": "Login com Google e favoritos na nuvem, comparar personagens, calculadora de materiais, equipes montadas pelo usuário, códigos de resgate e calendário de eventos, informações de áreas/mapas das novas versões, empacotar como app Android."
+      "ul": [
+       "**Vejo a versão antiga do site:** espere o deploy terminar e recarregue com Ctrl+F5 (no celular, feche e abra o app).",
+       "**Não aparecem banners de oração:** o arquivo `banners.json` pode estar vazio ou todos os banners terminaram; ele é atualizado todo dia às 12:00 UTC.",
+       "**Alguma imagem ou ícone não aparece:** a imagem pode ter vindo quebrada de uma das fontes. Mude `VERSION` em `sw.js` para limpar o cache de todos.",
+       "**Uma build aparece em português no modo inglês:** falta a tradução da frase em `builds.en.json`.",
+       "**Perdi meus favoritos:** eles ficam só neste navegador e aparelho; limpar os dados do site apaga a lista.",
+       "**A lista de personagens não carrega:** a API pode estar fora do ar. O site tenta a genshin.dev como plano B; use \"Tentar de novo\"."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "rights",
+    "title": "22. Direitos e limitações",
+    "blocks": [
+     {
+      "ul": [
+       "Projeto de fã, sem fins comerciais e sem vínculo com a HoYoverse. Genshin Impact, personagens, imagens e nomes pertencem à HoYoverse.",
+       "A fonte do título (HYWenHei, subconjunto em `src/fonts/brand.woff2`) vem do jogo e é propriedade da HoYoverse: para uso comercial, troque por uma fonte livre.",
+       "As builds refletem guias de terceiros na data da geração.",
+       "Os dados dependem de APIs públicas de terceiros, que podem mudar ou sair do ar.",
+       "Ainda não há licença de código definida."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "credits",
+    "title": "23. Créditos",
+    "blocks": [
+     {
+      "ul": [
+       "Dados: genshin-db e genshin.dev.",
+       "Imagens: Enka.Network CDN e HoYoverse.",
+       "Builds: Icy Veins, Genshin-Builds e Genshin.gg (guias públicos).",
+       "Criado por Genival Souza Júnior, parte da RUNEbyte, 2026."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "future",
+    "title": "24. Ideias futuras",
+    "blocks": [
+     {
+      "p": "Login com Google e favoritos na nuvem, comparar personagens e armas, calculadora de materiais, equipes montadas pelo usuário, códigos de resgate e calendário de eventos, informações de áreas e mapas das novas versões, links compartilháveis de builds, rotas indexáveis para buscadores e empacotar como app Android."
      }
     ]
    }
@@ -165,151 +393,379 @@
     "title": "1. Overview",
     "blocks": [
      {
-      "p": "Static PWA hosted on GitHub Pages (`base: '/genshinworld/'`). There is no own server: data comes from public APIs and from a file generated at deploy time."
+      "p": "**Genshin World** is a web app (PWA) for Genshin Impact: characters, weapons, artifacts, recommended builds, teams and the current wish banners. It has an app-like look on mobile, a dedicated desktop layout, and works in Portuguese (PT-BR) and English (EN-US)."
+     },
+     {
+      "ul": [
+       "**Address:** https://gbsj17.github.io/genshinworld/",
+       "**Created by** Genival Souza Júnior, part of RUNEbyte, 2026.",
+       "**Stack:** React 19, TypeScript, Vite 8, react-router-dom (HashRouter), GitHub Pages and GitHub Actions.",
+       "**No own server:** it is a static site. Data comes from public APIs and from a file generated at deploy time (`public/banners.json`). What the user saves (favorites, theme, language) stays on their own device.",
+       "Hosted at `base: '/genshinworld/'` and installable as an app."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "guide",
+    "title": "2. User guide, screen by screen",
+    "blocks": [
+     {
+      "p": "A summary of what each part of the site does and how to use it."
+     },
+     {
+      "ul": [
+       "**Intro:** the first time in each session, the 7 elements spin, close in on the center and form the logo. Tap or click to skip. It does not show for people using \"reduce motion\" in their system.",
+       "**Home:** on mobile and desktop, an animated banner shows the newest characters (it changes by itself every 6 seconds; arrows and dots change it by hand) with \"View profile\" and \"View build\" buttons. Below are new weapons, new artifacts, the current wish banners and new materials. The page search looks for characters, weapons and artifacts at once (up to 12 results of each).",
+       "**Wish banners:** carousels of character and weapon banners (they change every 7 seconds). Click a banner to see the featured items (5★ and 4★ with boosted rate) and the end date. Only banners that have not ended are shown.",
+       "**Characters:** list with all characters. Filter by element, search by name (in Portuguese or English), switch between grid and list and mark favorites with the star. In the list, each row shows the icons of the 3 active skills (on screens wider than 560px) and there is an alphabetical index with a magnifier effect on the side.",
+       "**Character profile:** four tabs. *Overview* (element, weapon, nation, rarity, best weapon, suggested team and a talents preview), *Talents* (normal attack, skill, burst and passives with descriptions), *Constellations* (C1 to C6) and *Builds* (weapons in order of preference, artifact sets, main stats per slot, substats, teams and the guide sources). Clicking a weapon or artifact opens its details; clicking a team member opens their profile. On desktop the banner stays fixed and the content slides over it.",
+       "**Weapons and Artifacts:** full list with filters by type and rarity, search and details in a window (desktop) or drawer (mobile). Favorites work like characters.",
+       "**Favorites:** gathers starred characters, weapons and artifacts, in tabs. They are saved on the device.",
+       "**Documentation:** this page, in the chosen language, with an index and search."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "controls",
+    "title": "3. Menu, theme, language, installation and keyboard",
+    "blocks": [
+     {
+      "ul": [
+       "**Menu (three-line button):** Home, Favorites, Documentation, theme switch and language switch.",
+       "**Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.",
+       "**Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.",
+       "**Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.",
+       "**Install as app:** use the browser's \"install\" or \"add to home screen\". After the first visit, the app stores files, images and data and opens fast, even on a weak connection.",
+       "**Keyboard:** Esc closes the menu, detail windows and the mobile search bar. Tab moves through elements with a visible focus outline. Enter opens items and confirms the search."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "routes",
+    "title": "4. Routes",
+    "blocks": [
+     {
+      "p": "The site uses `HashRouter`, so addresses contain `#` (required on GitHub Pages)."
+     },
+     {
+      "ul": [
+       "`/#/` Home.",
+       "`/#/characters` character list.",
+       "`/#/character/:id` profile (e.g. `/#/character/albedo`). With `?tab=builds` it opens straight on the Builds tab.",
+       "`/#/weapons` and `/#/artifacts` lists.",
+       "`/#/favorites` favorites.",
+       "`/#/docs` documentation.",
+       "Any other address goes back to Home."
+      ]
      }
     ]
    },
    {
     "id": "structure",
-    "title": "2. Project structure",
+    "title": "5. Project structure",
     "blocks": [
      {
-      "code": "src/\n  App.tsx            routes (HashRouter), intro animation and footer\n  Splash.tsx         animated intro (elements that become the logo)\n  NewsPage.tsx       Home (animated banner, news, wish banners)\n  HomePage.tsx       character list (filters, grid/list, favorites)\n  CharacterPage.tsx  profile: overview, talents, constellations, builds\n  ItemsPage.tsx      weapons and artifacts (list, filters)\n  FavoritesPage.tsx  favorite characters, weapons and artifacts\n  DocsPage.tsx       this documentation, in Portuguese or English\n  ItemModal.tsx      weapon/artifact details\n  Banners.tsx        wish banner carousels and banner contents\n  PcNav.tsx          top menu (desktop only)    TabBar.tsx   bottom bar (mobile only)\n  Drawer.tsx         side menu (documentation, theme and language)\n  Footer.tsx         footer\n  api.ts             API access, caches, sorting by release\n  i18n.ts            language and PT/EN dictionary\n  favorites.ts       favorites (localStorage)   theme.ts     light/dark theme\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) and docs.json\n  *.css              styles per area; motion.css (animations), sheetpc.css (desktop profile)\nscripts/fetch-banners.mjs   generates public/banners.json\nscripts/build-docs.mjs      generates docs/*.md from src/data/docs.json\npublic/                     manifest, service worker (sw.js), icons, banners.json\n.github/workflows/deploy.yml"
+      "code": "src/\n  App.tsx            routes (HashRouter), intro animation and footer\n  Splash.tsx         animated intro (elements that become the logo)\n  NewsPage.tsx       Home (animated banner, news, wish banners)\n  HomePage.tsx       character list (filters, grid/list, favorites)\n  CharacterPage.tsx  profile: overview, talents, constellations, builds\n  ItemsPage.tsx      weapons and artifacts (list, filters)\n  FavoritesPage.tsx  favorite characters, weapons and artifacts\n  DocsPage.tsx       this documentation, in Portuguese or English\n  ItemModal.tsx      weapon/artifact details\n  Banners.tsx        wish banner carousels and banner contents\n  PcNav.tsx          top menu (desktop only)    TabBar.tsx   bottom bar (mobile only)\n  Drawer.tsx         side menu (documentation, theme and language)\n  Footer.tsx         footer\n  api.ts             API access, caches, sorting by release\n  i18n.ts            language and PT/EN dictionary\n  favorites.ts       favorites (localStorage)   theme.ts     light/dark theme\n  preload.ts         downloads images in the background\n  visionColors.ts    color of each element\n  types.ts           data types\n  __tests__/         tests (Vitest)\n  data/              builds (builds.generated.ts, builds.ts, builds.en.json, buildText.ts) and docs.json\n  *.css              styles per area; motion.css (animations), sheetpc.css (desktop profile)\nscripts/fetch-banners.mjs   generates public/banners.json\nscripts/build-docs.mjs      generates docs/*.md from src/data/docs.json\npublic/                     manifest, service worker (sw.js), icons, banners.json\n.github/workflows/deploy.yml"
      }
     ]
    },
    {
-    "id": "layouts",
-    "title": "3. Layouts",
+    "id": "architecture",
+    "title": "6. Architecture",
     "blocks": [
      {
       "ul": [
-       "**Mobile (< 820px):** app look, floating tab bar at the bottom, fixed title. Home has an animated banner of new characters.",
-       "**Desktop (≥ 820px):** fixed top menu (`PcNav`), full-screen banner on Home, wider pages. On the profile page the banner stays fixed at the top and the content slides over it. The character list is centered, with bigger rows and the skill icons.",
-       "Desktop rules live inside `@media (min-width: 820px)`; changing desktop should not affect mobile and vice versa.",
-       "CSS order matters: `responsive.css`, `motion.css` and `sheetpc.css` are imported last in `App.tsx` so they win over earlier rules."
+       "**Routes and loading:** `App.tsx` defines the routes. Home is in the main bundle; characters, profile, weapons/artifacts, favorites and documentation load on demand (`lazy` + `Suspense`).",
+       "**Menu:** `MenuProvider` keeps whether the menu is open and the theme; `Drawer` is the side menu and `MenuButton` the button that opens it.",
+       "**Data:** `api.ts` is the single entry point to the APIs. Each function keeps its result in memory (cached Promise), so different screens reuse the same request. If a request fails, the cache is cleared and it can be tried again.",
+       "**Favorites:** `favorites.ts` keeps one shared state per kind (`useSyncExternalStore`), so all stars update together.",
+       "**Desktop and mobile pages:** the same component serves both; CSS decides the layout (`@media`). `PcNav` only shows on desktop and `TabBar` only on mobile.",
+       "**Images:** the `Thumb` component accepts a list of addresses and tries the next one if one fails; if all fail, it shows the first letter of the name. `preload.ts` downloads list icons in the background (and does nothing with \"Data saver\" on)."
       ]
      }
     ]
    },
    {
     "id": "data",
-    "title": "4. Data",
+    "title": "7. Data and APIs",
     "blocks": [
      {
       "ul": [
-       "**genshin-db** (`genshin-db-api.vercel.app/api/v5`): characters, weapons, artifacts, talents, constellations, descriptions and release version; supports Portuguese.",
-       "**genshin.dev** (`genshin.jmp.blue`): element/character icons and a fallback for talents (English only).",
-       "**Enka.Network CDN:** images (splash art, skill icons).",
-       "**HoYoverse announcement API:** wish banners (through a script at deploy time).",
-       "\"New\" items are sorted by version and numeric id (`newestFirst` in `api.ts`).",
-       "Large lists are fetched once and kept in memory. The skill icons in the character list come from a single talents request, made only when the list is opened."
+       "**genshin-db** (`genshin-db-api.vercel.app/api/v5`): characters, weapons, artifacts, materials, talents, constellations, descriptions and release version. It supports Portuguese (`resultLanguage=Portuguese`) and search by English name (`queryLanguages=English`).",
+       "**genshin.dev** (`genshin.jmp.blue`): character and element icons and a fallback for talents (English only).",
+       "**Enka.Network CDN:** splash art and skill and constellation icons.",
+       "**HoYoverse announcement API:** wish banners, read by the `fetch-banners.mjs` script at deploy time (the browser does not call this API).",
+       "**Fallback:** if genshin-db fails, the character list comes from genshin.dev (older). Talents and constellations use genshin.dev as a backup for those that exist there. Icons have several alternatives in order.",
+       "**New items:** sorted by release version and numeric id (`newestFirst`). Items without a version count as the newest.",
+       "**Skills in the character list:** a single talents request, made only when the list is opened; the character's English name links each one to its icons."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "models",
+    "title": "8. Data models",
+    "blocks": [
+     {
+      "ul": [
+       "`CharacterSummary` (`types.ts`): `id` (lowercase name with hyphens), `name` (screen language), `enName` (English, key for searches and builds), `vision` (element), `weapon`, `nation`, `rarity`, `devId` (id on genshin.dev), `icons`, `portrait`, `splash`, `version`, `description`, `dbId`.",
+       "`ItemEntry` and `ItemInfo` (`api.ts`): `name` (English key), `label` (screen name), `info` with rarity, type, icons, version and texts (effect, 2 and 4-piece bonus, base ATK and secondary stat).",
+       "`Details` (`api.ts`): combat talents, passive talents and constellations, each with name, description and icons.",
+       "`Build` (`data/builds.ts`): `patch`, `sources`, `weapons`, `artifacts`, `mainStats`, `substats` and `teams` (with members and a note).",
+       "Banner (`public/banners.json`): `updated` and `banners` with title, type (character or weapon), image, end date and the 5★ and 4★ highlights."
       ]
      }
     ]
    },
    {
     "id": "language",
-    "title": "5. Languages (PT-BR / EN-US)",
+    "title": "9. Languages (PT-BR / EN-US)",
     "blocks": [
      {
       "ul": [
-       "The language is kept in `localStorage` (`genshinworld:lang`); with no choice, it uses the browser language.",
+       "The language is kept in `localStorage` (`genshinworld:lang`); with no choice, it uses the browser language. `index.html` applies `lang` and the page description before the app loads.",
        "Switching language saves the choice and **reloads the page**, so all data comes again in the right language.",
-       "Interface texts: dictionary in `src/i18n.ts` (`t('key')`).",
-       "API data: the English list gives the ids and keys (English name = key for favorites, builds and searches); in Portuguese, a second list provides names and texts, matched by numeric id.",
-       "Builds: the original texts are in Portuguese; in English each sentence is replaced by its translation in `src/data/builds.en.json`, which is only downloaded in English mode. A sentence without translation shows in Portuguese.",
-       "To add a new build sentence, add its translation to the JSON.",
-       "This documentation lives in `src/data/docs.json`, with one text for each language."
+       "**Interface texts:** dictionary in `src/i18n.ts`, used with `t('key')`. Each key has the Portuguese and English text, and accepts variables like `{n}`.",
+       "**API data:** the English list gives the ids and keys (English name is the key for favorites, builds and searches); in Portuguese, a second list provides names and texts, matched by numeric id.",
+       "**Builds:** the original texts are in Portuguese; in English each sentence is replaced by its translation in `src/data/builds.en.json`, which is only downloaded in English mode. A sentence without translation shows in Portuguese (a test warns if one is missing).",
+       "**Banners:** title and image in Portuguese when the announcement has them.",
+       "**Documentation:** `src/data/docs.json`, with one text for each language.",
+       "To add a new screen text, create the key in `i18n.ts` with both languages and use `t('key')`."
       ]
      }
     ]
    },
    {
     "id": "builds",
-    "title": "6. Builds",
-    "blocks": [
-     {
-      "p": "`src/data/builds.generated.ts` was generated from public guides; `builds.ts` has manual adjustments (e.g. Diluc). Each build has weapons, artifacts (with notes), main stats, substats, teams and sources. Item names are in English and become names and icons in the chosen language at runtime."
-     }
-    ]
-   },
-   {
-    "id": "banners",
-    "title": "7. Wish banners",
-    "blocks": [
-     {
-      "p": "`scripts/fetch-banners.mjs` reads the official announcements, identifies character and weapon banners, and extracts the featured items (5★/4★) by matching genshin-db names with the announcement text. It writes `public/banners.json` (with Portuguese title and image when available). It runs at deploy and every day at 12:00 UTC; if it fails, the deploy continues with the previous file."
-     },
-     {
-      "p": "The site only shows banners that have not ended yet."
-     }
-    ]
-   },
-   {
-    "id": "deploy",
-    "title": "8. Deploy",
-    "blocks": [
-     {
-      "p": "Push to `main` → GitHub Actions (`deploy.yml`): `npm ci` → tests → update banners → `npm run build` → publish to Pages. It also runs manually and every day (banners)."
-     }
-    ]
-   },
-   {
-    "id": "pwa",
-    "title": "9. PWA and cache",
-    "blocks": [
-     {
-      "p": "`public/sw.js` stores files, images, data and fonts on the device. To force everyone to download everything again, change `VERSION` in the file."
-     }
-    ]
-   },
-   {
-    "id": "a11y",
-    "title": "10. Accessibility and animations",
+    "title": "10. Builds",
     "blocks": [
      {
       "ul": [
-       "Buttons and links have `aria-label`, focus is visible and managed in menus and modals, and result counts are announced to screen readers.",
-       "Animations are turned off for people who use \"reduce motion\" in their system, including the intro (`Splash.tsx`).",
-       "The intro shows once per session (`sessionStorage`) and can be skipped with a tap or click."
+       "`src/data/builds.generated.ts` has 121 builds, generated from public guides (Icy Veins, Genshin-Builds and Genshin.gg). `builds.ts` merges these builds and has manual adjustments (e.g. Diluc), which take priority.",
+       "Each build has weapons in order of preference, artifact sets (with notes), main stats for Sands, Goblet and Circlet, substats, teams (with members) and the sources.",
+       "Item names are in English in the file and become names and icons in the chosen language at runtime.",
+       "Builds reflect the guides at the time they were generated (`patch` field) and may become outdated.",
+       "**To add or edit a build:** add the character in `builds.ts` (the `id` is the same as in the character list) and, if there are new sentences, the translation in `builds.en.json`. Run `npm test`."
       ]
      }
     ]
    },
    {
-    "id": "rights",
-    "title": "11. Rights and limitations",
+    "id": "banners",
+    "title": "11. Wish banners",
     "blocks": [
      {
       "ul": [
-       "Fan project; Genshin Impact content belongs to HoYoverse.",
-       "The title font (HYWenHei, subset in `src/fonts/brand.woff2`) comes from the game and belongs to HoYoverse: for commercial use, replace it with a free font.",
-       "Builds reflect third-party guides at the time they were generated; they may become outdated.",
-       "Banner highlight extraction is heuristic and may fail when the announcement text changes."
+       "`scripts/fetch-banners.mjs` reads the official HoYoverse announcements, identifies character and weapon banners and extracts the highlights (5★/4★), matching genshin-db names with the announcement text.",
+       "It writes `public/banners.json`, with Portuguese title and image when available.",
+       "It runs at every deploy and every day at 12:00 UTC. If it fails, the deploy continues with the previous file.",
+       "The site only shows banners that have not ended yet.",
+       "Highlight extraction is heuristic and may fail if the announcement format changes.",
+       "To run by hand: `node scripts/fetch-banners.mjs` (needs internet)."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "storage",
+    "title": "12. What is saved on the device",
+    "blocks": [
+     {
+      "ul": [
+       "`genshinworld:lang`: language (`pt` or `en`).",
+       "`genshinworld:theme`: theme (`dark` or `light`).",
+       "`genshinworld:view`: grid or list on the characters screen.",
+       "`genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favorite characters, weapons and artifacts (lists of names/ids).",
+       "`genshinworld:splash` (session): marks that the intro has already shown.",
+       "**Service worker cache:** app files, images, API data and fonts.",
+       "None of this is sent anywhere. If the browser blocks storage, the site works the same, it just does not remember choices."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "layouts",
+    "title": "13. Layouts and style",
+    "blocks": [
+     {
+      "ul": [
+       "**Mobile (< 820px):** app look, floating tab bar at the bottom, fixed title on top. Home has an animated banner of new characters.",
+       "**Desktop (≥ 820px):** fixed top menu, full-screen banner on Home, wider pages. On the profile page the banner stays fixed at the top and the content slides over it; talents and constellations use columns that adjust to the height of each block. The character list is centered, with bigger rows.",
+       "Desktop rules live inside `@media (min-width: 820px)` and mobile rules inside `@media (max-width: 819px)`; changing one should not affect the other.",
+       "**CSS order:** `responsive.css`, `motion.css` and `sheetpc.css` are imported last in `App.tsx` so they win over earlier rules.",
+       "**Style files:** `index.css` (theme variables and base), `App.css`, `home.css`, `items.css`, `news.css`, `pcnav.css`, `drawer.css`, `footer.css`, `splash.css`, `docs.css`, `responsive.css`, `motion.css` and `sheetpc.css`.",
+       "**Themes:** colors are variables (`--bg`, `--panel`, `--text`, `--gold`, `--accent`...). The light theme redefines them in `[data-theme='light']`. White API icons turn black in the light theme.",
+       "**Element colors** (`visionColors.ts`): Pyro, Hydro, Anemo, Cryo, Electro, Dendro and Geo. The profile uses the element color as its accent.",
+       "**Fonts:** Cormorant Garamond (headings, via Google Fonts) and the game font HYWenHei, cut to only the letters of the app name."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "motion",
+    "title": "14. Animations and transitions",
+    "blocks": [
+     {
+      "ul": [
+       "**Intro** (`Splash.tsx`): 7 elements spin and form the logo, about 3.4 seconds, once per session.",
+       "**Pages:** the screen enters with an opacity fade (no `transform`, so fixed elements like the bottom bar do not break).",
+       "**Home:** the banner animates the character change; on desktop the texts enter in sequence.",
+       "**Mobile search:** the tab bar turns into the search bar with an animation.",
+       "**Desktop search:** on focus, a golden light runs inside the bar and the magnifier tilts.",
+       "**Menu:** items enter one after another.",
+       "**Alphabetical index:** magnifier effect on the letters and a small bounce on the section letter on arrival.",
+       "**Theme:** smooth color change.",
+       "All of them respect the system \"reduce motion\" setting."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "a11y",
+    "title": "15. Accessibility",
+    "blocks": [
+     {
+      "ul": [
+       "Buttons and links have `aria-label`; focus is visible and trapped inside the side menu while it is open; Esc closes the menu and windows.",
+       "Result counts are announced to screen readers (`aria-live`).",
+       "Animations are turned off for people using \"reduce motion\".",
+       "The page language (`lang`) follows the chosen language.",
+       "Contrast reviewed in both themes, with icons adjusted in the light theme."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pwa",
+    "title": "16. PWA and cache",
+    "blocks": [
+     {
+      "ul": [
+       "`public/sw.js` stores app files, images, API data and fonts on the device.",
+       "**Opening the app:** tries the network (newest version) and, offline, uses the stored page.",
+       "**`/assets/` files:** the name contains the content hash, so they are stored forever (cache first).",
+       "**Images:** downloaded once and stored (up to 300).",
+       "**API data and fonts:** shows what is stored right away and updates in the background.",
+       "**Force a full re-download:** change `VERSION` in `public/sw.js`.",
+       "The cache is only enabled in the published version, not in `npm run dev`.",
+       "`manifest.webmanifest` defines name, colors and icons for installing; icons are in `public/icons`."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "dev",
+    "title": "17. Development",
+    "blocks": [
+     {
+      "ul": [
+       "**Requirements:** Node 22 and npm.",
+       "`npm ci` installs dependencies.",
+       "`npm run dev` opens the development environment.",
+       "`npm run build` checks types and generates the `dist` folder; `npm run preview` tests the build.",
+       "`npm run lint` runs oxlint.",
+       "`npm test` runs the tests.",
+       "`npm run docs` generates `docs/DOCUMENTACAO.md` and `docs/DOCUMENTATION.md` from `src/data/docs.json`.",
+       "**New screen:** create the component, register the route in `App.tsx` (with `lazy` if large) and put the texts in `i18n.ts`.",
+       "**CSS care:** use the rule in the right range (`@media`) and check both mobile and desktop."
       ]
      }
     ]
    },
    {
     "id": "tests",
-    "title": "12. Tests and performance",
+    "title": "18. Tests and lint",
     "blocks": [
      {
       "ul": [
-       "`npm test` (Vitest + jsdom) runs in `src/__tests__`: version sorting, texts/languages, builds and favorites. The deploy only continues if tests pass. `npm run lint` uses oxlint.",
-       "Character, profile, weapons/artifacts, favorites and documentation pages load on demand (code splitting); the main bundle is about 240 KB.",
+       "`npm test` (Vitest + jsdom) runs in `src/__tests__`: version comparison and sorting, texts and variable replacement, weapon names per language, builds (every build has weapons, artifacts and sources; every Portuguese note has a translation) and favorites.",
+       "The deploy only continues if tests pass.",
+       "`npm run lint` uses oxlint; the project has no warnings."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "deploy",
+    "title": "19. Deploy",
+    "blocks": [
+     {
+      "ul": [
+       "A push to `main` triggers GitHub Actions (`.github/workflows/deploy.yml`): `npm ci`, tests, banner update, `npm run build` and publishing to Pages.",
+       "It also runs manually and every day at 12:00 UTC (to update banners).",
+       "After a push, the new site appears in a few minutes. If something looks old, reload with Ctrl+F5; on mobile, close and reopen the app."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "performance",
+    "title": "20. Performance",
+    "blocks": [
+     {
+      "ul": [
+       "On-demand chunks: the main bundle is about 220 KB; the profile page about 240 KB.",
+       "The English build translations are only downloaded in English mode.",
+       "Large lists are fetched once and kept in memory; icons are preloaded in the background.",
        "Loading errors show a \"Try again\" button."
       ]
      }
     ]
    },
    {
-    "id": "future",
-    "title": "13. Future ideas",
+    "id": "troubleshooting",
+    "title": "21. FAQ and common problems",
     "blocks": [
      {
-      "p": "Google login and cloud favorites, character comparison, material calculator, user-made teams, redeem codes and event calendar, area/map info for new versions, packaging as an Android app."
+      "ul": [
+       "**I see the old version of the site:** wait for the deploy to finish and reload with Ctrl+F5 (on mobile, close and reopen the app).",
+       "**Wish banners do not show:** `banners.json` may be empty or all banners have ended; it is updated every day at 12:00 UTC.",
+       "**Some image or icon does not show:** the image may have come broken from one of the sources. Change `VERSION` in `sw.js` to clear everyone's cache.",
+       "**A build shows in Portuguese in English mode:** the sentence translation is missing in `builds.en.json`.",
+       "**I lost my favorites:** they are only in this browser and device; clearing the site data erases the list.",
+       "**The character list does not load:** the API may be down. The site tries genshin.dev as a fallback; use \"Try again\"."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "rights",
+    "title": "22. Rights and limitations",
+    "blocks": [
+     {
+      "ul": [
+       "Fan project, non-commercial and not affiliated with HoYoverse. Genshin Impact, characters, images and names belong to HoYoverse.",
+       "The title font (HYWenHei, subset in `src/fonts/brand.woff2`) comes from the game and belongs to HoYoverse: for commercial use, replace it with a free font.",
+       "Builds reflect third-party guides at the time they were generated.",
+       "Data depends on third-party public APIs, which may change or go down.",
+       "There is no code license defined yet."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "credits",
+    "title": "23. Credits",
+    "blocks": [
+     {
+      "ul": [
+       "Data: genshin-db and genshin.dev.",
+       "Images: Enka.Network CDN and HoYoverse.",
+       "Builds: Icy Veins, Genshin-Builds and Genshin.gg (public guides).",
+       "Created by Genival Souza Júnior, part of RUNEbyte, 2026."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "future",
+    "title": "24. Future ideas",
+    "blocks": [
+     {
+      "p": "Google login and cloud favorites, character and weapon comparison, material calculator, user-made teams, redeem codes and event calendar, area and map info for new versions, shareable build links, indexable routes for search engines and packaging as an Android app."
      }
     ]
    }
