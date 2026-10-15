@@ -934,3 +934,34 @@
 .data__msg--bad {
   color: #ef6a5a;
 }
+
+/* Mapa (teste) */
+.map__acts {
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+
+.map__acts a.tool-btn {
+  text-decoration: none;
+}
+
+.map__res {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.map__pre {
+  margin: 0;
+  max-height: 260px;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--surface-deep);
+  color: var(--text);
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

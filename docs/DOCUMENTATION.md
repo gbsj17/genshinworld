@@ -33,10 +33,11 @@ A summary of what each part of the site does and how to use it.
 - **My build:** on the sheet's Builds tab, at the top, make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
 - **My data:** in the menu. "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
 - **Reduced data notice:** if the main source (genshin-db) does not respond and the site uses the backup list, a bar warns that the list is older and smaller. You can close it.
+- **Map (test):** experimental page that tries to read the HoYoLAB interactive map data straight from the browser and shows what answered (status, fields and a sample). The addresses are unofficial and may stop working; it also has a shortcut to the official map.
 
 ## 3. Menu, theme, language, installation and keyboard
 
-- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Pity, My data, Documentation, theme switch and language switch.
+- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Pity, My data, Map (test), Documentation, theme switch and language switch.
 - **Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.
 - **Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
@@ -61,6 +62,7 @@ The site uses `HashRouter`, so addresses contain `#` (required on GitHub Pages).
 - `/#/wishlist` wishlist.
 - `/#/pity` pity counter.
 - `/#/data` my data (export and import).
+- `/#/map` map (test).
 - Any other address goes back to Home.
 
 ## 5. Project structure
