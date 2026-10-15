@@ -133,7 +133,13 @@ export default function Drawer() {
             </svg>
             {t('pity')}
           </Link>
-          <Link to="/docs" className="drawer__item" style={step(9)} onClick={closeMenu}>
+          <Link to="/data" className="drawer__item" style={step(9)} onClick={closeMenu}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 7v5c0 1.7 3.6 3 8 3s8-1.3 8-3V7M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5" />
+            </svg>
+            {t('data')}
+          </Link>
+          <Link to="/docs" className="drawer__item" style={step(10)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7" />
             </svg>
@@ -141,7 +147,7 @@ export default function Drawer() {
           </Link>
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(10)}>
+        <div className="drawer__item drawer__item--row" style={step(11)}>
           <span className="drawer__label">
             {t('theme')}
             <small>{isLight ? t('themeLight') : t('themeDark')}</small>
@@ -165,7 +171,7 @@ export default function Drawer() {
           </button>
         </div>
 
-        <div className="drawer__item drawer__item--row" style={step(11)}>
+        <div className="drawer__item drawer__item--row" style={step(12)}>
           <span className="drawer__label">{t('language')}</span>
           <div className="lang-switch" role="group" aria-label={t('language')}>
             <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>
@@ -175,7 +181,7 @@ export default function Drawer() {
         {available && (
           <button
             className="drawer__item drawer__item--btn"
-            style={step(12)}
+            style={step(13)}
             onClick={() => {
               closeMenu()
               void install()

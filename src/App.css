@@ -692,3 +692,40 @@ a.member:hover .thumb {
   from { opacity: 0; transform: translate(-50%, 8px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
+
+/* Aviso de base de dados reserva */
+.api-notice {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+  inset-inline: 12px;
+  margin-inline: auto;
+  width: fit-content;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(520px, calc(100vw - 24px));
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--gold);
+  color: var(--text);
+  font-size: 13px;
+  box-shadow: var(--sheet-shadow);
+}
+
+.api-notice button {
+  flex: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (min-width: 820px) {
+  .api-notice {
+    bottom: 20px;
+  }
+}

@@ -31,10 +31,12 @@ A summary of what each part of the site does and how to use it.
 - **Wishlist:** add the characters you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents, up to the talent level you choose. The list is saved on the device. "Details" opens the Materials calculator for that character.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
 - **My build:** on the sheet's Builds tab, at the top, make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
+- **My data:** in the menu. "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
+- **Reduced data notice:** if the main source (genshin-db) does not respond and the site uses the backup list, a bar warns that the list is older and smaller. You can close it.
 
 ## 3. Menu, theme, language, installation and keyboard
 
-- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Pity, Documentation, theme switch and language switch.
+- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Pity, My data, Documentation, theme switch and language switch.
 - **Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.
 - **Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
@@ -58,6 +60,7 @@ The site uses `HashRouter`, so addresses contain `#` (required on GitHub Pages).
 - `/#/farm` today's farm (domains by weekday).
 - `/#/wishlist` wishlist.
 - `/#/pity` pity counter.
+- `/#/data` my data (export and import).
 - Any other address goes back to Home.
 
 ## 5. Project structure
@@ -78,6 +81,8 @@ src/
   FarmPage.tsx       domains open by weekday (/farm)
   WishlistPage.tsx   wishlist with summed materials (/wishlist)
   PityPage.tsx       pity counter (/pity)
+  DataPage.tsx       export and import data (/data)      backup.ts   backup rules
+  ApiNotice.tsx      notice when the backup source is used      apiStatus.ts
   MyBuild.tsx        own build, on the sheet's Builds tab
   Picker.tsx         picker window with search and filters (pickFilters.ts)
   costs.ts           cost sum per level            share.ts   copy/share link
@@ -230,7 +235,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 
 ## 18. Tests and lint
 
-- `npm test` (Vitest + jsdom) runs in `src/__tests__`: version comparison and sorting, texts and variable replacement, weapon names per language, builds (every build has weapons, artifacts and sources; every Portuguese note has a translation), favorites, elemental resonance, material sums and Farm domain grouping.
+- `npm test` (Vitest + jsdom) runs in `src/__tests__`: version comparison and sorting, texts and variable replacement, weapon names per language, builds (every build has weapons, artifacts and sources; every Portuguese note has a translation), favorites, elemental resonance, material sums and Farm domain grouping and backup (export, import and rejecting invalid files).
 - The deploy only continues if tests pass.
 - `npm run lint` uses oxlint; the project has no warnings.
 

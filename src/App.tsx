@@ -11,7 +11,9 @@ const MaterialsPage = lazy(() => import('./MaterialsPage'))
 const FarmPage = lazy(() => import('./FarmPage'))
 const WishlistPage = lazy(() => import('./WishlistPage'))
 const PityPage = lazy(() => import('./PityPage'))
+const DataPage = lazy(() => import('./DataPage'))
 import NewsPage from './NewsPage'
+import ApiNotice from './ApiNotice'
 import Footer from './Footer'
 import Splash from './Splash'
 import { MenuProvider } from './MenuProvider'
@@ -44,11 +46,13 @@ function App() {
           <Route path="/farm" element={<FarmPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/pity" element={<PityPage />} />
+          <Route path="/data" element={<DataPage />} />
           <Route path="/weapons" element={<ItemsPage key="weapon" kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage key="artifact" kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>
+        <ApiNotice />
         <Footer />
       </MenuProvider>
     </HashRouter>

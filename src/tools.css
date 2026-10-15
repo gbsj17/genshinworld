@@ -914,3 +914,23 @@
   font-size: 14px;
   color: var(--muted);
 }
+
+/* Meus dados */
+.data__box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  justify-items: start;
+}
+
+.data__msg {
+  margin: 14px 0 0;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.data__msg--bad {
+  color: #ef6a5a;
+}

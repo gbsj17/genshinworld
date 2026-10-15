@@ -31,10 +31,12 @@ Resumo do que cada parte do site faz e como usar.
 - **Lista de desejos:** adicione os personagens que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos, até o nível de talento que você escolher. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
 - **Minha build:** na aba Builds da ficha, no topo, monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
+- **Meus dados:** no menu. "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
+- **Aviso de dados reduzidos:** se a base principal (genshin-db) não responder e o site usar a lista reserva, aparece uma faixa avisando que a lista é mais antiga e reduzida. Dá para fechá-la.
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Documentação, troca de tema e troca de idioma.
+- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Meus dados, Documentação, troca de tema e troca de idioma.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -58,6 +60,7 @@ O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pa
 - `/#/farm` farm de hoje (domínios por dia da semana).
 - `/#/wishlist` lista de desejos.
 - `/#/pity` contador de pity.
+- `/#/data` meus dados (exportar e importar).
 - Qualquer outro endereço volta para o Início.
 
 ## 5. Estrutura do projeto
@@ -78,6 +81,8 @@ src/
   FarmPage.tsx       domínios abertos por dia da semana (/farm)
   WishlistPage.tsx   lista de desejos com soma de materiais (/wishlist)
   PityPage.tsx       contador de pity (/pity)
+  DataPage.tsx       exportar e importar os dados (/data)      backup.ts   regras do backup
+  ApiNotice.tsx      aviso quando a base reserva é usada      apiStatus.ts
   MyBuild.tsx        build própria, na aba Builds da ficha
   Picker.tsx         janela de escolha com busca e filtros (pickFilters.ts)
   costs.ts           soma de custos por nível      share.ts   copiar/compartilhar link
@@ -230,7 +235,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 
 ## 18. Testes e lint
 
-- `npm test` (Vitest + jsdom) roda em `src/__tests__`: comparação e ordenação de versões, textos e troca de variáveis, nomes de arma por idioma, builds (toda build tem armas, artefatos e fontes; toda nota em português tem tradução), favoritos, ressonância elemental, soma de materiais e agrupamento dos domínios do Farm.
+- `npm test` (Vitest + jsdom) roda em `src/__tests__`: comparação e ordenação de versões, textos e troca de variáveis, nomes de arma por idioma, builds (toda build tem armas, artefatos e fontes; toda nota em português tem tradução), favoritos, ressonância elemental, soma de materiais e agrupamento dos domínios do Farm e backup (exportar, importar e recusar arquivos inválidos).
 - O deploy só segue se os testes passarem.
 - `npm run lint` usa o oxlint; o projeto está sem avisos.
 

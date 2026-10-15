@@ -1,3 +1,4 @@
+import { markDegraded } from './apiStatus'
 import type { Character, CharacterSummary, Constellation, Talent } from './types'
 import { apiLang, isPt, t } from './i18n'
 
@@ -159,7 +160,10 @@ let allCache: Promise<CharacterSummary[]> | null = null
 export function getAllCharacters(): Promise<CharacterSummary[]> {
   if (!allCache) {
     allCache = fromGenshinDb()
-      .catch(fromGenshinDev)
+      .catch(() => {
+        markDegraded()
+        return fromGenshinDev()
+      })
       .catch((error) => {
         allCache = null
         throw error
