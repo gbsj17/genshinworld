@@ -28,7 +28,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).
 - **Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em "Limpar filtros".
 - **Farm de hoje:** escolha o dia da semana (abre em "Hoje") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto.
-- **Lista de desejos:** adicione os personagens que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos, até o nível de talento que você escolher. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
+- **Lista de desejos:** adicione os personagens e armas que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos de cada personagem, até o nível de talento que você escolher, mais a ascensão completa de cada arma. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
 - **Minha build:** na aba Builds da ficha, no topo, monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
 - **Meus dados:** no menu. "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
@@ -170,7 +170,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:view`: grade ou lista na tela de personagens.
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favoritos de personagens, armas e artefatos (listas de nomes/ids).
 - `genshinworld:teams`: equipes salvas pelo usuário na tela Equipes.
-- `genshinworld:wishlist`: ids dos personagens da lista de desejos.
+- `genshinworld:wishlist` e `genshinworld:wish-weapons`: personagens e armas da lista de desejos.
 - `genshinworld:pity`: contador de pity de cada banner e histórico de 5★.
 - `genshinworld:my-builds`: a build própria de cada personagem.
 - `genshinworld:splash` (sessão): marca que a abertura já apareceu.

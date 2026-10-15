@@ -7,6 +7,7 @@ const KEYS = {
   'fav-weapons': 'strings',
   'fav-artifacts': 'strings',
   wishlist: 'strings',
+  'wish-weapons': 'strings',
   teams: 'array',
   pity: 'object',
   'my-builds': 'object',

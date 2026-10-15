@@ -435,6 +435,28 @@ export function getCosts(enName: string): Promise<Costs> {
   return cached
 }
 
+const weaponCostCache = new Map<string, Promise<CostItem[][]>>()
+
+// Custo de ascensão de uma arma (fases 1 a 6; armas de 1 a 3★ têm menos fases).
+export function getWeaponCosts(enName: string): Promise<CostItem[][]> {
+  let cached = weaponCostCache.get(enName)
+  if (!cached) {
+    cached = fetch(`${DB_URL}/weapons?query=${encodeURIComponent(enName)}&${LQ}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((w) => {
+        const levels = collect(w?.costs, 'ascend', 1, 6)
+        if (levels.every((l) => l.length === 0)) throw new Error('sem custos')
+        return levels
+      })
+      .catch((e) => {
+        weaponCostCache.delete(enName)
+        throw e
+      })
+    weaponCostCache.set(enName, cached)
+  }
+  return cached
+}
+
 // Compara versões como "6.10" > "6.9" (número a número).
 export function compareVersions(a: string, b: string): number {
   const pa = a.split('.').map(Number)

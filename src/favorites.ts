@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react'
 
-export type FavKind = 'characters' | 'weapons' | 'artifacts' | 'wishlist'
+export type FavKind = 'characters' | 'weapons' | 'artifacts' | 'wishlist' | 'wishweapons'
 
 // "characters" mantém a chave antiga para não perder os favoritos já salvos.
 const KEYS: Record<FavKind, string> = {
@@ -8,6 +8,7 @@ const KEYS: Record<FavKind, string> = {
   weapons: 'genshinworld:fav-weapons',
   artifacts: 'genshinworld:fav-artifacts',
   wishlist: 'genshinworld:wishlist',
+  wishweapons: 'genshinworld:wish-weapons',
 }
 
 function load(kind: FavKind): string[] {
@@ -26,6 +27,7 @@ const state: Record<FavKind, string[]> = {
   weapons: load('weapons'),
   artifacts: load('artifacts'),
   wishlist: load('wishlist'),
+  wishweapons: load('wishweapons'),
 }
 const listeners = new Set<() => void>()
 

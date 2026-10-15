@@ -28,7 +28,7 @@ A summary of what each part of the site does and how to use it.
 - **Sheet link:** the share button on the sheet copies the link (on the Builds tab it opens that tab).
 - **Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use "Clear filters".
 - **Today's farm:** pick the weekday (opens on "Today") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open.
-- **Wishlist:** add the characters you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents, up to the talent level you choose. The list is saved on the device. "Details" opens the Materials calculator for that character.
+- **Wishlist:** add the characters and weapons you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents of each character, up to the talent level you choose, plus the full ascension of each weapon. The list is saved on the device. "Details" opens the Materials calculator for that character.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
 - **My build:** on the sheet's Builds tab, at the top, make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
 - **My data:** in the menu. "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
@@ -170,7 +170,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:view`: grid or list on the characters screen.
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favorite characters, weapons and artifacts (lists of names/ids).
 - `genshinworld:teams`: teams saved by the user on the Teams screen.
-- `genshinworld:wishlist`: ids of the characters on the wishlist.
+- `genshinworld:wishlist` and `genshinworld:wish-weapons`: characters and weapons on the wishlist.
 - `genshinworld:pity`: pity counter for each banner and 5★ history.
 - `genshinworld:my-builds`: each character's own build.
 - `genshinworld:splash` (session): marks that the intro has already shown.
