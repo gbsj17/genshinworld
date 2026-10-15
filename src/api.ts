@@ -195,6 +195,7 @@ export interface ItemInfo {
   stat?: string
   effectName?: string
   effect?: string
+  description?: string
   set2?: string
   set4?: string
   version?: string
@@ -235,6 +236,7 @@ function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
     baseAtk: d?.baseAtkValue ? String(Math.round(d.baseAtkValue)) : undefined,
     stat: d?.mainStatText ? `${d.mainStatText} ${d.baseStatText ?? ''}`.trim() : undefined,
     effectName: d?.effectName,
+    description: typeof d?.description === 'string' ? d.description : undefined,
     effect: kind === 'weapons' ? weaponEffect(d) : undefined,
     set2: d?.effect2Pc,
     set4: d?.effect4Pc,

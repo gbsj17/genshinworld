@@ -34,6 +34,7 @@ A summary of what each part of the site does and how to use it.
 - **My data:** in the menu. "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
 - **Reduced data notice:** if the main source (genshin-db) does not respond and the site uses the backup list, a bar warns that the list is older and smaller. You can close it.
 - **Map (test):** experimental page that tries to read the HoYoLAB interactive map data straight from the browser and shows what answered (status, fields and a sample). The addresses are unofficial and may stop working; it also has a shortcut to the official map.
+- **Weapon page:** tapping a weapon in the list opens its page, with type, base ATK, secondary stat, effect (R1 → R5), ascension materials (total and by phase) and the characters that have the weapon in the site builds, from best place (#1) to worst, with the note. You can favorite it, add it to the wishlist and share the link. On the sheet's builds, the weapon window has "Open full page".
 
 ## 3. Menu, theme, language, installation and keyboard
 
@@ -53,6 +54,7 @@ The site uses `HashRouter`, so addresses contain `#` (required on GitHub Pages).
 - `/#/characters` character list.
 - `/#/character/:id` profile (e.g. `/#/character/albedo`). With `?tab=builds` it opens straight on the Builds tab.
 - `/#/weapons` and `/#/artifacts` lists.
+- `/#/weapon/:name` weapon page (e.g. `/#/weapon/Aquila%20Favonia`).
 - `/#/favorites` favorites.
 - `/#/docs` documentation.
 - `/#/compare` compare characters or weapons (`?a=` and `?b=` characters, `?k=` weapons; the link is shareable).
@@ -75,6 +77,7 @@ src/
   HomePage.tsx       character list (filters, grid/list, favorites)
   CharacterPage.tsx  profile: overview, talents, constellations, builds
   ItemsPage.tsx      weapons and artifacts (list, filters)
+  WeaponPage.tsx     weapon page (/weapon/:name)
   FavoritesPage.tsx  favorite characters, weapons and artifacts
   DocsPage.tsx       this documentation, in Portuguese or English
   ComparePage.tsx    compare two characters or two weapons (/compare)

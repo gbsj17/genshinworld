@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
 import { useFavorites } from './favorites'
@@ -24,6 +25,7 @@ const normalize = (text: string) =>
 // Lista com todas as armas ou todos os conjuntos de artefatos do jogo.
 export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
   const isWeapon = kind === 'weapon'
+  const navigate = useNavigate()
   const [items, setItems] = useState<ItemEntry[] | null>(null)
   const [error, setError] = useState(false)
   const [query, setQuery] = useState('')
@@ -111,7 +113,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
                 <div className="item-wrap" key={e.name}>
                   <button
                     className="item-card"
-                    onClick={() => setPicked({ kind, name: e.name, note: '' })}
+                    onClick={() => (isWeapon ? navigate(`/weapon/${encodeURIComponent(e.name)}`) : setPicked({ kind, name: e.name, note: '' }))}
                   >
                     <ItemIcon kind={kind} name={e.name} />
                     <strong>{e.label}</strong>
