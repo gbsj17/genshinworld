@@ -12,7 +12,6 @@ const FarmPage = lazy(() => import('./FarmPage'))
 const WishlistPage = lazy(() => import('./WishlistPage'))
 const PityPage = lazy(() => import('./PityPage'))
 const DataPage = lazy(() => import('./DataPage'))
-const MapTestPage = lazy(() => import('./MapTestPage'))
 const WeaponPage = lazy(() => import('./WeaponPage'))
 import NewsPage from './NewsPage'
 import ApiNotice from './ApiNotice'
@@ -49,7 +48,6 @@ function App() {
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/pity" element={<PityPage />} />
           <Route path="/data" element={<DataPage />} />
-          <Route path="/map" element={<MapTestPage />} />
           <Route path="/weapon/:name" element={<WeaponPage />} />
           <Route path="/weapons" element={<ItemsPage key="weapon" kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage key="artifact" kind="artifact" />} />

@@ -139,13 +139,7 @@ export default function Drawer() {
             </svg>
             {t('data')}
           </Link>
-          <Link to="/map" className="drawer__item" style={step(10)} onClick={closeMenu}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
-            </svg>
-            {t('mapTest')}
-          </Link>
-          <Link to="/docs" className="drawer__item" style={step(11)} onClick={closeMenu}>
+          <Link to="/docs" className="drawer__item" style={step(10)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7" />
             </svg>
@@ -153,7 +147,7 @@ export default function Drawer() {
           </Link>
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(12)}>
+        <div className="drawer__item drawer__item--row" style={step(11)}>
           <span className="drawer__label">
             {t('theme')}
             <small>{isLight ? t('themeLight') : t('themeDark')}</small>
@@ -177,7 +171,7 @@ export default function Drawer() {
           </button>
         </div>
 
-        <div className="drawer__item drawer__item--row" style={step(13)}>
+        <div className="drawer__item drawer__item--row" style={step(12)}>
           <span className="drawer__label">{t('language')}</span>
           <div className="lang-switch" role="group" aria-label={t('language')}>
             <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>
@@ -187,7 +181,7 @@ export default function Drawer() {
         {available && (
           <button
             className="drawer__item drawer__item--btn"
-            style={step(14)}
+            style={step(13)}
             onClick={() => {
               closeMenu()
               void install()

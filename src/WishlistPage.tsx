@@ -11,6 +11,7 @@ import PcNav from './PcNav'
 import Picker from './Picker'
 import { charFacets, charFilters, weaponFacets, weaponFilters } from './pickFilters'
 import TabBar from './TabBar'
+import { useMaterialSheet } from './useMaterialSheet'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
 import './tools.css'
@@ -20,6 +21,7 @@ export default function WishlistPage() {
   const { ids, toggle } = useFavorites('wishlist')
   const weaponWish = useFavorites('wishweapons')
   const [chars, setChars] = useState<CharacterSummary[]>([])
+  const { openMat, matSheet } = useMaterialSheet()
   const [mats, setMats] = useState<ItemEntry[]>([])
   const [weapons, setWeapons] = useState<ItemEntry[]>([])
   const [costs, setCosts] = useState<Record<string, Costs | null>>({})
@@ -175,9 +177,11 @@ export default function WishlistPage() {
                   <ul className="mat__list">
                     {total.map((it) => (
                       <li key={it.id}>
-                        <Thumb src={iconFor(it.name)} label={it.name} />
-                        <span>{it.name}</span>
-                        <b>{it.count.toLocaleString()}</b>
+                        <button className="mat__open" onClick={() => openMat(it.name)} aria-label={t('matWhereOf', { n: it.name })}>
+                          <Thumb src={iconFor(it.name)} label={it.name} />
+                          <span>{it.name}</span>
+                          <b>{it.count.toLocaleString()}</b>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -202,6 +206,7 @@ export default function WishlistPage() {
           />
         )}
 
+        {matSheet}
         <TabBar active={null} query="" onQuery={() => {}} noSearch />
       </main>
     </>

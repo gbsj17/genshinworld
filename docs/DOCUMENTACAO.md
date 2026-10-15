@@ -33,12 +33,12 @@ Resumo do que cada parte do site faz e como usar.
 - **Minha build:** na aba Builds da ficha, no topo, monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
 - **Meus dados:** no menu. "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
 - **Aviso de dados reduzidos:** se a base principal (genshin-db) não responder e o site usar a lista reserva, aparece uma faixa avisando que a lista é mais antiga e reduzida. Dá para fechá-la.
-- **Mapa (teste):** página experimental que tenta ler os dados do mapa interativo do HoYoLAB direto do navegador e mostra o que respondeu (status, campos e um exemplo). Os endereços não são oficiais e podem parar de funcionar; também tem um atalho para o mapa oficial.
+- **Onde conseguir:** tocar num material (página da arma, calculadora de materiais e lista de desejos) abre uma janela com a origem dele segundo a base de dados, o domínio que dá o item com os dias em que abre, se pode ser fabricado e um botão para o mapa oficial do HoYoLAB (abre em outra aba). O mapa não fica dentro do site porque o servidor dele bloqueia leitura por outros sites (CORS).
 - **Página da arma:** ao tocar numa arma na lista, abre a página dela. No celular: banner na cor da raridade com o ícone, atalhos de seção (Resumo, Efeito, Materiais, Personagens), ATQ base e atributo secundário, efeito com seletor de refinamento R1–R5, carrossel "Quem usa melhor" (personagens que têm a arma nas builds do site, do melhor lugar #1 para o pior, com medalhas para os 3 primeiros) e grade de materiais de ascensão (total e "Ver por fase"). No PC, o perfil da arma fica num painel lateral fixo. Dá para favoritar, colocar na lista de desejos e compartilhar o link. Nas builds da ficha, a janela da arma tem "Ver página completa".
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Meus dados, Mapa (teste), Documentação, troca de tema e troca de idioma.
+- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Meus dados, Documentação, troca de tema e troca de idioma.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -64,7 +64,6 @@ O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pa
 - `/#/wishlist` lista de desejos.
 - `/#/pity` contador de pity.
 - `/#/data` meus dados (exportar e importar).
-- `/#/map` mapa (teste).
 - Qualquer outro endereço volta para o Início.
 
 ## 5. Estrutura do projeto
@@ -88,6 +87,7 @@ src/
   PityPage.tsx       contador de pity (/pity)
   DataPage.tsx       exportar e importar os dados (/data)      backup.ts   regras do backup
   ApiNotice.tsx      aviso quando a base reserva é usada      apiStatus.ts
+  MaterialSheet.tsx  janela "Onde conseguir" de um material (useMaterialSheet.tsx)
   MyBuild.tsx        build própria, na aba Builds da ficha
   Picker.tsx         janela de escolha com busca e filtros (pickFilters.ts)
   costs.ts           soma de custos por nível      share.ts   copiar/compartilhar link

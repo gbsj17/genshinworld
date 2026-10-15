@@ -200,6 +200,7 @@ export interface ItemInfo {
   statName?: string
   statValue?: string
   description?: string
+  sources?: string[] // materiais: de onde vem (texto da base)
   set2?: string
   set4?: string
   version?: string
@@ -265,6 +266,7 @@ function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
     refine: kind === 'weapons' ? [d?.r1, d?.r2, d?.r3, d?.r4, d?.r5].map(refineValues) : undefined,
     statName: typeof d?.mainStatText === 'string' ? d.mainStatText : undefined,
     statValue: d?.baseStatText != null ? String(d.baseStatText) : undefined,
+    sources: Array.isArray(d?.sources) ? d.sources.filter((x: unknown) => typeof x === 'string') : undefined,
     set2: d?.effect2Pc,
     set4: d?.effect4Pc,
     id: typeof d?.id === 'number' ? d.id : undefined,

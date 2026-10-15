@@ -14,6 +14,7 @@ import MenuButton from './MenuButton'
 import PcNav from './PcNav'
 import { shareLink } from './share'
 import TabBar from './TabBar'
+import { useMaterialSheet } from './useMaterialSheet'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
 import { VISION_COLORS } from './visionColors'
@@ -40,6 +41,7 @@ export default function WeaponPage() {
   const refine = ref.name === name ? ref.r : 0 // volta ao R1 ao trocar de arma
   const setRefine = (r: number) => setRef({ name, r })
   const [sec, setSec] = useState<Sec>('sum')
+  const { openMat, matSheet } = useMaterialSheet()
   const fav = useFavorites('weapons')
   const wish = useFavorites('wishweapons')
 
@@ -245,10 +247,12 @@ export default function WeaponPage() {
                 {total.length > 0 && (
                   <ul className="wpn2__mats">
                     {total.map((it) => (
-                      <li key={it.id} title={it.name}>
-                        <Thumb src={iconFor(it.name)} label={it.name} />
-                        <b>{fmt(it.id, it.count)}</b>
-                        <span>{it.name}</span>
+                      <li key={it.id}>
+                        <button title={it.name} onClick={() => openMat(it.name)} aria-label={t('matWhereOf', { n: it.name })}>
+                          <Thumb src={iconFor(it.name)} label={it.name} />
+                          <b>{fmt(it.id, it.count)}</b>
+                          <span>{it.name}</span>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -270,6 +274,7 @@ export default function WeaponPage() {
           </div>
         </div>
 
+        {matSheet}
         <TabBar active="weapons" query="" onQuery={() => {}} noSearch />
       </main>
     </>
