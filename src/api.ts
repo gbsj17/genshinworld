@@ -195,6 +195,10 @@ export interface ItemInfo {
   stat?: string
   effectName?: string
   effect?: string
+  effectTpl?: string // texto do efeito com {0}, {1}… no lugar dos valores
+  refine?: string[][] // valores de R1 a R5, na ordem dos {n}
+  statName?: string
+  statValue?: string
   description?: string
   set2?: string
   set4?: string
@@ -222,6 +226,22 @@ function weaponEffect(d: Record<string, unknown>): string | undefined {
     .replace(/\\n/g, '\n')
 }
 
+const refineValues = (r: unknown): string[] => {
+  const list = Array.isArray(r) ? r : (r as { values?: unknown })?.values
+  return Array.isArray(list) ? list.map(String) : []
+}
+
+// Efeito no refinamento escolhido (0 = R1 … 4 = R5), em pedaços: texto puro e valores destacados.
+export function effectParts(info: ItemInfo, r: number): { text: string; value?: boolean }[] {
+  const tpl = info.effectTpl
+  if (!tpl) return info.effect ? [{ text: info.effect }] : []
+  const vals = info.refine?.[r]?.length ? info.refine[r] : (info.refine?.[0] ?? [])
+  return tpl.split(/(\{\d+\})/).filter(Boolean).map((p) => {
+    const m = /^\{(\d+)\}$/.exec(p)
+    return m ? { text: vals[+m[1]] ?? '…', value: true } : { text: p }
+  })
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
   const im = d?.images ?? {}
@@ -238,6 +258,13 @@ function toInfo(kind: 'weapons' | 'artifacts' | 'materials', d: any): ItemInfo {
     effectName: d?.effectName,
     description: typeof d?.description === 'string' ? d.description : undefined,
     effect: kind === 'weapons' ? weaponEffect(d) : undefined,
+    effectTpl:
+      kind === 'weapons' && typeof d?.effectTemplateRaw === 'string'
+        ? d.effectTemplateRaw.replace(/<[^>]+>/g, '').replace(/\\n/g, '\n')
+        : undefined,
+    refine: kind === 'weapons' ? [d?.r1, d?.r2, d?.r3, d?.r4, d?.r5].map(refineValues) : undefined,
+    statName: typeof d?.mainStatText === 'string' ? d.mainStatText : undefined,
+    statValue: d?.baseStatText != null ? String(d.baseStatText) : undefined,
     set2: d?.effect2Pc,
     set4: d?.effect4Pc,
     id: typeof d?.id === 'number' ? d.id : undefined,
