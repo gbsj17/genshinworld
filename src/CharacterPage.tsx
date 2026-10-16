@@ -30,13 +30,14 @@ import { BUILDS } from './data/builds'
 import { shareLink } from './share'
 import { buildText } from './data/buildText'
 
-type Tab = 'overview' | 'talents' | 'constellations' | 'builds'
+type Tab = 'overview' | 'talents' | 'constellations' | 'builds' | 'mine'
 
 const TABS: { id: Tab; label: Key }[] = [
   { id: 'overview', label: 'tabOverview' },
   { id: 'talents', label: 'tabTalents' },
   { id: 'constellations', label: 'tabConst' },
   { id: 'builds', label: 'tabBuilds' },
+  { id: 'mine', label: 'myBuild' },
 ]
 
 const SKILL_KIND: Record<string, { label: Key; asset: string }> = {
@@ -85,7 +86,11 @@ export default function CharacterPage({ id }: { id: string }) {
   const [all, setAll] = useState<CharacterSummary[]>([])
   const [error, setError] = useState(false)
   const [search] = useSearchParams()
-  const [tab, setTab] = useState<Tab>(() => (search.get('tab') === 'builds' ? 'builds' : 'overview'))
+  const [tab, setTab] = useState<Tab>(() => {
+    // link de build compartilhada (mb) abre direto em "Minha build", inclusive links antigos com tab=builds
+    if (search.get('mb') || search.get('tab') === 'mine') return 'mine'
+    return search.get('tab') === 'builds' ? 'builds' : 'overview'
+  })
   const [portraitIndex, setPortraitIndex] = useState(0)
   const { isFavorite, toggle } = useFavorites()
   const wish = useFavorites('wishlist')
@@ -210,7 +215,7 @@ export default function CharacterPage({ id }: { id: string }) {
               aria-label={t('shareLink')}
               onClick={async () => {
                 const base = window.location.href.split('?')[0]
-                const url = tab === 'builds' ? `${base}?tab=builds` : base
+                const url = tab === 'builds' || tab === 'mine' ? `${base}?tab=${tab}` : base
                 const r = await shareLink(character.name, url)
                 if (r === 'copied') {
                   setCopied(true)
@@ -374,7 +379,7 @@ export default function CharacterPage({ id }: { id: string }) {
             </article>
           ))}
 
-        {tab === 'builds' && <MyBuild charId={character.id} weaponType={character.weapon} />}
+        {tab === 'mine' && <MyBuild charId={character.id} weaponType={character.weapon} />}
 
         {tab === 'builds' && !build && (
           <p className="empty">{t('noBuild')}</p>

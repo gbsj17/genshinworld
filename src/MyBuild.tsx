@@ -161,7 +161,7 @@ export default function MyBuild({ charId, weaponType }: { charId: string; weapon
   }
   const share = async () => {
     const base = window.location.href.split('?')[0]
-    const r = await shareLink(charId, `${base}?tab=builds&mb=${encode(d)}`)
+    const r = await shareLink(charId, `${base}?tab=mine&mb=${encode(d)}`)
     if (r === 'copied') {
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1800)

@@ -25,12 +25,12 @@ Resumo do que cada parte do site faz e como usar.
 - **Comparar:** escolha dois personagens ou duas armas e veja lado a lado raridade, atributos e dados base; o melhor valor fica destacado. O botão de compartilhar copia o link da comparação.
 - **Equipes:** monte uma equipe de até 4 personagens, veja a ressonância elemental ativa, salve com nome, carregue, apague ou copie o link.
 - **Materiais:** escolha um personagem, a fase de ascensão e os níveis dos 3 talentos para ver o total de materiais e Mora necessários (EXP não incluída).
-- **Link da ficha:** o botão de compartilhar na ficha copia o link (na aba Builds, abre direto nela).
+- **Link da ficha:** o botão de compartilhar na ficha copia o link (nas abas Builds e Minha build, abre direto nelas).
 - **Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em "Limpar filtros".
 - **Farm de hoje:** escolha o dia da semana (abre em "Hoje") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto.
 - **Lista de desejos:** adicione os personagens e armas que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos de cada personagem, até o nível de talento que você escolher, mais a ascensão completa de cada arma. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
-- **Minha build:** na aba Builds da ficha, no topo, monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
+- **Minha build:** na aba Minha build da ficha (ao lado de Builds), monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
 - **Meus dados:** no menu. "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
 - **Aviso de dados reduzidos:** se a base principal (genshin-db) não responder e o site usar a lista reserva, aparece uma faixa avisando que a lista é mais antiga e reduzida. Dá para fechá-la.
 - **Onde conseguir:** tocar num material (página da arma, calculadora de materiais e lista de desejos) abre uma janela com a origem dele segundo a base de dados, o domínio que dá o item com os dias em que abre, se pode ser fabricado e um botão para o mapa oficial do HoYoLAB (abre em outra aba). O mapa não fica dentro do site porque o servidor dele bloqueia leitura por outros sites (CORS).
@@ -52,7 +52,7 @@ O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pa
 
 - `/#/` Início.
 - `/#/characters` lista de personagens.
-- `/#/character/:id` ficha (ex.: `/#/character/albedo`). Com `?tab=builds` abre direto na aba Builds.
+- `/#/character/:id` ficha (ex.: `/#/character/albedo`). Com `?tab=builds` abre direto na aba Builds e com `?tab=mine`, na aba Minha build.
 - `/#/weapons` e `/#/artifacts` listas.
 - `/#/weapon/:nome` página da arma (ex.: `/#/weapon/Aquila%20Favonia`).
 - `/#/favorites` favoritos.
@@ -74,7 +74,7 @@ src/
   Splash.tsx         abertura animada (elementos que viram o logo)
   NewsPage.tsx       Início (banner animado, novidades, banners de oração)
   HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos)
-  CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds
+  CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds, minha build
   ItemsPage.tsx      armas e artefatos (lista, filtros)
   WeaponPage.tsx     página da arma (/weapon/:nome)
   FavoritesPage.tsx  favoritos de personagens, armas e artefatos
@@ -88,7 +88,7 @@ src/
   DataPage.tsx       exportar e importar os dados (/data)      backup.ts   regras do backup
   ApiNotice.tsx      aviso quando a base reserva é usada      apiStatus.ts
   MaterialSheet.tsx  janela "Onde conseguir" de um material (useMaterialSheet.tsx)
-  MyBuild.tsx        build própria, na aba Builds da ficha
+  MyBuild.tsx        build própria, na aba Minha build da ficha
   Picker.tsx         janela de escolha com busca e filtros (pickFilters.ts)
   costs.ts           soma de custos por nível      share.ts   copiar/compartilhar link
   ItemModal.tsx      detalhes de arma/artefato
