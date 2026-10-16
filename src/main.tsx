@@ -2,7 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import './install'
+import { initSync } from './sync'
 import App from './App.tsx'
+
+initSync()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

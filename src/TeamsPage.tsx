@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { saveLocal } from './store'
 import type { CSSProperties } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { getAllCharacters, iconChain } from './api'
@@ -39,7 +40,7 @@ function loadTeams(): SavedTeam[] {
 
 function saveTeams(list: SavedTeam[]) {
   try {
-    localStorage.setItem(KEY, JSON.stringify(list))
+    saveLocal(KEY, JSON.stringify(list))
   } catch {
     // sem armazenamento: as equipes valem só até fechar a página
   }

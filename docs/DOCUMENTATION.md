@@ -32,6 +32,7 @@ A summary of what each part of the site does and how to use it.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
 - **My build:** on the sheet's My build tab (next to Builds), make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
 - **My data:** in the menu. "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
+- **Sync across devices:** in My data (or "Sign in with Google" in the menu), sign in with your Google account. Builds, favorites, wishlist, teams and pity are saved in the cloud and show up on any device with the same account. Changes are sent automatically (about 2 seconds later). If the device and the cloud have different data, the site asks which version to keep. When you come back to the tab, if another device changed something, "Update" appears. Signing out does not delete anything from the device. It only shows up after Firebase is configured (see Deploy).
 - **Reduced data notice:** if the main source (genshin-db) does not respond and the site uses the backup list, a bar warns that the list is older and smaller. You can close it.
 - **Where to get it:** tapping a material (weapon page, material calculator and wishlist) opens a window with its source according to the database, the domain that drops it with the days it opens, whether it can be crafted and a button to the official HoYoLAB map (opens in another tab). The map is not embedded because its server blocks reading by other sites (CORS).
 - **Weapon page:** tapping a weapon in the list opens its page. On mobile: a banner in the rarity color with the icon, section shortcuts (Summary, Effect, Materials, Characters), base ATK and secondary stat, effect with an R1–R5 refinement selector, a "Who uses it best" carousel (characters that have the weapon in the site builds, from best place #1 to worst, with medals for the top 3) and an ascension material grid (total and "See by phase"). On desktop, the weapon profile sits in a sticky side panel. You can favorite it, add it to the wishlist and share the link. On the sheet's builds, the weapon window has "Open full page".
@@ -88,6 +89,10 @@ src/
   DataPage.tsx       export and import data (/data)      backup.ts   backup rules
   ApiNotice.tsx      notice when the backup source is used      apiStatus.ts
   MaterialSheet.tsx  "Where to get it" window for a material (useMaterialSheet.tsx)
+  sync.ts            sync (Google sign-in + Firestore)      syncLogic.ts  conflict rule
+  SyncCard.tsx       account card in My data      SyncPrompts.tsx  conflict and new-data notice
+  firebaseConfig.ts  Firebase config (empty = sync off)
+  store.ts           device storage write that notifies sync
   MyBuild.tsx        own build, on the sheet's My build tab
   Picker.tsx         picker window with search and filters (pickFilters.ts)
   costs.ts           cost sum per level            share.ts   copy/share link
@@ -180,7 +185,8 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:my-builds`: each character's own build.
 - `genshinworld:splash` (session): marks that the intro has already shown.
 - **Service worker cache:** app files, images, API data and fonts.
-- None of this is sent anywhere. If the browser blocks storage, the site works the same, it just does not remember choices.
+- `genshinworld:sync`: connected account and sync control (last known cloud version and whether there are changes to send).
+- **With sync on:** the same data as the backup goes to Firestore, in the `users/{account id}` document, which only that account can read and write (rules in `firestore.rules`). Without signing in, nothing leaves the device.
 
 ## 13. Layouts and style
 
@@ -249,6 +255,8 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - A push to `main` triggers GitHub Actions (`.github/workflows/deploy.yml`): `npm ci`, tests, banner update, `npm run build` and publishing to Pages.
 - It also runs manually and every day at 12:00 UTC (to update banners).
 - After a push, the new site appears in a few minutes. If something looks old, reload with Ctrl+F5; on mobile, close and reopen the app.
+- **Firebase (sync):** 1) create a project at console.firebase.google.com; 2) Authentication → Sign-in method → enable Google; 3) Authentication → Settings → Authorized domains → add `gbsj17.github.io`; 4) Firestore Database → Create database (production mode) and, under Rules, paste the contents of `firestore.rules`; 5) Project settings → Your apps → Web app → copy `apiKey`, `authDomain`, `projectId` and `appId` into `src/firebaseConfig.ts`. While that file is empty, sync stays hidden.
+- Firebase (about 230 KB) is only downloaded when someone signs in, so it adds no weight for people who don't use it.
 
 ## 20. Performance
 
@@ -283,4 +291,4 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 
 ## 24. Future ideas
 
-Google login and cloud favorites, redeem codes and event calendar, area and map info for new versions, indexable routes for search engines and packaging as an Android app.
+Redeem codes and event calendar, area and map info for new versions, indexable routes for search engines and packaging as an Android app.

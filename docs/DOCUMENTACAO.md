@@ -32,6 +32,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
 - **Minha build:** na aba Minha build da ficha (ao lado de Builds), monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
 - **Meus dados:** no menu. "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
+- **Sincronizar entre aparelhos:** em Meus dados (ou "Entrar com Google" no menu), entre com a conta do Google. Builds, favoritos, lista de desejos, equipes e pity ficam salvos na nuvem e aparecem em qualquer aparelho com a mesma conta. As mudanças são enviadas sozinhas (cerca de 2 segundos depois). Se o aparelho e a nuvem tiverem dados diferentes, o site pergunta qual versão manter. Ao voltar para a aba, se outro aparelho mudou algo, aparece "Atualizar". Sair da conta não apaga nada do aparelho. Só aparece depois que o Firebase estiver configurado (veja Deploy).
 - **Aviso de dados reduzidos:** se a base principal (genshin-db) não responder e o site usar a lista reserva, aparece uma faixa avisando que a lista é mais antiga e reduzida. Dá para fechá-la.
 - **Onde conseguir:** tocar num material (página da arma, calculadora de materiais e lista de desejos) abre uma janela com a origem dele segundo a base de dados, o domínio que dá o item com os dias em que abre, se pode ser fabricado e um botão para o mapa oficial do HoYoLAB (abre em outra aba). O mapa não fica dentro do site porque o servidor dele bloqueia leitura por outros sites (CORS).
 - **Página da arma:** ao tocar numa arma na lista, abre a página dela. No celular: banner na cor da raridade com o ícone, atalhos de seção (Resumo, Efeito, Materiais, Personagens), ATQ base e atributo secundário, efeito com seletor de refinamento R1–R5, carrossel "Quem usa melhor" (personagens que têm a arma nas builds do site, do melhor lugar #1 para o pior, com medalhas para os 3 primeiros) e grade de materiais de ascensão (total e "Ver por fase"). No PC, o perfil da arma fica num painel lateral fixo. Dá para favoritar, colocar na lista de desejos e compartilhar o link. Nas builds da ficha, a janela da arma tem "Ver página completa".
@@ -88,6 +89,10 @@ src/
   DataPage.tsx       exportar e importar os dados (/data)      backup.ts   regras do backup
   ApiNotice.tsx      aviso quando a base reserva é usada      apiStatus.ts
   MaterialSheet.tsx  janela "Onde conseguir" de um material (useMaterialSheet.tsx)
+  sync.ts            sincronização (login Google + Firestore)      syncLogic.ts  regra de conflito
+  SyncCard.tsx       cartão de conta em Meus dados      SyncPrompts.tsx  conflito e aviso de dados novos
+  firebaseConfig.ts  configuração do Firebase (vazia = sincronização desligada)
+  store.ts           gravação no aparelho que avisa a sincronização
   MyBuild.tsx        build própria, na aba Minha build da ficha
   Picker.tsx         janela de escolha com busca e filtros (pickFilters.ts)
   costs.ts           soma de custos por nível      share.ts   copiar/compartilhar link
@@ -180,7 +185,8 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:my-builds`: a build própria de cada personagem.
 - `genshinworld:splash` (sessão): marca que a abertura já apareceu.
 - **Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.
-- Nada disso é enviado a lugar nenhum. Se o navegador bloquear o armazenamento, o site funciona do mesmo jeito, só sem lembrar as escolhas.
+- `genshinworld:sync`: conta conectada e controle da sincronização (última versão da nuvem conhecida e se há mudanças a enviar).
+- **Com a sincronização ligada:** os mesmos dados do backup vão para o Firestore, no documento `users/{id da conta}`, que só a própria conta lê e grava (regras em `firestore.rules`). Sem login, nada sai do aparelho.
 
 ## 13. Layouts e estilo
 
@@ -249,6 +255,8 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - Push na `main` dispara o GitHub Actions (`.github/workflows/deploy.yml`): `npm ci`, testes, atualização dos banners, `npm run build` e publicação no Pages.
 - Também roda manualmente e todo dia às 12:00 UTC (para atualizar os banners).
 - Depois do push, o site novo aparece em alguns minutos. Se algo parecer antigo, recarregue com Ctrl+F5; no celular, feche e abra o app.
+- **Firebase (sincronização):** 1) crie um projeto em console.firebase.google.com; 2) Authentication → Método de login → ative Google; 3) Authentication → Configurações → Domínios autorizados → adicione `gbsj17.github.io`; 4) Firestore Database → Criar banco (modo produção) e, em Regras, cole o conteúdo de `firestore.rules`; 5) Configurações do projeto → Seus apps → app da Web → copie `apiKey`, `authDomain`, `projectId` e `appId` para `src/firebaseConfig.ts`. Enquanto esse arquivo estiver vazio, a sincronização fica escondida.
+- O Firebase (cerca de 230 KB) só é baixado quando alguém entra na conta, então não pesa para quem não usa.
 
 ## 20. Desempenho
 
@@ -283,4 +291,4 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 
 ## 24. Ideias futuras
 
-Login com Google e favoritos na nuvem, códigos de resgate e calendário de eventos, informações de áreas e mapas das novas versões, rotas indexáveis para buscadores e empacotar como app Android.
+Códigos de resgate e calendário de eventos, informações de áreas e mapas das novas versões, rotas indexáveis para buscadores e empacotar como app Android.

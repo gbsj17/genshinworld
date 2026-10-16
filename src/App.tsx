@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { HashRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 const CharacterPage = lazy(() => import('./CharacterPage'))
+const SyncPrompts = lazy(() => import('./SyncPrompts'))
 const FavoritesPage = lazy(() => import('./FavoritesPage'))
 const HomePage = lazy(() => import('./HomePage'))
 const ItemsPage = lazy(() => import('./ItemsPage'))
@@ -15,6 +16,7 @@ const DataPage = lazy(() => import('./DataPage'))
 const WeaponPage = lazy(() => import('./WeaponPage'))
 import NewsPage from './NewsPage'
 import ApiNotice from './ApiNotice'
+import { useSync } from './sync'
 import Footer from './Footer'
 import Splash from './Splash'
 import { MenuProvider } from './MenuProvider'
@@ -55,6 +57,7 @@ function App() {
         </Routes>
         </Suspense>
         <ApiNotice />
+        <SyncSlot />
         <Footer />
       </MenuProvider>
     </HashRouter>
@@ -62,3 +65,14 @@ function App() {
 }
 
 export default App
+
+// Avisos da sincronização: o componente (e o CSS dele) só é baixado quando há algo para mostrar
+function SyncSlot() {
+  const { status } = useSync()
+  if (status !== 'conflict' && status !== 'update') return null
+  return (
+    <Suspense fallback={null}>
+      <SyncPrompts />
+    </Suspense>
+  )
+}

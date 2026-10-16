@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { saveLocal } from './store'
 import { t } from './i18n'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
@@ -42,7 +43,7 @@ function load(): Record<Banner, State> {
 
 function save(all: Record<Banner, State>) {
   try {
-    localStorage.setItem(KEY, JSON.stringify(all))
+    saveLocal(KEY, JSON.stringify(all))
   } catch {
     // sem armazenamento disponível: vale só até fechar a página
   }

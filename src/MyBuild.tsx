@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { saveLocal } from './store'
 import { useSearchParams } from 'react-router-dom'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
@@ -36,7 +37,7 @@ function loadAll(): Store {
 
 function saveAll(s: Store) {
   try {
-    localStorage.setItem(KEY, JSON.stringify(s))
+    saveLocal(KEY, JSON.stringify(s))
   } catch {
     // sem armazenamento: vale só até fechar a página
   }

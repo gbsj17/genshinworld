@@ -1,0 +1,18 @@
+rules_version = '2';
+// Cada pessoa só lê e grava o próprio documento (users/{uid}).
+// O documento tem só dois campos: json (texto com os dados, até 1 MB) e updatedAt (número).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['json', 'updatedAt'])
+        && request.resource.data.json is string
+        && request.resource.data.json.size() < 1000000
+        && request.resource.data.updatedAt is number;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

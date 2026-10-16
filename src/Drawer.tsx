@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { lang, setLang, t } from './i18n'
 import { useInstall } from './install'
 import { useMenu } from './menuContext'
+import { signIn, useSync } from './sync'
 import './drawer.css'
 
 // --i controla o atraso de cada item na animação de entrada (um depois do outro)
@@ -12,6 +13,7 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 export default function Drawer() {
   const { open, closeMenu, theme, toggleTheme } = useMenu()
   const { available, install } = useInstall()
+  const sync = useSync()
   const panelRef = useRef<HTMLElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
 
@@ -139,7 +141,35 @@ export default function Drawer() {
             </svg>
             {t('data')}
           </Link>
-          <Link to="/docs" className="drawer__item" style={step(10)} onClick={closeMenu}>
+          {sync.status !== 'off' &&
+            (sync.user ? (
+              <Link to="/data" className="drawer__item" style={step(10)} onClick={closeMenu}>
+                {sync.user.photo ? (
+                  <img className="drawer__avatar" src={sync.user.photo} alt="" referrerPolicy="no-referrer" />
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0" />
+                  </svg>
+                )}
+                {t('syncAccount', { n: sync.user.name.split(' ')[0] })}
+              </Link>
+            ) : (
+              <button
+                className="drawer__item"
+                style={step(10)}
+                disabled={sync.status === 'loading'}
+                onClick={() => {
+                  void signIn()
+                  closeMenu()
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
+                </svg>
+                {t('syncSignIn')}
+              </button>
+            ))}
+          <Link to="/docs" className="drawer__item" style={step(11)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7" />
             </svg>
@@ -147,7 +177,7 @@ export default function Drawer() {
           </Link>
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(11)}>
+        <div className="drawer__item drawer__item--row" style={step(12)}>
           <span className="drawer__label">
             {t('theme')}
             <small>{isLight ? t('themeLight') : t('themeDark')}</small>
@@ -171,7 +201,7 @@ export default function Drawer() {
           </button>
         </div>
 
-        <div className="drawer__item drawer__item--row" style={step(12)}>
+        <div className="drawer__item drawer__item--row" style={step(13)}>
           <span className="drawer__label">{t('language')}</span>
           <div className="lang-switch" role="group" aria-label={t('language')}>
             <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>
@@ -181,7 +211,7 @@ export default function Drawer() {
         {available && (
           <button
             className="drawer__item drawer__item--btn"
-            style={step(13)}
+            style={step(14)}
             onClick={() => {
               closeMenu()
               void install()

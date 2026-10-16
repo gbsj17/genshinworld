@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+import { saveLocal } from './store'
 
 export type FavKind = 'characters' | 'weapons' | 'artifacts' | 'wishlist' | 'wishweapons'
 
@@ -36,7 +37,7 @@ function toggleFav(kind: FavKind, id: string) {
   const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
   state[kind] = next
   try {
-    localStorage.setItem(KEYS[kind], JSON.stringify(next))
+    saveLocal(KEYS[kind], JSON.stringify(next))
   } catch {
     // sem armazenamento disponível: os favoritos valem só até fechar a página
   }

@@ -14,6 +14,7 @@ const KEYS = {
 } as const
 
 type Key = keyof typeof KEYS
+export type UserData = Partial<Record<Key, unknown>>
 
 export const MAX_BYTES = 2_000_000
 
@@ -33,16 +34,44 @@ function valid(kind: (typeof KEYS)[Key], v: unknown): boolean {
 }
 
 export function buildBackup(): BackupFile {
-  const data: BackupFile['data'] = {}
+  return { app: 'genshinworld', version: 1, exportedAt: new Date().toISOString(), data: readAll() }
+}
+
+// Tudo o que é do usuário e está salvo no aparelho (usado no backup e na sincronização)
+export function readAll(): UserData {
+  const data: UserData = {}
   for (const k of Object.keys(KEYS) as Key[]) {
     try {
       const raw = localStorage.getItem(PREFIX + k)
       if (raw) data[k] = JSON.parse(raw)
     } catch {
-      // valor corrompido ou sem armazenamento: fica de fora do arquivo
+      // valor corrompido ou sem armazenamento: fica de fora
     }
   }
-  return { app: 'genshinworld', version: 1, exportedAt: new Date().toISOString(), data }
+  return data
+}
+
+export const isEmptyData = (d: UserData) =>
+  Object.values(d).every((v) => v == null || (Array.isArray(v) ? v.length === 0 : isObject(v) && Object.keys(v).length === 0))
+
+// Grava os dados vindos da nuvem no lugar dos do aparelho. Confere o formato antes;
+// chave que a nuvem não tem é apagada do aparelho (a nuvem vira a versão certa).
+export function replaceAll(data: unknown): boolean {
+  if (!isObject(data)) return false
+  const ok: [Key, unknown][] = []
+  for (const k of Object.keys(KEYS) as Key[]) {
+    const v = data[k]
+    if (v === undefined) continue
+    if (!valid(KEYS[k], v)) return false
+    ok.push([k, v])
+  }
+  try {
+    for (const k of Object.keys(KEYS) as Key[]) localStorage.removeItem(PREFIX + k)
+    for (const [k, v] of ok) localStorage.setItem(PREFIX + k, JSON.stringify(v))
+  } catch {
+    return false
+  }
+  return true
 }
 
 export type ImportResult = { ok: true; keys: Key[] } | { ok: false }

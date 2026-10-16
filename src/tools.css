@@ -1485,3 +1485,73 @@
   text-decoration: none;
 }
 
+
+/* Sincronização (Meus dados) */
+.sync-card__google {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+}
+
+.sync-card__g {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: #4285f4;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.sync-card__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sync-card__user img,
+.sync-card__user > span {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: none;
+  object-fit: cover;
+  display: grid;
+  place-items: center;
+  background: var(--surface-deep);
+  border: 1px solid var(--line-strong);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.sync-card__user div {
+  display: grid;
+  min-width: 0;
+}
+
+.sync-card__user small {
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sync-card__acts,
+.sync-modal__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sync-modal .modal__body {
+  padding-top: 20px;
+}
+
+.sync-notice__btn {
+  font: inherit;
+  font-weight: 700;
+  color: var(--gold) !important;
+  font-size: 13px !important;
+}

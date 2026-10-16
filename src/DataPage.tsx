@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { buildBackup, restoreBackup } from './backup'
 import { t } from './i18n'
 import MenuButton from './MenuButton'
+import SyncCard from './SyncCard'
 import PcNav from './PcNav'
 import TabBar from './TabBar'
 import './tools.css'
@@ -50,6 +51,8 @@ export default function DataPage() {
         <div className="tool__body farm">
           <h1 className="tool__title">{t('data')}</h1>
           <p className="tool__muted">{t('dataIntro')}</p>
+
+          <SyncCard />
 
           <section className="mat__result data__box">
             <h2>{t('dataExport')}</h2>
