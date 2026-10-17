@@ -74,7 +74,7 @@ export function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
           if (r.build.weapon || r.build.sets.length || r.build.sands || r.build.subs.length) items[f.char.id] = r.build
         }
         ownW.merge(ws)
-        setBuilds(addMissingBuilds(items))
+        setBuilds(addMissingBuilds(items, t('buildFromGame')))
       } catch {
         // sem a lista de armas e artefatos: ficam só os personagens
       }

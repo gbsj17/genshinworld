@@ -9,7 +9,7 @@ import { useFavorites } from './favorites'
 import { t } from './i18n'
 import { ItemCard, ItemRow } from './ItemCards'
 import MenuButton from './MenuButton'
-import { loadBuilds } from './myBuildStore'
+import { countBuilds, loadBuilds } from './myBuildStore'
 import { useOwned } from './owned'
 import { useOwnedWeapons } from './ownedWeapons'
 import PcNav from './PcNav'
@@ -185,7 +185,7 @@ export default function DataPage() {
   const weapons = Object.entries(ownW.owned)
   const cons = Object.values(own.owned).reduce((n, i) => n + i.c, 0)
   const goals = gc.ids.length + gw.ids.length + ga.ids.length
-  const builds = Object.keys(loadBuilds()).length
+  const builds = countBuilds(loadBuilds())
   const goalChars = gc.ids.map((id) => all.find((c) => c.id === id)).filter((c): c is CharacterSummary => !!c)
   const teams = readJson<SavedTeam[]>('genshinworld:teams', []).filter((x) => x && Array.isArray(x.members))
   const pity = readJson<Record<string, PityState>>('genshinworld:pity', {})

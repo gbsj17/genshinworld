@@ -1948,3 +1948,263 @@
 .own__tools .seg button {
   white-space: nowrap;
 }
+
+/* Minhas builds: lista de builds salvas por personagem */
+.mine {
+  max-width: 860px;
+}
+
+.mine--list {
+  max-width: 1180px;
+}
+
+.bgrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 820px) {
+  .bgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.bnew {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 120px;
+  border-radius: 20px;
+  border: 2px dashed var(--line-strong);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (min-width: 820px) {
+  .bnew {
+    min-height: 230px;
+  }
+}
+
+.bnew:hover {
+  color: var(--text);
+  border-color: var(--gold);
+}
+
+.bnew__plus {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--on-accent);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.bcard {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.bcard__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bcard__head > strong {
+  flex: 1;
+  min-width: 0;
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btag {
+  padding: 4px 12px;
+  border-radius: 99px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.btag--dps { background: #e0603a; }
+.btag--subdps { background: #c98a1c; }
+.btag--support { background: #3a9bd0; }
+.btag--healer { background: #4aa57f; }
+.btag--other { background: #7d86a3; }
+
+.bcard__menu {
+  position: relative;
+}
+
+.bcard__dots {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-weight: 900;
+  letter-spacing: 2px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.bcard__pop {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 5;
+  min-width: 120px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.bcard__pop button {
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bcard__pop button:hover {
+  background: var(--surface-deep);
+}
+
+.bcard__weapon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bcard__weapon > div:not(.item-icon) {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bcard small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.bcard .item-icon {
+  width: 52px;
+  height: 52px;
+  flex: none;
+}
+
+.bcard .item-icon .thumb {
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+}
+
+.bcard__sets {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.bcard__stack {
+  display: flex;
+  flex: none;
+}
+
+.bcard__stack .item-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.bcard__stack .item-icon + .item-icon {
+  margin-left: -8px;
+}
+
+.bcard__mains {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.bcard__mains > div {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--surface-deep);
+  min-width: 0;
+}
+
+.bcard__mains strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.bcard__pred {
+  margin: 0;
+  font-size: 13px;
+}
+
+.bcard__pred b {
+  color: var(--gold);
+}
+
+.bcard__subs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.bcard__subs span {
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--surface-deep);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bcard__subs span:first-child {
+  background: var(--gold);
+  color: var(--on-accent);
+}
+
+.bcard__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bsave {
+  display: grid;
+  gap: 12px;
+  padding: 4px 2px 8px;
+}
+
+.bsave__acts {
+  justify-content: flex-end;
+  margin-top: 8px;
+}
