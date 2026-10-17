@@ -1,4 +1,6 @@
 // Backup dos dados que ficam só no aparelho: exportar para um arquivo e importar em outro aparelho.
+import { CHANGED_EVENT } from './store'
+
 const PREFIX = 'genshinworld:'
 
 // chave → tipo esperado do valor
@@ -98,5 +100,7 @@ export function restoreBackup(text: string): ImportResult {
   } catch {
     return { ok: false }
   }
+  // avisa a sincronização: o que foi importado precisa subir para a conta
+  window.dispatchEvent(new CustomEvent(CHANGED_EVENT, { detail: 'import' }))
   return { ok: true, keys: accepted.map(([k]) => k) }
 }
