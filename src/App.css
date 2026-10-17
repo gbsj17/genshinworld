@@ -724,50 +724,13 @@ a.member:hover .thumb {
   }
 }
 
-/* Ficha no celular, como no PC: a arte fica parada no topo e o conteúdo sobe por cima dela (efeito parallax).
-   Só os botões do topo rolam junto com a página. */
+/* Ficha no celular, como no PC: a arte sobe um pouquinho junto com os botões do topo até eles sumirem
+   (64px) e aí trava; o resto da página passa por cima dela. */
 @media (max-width: 819px) {
-  .sheet-screen::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 50%;
-    z-index: 0;
-    width: min(100%, 430px);
-    height: 400px;
-    transform: translateX(-50%);
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 68% 34%, color-mix(in srgb, var(--accent) var(--hero-tint), transparent), transparent 62%),
-      linear-gradient(180deg, color-mix(in srgb, var(--accent) 22%, var(--bg)) 0%, var(--bg) 100%);
-  }
-
   .sheet-screen .hero {
-    position: static;
-    height: 0;
-    overflow: visible;
-    background: none;
-  }
-
-  .sheet-screen .hero__img {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    right: auto;
+    position: sticky;
+    top: -64px;
     z-index: 0;
-    width: min(100%, 430px);
-    height: 400px;
-    max-width: none;
-    margin: 0;
-    transform: translateX(-50%);
-  }
-
-  .sheet-screen .hero__bar {
-    z-index: 3;
-  }
-
-  .sheet-screen .sheet {
-    margin-top: 330px;
   }
 
   .sheet-screen {
