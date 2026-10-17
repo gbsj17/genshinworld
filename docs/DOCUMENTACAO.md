@@ -17,7 +17,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Abertura:** na primeira vez em cada sessão, os 7 elementos giram, se fecham no centro e formam o logo. Toque ou clique para pular. Não aparece para quem usa "reduzir movimento" no sistema.
 - **Início:** no celular e no PC, um banner animado mostra os personagens mais novos (troca sozinho a cada 6 segundos; setas e pontos mudam na mão) com os botões "Ver ficha" e "Ver build". Abaixo ficam as novas armas, os novos artefatos, os banners de oração atuais e os novos materiais. O campo de busca da página procura personagens, armas e artefatos de uma vez (até 12 resultados de cada).
 - **Banners de oração:** carrosséis de banner de personagem e de arma (trocam a cada 7 segundos). Clique num banner para ver os itens em destaque (5★ e 4★ com chance aumentada) e a data de término. Só aparecem banners que ainda não terminaram.
-- **Personagens:** lista com todos os personagens. Filtre por elemento, busque pelo nome (em português ou inglês), alterne entre grade e lista e marque favoritos com a estrela. Na lista, cada linha mostra os ícones das 3 habilidades ativas (em telas com mais de 560px) e há um índice alfabético com efeito de lupa na lateral.
+- **Personagens:** lista com todos os personagens. Filtre por elemento, busque pelo nome (em português ou inglês), alterne entre grade e lista e marque favoritos com a estrela. Cada card mostra estrelas, elemento, arma e nação; se você marcou o personagem como "tenho", mostra também constelação (pontinhos) e nível, e quem você não tem aparece como "Não tenho". O ícone de seta para cima com um mais indica que o personagem está em "Evoluindo". Na lista, cada linha traz as mesmas informações e há um índice alfabético com efeito de lupa na lateral.
 - **Ficha do personagem:** quatro abas. *Visão geral* (elemento, arma, nação, raridade, melhor arma, equipe sugerida e prévia dos talentos), *Talentos* (ataque normal, habilidade, supremo e passivos com descrição), *Constelações* (C1 a C6) e *Builds* (armas em ordem de preferência, conjuntos de artefatos, atributos principais por slot, substats, equipes e as fontes do guia). Clicar numa arma ou artefato abre os detalhes; clicar num integrante de equipe abre a ficha dele. No PC o banner fica fixo e o conteúdo desliza por cima.
 - **Armas e Artefatos:** lista completa com filtro por tipo e por raridade, busca e detalhes em janela (no PC) ou gaveta (no celular). Favoritos funcionam igual aos personagens.
 - **Favoritos:** reúne personagens, armas e artefatos marcados com a estrela, em abas. Ficam salvos no aparelho.
@@ -156,7 +156,6 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - **API de anúncios da HoYoverse:** banners de oração, lida pelo script `fetch-banners.mjs` no deploy (o navegador não chama essa API).
 - **Plano B:** se a genshin-db falhar, a lista de personagens vem da genshin.dev (mais antiga). Talentos e constelações usam a genshin.dev como reserva para quem existe lá. Ícones têm várias alternativas em ordem.
 - **Novos itens:** ordenados por versão de lançamento e id numérico (`newestFirst`). Itens sem versão contam como os mais novos.
-- **Habilidades na lista de personagens:** uma única busca de talentos, feita só quando a lista é aberta; o nome em inglês do personagem liga cada um aos seus ícones.
 
 ## 8. Modelos de dados
 

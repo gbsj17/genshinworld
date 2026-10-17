@@ -17,7 +17,7 @@ A summary of what each part of the site does and how to use it.
 - **Intro:** the first time in each session, the 7 elements spin, close in on the center and form the logo. Tap or click to skip. It does not show for people using "reduce motion" in their system.
 - **Home:** on mobile and desktop, an animated banner shows the newest characters (it changes by itself every 6 seconds; arrows and dots change it by hand) with "View profile" and "View build" buttons. Below are new weapons, new artifacts, the current wish banners and new materials. The page search looks for characters, weapons and artifacts at once (up to 12 results of each).
 - **Wish banners:** carousels of character and weapon banners (they change every 7 seconds). Click a banner to see the featured items (5★ and 4★ with boosted rate) and the end date. Only banners that have not ended are shown.
-- **Characters:** list with all characters. Filter by element, search by name (in Portuguese or English), switch between grid and list and mark favorites with the star. In the list, each row shows the icons of the 3 active skills (on screens wider than 560px) and there is an alphabetical index with a magnifier effect on the side.
+- **Characters:** list with all characters. Filter by element, search by name (in Portuguese or English), switch between grid and list and mark favorites with the star. Each card shows stars, element, weapon and nation; if you marked the character as owned, it also shows constellation (dots) and level, and characters you do not have show "Not owned". The up-arrow-with-plus icon means the character is in "Leveling up". In the list, each row has the same information and there is an alphabetical index with a magnifier effect on the side.
 - **Character profile:** four tabs. *Overview* (element, weapon, nation, rarity, best weapon, suggested team and a talents preview), *Talents* (normal attack, skill, burst and passives with descriptions), *Constellations* (C1 to C6) and *Builds* (weapons in order of preference, artifact sets, main stats per slot, substats, teams and the guide sources). Clicking a weapon or artifact opens its details; clicking a team member opens their profile. On desktop the banner stays fixed and the content slides over it.
 - **Weapons and Artifacts:** full list with filters by type and rarity, search and details in a window (desktop) or drawer (mobile). Favorites work like characters.
 - **Favorites:** gathers starred characters, weapons and artifacts, in tabs. They are saved on the device.
@@ -156,7 +156,6 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - **HoYoverse announcement API:** wish banners, read by the `fetch-banners.mjs` script at deploy time (the browser does not call this API).
 - **Fallback:** if genshin-db fails, the character list comes from genshin.dev (older). Talents and constellations use genshin.dev as a backup for those that exist there. Icons have several alternatives in order.
 - **New items:** sorted by release version and numeric id (`newestFirst`). Items without a version count as the newest.
-- **Skills in the character list:** a single talents request, made only when the list is opened; the character's English name links each one to its icons.
 
 ## 8. Data models
 
