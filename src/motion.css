@@ -13,6 +13,8 @@
 .item-card,
 .char-card,
 .row-item,
+.vcard,
+.vrow,
 .shortcut,
 .member,
 .news-more,
@@ -41,6 +43,8 @@
 .item-card:active,
 .char-card:active,
 .row-item:active,
+.vcard:active,
+.vrow:active,
 .shortcut:active,
 .hero-slide__btn:active,
 .gacha-row:active,
@@ -79,11 +83,12 @@
   to { opacity: 1; }
 }
 
+/* backwards (e não both): ao terminar, o card volta ao estilo normal e o hover consegue levantá-lo */
 .cards > *,
 .item-grid > *,
-.list .row-item,
+.list .vrow,
 .banners > * {
-  animation: card-in 0.6s var(--ease-out) both;
+  animation: card-in 0.6s var(--ease-out) backwards;
 }
 
 .cards > *:nth-child(2), .item-grid > *:nth-child(2) { animation-delay: 0.04s; }

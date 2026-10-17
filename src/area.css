@@ -380,6 +380,21 @@
   color: var(--gold);
 }
 
+/* celular: no perfil só o botão de menu fica no topo, sobre o céu do banner */
+@media (max-width: 819px) {
+  .area__top {
+    justify-content: flex-end;
+  }
+
+  .area__top > div:first-child {
+    display: none;
+  }
+
+  .area__id {
+    margin-top: 48px;
+  }
+}
+
 @media (min-width: 820px) {
   .area__hero {
     height: 230px;
