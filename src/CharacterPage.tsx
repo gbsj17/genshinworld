@@ -138,6 +138,33 @@ export default function CharacterPage({ id }: { id: string }) {
 
   usePageTitle(character?.name)
 
+  // Ao rolar, a arte do topo vai esmaecendo aos poucos (e volta ao subir). Só mexe numa variável CSS, uma vez por quadro.
+  const loaded = Boolean(character)
+  useEffect(() => {
+    if (!loaded) return
+    const el = document.querySelector<HTMLElement>('.sheet-screen')
+    if (!el) return
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const span = window.innerWidth >= 820 ? 380 : 360
+      const p = Math.min(1, Math.max(0, window.scrollY / span))
+      const ease = p * p * (3 - 2 * p)
+      el.style.setProperty('--hero-fade', (1 - 0.88 * ease).toFixed(3))
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [loaded])
+
   if (error) {
     return <main className="screen screen--message"><ErrorMsg text={t('loadCharFail')} /></main>
   }

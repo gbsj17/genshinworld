@@ -774,3 +774,9 @@ a.member:hover .thumb {
     padding-bottom: 110px; /* espaço para a barra de baixo */
   }
 }
+
+/* A arte do topo esmaece conforme a página rola (a variável vem da CharacterPage) */
+.sheet-screen .hero__img {
+  opacity: var(--hero-fade, 1);
+  will-change: opacity;
+}
