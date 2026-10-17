@@ -39,3 +39,17 @@ describe('backup dos dados', () => {
     expect(localStorage.getItem('genshinworld:lang')).toBeNull()
   })
 })
+
+describe('metas "Evoluindo" no backup', () => {
+  beforeEach(() => localStorage.clear())
+
+  it('entram no backup e voltam na importação', () => {
+    localStorage.setItem('genshinworld:goal-chars', JSON.stringify(['diluc']))
+    localStorage.setItem('genshinworld:goal-weapons', JSON.stringify(['Wolf\'s Gravestone']))
+    const b = buildBackup()
+    expect(Object.keys(b.data).sort()).toEqual(['goal-chars', 'goal-weapons'])
+    localStorage.clear()
+    expect(restoreBackup(JSON.stringify(b)).ok).toBe(true)
+    expect(JSON.parse(localStorage.getItem('genshinworld:goal-chars') ?? '')).toEqual(['diluc'])
+  })
+})

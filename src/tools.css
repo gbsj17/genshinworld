@@ -1717,3 +1717,10 @@
 .codes__acts a {
   text-decoration: none;
 }
+
+/* Botão "Evoluindo" nas páginas de arma e artefato */
+.wpn2__goal {
+  flex: none;
+  width: 100%;
+  margin-top: 8px;
+}

@@ -5,6 +5,7 @@ import { compareVersions, getAllCharacters, getAllItems, iconChain, isVersion, n
 import type { ItemEntry } from './api'
 import { ItemIcon } from './ItemIcon'
 import Banners from './Banners'
+import Goals from './Goals'
 import ItemModal from './ItemModal'
 import type { PickedItem } from './ItemModal'
 import { t, weaponLabel } from './i18n'
@@ -341,6 +342,7 @@ export default function NewsPage() {
           </div>
 
           <Banners chars={chars} onPickWeapon={setPicked} />
+          <Goals chars={chars} />
 
           {newMaterials.length > 0 && (
             <Section title={`${t('newMaterials')}${tag(nm.version)}`} className="news-mats">

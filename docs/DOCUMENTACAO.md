@@ -28,6 +28,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Link da ficha:** o botão de compartilhar na ficha copia o link (nas abas Builds e Minha build, abre direto nelas).
 - **Filtros nos seletores:** ao escolher um personagem ou arma (Comparar, Equipes, Materiais), use os chips abaixo da busca: personagens por elemento, tipo de arma e raridade; armas por tipo, raridade e atributo secundário. Toque de novo no chip para desligar, ou em "Limpar filtros".
 - **Farm de hoje:** escolha o dia da semana (abre em "Hoje") e veja quais domínios de livros de talento e de materiais de arma estão abertos, com o que cada um dá. Embaixo ficam os domínios de artefatos, abertos todos os dias. No domingo tudo está aberto.
+- **Evoluindo agora (tela inicial):** nas páginas de personagem, arma e conjunto de artefatos há o botão "Marcar como evoluindo". O que você marcar aparece num card abaixo dos banners, com o domínio do livro de talento ou do material da arma e em quantos dias ele abre ("Hoje", "amanhã", "em 3 dias · qui."). Artefatos mostram o domínio, que abre todo dia. As metas entram no backup e na sincronização.
 - **Lista de desejos:** adicione os personagens e armas que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos de cada personagem, até o nível de talento que você escolher, mais a ascensão completa de cada arma. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
 - **Minha build:** na aba Minha build da ficha (ao lado de Builds), monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
@@ -43,7 +44,7 @@ Resumo do que cada parte do site faz e como usar.
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Calculadora de EXP, Códigos de resgate, Meus dados, Documentação, troca de tema e troca de idioma.
+- **Menu (botão com três linhas):** Início; os grupos Planejar (Favoritos, Lista de desejos, Equipes, Comparar), Farm e materiais (Materiais, Farm de hoje, Calculadora de EXP) e Orações e códigos (Pity, Códigos de resgate), que abrem e fecham ao tocar; Meus dados, conta, Documentação, troca de tema e troca de idioma. Em tela baixa o menu rola.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -86,6 +87,7 @@ src/
   WeaponPage.tsx     página da arma (/weapon/:nome)
   ArtifactPage.tsx   página do conjunto de artefatos (/artifact/:nome)
   ExpPage.tsx        calculadora de EXP (expCalc.ts, data/exp.json)
+  Goals.tsx          card "Evoluindo agora" na tela inicial (goals.ts)
   CodesPage.tsx      códigos de resgate (codes.ts)
   analytics.ts       estatísticas de acesso (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
   pageTitle.ts       título da aba por página
@@ -195,6 +197,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favoritos de personagens, armas e artefatos (listas de nomes/ids).
 - `genshinworld:teams`: equipes salvas pelo usuário na tela Equipes.
 - `genshinworld:wishlist` e `genshinworld:wish-weapons`: personagens e armas da lista de desejos.
+- `genshinworld:goal-chars`, `genshinworld:goal-weapons`, `genshinworld:goal-artifacts`: metas "Evoluindo" do card da tela inicial.
 - `genshinworld:pity`: contador de pity de cada banner e histórico de 5★.
 - `genshinworld:my-builds`: a build própria de cada personagem.
 - `genshinworld:analytics`: sua escolha sobre a contagem de visitas (`yes` ou `no`).

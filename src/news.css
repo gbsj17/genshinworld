@@ -1037,3 +1037,108 @@
     color: var(--muted);
   }
 }
+
+/* Card "Evoluindo agora" na tela inicial */
+.goals__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.goal {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding: 12px 40px 12px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.goal__id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  min-width: 0;
+}
+
+.goal__id .thumb,
+.goal__id .item-icon {
+  width: 40px;
+  height: 40px;
+  flex: none;
+}
+
+.goal__id .thumb {
+  box-shadow: 0 0 0 2px var(--ring, var(--line-strong));
+}
+
+.goal__lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.goal__lines li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-size: 14px;
+}
+
+.goal__lines small {
+  color: var(--muted);
+  font-size: 12px;
+  min-width: 108px;
+}
+
+.goal__when {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.goal__when--now {
+  color: var(--gold);
+}
+
+.goal__x {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.goal__x:hover {
+  color: var(--text);
+}
+
+.goals__note {
+  margin: 8px 2px 0;
+  font-size: 12px;
+}
+
+@media (min-width: 820px) {
+  .goals__list {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
+}
+
+.goals .tool__muted {
+  color: var(--muted);
+}

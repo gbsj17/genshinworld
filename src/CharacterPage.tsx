@@ -95,6 +95,7 @@ export default function CharacterPage({ id }: { id: string }) {
   const [portraitIndex, setPortraitIndex] = useState(0)
   const { isFavorite, toggle } = useFavorites()
   const wish = useFavorites('wishlist')
+  const goal = useFavorites('goalchars')
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -211,6 +212,17 @@ export default function CharacterPage({ id }: { id: string }) {
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill={wish.isFavorite(id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 3h12v18l-6-4-6 4z" />
+              </svg>
+            </button>
+            <button
+              className="glass-btn"
+              aria-label={goal.isFavorite(id) ? t('goalRemove') : t('goalAdd')}
+              title={goal.isFavorite(id) ? t('goalRemove') : t('goalAdd')}
+              aria-pressed={goal.isFavorite(id)}
+              onClick={() => goal.toggle(id)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 19V5M5 12l7-7 7 7" />
               </svg>
             </button>
             <button

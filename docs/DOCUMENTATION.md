@@ -28,6 +28,7 @@ A summary of what each part of the site does and how to use it.
 - **Sheet link:** the share button on the sheet copies the link (on the Builds and My build tabs it opens that tab).
 - **Selector filters:** when picking a character or weapon (Compare, Teams, Materials), use the chips under the search: characters by element, weapon type and rarity; weapons by type, rarity and secondary stat. Tap a chip again to turn it off, or use "Clear filters".
 - **Today's farm:** pick the weekday (opens on "Today") to see which talent-book and weapon-material domains are open and what each drops. Artifact domains, open every day, are listed below. On Sunday everything is open.
+- **Leveling up now (home):** the character, weapon and artifact set pages have a "Mark as leveling up" button. What you mark shows in a card below the banners, with the talent-book or weapon-material domain and in how many days it opens ("Today", "tomorrow", "in 3 days · Thu"). Artifacts show the domain, which is open every day. Goals are included in the backup and in sync.
 - **Wishlist:** add the characters and weapons you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents of each character, up to the talent level you choose, plus the full ascension of each weapon. The list is saved on the device. "Details" opens the Materials calculator for that character.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
 - **My build:** on the sheet's My build tab (next to Builds), make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
@@ -43,7 +44,7 @@ A summary of what each part of the site does and how to use it.
 
 ## 3. Menu, theme, language, installation and keyboard
 
-- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Pity, EXP calculator, Redeem codes, My data, Documentation, theme switch and language switch.
+- **Menu (three-line button):** Home; the groups Plan (Favorites, Wishlist, Teams, Compare), Farm & materials (Materials, Today's farm, EXP calculator) and Wishes & codes (Pity, Redeem codes), which open and close on tap; My data, account, Documentation, theme switch and language switch. On a short screen the menu scrolls.
 - **Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.
 - **Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
@@ -86,6 +87,7 @@ src/
   WeaponPage.tsx     weapon page (/weapon/:name)
   ArtifactPage.tsx   artifact set page (/artifact/:name)
   ExpPage.tsx        EXP calculator (expCalc.ts, data/exp.json)
+  Goals.tsx          "Leveling up now" card on the home (goals.ts)
   CodesPage.tsx      redeem codes (codes.ts)
   analytics.ts       visit statistics (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
   pageTitle.ts       browser tab title per page
@@ -195,6 +197,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:favorites`, `genshinworld:fav-weapons`, `genshinworld:fav-artifacts`: favorite characters, weapons and artifacts (lists of names/ids).
 - `genshinworld:teams`: teams saved by the user on the Teams screen.
 - `genshinworld:wishlist` and `genshinworld:wish-weapons`: characters and weapons on the wishlist.
+- `genshinworld:goal-chars`, `genshinworld:goal-weapons`, `genshinworld:goal-artifacts`: "Leveling up" goals of the home card.
 - `genshinworld:pity`: pity counter for each banner and 5★ history.
 - `genshinworld:my-builds`: each character's own build.
 - `genshinworld:analytics`: your choice about visit counting (`yes` or `no`).

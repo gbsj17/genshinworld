@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import { saveLocal } from './store'
 
-export type FavKind = 'characters' | 'weapons' | 'artifacts' | 'wishlist' | 'wishweapons'
+export type FavKind = 'characters' | 'weapons' | 'artifacts' | 'wishlist' | 'wishweapons' | 'goalchars' | 'goalweapons' | 'goalartifacts'
 
 // "characters" mantém a chave antiga para não perder os favoritos já salvos.
 const KEYS: Record<FavKind, string> = {
@@ -10,6 +10,9 @@ const KEYS: Record<FavKind, string> = {
   artifacts: 'genshinworld:fav-artifacts',
   wishlist: 'genshinworld:wishlist',
   wishweapons: 'genshinworld:wish-weapons',
+  goalchars: 'genshinworld:goal-chars', // metas "Evoluindo" (card da tela inicial)
+  goalweapons: 'genshinworld:goal-weapons',
+  goalartifacts: 'genshinworld:goal-artifacts',
 }
 
 function load(kind: FavKind): string[] {
@@ -29,6 +32,9 @@ const state: Record<FavKind, string[]> = {
   artifacts: load('artifacts'),
   wishlist: load('wishlist'),
   wishweapons: load('wishweapons'),
+  goalchars: load('goalchars'),
+  goalweapons: load('goalweapons'),
+  goalartifacts: load('goalartifacts'),
 }
 const listeners = new Set<() => void>()
 

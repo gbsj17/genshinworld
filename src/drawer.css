@@ -41,6 +41,9 @@
   flex-direction: column;
   gap: 8px;
   padding: 20px 16px;
+  /* tela baixa: o menu rola em vez de cortar os itens */
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--panel);
   border-right: 1px solid var(--line-strong);
   box-shadow: var(--drawer-shadow);
@@ -260,4 +263,41 @@ button.drawer__item--btn {
   height: 22px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+/* Grupos que abrem e fecham */
+.drawer__group > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.drawer__group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.drawer__group > summary:hover,
+.drawer__group > summary:focus-visible {
+  background: var(--surface-deep);
+  outline: none;
+}
+
+.drawer__group > summary span {
+  flex: 1;
+}
+
+.drawer__chev {
+  transition: transform 0.25s ease;
+}
+
+.drawer__group[open] .drawer__chev {
+  transform: rotate(180deg);
+}
+
+.drawer__item--sub {
+  min-height: 44px;
+  margin-left: 14px;
+  padding-left: 12px;
+  border-left: 1px solid var(--line);
+  border-radius: 0 12px 12px 0;
+  font-weight: 600;
 }

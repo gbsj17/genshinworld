@@ -45,6 +45,7 @@ export default function WeaponPage() {
   const { openMat, matSheet } = useMaterialSheet()
   const fav = useFavorites('weapons')
   const wish = useFavorites('wishweapons')
+  const goal = useFavorites('goalweapons')
 
   useEffect(() => {
     let active = true
@@ -163,6 +164,10 @@ export default function WeaponPage() {
                   {copied ? '✓' : '⤴'}
                 </button>
               </div>
+
+              <button className="wpn2__btn wpn2__goal" aria-pressed={goal.isFavorite(name)} onClick={() => goal.toggle(name)}>
+                {goal.isFavorite(name) ? `↑ ${t('goalOn')}` : `↑ ${t('goalAdd')}`}
+              </button>
 
               <nav className="wpn2__toc" aria-label={t('wpnTocSummary')}>
                 {toc.map(([k, label]) => (

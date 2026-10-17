@@ -29,6 +29,7 @@ export default function ArtifactPage() {
   const [chars, setChars] = useState<CharacterSummary[]>([])
   const [copied, setCopied] = useState(false)
   const fav = useFavorites('artifacts')
+  const goal = useFavorites('goalartifacts')
 
   useEffect(() => {
     let active = true
@@ -113,6 +114,9 @@ export default function ArtifactPage() {
                   {copied ? '✓' : '⤴'}
                 </button>
               </div>
+              <button className="wpn2__btn wpn2__goal" aria-pressed={goal.isFavorite(name)} onClick={() => goal.toggle(name)}>
+                {goal.isFavorite(name) ? `↑ ${t('goalOn')}` : `↑ ${t('goalAdd')}`}
+              </button>
             </aside>
 
             <div className="wpn2__main">
