@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { buildBackup, restoreBackup } from './backup'
 import { t } from './i18n'
+import AnalyticsCard from './AnalyticsCard'
 import MenuButton from './MenuButton'
 import SyncCard from './SyncCard'
 import PcNav from './PcNav'
@@ -53,6 +54,7 @@ export default function DataPage() {
           <p className="tool__muted">{t('dataIntro')}</p>
 
           <SyncCard />
+          <AnalyticsCard />
 
           <section className="mat__result data__box">
             <h2>{t('dataExport')}</h2>

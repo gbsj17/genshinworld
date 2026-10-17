@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react'
-import { HashRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
+import { HashRouter, Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
 const CharacterPage = lazy(() => import('./CharacterPage'))
 const ArtifactPage = lazy(() => import('./ArtifactPage'))
 const ExpPage = lazy(() => import('./ExpPage'))
 const CodesPage = lazy(() => import('./CodesPage'))
+const AnalyticsPrompt = lazy(() => import('./AnalyticsPrompt'))
 const SyncPrompts = lazy(() => import('./SyncPrompts'))
 const FavoritesPage = lazy(() => import('./FavoritesPage'))
 const HomePage = lazy(() => import('./HomePage'))
@@ -20,6 +21,7 @@ const WeaponPage = lazy(() => import('./WeaponPage'))
 import NewsPage from './NewsPage'
 import ApiNotice from './ApiNotice'
 import { useSync } from './sync'
+import { trackPage, useConsent } from './analytics'
 import Footer from './Footer'
 import Splash from './Splash'
 import { MenuProvider } from './MenuProvider'
@@ -64,6 +66,7 @@ function App() {
         </Suspense>
         <ApiNotice />
         <SyncSlot />
+        <AnalyticsSlot />
         <Footer />
       </MenuProvider>
     </HashRouter>
@@ -79,6 +82,21 @@ function SyncSlot() {
   return (
     <Suspense fallback={null}>
       <SyncPrompts />
+    </Suspense>
+  )
+}
+
+// Pergunta pelas estatísticas (só se estiverem configuradas) e conta uma visita por página
+function AnalyticsSlot() {
+  const consent = useConsent()
+  const { pathname } = useLocation()
+  useEffect(() => {
+    void trackPage(pathname, document.title)
+  }, [pathname, consent])
+  if (consent !== null) return null
+  return (
+    <Suspense fallback={null}>
+      <AnalyticsPrompt />
     </Suspense>
   )
 }

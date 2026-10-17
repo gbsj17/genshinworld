@@ -7,6 +7,8 @@ export const firebaseConfig = {
   authDomain: '',
   projectId: '',
   appId: '',
+  measurementId: '', // opcional: só para as estatísticas de acesso (Google Analytics)
 }
 
 export const syncAvailable = Boolean(firebaseConfig.apiKey && firebaseConfig.projectId)
+export const analyticsAvailable = Boolean(firebaseConfig.apiKey && firebaseConfig.appId && firebaseConfig.measurementId)
