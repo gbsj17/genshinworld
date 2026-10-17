@@ -736,6 +736,15 @@ a.member:hover .thumb {
   .sheet-screen {
     padding-bottom: 110px; /* espaço para a barra de baixo */
   }
+
+  /* o "Voltar" está na barra de baixo; os botões ficam à direita */
+  .sheet-screen .hero__bar > a.glass-btn {
+    display: none;
+  }
+
+  .sheet-screen .hero__actions {
+    margin-left: auto;
+  }
 }
 
 /* A arte do topo esmaece conforme a página rola (a variável vem da CharacterPage) */
