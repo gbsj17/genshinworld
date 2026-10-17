@@ -141,7 +141,13 @@ export default function Drawer() {
             </svg>
             {t('exp')}
           </Link>
-          <Link to="/data" className="drawer__item" style={step(10)} onClick={closeMenu}>
+          <Link to="/codes" className="drawer__item" style={step(10)} onClick={closeMenu}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M3 9a2 2 0 002-2h14a2 2 0 002 2v0a2 2 0 000 6v0a2 2 0 00-2 2H5a2 2 0 00-2-2v0a2 2 0 000-6zM10 9v6M14 9v6" />
+            </svg>
+            {t('codes')}
+          </Link>
+          <Link to="/data" className="drawer__item" style={step(11)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 7v5c0 1.7 3.6 3 8 3s8-1.3 8-3V7M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5" />
             </svg>
@@ -149,7 +155,7 @@ export default function Drawer() {
           </Link>
           {sync.status !== 'off' &&
             (sync.user ? (
-              <Link to="/data" className="drawer__item" style={step(11)} onClick={closeMenu}>
+              <Link to="/data" className="drawer__item" style={step(12)} onClick={closeMenu}>
                 {sync.user.photo ? (
                   <img className="drawer__avatar" src={sync.user.photo} alt="" referrerPolicy="no-referrer" />
                 ) : (
@@ -162,7 +168,7 @@ export default function Drawer() {
             ) : (
               <button
                 className="drawer__item"
-                style={step(11)}
+                style={step(12)}
                 disabled={sync.status === 'loading'}
                 onClick={() => {
                   void signIn()
@@ -175,7 +181,7 @@ export default function Drawer() {
                 {t('syncSignIn')}
               </button>
             ))}
-          <Link to="/docs" className="drawer__item" style={step(12)} onClick={closeMenu}>
+          <Link to="/docs" className="drawer__item" style={step(13)} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7" />
             </svg>
@@ -183,7 +189,7 @@ export default function Drawer() {
           </Link>
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(13)}>
+        <div className="drawer__item drawer__item--row" style={step(14)}>
           <span className="drawer__label">
             {t('theme')}
             <small>{isLight ? t('themeLight') : t('themeDark')}</small>
@@ -207,7 +213,7 @@ export default function Drawer() {
           </button>
         </div>
 
-        <div className="drawer__item drawer__item--row" style={step(14)}>
+        <div className="drawer__item drawer__item--row" style={step(15)}>
           <span className="drawer__label">{t('language')}</span>
           <div className="lang-switch" role="group" aria-label={t('language')}>
             <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>
@@ -217,7 +223,7 @@ export default function Drawer() {
         {available && (
           <button
             className="drawer__item drawer__item--btn"
-            style={step(15)}
+            style={step(16)}
             onClick={() => {
               closeMenu()
               void install()
