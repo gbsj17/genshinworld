@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { t } from './i18n'
+import { useMenu } from './menuContext'
 
 export type TabId = 'home' | 'characters' | 'weapons' | 'artifacts' | 'other'
 
@@ -16,7 +17,19 @@ const sv = {
   'aria-hidden': true,
 }
 
-// Barra de abas flutuante. "Buscar" troca os botões pela barra de pesquisa.
+// Seções principais mostram as abas; qualquer outra página (perfil, favoritos, ficha, arma…) mostra ações.
+const MAIN = ['/', '/characters', '/weapons', '/artifacts']
+
+// Para onde o "Voltar" vai quando a página foi aberta direto (sem histórico do app)
+function parentOf(path: string): string {
+  if (path.startsWith('/weapon/')) return '/weapons'
+  if (path.startsWith('/artifact/')) return '/artifacts'
+  if (path.startsWith('/character/')) return '/characters'
+  return '/'
+}
+
+// Barra flutuante. Nas seções principais: abas. Nas páginas internas: Voltar, Início, Buscar, Topo e Menu.
+// "Buscar" troca os botões pela barra de pesquisa.
 export default function TabBar({
   active,
   query,
@@ -30,6 +43,30 @@ export default function TabBar({
 }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const { open: menuOpen, openMenu } = useMenu()
+  const inner = !MAIN.includes(pathname.replace(/\/$/, '') || '/')
+  const [away, setAway] = useState(false)
+
+  // "Topo" só aparece depois de rolar um pouco (só atualiza quando cruza o limite)
+  useEffect(() => {
+    if (!inner) return
+    const onScroll = () => setAway(window.scrollY > 320)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [inner])
+
+  const goBack = () => {
+    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0
+    if (idx > 0) navigate(-1)
+    else navigate(parentOf(pathname), { replace: true })
+  }
+  const toTop = () => {
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' })
+  }
 
   const open = () => {
     setSearchOpen(true)
@@ -43,8 +80,23 @@ export default function TabBar({
   const cur = (id: TabId) => (active === id ? 'page' : undefined)
 
   return (
-    <nav className={searchOpen ? 'tabbar tabbar--search' : 'tabbar'} aria-label={t('navigation')}>
+    <nav className={`tabbar${inner ? ' tabbar--inner' : ''}${searchOpen ? ' tabbar--search' : ''}`} aria-label={t('navigation')}>
       <div className="tabbar__items" aria-hidden={searchOpen} inert={searchOpen}>
+        {inner ? (
+          <>
+            <button className="tabbar__item" aria-label={t('back')} onClick={goBack}>
+              <svg {...sv}>
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+            <Link to="/" className="tabbar__item" aria-label={t('home')}>
+              <svg {...sv}>
+                <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5" />
+              </svg>
+            </Link>
+          </>
+        ) : (
+          <>
         <Link
           to="/"
           className="tabbar__item"
@@ -72,6 +124,8 @@ export default function TabBar({
             <path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5l6.74-6.76zM16 8L2 22M17.5 15H9" />
           </svg>
         </Link>
+          </>
+        )}
         {!noSearch && (
           <button className="tabbar__item" aria-label={t('searchBtn')} onClick={open}>
             <svg {...sv} strokeWidth={2.2}>
@@ -79,6 +133,20 @@ export default function TabBar({
               <path d="M20 20l-3.5-3.5" />
             </svg>
           </button>
+        )}
+        {inner && (
+          <>
+            <button className="tabbar__item tabbar__item--top" aria-label={t('toTop')} aria-hidden={!away} tabIndex={away ? 0 : -1} data-show={away} onClick={toTop}>
+              <svg {...sv}>
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+            </button>
+            <button className="tabbar__item" aria-label={t('openMenu')} aria-haspopup="dialog" aria-expanded={menuOpen} aria-controls="app-menu" onClick={openMenu}>
+              <svg {...sv}>
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            </button>
+          </>
         )}
       </div>
 
@@ -92,7 +160,7 @@ export default function TabBar({
           type="search"
           enterKeyHint="search"
           aria-label={t('search')}
-          placeholder={active === 'home' || active === 'other' ? t('searchApp') : active === 'characters' ? t('searchChar') : active === 'weapons' ? t('searchWeapon') : t('searchArtifact')}
+          placeholder={active === 'home' || active === 'other' || active === null ? t('searchApp') : active === 'characters' ? t('searchChar') : active === 'weapons' ? t('searchWeapon') : t('searchArtifact')}
           value={query}
           onChange={(e) => onQuery(e.target.value)}
           onKeyDown={(e) => {

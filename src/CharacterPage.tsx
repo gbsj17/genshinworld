@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useFavorites } from './favorites'
 import ErrorMsg from './ErrorMsg'
-import MenuButton from './MenuButton'
+import TabBar from './TabBar'
 import PcNav from './PcNav'
 import { t, weaponLabel } from './i18n'
 import MyBuild from './MyBuild'
@@ -242,7 +242,6 @@ export default function CharacterPage({ id }: { id: string }) {
                 <path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1" />
               </svg>
             </button>
-            <MenuButton variant="glass" />
           </div>
         </div>
         {portrait && (
@@ -503,6 +502,7 @@ export default function CharacterPage({ id }: { id: string }) {
       </section>
       {copied && <div className="toast" role="status">{t('linkCopied')}</div>}
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
+      <TabBar active={null} query="" onQuery={() => {}} noSearch />
     </main>
     </>
   )

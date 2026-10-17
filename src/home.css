@@ -343,6 +343,20 @@
   background: color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
+/* Barra nas páginas internas: o "Topo" fica apagado até rolar (os botões não mudam de lugar) */
+.tabbar:not(.tabbar--search) .tabbar__item--top:not([data-show='true']) {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Nessas páginas o menu fica só na barra de baixo (sem botão repetido no topo) */
+@media (max-width: 819px) {
+  body:has(.tabbar--inner) .home-top .round-btn[aria-haspopup],
+  body:has(.tabbar--inner) .hero__actions .glass-btn[aria-haspopup] {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .segment {
     transition: none;

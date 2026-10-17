@@ -769,4 +769,8 @@ a.member:hover .thumb {
   .sheet-screen .sheet {
     margin-top: 330px;
   }
+
+  .sheet-screen {
+    padding-bottom: 110px; /* espaço para a barra de baixo */
+  }
 }

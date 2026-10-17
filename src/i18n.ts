@@ -43,6 +43,7 @@ const DICT = {
   loadDetailsFail: ['Não foi possível carregar os detalhes.', 'Could not load the details.'],
   charNotFound: ['Personagem não encontrado', 'Character not found'],
   back: ['Voltar', 'Back'],
+  toTop: ['Subir ao topo', 'Back to top'],
   close: ['Fechar', 'Close'],
 
   // navegação

@@ -86,7 +86,7 @@ export default function FavoritesPage() {
         </div>
       )}
 
-      <TabBar active="other" query="" onQuery={() => {}} />
+      <TabBar active="other" query="" onQuery={() => {}} noSearch />
       {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
     </>
