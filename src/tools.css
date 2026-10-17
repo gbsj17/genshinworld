@@ -1555,3 +1555,103 @@
   color: var(--gold) !important;
   font-size: 13px !important;
 }
+
+/* Página do conjunto de artefatos */
+.art__bonus {
+  display: grid;
+  gap: 12px;
+}
+
+.art__bonus > div {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.art__pc {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gold);
+  color: var(--bg);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.art__pieces {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.art__pieces li {
+  background: var(--surface-deep);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 8px 12px;
+}
+
+.art__pieces summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.art__pieces summary::-webkit-details-marker {
+  display: none;
+}
+
+.art__ico {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  padding: 4px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-deep);
+}
+
+.art__ico .thumb {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+.art__txt {
+  display: grid;
+  min-width: 0;
+}
+
+.art__txt small {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.art__txt strong {
+  font-size: 15px;
+}
+
+.art__desc {
+  margin: 10px 0 0;
+  white-space: pre-line;
+  line-height: 1.55;
+}
+
+.art__lore {
+  margin: 12px 0 0;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--gold);
+}

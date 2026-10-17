@@ -331,6 +331,67 @@ export function getAllItems(kind: 'weapons' | 'artifacts' | 'materials'): Promis
 }
 
 export const getWeaponInfo = (name: string) => fetchItem('weapons', name)
+
+// ---- Conjunto de artefatos completo: as 5 peças, com ícone, nome e história ----
+export type PieceSlot = 'flower' | 'plume' | 'sands' | 'goblet' | 'circlet'
+export const PIECE_SLOTS: PieceSlot[] = ['flower', 'plume', 'sands', 'goblet', 'circlet']
+
+export interface ArtifactPiece {
+  slot: PieceSlot
+  slotLabel: string // "Flor da Vida", "Pluma da Morte"... (idioma da tela)
+  name: string
+  description: string
+  story: string
+  urls: string[]
+}
+
+export interface ArtifactSet {
+  name: string
+  rarity: number
+  version?: string
+  set2?: string
+  set4?: string
+  pieces: ArtifactPiece[]
+}
+
+const setCache = new Map<string, Promise<ArtifactSet>>()
+
+export function getArtifactSet(enName: string): Promise<ArtifactSet> {
+  let cached = setCache.get(enName)
+  if (!cached) {
+    cached = fetch(`${DB_URL}/artifacts?query=${encodeURIComponent(enName)}&${LQ}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((d) => {
+        if (!d || typeof d.name !== 'string') throw new Error('artifact: formato inesperado')
+        const pieces: ArtifactPiece[] = []
+        for (const slot of PIECE_SLOTS) {
+          const p = d[slot]
+          if (!p || typeof p.name !== 'string') continue // conjuntos antigos de 1–2★ não têm as 5 peças
+          const file = d.images?.[`filename_${slot}`]
+          const direct = d.images?.[`mihoyo_${slot}`]
+          pieces.push({
+            slot,
+            slotLabel: typeof p.relicText === 'string' ? p.relicText : '',
+            name: p.name,
+            description: typeof p.description === 'string' ? p.description : '',
+            story: typeof p.story === 'string' ? p.story : '',
+            urls: [file ? enka(file) : undefined, direct].filter((u): u is string => Boolean(u)),
+          })
+        }
+        return {
+          name: d.name,
+          rarity: Math.max(...((d.rarityList as number[] | undefined) ?? [4])),
+          version: typeof d.version === 'string' || typeof d.version === 'number' ? String(d.version) : undefined,
+          set2: d.effect2Pc,
+          set4: d.effect4Pc,
+          pieces,
+        } satisfies ArtifactSet
+      })
+    setCache.set(enName, cached)
+    cached.catch(() => setCache.delete(enName)) // permite tentar de novo se falhar
+  }
+  return cached
+}
 export const getArtifactInfo = (name: string) => fetchItem('artifacts', name)
 
 // ---- Talentos e constelações pela genshin-db (cobre todos os personagens) ----

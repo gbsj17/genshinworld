@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { HashRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 const CharacterPage = lazy(() => import('./CharacterPage'))
+const ArtifactPage = lazy(() => import('./ArtifactPage'))
 const SyncPrompts = lazy(() => import('./SyncPrompts'))
 const FavoritesPage = lazy(() => import('./FavoritesPage'))
 const HomePage = lazy(() => import('./HomePage'))
@@ -51,6 +52,7 @@ function App() {
           <Route path="/pity" element={<PityPage />} />
           <Route path="/data" element={<DataPage />} />
           <Route path="/weapon/:name" element={<WeaponPage />} />
+          <Route path="/artifact/:name" element={<ArtifactPage />} />
           <Route path="/weapons" element={<ItemsPage key="weapon" kind="weapon" />} />
           <Route path="/artifacts" element={<ItemsPage key="artifact" kind="artifact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />

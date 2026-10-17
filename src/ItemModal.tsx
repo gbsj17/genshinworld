@@ -89,11 +89,9 @@ export default function ItemModal({ item, onClose }: { item: PickedItem; onClose
             </div>
           </div>
 
-          {item.kind === 'weapon' && (
-            <Link className="tool-btn wpn__full" to={`/weapon/${encodeURIComponent(item.name)}`} onClick={onClose}>
-              {t('wpnFullPage')}
-            </Link>
-          )}
+          <Link className="tool-btn wpn__full" to={`/${item.kind}/${encodeURIComponent(item.name)}`} onClick={onClose}>
+            {t('wpnFullPage')}
+          </Link>
 
           {item.note && (
             <section className="modal__sec">

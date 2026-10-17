@@ -4,8 +4,6 @@ import { getAllItems } from './api'
 import type { ItemEntry } from './api'
 import { useFavorites } from './favorites'
 import { ItemIcon } from './ItemIcon'
-import ItemModal from './ItemModal'
-import type { PickedItem } from './ItemModal'
 import { t, weaponLabel } from './i18n'
 import ErrorMsg from './ErrorMsg'
 import MenuButton from './MenuButton'
@@ -31,7 +29,6 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
   const [query, setQuery] = useState('')
   const [type, setType] = useState('')
   const [rarity, setRarity] = useState(0)
-  const [picked, setPicked] = useState<PickedItem | null>(null)
   const { isFavorite, toggle } = useFavorites(isWeapon ? 'weapons' : 'artifacts')
 
   useEffect(() => {
@@ -113,7 +110,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
                 <div className="item-wrap" key={e.name}>
                   <button
                     className="item-card"
-                    onClick={() => (isWeapon ? navigate(`/weapon/${encodeURIComponent(e.name)}`) : setPicked({ kind, name: e.name, note: '' }))}
+                    onClick={() => navigate(`/${kind}/${encodeURIComponent(e.name)}`)}
                   >
                     <ItemIcon kind={kind} name={e.name} />
                     <strong>{e.label}</strong>
@@ -140,7 +137,6 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
       )}
 
       <TabBar active={isWeapon ? 'weapons' : 'artifacts'} query={query} onQuery={setQuery} />
-      {picked && <ItemModal item={picked} onClose={() => setPicked(null)} />}
     </main>
     </>
   )
