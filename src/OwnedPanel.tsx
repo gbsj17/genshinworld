@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { getAllCharacters, iconChain } from './api'
-import { fetchEnka, matchEnka, parseEnka, validUid } from './enka'
+import { getAllCharacters, getAllItems, iconChain } from './api'
+import { fetchEnka, matchEnka, parseEnka, resolveBuild, validUid } from './enka'
 import type { EnkaError } from './enka'
 import ErrorMsg from './ErrorMsg'
 import { t } from './i18n'
+import { addMissingBuilds } from './myBuildStore'
+import type { MyBuildData } from './myBuildStore'
 import { useOwned } from './owned'
+import { useOwnedWeapons } from './ownedWeapons'
 import type { OwnedInfo } from './owned'
 import { Thumb } from './Thumb'
 import type { CharacterSummary } from './types'
@@ -22,6 +25,8 @@ type Scope = 'all' | 'yes' | 'no'
 // Importação pelo UID (Enka): mostra o que achou e só grava quando a pessoa confirma.
 export function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
   const own = useOwned()
+  const ownW = useOwnedWeapons()
+  const [builds, setBuilds] = useState<number | null>(null)
   const [uid, setUid] = useState('')
   const [phase, setPhase] = useState<'idle' | 'wait'>('idle')
   const [error, setError] = useState<EnkaError | 'empty' | null>(null)
@@ -33,6 +38,7 @@ export function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
     setError(null)
     setResult(null)
     setDone(null)
+    setBuilds(null)
     if (!validUid(uid)) {
       setError('bad-uid')
       return
@@ -49,11 +55,30 @@ export function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
     else setResult(m)
   }
 
-  const apply = () => {
+  const apply = async () => {
     if (!result) return
-    own.merge(result.found.map((f) => ({ id: f.char.id, c: f.c, lv: f.level })))
-    setDone(result.found.length)
+    const found = result.found
+    own.merge(found.map((f) => ({ id: f.char.id, c: f.c, lv: f.level })))
+    setDone(found.length)
     setResult(null)
+    // equipamento: marca as armas como suas e preenche a "Minha build" de quem ainda não tem
+    if (found.some((f) => f.build)) {
+      try {
+        const [weapons, sets] = await Promise.all([getAllItems('weapons'), getAllItems('artifacts')])
+        const items: Record<string, MyBuildData> = {}
+        const ws: { name: string; r: number | null; lv: number | null }[] = []
+        for (const f of found) {
+          if (!f.build) continue
+          const r = resolveBuild(f.build, weapons, sets)
+          if (r.weapon) ws.push(r.weapon)
+          if (r.build.weapon || r.build.sets.length || r.build.sands || r.build.subs.length) items[f.char.id] = r.build
+        }
+        ownW.merge(ws)
+        setBuilds(addMissingBuilds(items))
+      } catch {
+        // sem a lista de armas e artefatos: ficam só os personagens
+      }
+    }
   }
 
   const errText: Record<EnkaError | 'empty', string> = {
@@ -97,7 +122,7 @@ export function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
         <div className="own__found">
           <p>{t('ownEnkaFound', { list: result.found.map((f) => f.char.name).join(', ') })}</p>
           {result.skipped > 0 && <p className="tool__muted">{t('ownEnkaSkipped', { n: result.skipped })}</p>}
-          <button className="tool-btn" onClick={apply}>
+          <button className="tool-btn" onClick={() => void apply()}>
             {t('ownEnkaApply')}
           </button>
         </div>
@@ -105,6 +130,7 @@ export function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
       {done !== null && (
         <p className="data__msg" role="status">
           {t('ownEnkaDone', { n: done })}
+          {builds ? ` ${t('ownEnkaBuilds', { n: builds })}` : ''}
         </p>
       )}
     </div>

@@ -61,6 +61,15 @@ export function useOwnedWeapons() {
         commit(rest)
       } else commit({ ...state, [name]: { r: 1, lv: 1 } })
     },
+    // importação: grava refinamento e nível das armas equipadas
+    merge: (items: { name: string; r?: number | null; lv?: number | null }[]) => {
+      const next = { ...state }
+      for (const it of items) {
+        const cur = next[it.name] ?? { r: 1, lv: 1 }
+        next[it.name] = { r: it.r == null ? cur.r : clampR(it.r), lv: it.lv == null ? cur.lv : clampWLv(it.lv) }
+      }
+      commit(next)
+    },
     update: (name: string, patch: Partial<OwnedWeapon>) => {
       const cur = state[name] ?? { r: 1, lv: 1 }
       commit({

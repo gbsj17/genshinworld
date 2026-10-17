@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { saveLocal } from './store'
+import { EMPTY_BUILD, loadBuilds, saveBuilds } from './myBuildStore'
+import type { BuildStore, MyBuildData } from './myBuildStore'
 import { useSearchParams } from 'react-router-dom'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
@@ -10,38 +11,11 @@ import type { PickFilter, PickOption } from './Picker'
 import { Thumb } from './Thumb'
 import './tools.css'
 
-interface Data {
-  weapon: string // nome em inglês (chave)
-  sets: string[] // até 2 conjuntos de artefatos
-  sands: string
-  goblet: string
-  circlet: string
-  subs: string[] // na ordem de prioridade
-  note: string
-}
-
-const EMPTY: Data = { weapon: '', sets: [], sands: '', goblet: '', circlet: '', subs: [], note: '' }
-const KEY = 'genshinworld:my-builds'
-
-type Store = Record<string, Data>
-
-function loadAll(): Store {
-  try {
-    const raw = localStorage.getItem(KEY)
-    const v: unknown = raw ? JSON.parse(raw) : {}
-    return v && typeof v === 'object' && !Array.isArray(v) ? (v as Store) : {}
-  } catch {
-    return {}
-  }
-}
-
-function saveAll(s: Store) {
-  try {
-    saveLocal(KEY, JSON.stringify(s))
-  } catch {
-    // sem armazenamento: vale só até fechar a página
-  }
-}
+type Data = MyBuildData
+const EMPTY = EMPTY_BUILD
+const loadAll = loadBuilds
+const saveAll = saveBuilds
+type Store = BuildStore
 
 // [PT, EN]; a chave salva é sempre o texto em inglês
 const L: Record<string, [string, string]> = {
