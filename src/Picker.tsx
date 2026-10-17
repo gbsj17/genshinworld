@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { t } from './i18n'
+import { ItemFrame } from './ItemIcon'
 import { Thumb } from './Thumb'
 
 export interface PickOption {
@@ -9,6 +10,7 @@ export interface PickOption {
   search?: string // texto extra para a busca (ex.: nome em inglês)
   thumb: string | string[]
   round?: boolean
+  rarity?: number // arma/artefato: mostra a moldura com o fundo da raridade
   facets?: Record<string, string> // valor de cada filtro (ex.: { element: 'Pyro', rarity: '5' })
 }
 
@@ -107,7 +109,7 @@ export default function Picker({
           {shown.length === 0 && <p className="empty">{t('nothingFound')}</p>}
           {shown.map((o) => (
             <button key={o.key} className="picker__item" onClick={() => onPick(o.key)}>
-              <Thumb round={o.round} src={o.thumb} label={o.label} />
+              {o.rarity !== undefined ? <ItemFrame urls={o.thumb} rarity={o.rarity} label={o.label} /> : <Thumb round={o.round} src={o.thumb} label={o.label} />}
               <span>
                 <strong>{o.label}</strong>
                 {o.sub && <small>{o.sub}</small>}

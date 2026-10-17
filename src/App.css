@@ -445,10 +445,10 @@
 
 /* Ícone padrão de arma/artefato */
 .item-icon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   flex: none;
-  padding: 4px;
+  padding: 3px;
   border-radius: 14px;
   background: var(--surface-deep);
   border: 1px solid var(--line-strong);

@@ -1,12 +1,13 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllCharacters, getSkillIcons, iconChain } from './api'
+import { getAllCharacters, getAllItems, getSkillIcons, iconChain } from './api'
+import type { ItemEntry } from './api'
 import AreaModal from './AreaModal'
 import { Card, Row } from './CharCards'
 import { useFavorites } from './favorites'
 import { t } from './i18n'
-import { ItemIcon, ItemName } from './ItemIcon'
+import { ItemCard, ItemRow } from './ItemCards'
 import MenuButton from './MenuButton'
 import { loadBuilds } from './myBuildStore'
 import { useOwned } from './owned'
@@ -82,6 +83,23 @@ function Stat({ icon, label, value, sub, pct }: { icon: string; label: string; v
   )
 }
 
+const ViewToggle = ({ view, onChange }: { view: 'grid' | 'list'; onChange: (v: 'grid' | 'list') => void }) => (
+  <button className="view-toggle" aria-label={view === 'grid' ? t('viewList') : t('viewGrid')} onClick={() => onChange(view === 'grid' ? 'list' : 'grid')}>
+    {view === 'grid' ? (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    ) : (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+        <rect x="4" y="4" width="7" height="7" rx="1.5" />
+        <rect x="13" y="4" width="7" height="7" rx="1.5" />
+        <rect x="4" y="13" width="7" height="7" rx="1.5" />
+        <rect x="13" y="13" width="7" height="7" rx="1.5" />
+      </svg>
+    )}
+  </button>
+)
+
 const Section = ({ title, to, right, children }: { title: string; to?: string; right?: React.ReactNode; children: React.ReactNode }) => (
   <section className="area__sec">
     <div className="area__sh">
@@ -111,6 +129,25 @@ export default function DataPage() {
   const [skills, setSkills] = useState<Map<string, string[]> | null>(null)
   const [view, setView] = useState<'grid' | 'list'>(() => (localStorage.getItem('genshinworld:area-view') === 'list' ? 'list' : 'grid'))
   const [all6, setAll6] = useState(false)
+  const [wItems, setWItems] = useState<ItemEntry[] | null>(null)
+  const [wView, setWView] = useState<'grid' | 'list'>(() => (localStorage.getItem('genshinworld:area-wview') === 'list' ? 'list' : 'grid'))
+  const [wAll, setWAll] = useState(false)
+  const wFav = useFavorites('weapons')
+  const changeWView = (v: 'grid' | 'list') => {
+    setWView(v)
+    try {
+      localStorage.setItem('genshinworld:area-wview', v)
+    } catch {
+      // sem armazenamento: vale só nesta visita
+    }
+  }
+  useEffect(() => {
+    let active = true
+    getAllItems('weapons').then((l) => active && setWItems(l)).catch(() => undefined)
+    return () => {
+      active = false
+    }
+  }, [])
   // colunas da grade: 6 no PC e 2 no celular (a grade mostra no máximo 2 fileiras; a lista, 4)
   const [cols, setCols] = useState(() => (window.matchMedia('(min-width: 820px)').matches ? 6 : 2))
   useEffect(() => {
@@ -155,8 +192,14 @@ export default function DataPage() {
   const hasPity = (pity.character?.total ?? 0) > 0 || (pity.weapon?.total ?? 0) > 0
   const byEl = new Map<string, number>()
   for (const c of mine) byEl.set(c.vision, (byEl.get(c.vision) ?? 0) + 1)
-  const limit = view === 'grid' ? cols * 2 : 4
+  const limitFor = (v: 'grid' | 'list') => (v === 'grid' ? cols * 2 : 4)
+  const limit = limitFor(view)
+  const wLimit = limitFor(wView)
   const shown = all6 ? mine : mine.slice(0, limit)
+  const wList = weapons
+    .map(([n, info]) => ({ n, info, e: wItems?.find((x) => x.name === n) }))
+    .sort((a, b) => (b.e?.info.rarity ?? 0) - (a.e?.info.rarity ?? 0) || a.n.localeCompare(b.n))
+  const wShown = wAll ? wList : wList.slice(0, wLimit)
   const name = sync.user?.name ?? t('accountGuest')
   const nOwned = Object.keys(own.owned).length
 
@@ -270,24 +313,7 @@ export default function DataPage() {
           title={t('areaChars')}
           right={
             <div className="area__tools">
-              <button
-                className="view-toggle"
-                aria-label={view === 'grid' ? t('viewList') : t('viewGrid')}
-                onClick={() => changeView(view === 'grid' ? 'list' : 'grid')}
-              >
-                {view === 'grid' ? (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                    <path d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                ) : (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="4" y="4" width="7" height="7" rx="1.5" />
-                    <rect x="13" y="4" width="7" height="7" rx="1.5" />
-                    <rect x="4" y="13" width="7" height="7" rx="1.5" />
-                    <rect x="13" y="13" width="7" height="7" rx="1.5" />
-                  </svg>
-                )}
-              </button>
+              <ViewToggle view={view} onChange={changeView} />
               {mine.length > limit && (
                 <button className="area__more" aria-expanded={all6} onClick={() => setAll6((v) => !v)}>
                   {all6 ? t('areaCollapse') : `${t('areaExpand')} (${mine.length})`}
@@ -313,28 +339,38 @@ export default function DataPage() {
           )}
         </Section>
 
-        <Section title={t('areaWeapons')} to="/weapons">
-          {weapons.length === 0 ? (
+        <Section
+          title={t('areaWeapons')}
+          right={
+            <div className="area__tools">
+              <ViewToggle view={wView} onChange={changeWView} />
+              {wList.length > wLimit && (
+                <button className="area__more" aria-expanded={wAll} onClick={() => setWAll((v) => !v)}>
+                  {wAll ? t('areaCollapse') : `${t('areaExpand')} (${wList.length})`}
+                </button>
+              )}
+            </div>
+          }
+        >
+          {wList.length === 0 ? (
             <p className="empty">{t('areaEmptyWeapons')}</p>
           ) : (
-            <ul className="area__wgrid">
-              {weapons.map(([n, info]) => (
-                <li key={n}>
-                  <Link to={`/weapon/${encodeURIComponent(n)}`} className="area__wc">
-                    <ItemIcon kind="weapon" name={n} />
-                    <strong>
-                      <ItemName kind="weapon" name={n} />
-                    </strong>
-                    <span className="area__tags">
-                      <b>R{info.r}</b>
-                      <b>
-                        {t('ownLevel')} {info.lv}
-                      </b>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className={wView === 'grid' ? 'area__grid' : 'vrows'}>
+              {wShown.map(({ n, info, e }) => {
+                const props = {
+                  kind: 'weapon' as const,
+                  name: n,
+                  label: e?.label ?? n,
+                  rarity: e?.info.rarity ?? 0,
+                  type: e?.info.type,
+                  owned: info,
+                  goal: gw.ids.includes(n),
+                  fav: wFav.isFavorite(n),
+                  onFav: () => wFav.toggle(n),
+                }
+                return wView === 'grid' ? <ItemCard key={n} {...props} /> : <ItemRow key={n} {...props} />
+              })}
+            </div>
           )}
         </Section>
 

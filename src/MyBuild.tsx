@@ -8,7 +8,7 @@ import { isPt, t } from './i18n'
 import Picker from './Picker'
 import { shareLink } from './share'
 import type { PickFilter, PickOption } from './Picker'
-import { Thumb } from './Thumb'
+import { ItemFrame } from './ItemIcon'
 import './tools.css'
 
 type Data = MyBuildData
@@ -152,12 +152,12 @@ export default function MyBuild({ charId, weaponType }: { charId: string; weapon
       return weapons
         .filter((w) => w.info.typeKey === weaponType)
         .sort((a, b) => b.info.rarity - a.info.rarity || a.label.localeCompare(b.label))
-        .map((w) => ({ key: w.name, label: w.label, search: w.name, sub: `${w.info.rarity}★${w.info.stat ? ` · ${w.info.stat}` : ''}`, thumb: w.info.urls, facets: { rarity: String(w.info.rarity) } }))
+        .map((w) => ({ key: w.name, label: w.label, search: w.name, sub: `${w.info.rarity}★${w.info.stat ? ` · ${w.info.stat}` : ''}`, thumb: w.info.urls, rarity: w.info.rarity, facets: { rarity: String(w.info.rarity) } }))
     }
     return sets
       .filter((s) => !d.sets.includes(s.name))
       .sort((a, b) => b.info.rarity - a.info.rarity || a.label.localeCompare(b.label))
-      .map((s) => ({ key: s.name, label: s.label, search: s.name, sub: `${s.info.rarity}★`, thumb: s.info.urls, facets: { rarity: String(s.info.rarity) } }))
+      .map((s) => ({ key: s.name, label: s.label, search: s.name, sub: `${s.info.rarity}★`, thumb: s.info.urls, rarity: s.info.rarity, facets: { rarity: String(s.info.rarity) } }))
   }, [picking, weapons, sets, weaponType, d.sets])
 
   const rarities = [...new Set(options.map((o) => o.facets?.rarity).filter((v): v is string => Boolean(v)))].sort((a, b) => Number(b) - Number(a))
@@ -195,7 +195,7 @@ export default function MyBuild({ charId, weaponType }: { charId: string; weapon
       <p className="tool__muted">{t('myBuildHint')}</p>
 
       <div className="mine__row">
-        <Thumb src={weapon?.info.urls ?? []} label={weapon?.label ?? '?'} />
+        <ItemFrame urls={weapon?.info.urls ?? []} rarity={weapon?.info.rarity ?? 0} label={weapon?.label ?? '?'} />
         <div>
           <small>{t('weapons')}</small>
           <strong>{weapon ? weapon.label : d.weapon || '—'}</strong>
@@ -207,7 +207,7 @@ export default function MyBuild({ charId, weaponType }: { charId: string; weapon
         <small>{t('artifacts')}</small>
         {setEntries.map((s) => (
           <div className="mine__row" key={s.name}>
-            <Thumb src={s.info.urls} label={s.label} />
+            <ItemFrame urls={s.info.urls} rarity={s.info.rarity} label={s.label} />
             <div><strong>{s.label}</strong></div>
             <button className="tool-btn tool-btn--ghost" onClick={() => update({ sets: d.sets.filter((n) => n !== s.name) })}>{t('remove')}</button>
           </div>

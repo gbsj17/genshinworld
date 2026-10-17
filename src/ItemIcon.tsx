@@ -47,3 +47,12 @@ export function ItemName({ kind, name }: { kind: 'weapon' | 'artifact'; name: st
   }, [kind, name])
   return <>{label ?? name}</>
 }
+
+// Moldura de ícone com o fundo da raridade, para quando os endereços já são conhecidos.
+export function ItemFrame({ urls, rarity, label }: { urls: string | string[]; rarity: number; label: string }) {
+  return (
+    <div className={`item-icon item-icon--r${rarity}`}>
+      <Thumb src={urls} label={label} />
+    </div>
+  )
+}
