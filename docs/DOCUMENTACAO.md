@@ -38,6 +38,7 @@ Resumo do que cada parte do site faz e como usar.
 - **Códigos de resgate:** no menu. Lista os códigos ativos (atualizada todo dia no deploy por `scripts/fetch-codes.mjs`, a partir de fontes da comunidade), com botão de copiar e atalho para o resgate no site oficial. Se nenhuma fonte responder, a lista anterior é mantida. Alguns códigos podem já ter expirado.
 - **Estatísticas de acesso:** só aparecem se o `measurementId` estiver na configuração do Firebase. O site pergunta uma vez se pode contar as visitas; sem o "Pode" (ou com "não rastrear" no navegador) nada é enviado. Dá para mudar a escolha em Meus dados.
 - **Sincronizar entre aparelhos:** em Meus dados (ou "Entrar com Google" no menu), entre com a conta do Google. Builds, favoritos, lista de desejos, equipes e pity ficam salvos na nuvem e aparecem em qualquer aparelho com a mesma conta. As mudanças são enviadas sozinhas (cerca de 2 segundos depois). Se o aparelho e a nuvem tiverem dados diferentes, o site pergunta qual versão manter. Ao voltar para a aba, se outro aparelho mudou algo, aparece "Atualizar". Sair da conta não apaga nada do aparelho. Só aparece depois que o Firebase estiver configurado (veja Deploy).
+- **Tela de login:** quem não entrou na conta vê uma tela com três escolhas: "Entrar com Google", "Talvez depois" (fecha e volta na próxima visita) e "Não quero me logar" (fecha e não aparece mais; dá para entrar depois pelo menu). Esc também fecha como "Talvez depois". Não aparece para buscadores. Como a sincronização, só aparece com o Firebase configurado.
 - **Aviso de dados reduzidos:** se a base principal (genshin-db) não responder e o site usar a lista reserva, aparece uma faixa avisando que a lista é mais antiga e reduzida. Dá para fechá-la.
 - **Onde conseguir:** tocar num material (página da arma, calculadora de materiais e lista de desejos) abre uma janela com a origem dele segundo a base de dados, o domínio que dá o item com os dias em que abre, se pode ser fabricado e um botão para o mapa oficial do HoYoLAB (abre em outra aba). O mapa não fica dentro do site porque o servidor dele bloqueia leitura por outros sites (CORS).
 - **Página da arma:** ao tocar numa arma na lista, abre a página dela. No celular: banner na cor da raridade com o ícone, atalhos de seção (Resumo, Efeito, Materiais, Personagens), ATQ base e atributo secundário, efeito com seletor de refinamento R1–R5, carrossel "Quem usa melhor" (personagens que têm a arma nas builds do site, do melhor lugar #1 para o pior, com medalhas para os 3 primeiros) e grade de materiais de ascensão (total e "Ver por fase"). No PC, o perfil da arma fica num painel lateral fixo. Dá para favoritar, colocar na lista de desejos e compartilhar o link. Nas builds da ficha, a janela da arma tem "Ver página completa".
@@ -88,6 +89,7 @@ src/
   ArtifactPage.tsx   página do conjunto de artefatos (/artifact/:nome)
   ExpPage.tsx        calculadora de EXP (expCalc.ts, data/exp.json)
   Goals.tsx          card "Evoluindo agora" na tela inicial (goals.ts)
+  LoginScreen.tsx    tela de login (loginGate.ts, login.css)
   CodesPage.tsx      códigos de resgate (codes.ts)
   analytics.ts       estatísticas de acesso (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
   pageTitle.ts       título da aba por página
@@ -201,6 +203,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:pity`: contador de pity de cada banner e histórico de 5★.
 - `genshinworld:my-builds`: a build própria de cada personagem.
 - `genshinworld:analytics`: sua escolha sobre a contagem de visitas (`yes` ou `no`).
+- `genshinworld:login-never`: marca que a pessoa escolheu "Não quero me logar" (`1`). A escolha "Talvez depois" fica em `sessionStorage` (`genshinworld:login-later`) e vale só até fechar o site.
 - `genshinworld:splash` (sessão): marca que a abertura já apareceu.
 - **Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.
 - `genshinworld:sync`: conta conectada e controle da sincronização (última versão da nuvem conhecida e se há mudanças a enviar).

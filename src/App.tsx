@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
 const CharacterPage = lazy(() => import('./CharacterPage'))
 const ArtifactPage = lazy(() => import('./ArtifactPage'))
@@ -6,6 +6,7 @@ const ExpPage = lazy(() => import('./ExpPage'))
 const CodesPage = lazy(() => import('./CodesPage'))
 const AnalyticsPrompt = lazy(() => import('./AnalyticsPrompt'))
 const SyncPrompts = lazy(() => import('./SyncPrompts'))
+const LoginScreen = lazy(() => import('./LoginScreen'))
 const FavoritesPage = lazy(() => import('./FavoritesPage'))
 const HomePage = lazy(() => import('./HomePage'))
 const ItemsPage = lazy(() => import('./ItemsPage'))
@@ -21,6 +22,7 @@ const WeaponPage = lazy(() => import('./WeaponPage'))
 import NewsPage from './NewsPage'
 import ApiNotice from './ApiNotice'
 import { useSync } from './sync'
+import { isCrawler, loginDismissed, shouldShowLogin } from './loginGate'
 import { trackPage, useConsent } from './analytics'
 import { setTitle, staticTitle } from './pageTitle'
 import Footer from './Footer'
@@ -68,6 +70,7 @@ function App() {
         </Suspense>
         <ApiNotice />
         <SyncSlot />
+        <LoginSlot />
         <AnalyticsSlot />
         <Footer />
       </MenuProvider>
@@ -111,4 +114,17 @@ function RouteTitle() {
     if (title !== null) setTitle(title)
   }, [pathname])
   return null
+}
+
+// Tela de login para quem não entrou na conta (só se o Firebase estiver configurado)
+function LoginSlot() {
+  const { status } = useSync()
+  const [closed, setClosed] = useState(() => loginDismissed() || isCrawler())
+  const [busy, setBusy] = useState(false)
+  if (!shouldShowLogin(status, closed, busy)) return null
+  return (
+    <Suspense fallback={null}>
+      <LoginScreen busy={busy} onBusy={() => setBusy(true)} onClose={() => setClosed(true)} />
+    </Suspense>
+  )
 }

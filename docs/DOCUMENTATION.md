@@ -38,6 +38,7 @@ A summary of what each part of the site does and how to use it.
 - **Redeem codes:** in the menu. Lists active codes (refreshed daily at deploy by `scripts/fetch-codes.mjs`, from community sources), with a copy button and a shortcut to redeem on the official site. If no source answers, the previous list is kept. Some codes may have already expired.
 - **Visit statistics:** only show up if the `measurementId` is in the Firebase config. The site asks once if it may count visits; without a "Yes" (or with "do not track" on in the browser) nothing is sent. You can change the choice in My data.
 - **Sync across devices:** in My data (or "Sign in with Google" in the menu), sign in with your Google account. Builds, favorites, wishlist, teams and pity are saved in the cloud and show up on any device with the same account. Changes are sent automatically (about 2 seconds later). If the device and the cloud have different data, the site asks which version to keep. When you come back to the tab, if another device changed something, "Update" appears. Signing out does not delete anything from the device. It only shows up after Firebase is configured (see Deploy).
+- **Login screen:** anyone not signed in sees a screen with three choices: "Sign in with Google", "Maybe later" (closes, comes back next visit) and "I don't want to sign in" (closes and never shows again; you can still sign in from the menu). Esc also closes as "Maybe later". It is not shown to search engines. Like sync, it only shows once Firebase is configured.
 - **Reduced data notice:** if the main source (genshin-db) does not respond and the site uses the backup list, a bar warns that the list is older and smaller. You can close it.
 - **Where to get it:** tapping a material (weapon page, material calculator and wishlist) opens a window with its source according to the database, the domain that drops it with the days it opens, whether it can be crafted and a button to the official HoYoLAB map (opens in another tab). The map is not embedded because its server blocks reading by other sites (CORS).
 - **Weapon page:** tapping a weapon in the list opens its page. On mobile: a banner in the rarity color with the icon, section shortcuts (Summary, Effect, Materials, Characters), base ATK and secondary stat, effect with an R1–R5 refinement selector, a "Who uses it best" carousel (characters that have the weapon in the site builds, from best place #1 to worst, with medals for the top 3) and an ascension material grid (total and "See by phase"). On desktop, the weapon profile sits in a sticky side panel. You can favorite it, add it to the wishlist and share the link. On the sheet's builds, the weapon window has "Open full page".
@@ -88,6 +89,7 @@ src/
   ArtifactPage.tsx   artifact set page (/artifact/:name)
   ExpPage.tsx        EXP calculator (expCalc.ts, data/exp.json)
   Goals.tsx          "Leveling up now" card on the home (goals.ts)
+  LoginScreen.tsx    login screen (loginGate.ts, login.css)
   CodesPage.tsx      redeem codes (codes.ts)
   analytics.ts       visit statistics (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
   pageTitle.ts       browser tab title per page
@@ -201,6 +203,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:pity`: pity counter for each banner and 5★ history.
 - `genshinworld:my-builds`: each character's own build.
 - `genshinworld:analytics`: your choice about visit counting (`yes` or `no`).
+- `genshinworld:login-never`: set when the person chose "I don't want to sign in" (`1`). "Maybe later" is kept in `sessionStorage` (`genshinworld:login-later`) and only lasts until the site is closed.
 - `genshinworld:splash` (session): marks that the intro has already shown.
 - **Service worker cache:** app files, images, API data and fonts.
 - `genshinworld:sync`: connected account and sync control (last known cloud version and whether there are changes to send).
