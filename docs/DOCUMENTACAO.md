@@ -83,7 +83,7 @@ src/
   App.tsx            rotas por endereço, abertura e rodapé
   Splash.tsx         abertura animada (elementos que viram o logo)
   NewsPage.tsx       Início (banner animado, novidades, banners de oração)
-  HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos)
+  HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos); CharCards.tsx  cards e linhas
   CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds, minha build
   ItemsPage.tsx      armas e artefatos (lista, filtros)
   WeaponPage.tsx     página da arma (/weapon/:nome)

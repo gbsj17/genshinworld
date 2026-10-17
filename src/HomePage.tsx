@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllCharacters, getSkillIcons, iconChain } from './api'
-import { t, weaponLabel } from './i18n'
+import { getAllCharacters, iconChain } from './api'
+import { t } from './i18n'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
 import { useOwned } from './owned'
+import { Card, Row } from './CharCards'
 import ErrorMsg from './ErrorMsg'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
@@ -28,83 +29,6 @@ const normalize = (text: string) =>
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
 
-const STAR_PATH = 'M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z'
-
-function StarButton({ id, name }: { id: string; name: string }) {
-  const { isFavorite, toggle } = useFavorites()
-  const on = isFavorite(id)
-  return (
-    <button
-      className="star-btn"
-      aria-pressed={on}
-      aria-label={on ? t('favRemove', { n: name }) : t('favAdd', { n: name })}
-      onClick={() => toggle(id)}
-    >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill={on ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
-        <path d={STAR_PATH} />
-      </svg>
-    </button>
-  )
-}
-
-const accentStyle = (c: CharacterSummary) =>
-  ({ '--card-accent': VISION_COLORS[c.vision] ?? '#d3bc8e' }) as CSSProperties
-
-function Card({ c }: { c: CharacterSummary }) {
-  return (
-    <div className="char-card" style={accentStyle(c)}>
-      <Link to={`/character/${c.id}`} aria-label={c.name} style={{ color: 'inherit', textDecoration: 'none' }}>
-        <div className="char-card__art">
-          <Thumb round src={iconChain(c)} label={c.name} />
-          <span className="rarity-pill">{c.rarity}★</span>
-        </div>
-        <div className="char-card__body">
-          <strong>{c.name}</strong>
-          <span>{[c.vision, weaponLabel(c.weapon)].filter(Boolean).join(' · ')}</span>
-        </div>
-      </Link>
-      <StarButton id={c.id} name={c.name} />
-    </div>
-  )
-}
-
-function SkillDot({ src }: { src: string }) {
-  const [failed, setFailed] = useState(false)
-  if (failed) return null
-  return (
-    <span className="skill-dot">
-      <img src={src} alt="" loading="lazy" onError={() => setFailed(true)} />
-    </span>
-  )
-}
-
-function ListRow({ c, skills }: { c: CharacterSummary; skills?: string[] }) {
-  return (
-    <div className="row-item" style={accentStyle(c)}>
-      <Link
-        to={`/character/${c.id}`}
-        style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1, minWidth: 0, color: 'inherit', textDecoration: 'none', height: '100%' }}
-      >
-        <Thumb round src={iconChain(c)} label={c.name} />
-        <div className="row-item__body">
-          <strong>{c.name}</strong>
-          <span>
-            {[c.vision, weaponLabel(c.weapon)].filter(Boolean).join(' · ')} · {c.rarity}★
-          </span>
-        </div>
-      </Link>
-      {skills && (
-        <div className="row-item__skills" aria-hidden="true">
-          {skills.map((src) => (
-            <SkillDot key={src} src={src} />
-          ))}
-        </div>
-      )}
-      <StarButton id={c.id} name={c.name} />
-    </div>
-  )
-}
-
 export default function HomePage() {
   const [characters, setCharacters] = useState<CharacterSummary[] | null>(null)
   const [error, setError] = useState(false)
@@ -120,19 +44,7 @@ export default function HomePage() {
   })
   const { ids } = useFavorites()
   const ownedMap = useOwned().owned
-  const [skills, setSkills] = useState<Map<string, string[]> | null>(null)
-
-  // Os ícones das habilidades só são buscados quando a lista é aberta
-  useEffect(() => {
-    if (view !== 'list' || skills) return
-    let active = true
-    getSkillIcons()
-      .then((m) => active && setSkills(m))
-      .catch(() => {})
-    return () => {
-      active = false
-    }
-  }, [view, skills])
+  const goalIds = useFavorites('goalchars').ids
 
   useEffect(() => {
     let active = true
@@ -305,7 +217,7 @@ export default function HomePage() {
           ) : view === 'grid' ? (
             <div className="cards">
               {filtered.map((c) => (
-                <Card key={c.id} c={c} />
+                <Card key={c.id} c={c} own={ownedMap[c.id]} goal={goalIds.includes(c.id)} />
               ))}
             </div>
           ) : (
@@ -316,9 +228,11 @@ export default function HomePage() {
                     <h2 className="list__letter" id={`letter-${letter}`}>
                       {letter}
                     </h2>
-                    {items.map((c) => (
-                      <ListRow key={c.id} c={c} skills={skills?.get(c.enName)} />
-                    ))}
+                    <div className="vrows">
+                      {items.map((c) => (
+                        <Row key={c.id} c={c} own={ownedMap[c.id]} goal={goalIds.includes(c.id)} />
+                      ))}
+                    </div>
                   </section>
                 ))}
               </div>

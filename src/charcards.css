@@ -1,0 +1,252 @@
+/* Cards de personagem (grade) e linhas (lista) */
+.vcard {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 33%, color-mix(in srgb, var(--el) 46%, transparent), transparent 66%),
+    linear-gradient(170deg, color-mix(in srgb, var(--el) 20%, var(--panel)), var(--panel));
+  transition: transform 0.15s;
+}
+
+.vcard__link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0;
+  aspect-ratio: 3 / 4.7;
+  padding: 11px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.vcard__stars {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--stars);
+}
+
+.vcard__link > .vcard__stars {
+  position: absolute;
+  left: 11px;
+  top: 14px;
+}
+
+.vcard__img {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  width: 62%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px var(--el),
+    0 0 26px color-mix(in srgb, var(--el) 55%, transparent);
+}
+
+.vcard__img .thumb {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+
+.vcard__link > strong {
+  position: relative;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vcard__chips,
+.vrow__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.vcard__chips {
+  margin-top: 5px;
+}
+
+.cx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cx-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--el);
+}
+
+.cx-chip--goal {
+  padding: 2px 7px;
+  background: color-mix(in srgb, var(--gold) 20%, var(--panel));
+  color: var(--gold);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+}
+
+.cx-tag {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gold) 18%, var(--panel));
+  color: var(--gold);
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  font-size: 10.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.vcard__own {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.vcard__own small {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: inherit;
+}
+
+.vcard__own--no {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.cx-pips {
+  display: flex;
+  gap: 4px;
+}
+
+.cx-pips i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+}
+
+.cx-pips i.on {
+  background: var(--gold);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--gold) 70%, transparent);
+}
+
+.vcard .star-btn {
+  top: 8px;
+  right: 8px;
+}
+
+.vcard__link:focus-visible,
+.vrow__link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+  border-radius: 16px;
+}
+
+/* Lista */
+.vrows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.vrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--el) 14%, var(--panel)), var(--panel) 55%);
+}
+
+.vrow__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  padding: 10px 0 10px 12px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.vrow__link .thumb {
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow:
+    0 0 0 2px var(--el),
+    0 0 16px color-mix(in srgb, var(--el) 45%, transparent);
+}
+
+.vrow__mid {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.vrow__mid strong {
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vrow__rt {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  flex: none;
+}
+
+.vrow .star-btn {
+  position: static;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+@media (max-width: 819px) {
+  .vcard__link {
+    aspect-ratio: 3 / 5;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 820px) {
+  .vcard:hover {
+    transform: translateY(-3px);
+  }
+
+  .vrows {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

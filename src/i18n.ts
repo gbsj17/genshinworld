@@ -82,6 +82,8 @@ const DICT = {
   capArea: ['MINHA ÁREA', 'MY AREA'],
   areaTabChars: ['Personagens', 'Characters'],
   areaTabData: ['Dados', 'Data'],
+  goalChip: ['Evoluindo', 'Leveling up'],
+  lvShort: ['Nv.', 'Lv.'],
   areaChars: ['Personagens', 'Characters'],
   areaWeapons: ['Armas', 'Weapons'],
   areaCons: ['Constelações', 'Constellations'],
