@@ -884,7 +884,7 @@
   height: 44px;
 }
 
-.mine__row > div {
+.mine__row > div:not(.item-icon) {
   flex: 1;
   min-width: 0;
   display: flex;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './labbg.css'
 import type { CSSProperties } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useFavorites } from './favorites'
@@ -77,7 +78,7 @@ function Chevron() {
   )
 }
 
-export default function CharacterPage({ id }: { id: string }) {
+export default function CharacterPage({ id, lab }: { id: string; lab?: boolean }) {
   // character = dados básicos (de todos os personagens)
   // detail = talentos e constelações (só dos que existem na genshin.dev)
   const [character, setCharacter] = useState<CharacterSummary | null>(null)
@@ -256,7 +257,8 @@ export default function CharacterPage({ id }: { id: string }) {
         )}
       </section>
 
-      <section className="sheet">
+      <section className={lab ? 'sheet sheet--lab' : 'sheet'}>
+        {lab && isArt && portrait && <img className="sheet__bg" src={portrait} alt="" aria-hidden="true" />}
         <div className="sheet__handle" aria-hidden="true" />
         <h1>{character.name}</h1>
         <p className="sheet__sub">
