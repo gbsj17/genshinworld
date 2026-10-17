@@ -208,7 +208,6 @@ export default function Drawer() {
             <Item to="/codes" icon={I.codes} label={t('codes')} i={5} close={closeMenu} sub />
           </Group>
           <Item to="/docs" icon={I.docs} label={t('docs')} i={6} close={closeMenu} />
-          <Item to="/teste/mualani" icon={I.docs} label={t('labChar')} i={6} close={closeMenu} />
         </nav>
 
         <div className="drawer__item drawer__item--row" style={step(7)}>

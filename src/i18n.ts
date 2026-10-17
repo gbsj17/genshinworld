@@ -52,7 +52,6 @@ const DICT = {
   artifacts: ['Artefatos', 'Artifacts'],
   favorites: ['Favoritos', 'Favorites'],
   docs: ['Documentação', 'Documentation'],
-  labChar: ['Teste: página do personagem', 'Test: character page'],
   searchDocs: ['Buscar na documentação', 'Search the documentation'],
   docsIndex: ['Índice da documentação', 'Documentation index'],
   docsTopics: ['Tópicos', 'Topics'],

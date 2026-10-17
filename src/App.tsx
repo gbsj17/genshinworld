@@ -34,10 +34,10 @@ import './responsive.css'
 import './motion.css'
 import './sheetpc.css'
 
-function CharacterRoute({ lab }: { lab?: boolean }) {
+function CharacterRoute() {
   const { id } = useParams()
   if (!id) return <Navigate to="/" replace />
-  return <CharacterPage key={id} id={id} lab={lab} />
+  return <CharacterPage key={id} id={id} />
 }
 
 function App() {
@@ -52,7 +52,6 @@ function App() {
           <Route path="/" element={<NewsPage />} />
           <Route path="/characters" element={<HomePage />} />
           <Route path="/character/:id" element={<CharacterRoute />} />
-          <Route path="/teste/:id" element={<CharacterRoute lab />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/docs" element={<DocsPage />} />
           <Route path="/compare" element={<ComparePage />} />
