@@ -18,18 +18,19 @@
 
 .area__top,
 .area__id,
-.area__acts,
-.area__tabs,
-.area__cols {
+.area__stats,
+.area__sec {
   position: relative;
 }
 
 .area__id {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 14px;
-  margin: 44px 16px 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 48px 16px 0;
+  text-align: center;
 }
 
 .area__avatar {
@@ -78,7 +79,7 @@
 }
 
 .area__chip {
-  align-self: flex-start;
+  align-self: center;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -102,41 +103,6 @@
   background: var(--muted);
 }
 
-.area__nums {
-  display: flex;
-  justify-content: space-around;
-  gap: 8px;
-  width: 100%;
-  margin: 4px 0 0;
-  padding: 12px;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-}
-
-.area__nums div {
-  text-align: center;
-}
-
-.area__nums dd {
-  margin: 0;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.area__nums dt {
-  margin-top: 3px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.area__acts {
-  display: none;
-}
-
 .area__btn {
   display: inline-flex;
   align-items: center;
@@ -155,6 +121,7 @@
   cursor: pointer;
 }
 
+
 .area__btn--pri {
   background: var(--gold);
   border-color: var(--gold);
@@ -162,38 +129,195 @@
 }
 
 .area__btn:focus-visible,
-.area__fabmain:focus-visible,
-.area__vc:focus-visible,
-.area__wc:focus-visible {
+.area__wc:focus-visible,
+.area__goal:focus-visible,
+.area__team:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
 
-.area__tabs {
-  margin: 14px 16px;
+.area__acts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
 }
 
-.area__cols {
-  padding: 0 16px 120px;
+.area__acts .area__btn {
+  flex: 1 1 auto;
 }
 
-.area__h {
-  display: none;
-  margin: 0 0 12px;
+.area__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 16px 0;
+}
+
+.area__st {
+  display: grid;
+  gap: 2px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.area__st svg {
+  color: var(--gold);
+}
+
+.area__st small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.area__st b,
+.area__pity b {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.area__st b span,
+.area__pity b span {
+  margin-left: 5px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.area__pb {
+  height: 6px;
+  margin-top: 6px;
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.area__pb i {
+  display: block;
+  height: 100%;
+  border-radius: 9px;
+  background: var(--gold);
+}
+
+.area__sec {
+  padding: 22px 16px 0;
+}
+
+.area__sh {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.area__sh h2 {
+  margin: 0;
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 24px;
   color: var(--gold);
 }
 
-.area__col {
-  display: none;
+.area__more {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
 }
 
-.area__col.is-on {
+.area__elbar {
+  display: flex;
+  gap: 2px;
+  height: 14px;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.area__elbar i {
   display: block;
 }
 
-.area__vit {
+.area__leg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.area__leg b {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.area__leg em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.area__goals,
+.area__teams,
+.area__pity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.area__goal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  text-decoration: none;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--el) 18%, var(--panel)), var(--panel));
+}
+
+.area__goal .thumb {
+  flex: none;
+  width: 54px;
+  height: 54px;
+  box-shadow: 0 0 0 2px var(--el);
+}
+
+.area__goal > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.area__goal b {
+  display: block;
+  font-size: 15px;
+}
+
+.area__goal small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.area__pc {
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.area__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.area__wgrid {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -202,108 +326,33 @@
   gap: 10px;
 }
 
-.area__vc {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 1px;
-  aspect-ratio: 3 / 4.5;
-  padding: 9px;
-  overflow: hidden;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  color: var(--text);
-  text-decoration: none;
-  background:
-    radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--el) 50%, transparent), transparent 65%),
-    linear-gradient(170deg, color-mix(in srgb, var(--el) 20%, var(--panel)), var(--panel));
-}
-
-.area__vimg {
-  position: absolute;
-  left: 50%;
-  top: 14%;
-  width: 60%;
-  aspect-ratio: 1;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 2px var(--el),
-    0 0 26px color-mix(in srgb, var(--el) 60%, transparent);
-}
-
-.area__vimg .thumb {
-  width: 100%;
-  height: 100%;
-}
-
-.area__vc strong {
-  position: relative;
-  font-size: 13px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.area__vc small {
-  position: relative;
-  color: var(--muted);
-  font-size: 10.5px;
-}
-
-.area__pips {
-  position: relative;
-  display: flex;
-  gap: 4px;
-  margin-top: 5px;
-}
-
-.area__pips i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--text) 14%, transparent);
-}
-
-.area__pips i.on {
-  background: var(--gold);
-  box-shadow: 0 0 6px color-mix(in srgb, var(--gold) 70%, transparent);
-}
-
-.area__wgrid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
 .area__wc {
   display: grid;
   justify-items: center;
-  gap: 8px;
-  padding: 12px;
+  gap: 6px;
+  padding: 12px 8px;
   border-radius: 16px;
   border: 1px solid var(--line);
   background: var(--panel);
   color: var(--text);
   text-align: center;
   text-decoration: none;
+  transition: transform 0.15s;
 }
 
 .area__wc .item-icon {
-  width: 78px;
-  height: 78px;
+  width: 64px;
+  height: 64px;
 }
 
 .area__wc strong {
-  font-size: 13.5px;
+  font-size: 13px;
 }
 
 .area__tags {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -320,52 +369,53 @@
   border-color: color-mix(in srgb, var(--gold) 40%, transparent);
 }
 
-/* botão + flutuante (celular) */
-.area__fab {
-  position: fixed;
-  right: 16px;
-  bottom: 88px;
-  z-index: 30;
-  display: grid;
-  gap: 10px;
-  justify-items: end;
-}
-
-.area__fabmain {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: 0;
-  background: var(--gold);
-  color: var(--on-accent);
-  font-size: 28px;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s;
-}
-
-.area__fab.is-open .area__fabmain {
-  transform: rotate(45deg);
-}
-
-.area__fabopts {
-  display: none;
-  gap: 8px;
-  justify-items: end;
-  flex-direction: column-reverse;
-}
-
-.area__fab.is-open .area__fabopts {
-  display: flex;
-}
-
-.area__fabopts .area__btn {
-  border-radius: 999px;
-  border-color: var(--line-strong);
+.area__team {
+  display: block;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
   background: var(--panel);
   color: var(--text);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+}
+
+.area__team b {
+  font-size: 14px;
+}
+
+.area__team div {
+  display: flex;
+  margin-top: 8px;
+}
+
+.area__team span {
+  margin-right: -8px;
+}
+
+.area__team .thumb {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  box-shadow:
+    0 0 0 2px var(--el),
+    0 0 0 4px var(--panel);
+}
+
+.area__pity > div {
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.area__pity small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.area__end {
+  height: 120px;
 }
 
 .area__modal .modal__body .own__row {
@@ -389,10 +439,6 @@
   .area__top > div:first-child {
     display: none;
   }
-
-  .area__id {
-    margin-top: 48px;
-  }
 }
 
 @media (min-width: 820px) {
@@ -401,72 +447,59 @@
   }
 
   .area__id {
-    flex-wrap: nowrap;
-    margin: 60px 56px 0;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 40px 56px 0;
     gap: 22px;
+    text-align: left;
   }
 
   .area__avatar {
-    width: 104px;
-    height: 104px;
+    width: 96px;
+    height: 96px;
   }
 
   .area__who h2 {
-    font-size: 36px;
+    font-size: 34px;
   }
 
-  .area__nums {
-    width: auto;
-    margin: 0 0 6px auto;
-    gap: 24px;
-    padding: 0;
-    border: 0;
-    background: none;
-  }
-
-  .area__nums dd {
-    font-size: 32px;
+  .area__chip {
+    align-self: flex-start;
   }
 
   .area__acts {
-    display: flex;
-    flex-wrap: wrap;
+    width: auto;
     justify-content: flex-end;
-    gap: 8px;
-    margin: 18px 56px 22px;
   }
 
-  .area__tabs,
-  .area__fab {
-    display: none;
+  .area__acts .area__btn {
+    flex: none;
   }
 
-  .area__cols {
-    display: grid;
-    grid-template-columns: 1.8fr 1fr;
-    gap: 28px;
-    align-items: start;
-    padding: 0 56px 60px;
+  .area__stats {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 18px 56px 0;
   }
 
-  .area__col {
-    display: block;
+  .area__sec {
+    padding: 24px 56px 0;
   }
 
-  .area__h {
-    display: block;
+  .area__goals,
+  .area__teams,
+  .area__pity {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .area__vit {
+  .area__grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 12px;
   }
 
-  .area__vc {
-    transition: transform 0.15s;
+  .area__wgrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .area__vc:hover,
   .area__wc:hover {
     transform: translateY(-2px);
   }
