@@ -453,3 +453,10 @@ button.drawer__item--btn {
 .drawer__panel > * {
   flex: none;
 }
+
+/* Artefatos fica no menu só no celular (no PC ele está no topo) */
+@media (min-width: 820px) {
+  .drawer__item--mobile {
+    display: none;
+  }
+}

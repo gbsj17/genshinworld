@@ -17,8 +17,8 @@ const sv = {
   'aria-hidden': true,
 }
 
-// Seções principais mostram as abas; qualquer outra página (perfil, favoritos, ficha, arma…) mostra ações.
-const MAIN = ['/', '/characters', '/weapons', '/artifacts']
+// Seções principais (Início, Personagens, Armas) mostram as abas; qualquer outra página (perfil, favoritos, ficha, arma…) mostra ações.
+const MAIN = ['/', '/characters', '/weapons']
 
 // Para onde o "Voltar" vai quando a página foi aberta direto (sem histórico do app)
 function parentOf(path: string): string {
@@ -28,7 +28,7 @@ function parentOf(path: string): string {
   return '/'
 }
 
-// Barra flutuante. Nas seções principais: abas. Nas páginas internas: Voltar, Início, Buscar, Topo e Menu.
+// Barra flutuante. Nas seções principais: Início, Personagens, Armas, Buscar e Menu. Nas páginas internas: Voltar, Início, Buscar, Topo e Menu.
 // "Buscar" troca os botões pela barra de pesquisa.
 export default function TabBar({
   active,
@@ -97,33 +97,28 @@ export default function TabBar({
           </>
         ) : (
           <>
-        <Link
-          to="/"
-          className="tabbar__item"
-          aria-label={t('home')}
-          aria-current={cur('home')}
-          onClick={() => active === 'home' && window.scrollTo({ top: 0, behavior: 'smooth' })}
-        >
-          <svg {...sv}>
-            <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5" />
-          </svg>
-        </Link>
-        <Link to="/characters" className="tabbar__item" aria-label={t('characters')} aria-current={cur('characters')}>
-          <svg {...sv}>
-            <circle cx="9" cy="8" r="3.5" />
-            <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .8 3.5 2.6 3.5 5.6" />
-          </svg>
-        </Link>
-        <Link to="/weapons" className="tabbar__item" aria-label={t('weapons')} aria-current={cur('weapons')}>
-          <svg {...sv}>
-            <path d="M14.5 4.5L19.5 4.5 19.5 9.5 9 20l-5-5L14.5 4.5zM6.5 12.5l5 5M4 20l3-3" />
-          </svg>
-        </Link>
-        <Link to="/artifacts" className="tabbar__item" aria-label={t('artifacts')} aria-current={cur('artifacts')}>
-          <svg {...sv}>
-            <path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5l6.74-6.76zM16 8L2 22M17.5 15H9" />
-          </svg>
-        </Link>
+            <Link
+              to="/"
+              className="tabbar__item"
+              aria-label={t('home')}
+              aria-current={cur('home')}
+              onClick={() => active === 'home' && window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <svg {...sv}>
+                <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5" />
+              </svg>
+            </Link>
+            <Link to="/characters" className="tabbar__item" aria-label={t('characters')} aria-current={cur('characters')}>
+              <svg {...sv}>
+                <circle cx="9" cy="8" r="3.5" />
+                <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .8 3.5 2.6 3.5 5.6" />
+              </svg>
+            </Link>
+            <Link to="/weapons" className="tabbar__item" aria-label={t('weapons')} aria-current={cur('weapons')}>
+              <svg {...sv}>
+                <path d="M14.5 4.5L19.5 4.5 19.5 9.5 9 20l-5-5L14.5 4.5zM6.5 12.5l5 5M4 20l3-3" />
+              </svg>
+            </Link>
           </>
         )}
         {!noSearch && (
@@ -135,19 +130,17 @@ export default function TabBar({
           </button>
         )}
         {inner && (
-          <>
-            <button className="tabbar__item tabbar__item--top" aria-label={t('toTop')} aria-hidden={!away} tabIndex={away ? 0 : -1} data-show={away} onClick={toTop}>
-              <svg {...sv}>
-                <path d="M12 19V5M5 12l7-7 7 7" />
-              </svg>
-            </button>
-            <button className="tabbar__item" aria-label={t('openMenu')} aria-haspopup="dialog" aria-expanded={menuOpen} aria-controls="app-menu" onClick={openMenu}>
-              <svg {...sv}>
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
-            </button>
-          </>
+          <button className="tabbar__item tabbar__item--top" aria-label={t('toTop')} aria-hidden={!away} tabIndex={away ? 0 : -1} data-show={away} onClick={toTop}>
+            <svg {...sv}>
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </button>
         )}
+        <button className="tabbar__item" aria-label={t('openMenu')} aria-haspopup="dialog" aria-expanded={menuOpen} aria-controls="app-menu" onClick={openMenu}>
+          <svg {...sv}>
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
       </div>
 
       <div className="tabbar__search" aria-hidden={!searchOpen} inert={!searchOpen}>

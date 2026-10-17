@@ -13,6 +13,7 @@ const step = (i: number) => ({ '--i': i }) as CSSProperties
 
 // Desenho (path) de cada ícone do menu
 const I = {
+  artifacts: 'M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5l6.74-6.76zM16 8L2 22M17.5 15H9',
   home: 'M4 11l8-7 8 7M6 9.5V20h12V9.5',
   fav: 'M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z',
   wish: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z',
@@ -35,9 +36,9 @@ const Icon = ({ d }: { d: string }) => (
   </svg>
 )
 
-function Item({ to, icon, label, i, close, sub }: { to: string; icon: string; label: string; i: number; close: () => void; sub?: boolean }) {
+function Item({ to, icon, label, i, close, sub, mobile }: { to: string; icon: string; label: string; i: number; close: () => void; sub?: boolean; mobile?: boolean }) {
   return (
-    <Link to={to} className={sub ? 'drawer__item drawer__item--sub' : 'drawer__item'} style={step(i)} onClick={close}>
+    <Link to={to} className={`drawer__item${sub ? ' drawer__item--sub' : ''}${mobile ? ' drawer__item--mobile' : ''}`} style={step(i)} onClick={close}>
       <Icon d={icon} />
       {label}
     </Link>
@@ -192,8 +193,9 @@ export default function Drawer() {
 
         <nav className="drawer__nav">
           <Item to="/" icon={I.home} label={t('home')} i={2} close={closeMenu} />
+          <Item to="/artifacts" icon={I.artifacts} label={t('artifacts')} i={2} close={closeMenu} mobile />
+          <Item to="/favorites" icon={I.fav} label={t('favorites')} i={2} close={closeMenu} />
           <Group label={t('menuPlan')} icon={I.plan} i={3}>
-            <Item to="/favorites" icon={I.fav} label={t('favorites')} i={3} close={closeMenu} sub />
             <Item to="/wishlist" icon={I.wish} label={t('wishlist')} i={3} close={closeMenu} sub />
             <Item to="/teams" icon={I.teams} label={t('teamBuilder')} i={3} close={closeMenu} sub />
             <Item to="/compare" icon={I.compare} label={t('compare')} i={3} close={closeMenu} sub />
