@@ -101,6 +101,8 @@ const DICT = {
   areaGuar: ['Garantido?', 'Guaranteed?'],
   areaYes: ['Sim', 'Yes'],
   areaNo: ['Não', 'No'],
+  setChip: ['Conjunto', 'Set'],
+  setSee: ['Ver bônus e peças', 'See bonuses and pieces'],
   areaSeeAll: ['Ver todos →', 'See all →'],
   areaExpand: ['Ver todos', 'See all'],
   areaCollapse: ['Recolher', 'Collapse'],

@@ -207,6 +207,53 @@
   flex: none;
 }
 
+/* Arma e artefato: ícone quadrado dentro do card (o quadro já tem o fundo da raridade) */
+.vcard__img--sq {
+  border-radius: 22%;
+  box-shadow: 0 0 26px color-mix(in srgb, var(--el) 55%, transparent);
+}
+
+.vcard__img--sq .item-icon,
+.vrow__ic .item-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 22%;
+}
+
+.vcard__img--sq .item-icon .thumb,
+.vrow__ic .item-icon .thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.vrow__ic {
+  flex: none;
+  width: 56px;
+  height: 56px;
+}
+
+.igrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 10px 20px 0;
+}
+
+@media (min-width: 820px) {
+  .igrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    padding: 10px 0 0;
+  }
+
+  .vrow__ic {
+    width: 68px;
+    height: 68px;
+  }
+}
+
 /* Lista */
 .vrows {
   display: grid;
@@ -360,5 +407,39 @@
 
   .vrow__rt {
     gap: 8px;
+  }
+}
+
+/* lista de armas/artefatos direto na tela (fora de .list) */
+main > .vrows {
+  padding: 10px 20px 0;
+}
+
+@media (min-width: 820px) {
+  main > .vrows {
+    padding: 10px 0 0;
+  }
+}
+
+.items-bar .home-count {
+  margin: 0 0 0 20px;
+}
+
+.items-bar {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-right: 20px;
+}
+
+@media (min-width: 820px) {
+  .items-bar {
+    padding-right: 0;
+  }
+
+  .items-bar .home-count {
+    margin-left: 0;
   }
 }

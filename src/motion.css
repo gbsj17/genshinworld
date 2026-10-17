@@ -86,7 +86,9 @@
 /* backwards (e não both): ao terminar, o card volta ao estilo normal e o hover consegue levantá-lo */
 .cards > *,
 .item-grid > *,
+.igrid > *,
 .list .vrow,
+.vrows > .vrow,
 .banners > * {
   animation: card-in 0.6s var(--ease-out) backwards;
 }
