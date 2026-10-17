@@ -20,7 +20,7 @@ const normalize = (s: string) =>
 type Scope = 'all' | 'yes' | 'no'
 
 // Importação pelo UID (Enka): mostra o que achou e só grava quando a pessoa confirma.
-function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
+export function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
   const own = useOwned()
   const [uid, setUid] = useState('')
   const [phase, setPhase] = useState<'idle' | 'wait'>('idle')
@@ -65,8 +65,7 @@ function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
   }
 
   return (
-    <details className="own__enka">
-      <summary>{t('ownEnkaTitle')}</summary>
+    <div className="own__enka">
       <p className="tool__muted">{t('ownEnkaHint')}</p>
       <form
         className="own__uid"
@@ -108,8 +107,21 @@ function EnkaImport({ chars }: { chars: CharacterSummary[] | null }) {
           {t('ownEnkaDone', { n: done })}
         </p>
       )}
-    </details>
+    </div>
   )
+}
+
+// Importar pelo UID sozinho (janela da Minha área): busca a lista de personagens e abre o importador.
+export function UidImport() {
+  const [chars, setChars] = useState<CharacterSummary[] | null>(null)
+  useEffect(() => {
+    let active = true
+    getAllCharacters().then((l) => active && setChars(l)).catch(() => undefined)
+    return () => {
+      active = false
+    }
+  }, [])
+  return <EnkaImport chars={chars} />
 }
 
 function Row({ c, info, onToggle, onChange }: { c: CharacterSummary; info?: OwnedInfo; onToggle: () => void; onChange: (p: Partial<OwnedInfo>) => void }) {
@@ -160,7 +172,7 @@ function Row({ c, info, onToggle, onChange }: { c: CharacterSummary; info?: Owne
   )
 }
 
-// Aba "Personagens" da Minha área: quais a pessoa tem, com constelação e nível.
+// Janela "Adicionar personagem" da Minha área: quais a pessoa tem, com constelação e nível.
 export default function OwnedPanel() {
   const own = useOwned()
   const [chars, setChars] = useState<CharacterSummary[] | null>(null)
@@ -191,10 +203,7 @@ export default function OwnedPanel() {
 
   return (
     <section className="own">
-      <h2 className="own__title">{t('ownTitle')}</h2>
       <p className="tool__muted">{t('ownIntro')}</p>
-
-      <EnkaImport chars={chars} />
 
       {fail && <ErrorMsg text={t('loadCharsFail')} />}
       {!fail && !chars && <p className="empty">{t('loading')}</p>}

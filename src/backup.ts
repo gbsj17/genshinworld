@@ -14,6 +14,7 @@ const KEYS = {
   'goal-weapons': 'strings',
   'goal-artifacts': 'strings',
   owned: 'object',
+  'owned-weapons': 'object',
   teams: 'array',
   pity: 'object',
   'my-builds': 'object',

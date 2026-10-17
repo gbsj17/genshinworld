@@ -56,7 +56,8 @@
 }
 
 /* Itens entram deslizando, um depois do outro */
-.drawer__head,
+.drawer__banner,
+.drawer__acc,
 .drawer__item {
   opacity: 0;
   transform: translateX(-18px);
@@ -65,7 +66,8 @@
     transform 0.2s ease;
 }
 
-.drawer--open .drawer__head,
+.drawer--open .drawer__banner,
+.drawer--open .drawer__acc,
 .drawer--open .drawer__item {
   opacity: 1;
   transform: none;
@@ -302,44 +304,71 @@ button.drawer__item--btn {
   font-weight: 600;
 }
 
-/* Cartão da conta no topo do menu */
-.drawer__item.drawer__acc {
+/* Topo do menu: faixa com o céu do site, avatar com anel dourado e ações da conta */
+.drawer__banner {
+  position: relative;
+  height: 104px;
+  margin: -20px -16px 0;
+  overflow: hidden;
+}
+
+.drawer__sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(76, 194, 241, 0.3), transparent 44%),
+    radial-gradient(circle at 88% 30%, rgba(181, 140, 242, 0.28), transparent 46%),
+    radial-gradient(circle at 50% 120%, rgba(240, 178, 50, 0.26), transparent 55%),
+    radial-gradient(circle at 72% 80%, rgba(240, 122, 74, 0.2), transparent 42%),
+    linear-gradient(var(--surface-deep), var(--panel));
+}
+
+.drawer__banner .drawer__title {
+  position: absolute;
+  left: 16px;
+  top: 18px;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.drawer__close {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  background: var(--glass);
+  border-color: var(--line-strong);
+}
+
+.drawer__acc {
   display: grid;
   gap: 10px;
-  align-items: stretch;
-  min-height: 0;
-  padding: 12px;
-  background: var(--surface-deep);
-  border: 1px solid var(--line);
+  padding: 0 2px 12px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
 }
 
-.drawer__accrow {
+.drawer__prof {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
-  min-width: 0;
-  color: var(--text);
-  text-decoration: none;
-  border-radius: 10px;
+  margin-top: -26px;
+  position: relative;
 }
 
-.drawer__accrow:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
-}
-
-.drawer__avatar--lg {
-  width: 44px;
-  height: 44px;
+.drawer__avatar--xl {
+  width: 60px;
+  height: 60px;
   flex: none;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 3px var(--panel),
+    0 0 0 5px var(--gold);
 }
 
 .drawer__avatar--ph {
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: var(--panel);
-  border: 1px solid var(--line-strong);
+  background: var(--surface-deep);
   color: var(--muted);
 }
 
@@ -348,6 +377,7 @@ button.drawer__item--btn {
   flex-direction: column;
   min-width: 0;
   flex: 1;
+  padding-bottom: 2px;
 }
 
 .drawer__accname strong,
@@ -357,19 +387,53 @@ button.drawer__item--btn {
   white-space: nowrap;
 }
 
+.drawer__accname strong {
+  font-size: 17px;
+}
+
 .drawer__accname small {
   font-size: 12px;
   font-weight: 400;
   color: var(--muted);
 }
 
-.drawer__accgo {
-  flex: none;
-  color: var(--muted);
+.drawer__chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-deep);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.drawer__chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6fcf9c;
+}
+
+.drawer__accrow2 {
+  display: flex;
+  gap: 8px;
+}
+
+.drawer__accrow2 .drawer__accbtn--pri {
+  flex: 1;
 }
 
 .drawer__accbtn {
-  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 14px;
   border-radius: 12px;
   border: 1px solid var(--line-strong);
   background: transparent;
@@ -377,6 +441,7 @@ button.drawer__item--btn {
   font: inherit;
   font-size: 14px;
   font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -384,6 +449,11 @@ button.drawer__item--btn {
   background: var(--gold);
   border-color: var(--gold);
   color: var(--on-accent);
+}
+
+.drawer__accbtn--ic {
+  width: 42px;
+  padding: 0;
 }
 
 .drawer__accbtn:disabled {

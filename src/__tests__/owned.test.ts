@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { clampC, clampLv } from '../owned'
+import { clampR, clampWLv } from '../ownedWeapons'
 import { matchEnka, parseEnka, validUid } from '../enka'
 import type { CharacterSummary } from '../types'
 
@@ -60,5 +61,15 @@ describe('importação pelo UID (Enka)', () => {
     )
     expect(r.found.map((f) => f.char.id)).toEqual(['diluc'])
     expect(r.skipped).toBe(1)
+  })
+})
+
+describe('limites da arma', () => {
+  it('refinamento vai de 1 a 5 e nível de 1 a 90', () => {
+    expect(clampR(0)).toBe(1)
+    expect(clampR(9)).toBe(5)
+    expect(clampR(NaN)).toBe(1)
+    expect(clampWLv(0)).toBe(1)
+    expect(clampWLv(200)).toBe(90)
   })
 })

@@ -26,6 +26,7 @@ const I = {
   docs: 'M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7',
   user: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0',
   plan: 'M5 4h14v16H5zM9 9h6M9 13h6M9 17h3',
+  out: 'M9 4H5v16h4M16 8l4 4-4 4M20 12H9',
 }
 
 const Icon = ({ d }: { d: string }) => (
@@ -118,53 +119,57 @@ export default function Drawer() {
         aria-label={t('menu')}
         onKeyDown={trapTab}
       >
-        <div className="drawer__head" style={step(0)}>
-          <div>
-            <span className="drawer__title">GENSHIN WORLD</span>
-            <span className="drawer__sub">{t('menuSub')}</span>
-          </div>
-          <button
-            ref={closeRef}
-            className="round-btn"
-            aria-label={t('closeMenu')}
-            onClick={closeMenu}
-          >
+        <div className="drawer__banner" style={step(0)}>
+          <div className="drawer__sky" aria-hidden="true" />
+          <span className="drawer__title">GENSHIN WORLD</span>
+          <button ref={closeRef} className="round-btn drawer__close" aria-label={t('closeMenu')} onClick={closeMenu}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
         </div>
 
-        <div className="drawer__item drawer__acc" style={step(1)}>
-          <Link to="/data" className="drawer__accrow" onClick={closeMenu}>
+        <div className="drawer__acc" style={step(1)}>
+          <div className="drawer__prof">
             {sync.user?.photo ? (
-              <img className="drawer__avatar drawer__avatar--lg" src={sync.user.photo} alt="" referrerPolicy="no-referrer" />
+              <img className="drawer__avatar drawer__avatar--xl" src={sync.user.photo} alt="" referrerPolicy="no-referrer" />
             ) : (
-              <span className="drawer__avatar drawer__avatar--lg drawer__avatar--ph">
+              <span className="drawer__avatar drawer__avatar--xl drawer__avatar--ph">
                 <Icon d={I.user} />
               </span>
             )}
             <span className="drawer__accname">
               <strong>{sync.user ? sync.user.name : t('accountGuest')}</strong>
               <small>{sync.user ? sync.user.email : t('accountGuestSub')}</small>
+              {sync.user && (
+                <span className="drawer__chip">
+                  <i aria-hidden="true" />
+                  {t('areaSynced')}
+                </span>
+              )}
             </span>
-            <svg className="drawer__accgo" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9 6l6 6-6 6" />
-            </svg>
-          </Link>
-          {sync.status !== 'off' &&
-            (sync.user ? (
+          </div>
+          {sync.user ? (
+            <div className="drawer__accrow2">
+              <Link to="/data" className="drawer__accbtn drawer__accbtn--pri" onClick={closeMenu}>
+                <Icon d={I.user} />
+                {t('area')}
+              </Link>
               <button
-                className="drawer__accbtn"
+                className="drawer__accbtn drawer__accbtn--ic"
+                aria-label={t('syncSignOut')}
+                title={t('syncSignOut')}
                 onClick={() => {
                   loginLater() // quem saiu de propósito não leva a tela de login na cara
                   void signOutSync()
                   closeMenu()
                 }}
               >
-                {t('syncSignOut')}
+                <Icon d={I.out} />
               </button>
-            ) : (
+            </div>
+          ) : (
+            sync.status !== 'off' && (
               <button
                 className="drawer__accbtn drawer__accbtn--pri"
                 disabled={sync.status === 'loading'}
@@ -173,9 +178,16 @@ export default function Drawer() {
                   closeMenu()
                 }}
               >
+                <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                </svg>
                 {t('syncSignIn')}
               </button>
-            ))}
+            )
+          )}
         </div>
 
         <nav className="drawer__nav">

@@ -32,8 +32,8 @@ Resumo do que cada parte do site faz e como usar.
 - **Lista de desejos:** adicione os personagens e armas que você quer (com os mesmos filtros dos outros seletores) e veja a soma dos materiais de ascensão completa e dos 3 talentos de cada personagem, até o nível de talento que você escolher, mais a ascensão completa de cada arma. A lista fica salva no aparelho. "Detalhes" abre a calculadora de Materiais daquele personagem.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
 - **Minha build:** na aba Minha build da ficha (ao lado de Builds), monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
-- **Dados (aba da Minha área):** "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
-- **Minha área (Personagens):** toque no cartão da conta, no topo do menu. Na aba Personagens marque quais você tem ("Tenho"), com a constelação (C0 a C6) e o nível (1 a 90); dá para buscar e filtrar por Todos, Tenho e Não tenho. Na tela de personagens há também o filtro "✓ Tenho". Fica no aparelho e entra no backup e na sincronização. **Importar pelo UID:** digite seu UID para trazer os personagens da vitrine do seu perfil no jogo, pelo Enka.Network (público, sem senha). Só vêm os que estão na vitrine (até 8) e, para vir nível e constelação, é preciso ativar "Mostrar detalhes dos personagens" no jogo. O site mostra o que achou e só grava quando você toca em "Adicionar aos meus personagens". O UID não é salvo.
+- **Dados (botão da Minha área):** "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
+- **Minha área (perfil):** toque no cartão da conta, no topo do menu. É o seu perfil, com foto, nome, números (personagens, armas, constelações e metas) e vitrines com os personagens e as armas que você tem. Os botões + Personagem e + Arma (no celular, o botão "+") abrem janelas para marcar o que você tem: personagem com constelação (C0 a C6) e nível (1 a 90), arma com refinamento (R1 a R5) e nível (1 a 90); dá para buscar. O botão Dados abre sincronização, exportar e importar. Na tela de personagens há também o filtro "✓ Tenho". Fica no aparelho e entra no backup e na sincronização. **Importar UID:** digite seu UID para trazer os personagens da vitrine do seu perfil no jogo, pelo Enka.Network (público, sem senha). Só vêm os que estão na vitrine (até 8) e, para vir nível e constelação, é preciso ativar "Mostrar detalhes dos personagens" no jogo. O site mostra o que achou e só grava quando você toca em "Adicionar aos meus personagens". O UID não é salvo.
 - **Página do conjunto de artefatos:** tocar num conjunto abre a página dele, com o bônus de 2 e 4 peças, as 5 peças (flor, pena, areia, cálice e tiara) com ícone, descrição e história, e os personagens que usam o conjunto nas builds do site.
 - **Calculadora de EXP:** no menu. Escolha personagem ou arma, o nível atual e o desejado (e a raridade, no caso da arma) para ver a EXP necessária e quantos livros ou minérios isso dá, com o menor número de itens e também se usar só um tipo. As tabelas vêm dos dados do jogo (`scripts/build-exp.mjs`). O custo em Mora não entra, porque não consta nessas tabelas.
 - **Códigos de resgate:** no menu. Lista os códigos ativos (atualizada todo dia no deploy por `scripts/fetch-codes.mjs`, a partir de fontes da comunidade), com botão de copiar e atalho para o resgate no site oficial. Se nenhuma fonte responder, a lista anterior é mantida. Alguns códigos podem já ter expirado.
@@ -46,7 +46,7 @@ Resumo do que cada parte do site faz e como usar.
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início; os grupos Planejar (Favoritos, Lista de desejos, Equipes, Comparar), Farm e materiais (Materiais, Farm de hoje, Calculadora de EXP) e Orações e códigos (Pity, Códigos de resgate), que abrem e fecham ao tocar; Documentação, troca de tema e troca de idioma. No topo fica o cartão da conta (foto, nome e e-mail, com o botão Sair, ou "Visitante" com o botão Entrar com Google); tocar nele abre a Minha área. Em tela baixa o menu rola.
+- **Menu (botão com três linhas):** Início; os grupos Planejar (Favoritos, Lista de desejos, Equipes, Comparar), Farm e materiais (Materiais, Farm de hoje, Calculadora de EXP) e Orações e códigos (Pity, Códigos de resgate), que abrem e fecham ao tocar; Documentação, troca de tema e troca de idioma. No topo fica o cartão da conta (faixa com o céu do site, foto, nome, e-mail e botões Minha área e Sair, ou "Visitante" com o botão Entrar com Google). Em tela baixa o menu rola.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -91,7 +91,9 @@ src/
   ExpPage.tsx        calculadora de EXP (expCalc.ts, data/exp.json)
   Goals.tsx          card "Evoluindo agora" na tela inicial (goals.ts)
   LoginScreen.tsx    tela de login (loginGate.ts, login.css)
-  OwnedPanel.tsx     personagens que você tem (owned.ts) e importação pelo UID (enka.ts)
+  OwnedPanel.tsx     janela de personagens que você tem (owned.ts) e importação pelo UID (enka.ts)
+  WeaponPicker.tsx   janela de armas que você tem (ownedWeapons.ts)
+  AreaModal.tsx      janelas da Minha área      DataPanel.tsx  janela Dados
   CodesPage.tsx      códigos de resgate (codes.ts)
   analytics.ts       estatísticas de acesso (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
   pageTitle.ts       título da aba por página
@@ -103,7 +105,7 @@ src/
   FarmPage.tsx       domínios abertos por dia da semana (/farm)
   WishlistPage.tsx   lista de desejos com soma de materiais (/wishlist)
   PityPage.tsx       contador de pity (/pity)
-  DataPage.tsx       Minha área: personagens e dados (/data)      backup.ts   regras do backup
+  DataPage.tsx       Minha área: perfil com vitrines (/data)      backup.ts   regras do backup
   ApiNotice.tsx      aviso quando a base reserva é usada      apiStatus.ts
   MaterialSheet.tsx  janela "Onde conseguir" de um material (useMaterialSheet.tsx)
   sync.ts            sincronização (login Google + Firestore)      syncLogic.ts  regra de conflito
@@ -203,6 +205,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:wishlist` e `genshinworld:wish-weapons`: personagens e armas da lista de desejos.
 - `genshinworld:goal-chars`, `genshinworld:goal-weapons`, `genshinworld:goal-artifacts`: metas "Evoluindo" do card da tela inicial.
 - `genshinworld:owned`: personagens que você tem, com constelação e nível (Minha área).
+- `genshinworld:owned-weapons`: armas que você tem, com refinamento e nível (Minha área).
 - `genshinworld:pity`: contador de pity de cada banner e histórico de 5★.
 - `genshinworld:my-builds`: a build própria de cada personagem.
 - `genshinworld:analytics`: sua escolha sobre a contagem de visitas (`yes` ou `no`).
