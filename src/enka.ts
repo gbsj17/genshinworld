@@ -1,7 +1,8 @@
 import type { CharacterSummary } from './types'
 
 // Importação pelo UID usando o Enka.Network (público, sem senha): traz os personagens da vitrine do perfil no jogo.
-const ENKA_URL = 'https://enka.network/api/uid'
+// O Enka não libera CORS para sites: a consulta passa por um Worker da Cloudflare (worker/enka-proxy.js).
+const ENKA_URL = 'https://enka-proxy.genivalbsj17.workers.dev/?uid='
 
 export const validUid = (uid: string) => /^\d{9,10}$/.test(uid)
 
@@ -56,7 +57,7 @@ export type EnkaError = 'bad-uid' | 'not-found' | 'busy' | 'fail'
 export async function fetchEnka(uid: string): Promise<{ ok: true; data: unknown } | { ok: false; error: EnkaError }> {
   if (!validUid(uid)) return { ok: false, error: 'bad-uid' }
   try {
-    const r = await fetch(`${ENKA_URL}/${uid}`)
+    const r = await fetch(`${ENKA_URL}${uid}`)
     if (r.ok) return { ok: true, data: await r.json() }
     if (r.status === 400) return { ok: false, error: 'bad-uid' }
     if (r.status === 404) return { ok: false, error: 'not-found' }
