@@ -27,6 +27,7 @@ import {
 } from './api'
 import type { CharacterSummary } from './types'
 import { BUILDS } from './data/builds'
+import { usePageTitle } from './pageTitle'
 import { shareLink } from './share'
 import { buildText } from './data/buildText'
 
@@ -133,6 +134,8 @@ export default function CharacterPage({ id }: { id: string }) {
       .catch(() => setError(true))
     return () => controller.abort()
   }, [id])
+
+  usePageTitle(character?.name)
 
   if (error) {
     return <main className="screen screen--message"><ErrorMsg text={t('loadCharFail')} /></main>

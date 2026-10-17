@@ -80,7 +80,7 @@ export default function DocsPage() {
       {sections.map((s) => (
         <a
           key={s.id}
-          href="#/docs"
+          href="#docs"
           aria-current={s.id === (active?.id ?? '') ? 'true' : undefined}
           onClick={(e) => {
             e.preventDefault()

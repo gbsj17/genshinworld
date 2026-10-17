@@ -8,6 +8,7 @@ import { buildText } from './data/buildText'
 import ErrorMsg from './ErrorMsg'
 import { useFavorites } from './favorites'
 import { t } from './i18n'
+import { usePageTitle } from './pageTitle'
 import { ItemIcon } from './ItemIcon'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
@@ -66,6 +67,7 @@ export default function ArtifactPage() {
   const rarity = set?.rarity ?? 0
   const isFav = fav.isFavorite(name)
   const title = set?.name ?? name
+  usePageTitle(title)
 
   return (
     <>

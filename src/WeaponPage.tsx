@@ -9,6 +9,7 @@ import { buildText } from './data/buildText'
 import ErrorMsg from './ErrorMsg'
 import { useFavorites } from './favorites'
 import { t } from './i18n'
+import { usePageTitle } from './pageTitle'
 import { ItemIcon } from './ItemIcon'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
@@ -101,6 +102,7 @@ export default function WeaponPage() {
   const isFav = fav.isFavorite(name)
   const isWish = wish.isFavorite(name)
   const title = info?.label ?? name
+  usePageTitle(title)
 
   const toc: [Sec, string][] = [
     ['sum', t('wpnTocSummary')],

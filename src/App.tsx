@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { HashRouter, Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
 const CharacterPage = lazy(() => import('./CharacterPage'))
 const ArtifactPage = lazy(() => import('./ArtifactPage'))
 const ExpPage = lazy(() => import('./ExpPage'))
@@ -22,6 +22,7 @@ import NewsPage from './NewsPage'
 import ApiNotice from './ApiNotice'
 import { useSync } from './sync'
 import { trackPage, useConsent } from './analytics'
+import { setTitle, staticTitle } from './pageTitle'
 import Footer from './Footer'
 import Splash from './Splash'
 import { MenuProvider } from './MenuProvider'
@@ -38,8 +39,9 @@ function CharacterRoute() {
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <Splash />
+      <RouteTitle />
       <MenuProvider>
         <Suspense fallback={null}>
         <Routes>
@@ -69,7 +71,7 @@ function App() {
         <AnalyticsSlot />
         <Footer />
       </MenuProvider>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
@@ -99,4 +101,14 @@ function AnalyticsSlot() {
       <AnalyticsPrompt />
     </Suspense>
   )
+}
+
+// Título da aba em cada página (as de detalhe definem o próprio quando carregam)
+function RouteTitle() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    const title = staticTitle(pathname)
+    if (title !== null) setTitle(title)
+  }, [pathname])
+  return null
 }

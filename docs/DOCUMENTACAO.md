@@ -6,7 +6,7 @@ O **Genshin World** é um aplicativo web (PWA) de consulta para Genshin Impact: 
 
 - **Endereço:** https://gbsj17.github.io/genshinworld/
 - **Criado por** Genival Souza Júnior, parte da RUNEbyte, 2026.
-- **Tecnologias:** React 19, TypeScript, Vite 8, react-router-dom (HashRouter), GitHub Pages e GitHub Actions.
+- **Tecnologias:** React 19, TypeScript, Vite 8, react-router-dom (rotas por endereço, com páginas pré-geradas), Firebase (login e nuvem, opcional), GitHub Pages e GitHub Actions.
 - **Sem servidor próprio:** é um site estático. Os dados vêm de APIs públicas e de um arquivo gerado no deploy (`public/banners.json`). O que a pessoa salva (favoritos, tema, idioma) fica só no aparelho dela.
 - Hospedado em `base: '/genshinworld/'` e instalável como app.
 
@@ -32,6 +32,10 @@ Resumo do que cada parte do site faz e como usar.
 - **Contador de pity:** escolha o banner (Personagem, Arma ou Padrão) e anote as tiragens com +1 e +10. Quando vier um 5★, toque no botão correspondente (destaque ou outro). A tela mostra quantas tiragens faltam para o pity suave e para o 5★ garantido, se o próximo é 50/50 ou garantido, os primos gastos e os últimos 5★. Há Desfazer e Zerar. Os números de pity suave são aproximados e o Brilho Capturado não é considerado.
 - **Minha build:** na aba Minha build da ficha (ao lado de Builds), monte a sua: arma (só do tipo do personagem), até 2 conjuntos de artefatos, atributo principal de Areia, Cálice e Tiara, substatus na ordem de prioridade e uma anotação. Tudo é salvo no aparelho, por personagem. "Limpar" apaga a build daquele personagem. "Compartilhar" copia um link com a sua build; quem abrir vê um aviso com a build e escolhe "Usar esta build" ou "Ignorar" (nada é enviado a servidor, a build vai dentro do link).
 - **Meus dados:** no menu. "Baixar meus dados" salva um arquivo .json com favoritos, equipes, lista de desejos, pity e builds. "Escolher arquivo" importa esse arquivo em outro aparelho, substituindo o que existe (o arquivo é conferido antes e nada é gravado se estiver errado). Tema e idioma não entram no backup.
+- **Página do conjunto de artefatos:** tocar num conjunto abre a página dele, com o bônus de 2 e 4 peças, as 5 peças (flor, pena, areia, cálice e tiara) com ícone, descrição e história, e os personagens que usam o conjunto nas builds do site.
+- **Calculadora de EXP:** no menu. Escolha personagem ou arma, o nível atual e o desejado (e a raridade, no caso da arma) para ver a EXP necessária e quantos livros ou minérios isso dá, com o menor número de itens e também se usar só um tipo. As tabelas vêm dos dados do jogo (`scripts/build-exp.mjs`). O custo em Mora não entra, porque não consta nessas tabelas.
+- **Códigos de resgate:** no menu. Lista os códigos ativos (atualizada todo dia no deploy por `scripts/fetch-codes.mjs`, a partir de fontes da comunidade), com botão de copiar e atalho para o resgate no site oficial. Se nenhuma fonte responder, a lista anterior é mantida. Alguns códigos podem já ter expirado.
+- **Estatísticas de acesso:** só aparecem se o `measurementId` estiver na configuração do Firebase. O site pergunta uma vez se pode contar as visitas; sem o "Pode" (ou com "não rastrear" no navegador) nada é enviado. Dá para mudar a escolha em Meus dados.
 - **Sincronizar entre aparelhos:** em Meus dados (ou "Entrar com Google" no menu), entre com a conta do Google. Builds, favoritos, lista de desejos, equipes e pity ficam salvos na nuvem e aparecem em qualquer aparelho com a mesma conta. As mudanças são enviadas sozinhas (cerca de 2 segundos depois). Se o aparelho e a nuvem tiverem dados diferentes, o site pergunta qual versão manter. Ao voltar para a aba, se outro aparelho mudou algo, aparece "Atualizar". Sair da conta não apaga nada do aparelho. Só aparece depois que o Firebase estiver configurado (veja Deploy).
 - **Aviso de dados reduzidos:** se a base principal (genshin-db) não responder e o site usar a lista reserva, aparece uma faixa avisando que a lista é mais antiga e reduzida. Dá para fechá-la.
 - **Onde conseguir:** tocar num material (página da arma, calculadora de materiais e lista de desejos) abre uma janela com a origem dele segundo a base de dados, o domínio que dá o item com os dias em que abre, se pode ser fabricado e um botão para o mapa oficial do HoYoLAB (abre em outra aba). O mapa não fica dentro do site porque o servidor dele bloqueia leitura por outros sites (CORS).
@@ -39,7 +43,7 @@ Resumo do que cada parte do site faz e como usar.
 
 ## 3. Menu, tema, idioma, instalação e teclado
 
-- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Meus dados, Documentação, troca de tema e troca de idioma.
+- **Menu (botão com três linhas):** Início, Favoritos, Comparar, Equipes, Materiais, Farm, Lista de desejos, Pity, Calculadora de EXP, Códigos de resgate, Meus dados, Documentação, troca de tema e troca de idioma.
 - **Celular:** barra de abas flutuante embaixo (Início, Personagens, Armas, Artefatos e Pesquisa). O botão de pesquisa abre uma barra de busca que busca dentro da seção atual. **PC:** menu superior fixo, com campo de busca da seção.
 - **Tema:** escuro ou areia claro. A escolha é lembrada; sem escolha, o site abre no escuro. A cor da barra do navegador no celular acompanha o tema.
 - **Idioma:** PT-BR ou EN-US. Trocar recarrega a página para que todos os dados venham no idioma certo. Sem escolha, usa o idioma do navegador.
@@ -49,35 +53,42 @@ Resumo do que cada parte do site faz e como usar.
 
 ## 4. Rotas
 
-O site usa `HashRouter`, então os endereços têm `#` (necessário no GitHub Pages).
+O site usa endereços normais (`/farm`, `/weapon/Amos'%20Bow`). Cada página conhecida ganha um HTML próprio no deploy (com título e descrição) e há um `sitemap.xml`; endereços fora da lista caem no `404.html`, que abre o app do mesmo jeito. Links antigos com `#` (`/#/farm`) são redirecionados sozinhos.
 
-- `/#/` Início.
-- `/#/characters` lista de personagens.
-- `/#/character/:id` ficha (ex.: `/#/character/albedo`). Com `?tab=builds` abre direto na aba Builds e com `?tab=mine`, na aba Minha build.
-- `/#/weapons` e `/#/artifacts` listas.
-- `/#/weapon/:nome` página da arma (ex.: `/#/weapon/Aquila%20Favonia`).
-- `/#/favorites` favoritos.
-- `/#/docs` documentação.
-- `/#/compare` comparar personagens ou armas (`?a=` e `?b=` personagens, `?k=` armas; o link é compartilhável).
-- `/#/teams` montador de equipes (`?m=` ids, `?n=` nome).
-- `/#/materials` calculadora de materiais (`?c=` personagem).
-- `/#/farm` farm de hoje (domínios por dia da semana).
-- `/#/wishlist` lista de desejos.
-- `/#/pity` contador de pity.
-- `/#/data` meus dados (exportar e importar).
-- Qualquer outro endereço volta para o Início.
+- `/` Início.
+- `/characters` lista de personagens.
+- `/character/:id` ficha (ex.: `/character/albedo`). Com `?tab=builds` abre direto na aba Builds e com `?tab=mine`, na aba Minha build.
+- `/weapons` e `/artifacts` listas.
+- `/weapon/:nome` página da arma (ex.: `/weapon/Aquila%20Favonia`).
+- `/artifact/:nome` página do conjunto de artefatos (ex.: `/artifact/Gladiator's%20Finale`).
+- `/favorites` favoritos.
+- `/docs` documentação.
+- `/compare` comparar personagens ou armas (`?a=` e `?b=` personagens, `?k=` armas; o link é compartilhável).
+- `/teams` montador de equipes (`?m=` ids, `?n=` nome).
+- `/materials` calculadora de materiais (`?c=` personagem).
+- `/exp` calculadora de EXP.
+- `/codes` códigos de resgate.
+- `/farm` farm de hoje (domínios por dia da semana).
+- `/wishlist` lista de desejos.
+- `/pity` contador de pity.
+- `/data` meus dados (exportar, importar, sincronizar).
 
 ## 5. Estrutura do projeto
 
 ```
 src/
-  App.tsx            rotas (HashRouter), abertura e rodapé
+  App.tsx            rotas por endereço, abertura e rodapé
   Splash.tsx         abertura animada (elementos que viram o logo)
   NewsPage.tsx       Início (banner animado, novidades, banners de oração)
   HomePage.tsx       lista de personagens (filtros, grade/lista, favoritos)
   CharacterPage.tsx  ficha: visão geral, talentos, constelações, builds, minha build
   ItemsPage.tsx      armas e artefatos (lista, filtros)
   WeaponPage.tsx     página da arma (/weapon/:nome)
+  ArtifactPage.tsx   página do conjunto de artefatos (/artifact/:nome)
+  ExpPage.tsx        calculadora de EXP (expCalc.ts, data/exp.json)
+  CodesPage.tsx      códigos de resgate (codes.ts)
+  analytics.ts       estatísticas de acesso (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
+  pageTitle.ts       título da aba por página
   FavoritesPage.tsx  favoritos de personagens, armas e artefatos
   DocsPage.tsx       esta documentação, em português ou inglês
   ComparePage.tsx    comparar dois personagens ou duas armas (/compare)
@@ -113,6 +124,9 @@ src/
   *.css              estilos por área; motion.css (animações), sheetpc.css (ficha no PC)
 scripts/fetch-banners.mjs   gera public/banners.json
 scripts/build-docs.mjs      gera docs/*.md a partir de src/data/docs.json
+scripts/prerender.mjs       páginas por rota, sitemap.xml e 404.html (depois do build)
+scripts/fetch-codes.mjs     gera public/codes.json (códigos de resgate)
+scripts/build-exp.mjs       gera src/data/exp.json (tabelas de EXP)
 public/                     manifest, service worker (sw.js), ícones, banners.json
 .github/workflows/deploy.yml
 ```
@@ -183,6 +197,7 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - `genshinworld:wishlist` e `genshinworld:wish-weapons`: personagens e armas da lista de desejos.
 - `genshinworld:pity`: contador de pity de cada banner e histórico de 5★.
 - `genshinworld:my-builds`: a build própria de cada personagem.
+- `genshinworld:analytics`: sua escolha sobre a contagem de visitas (`yes` ou `no`).
 - `genshinworld:splash` (sessão): marca que a abertura já apareceu.
 - **Cache do service worker:** arquivos do app, imagens, dados das APIs e fontes.
 - `genshinworld:sync`: conta conectada e controle da sincronização (última versão da nuvem conhecida e se há mudanças a enviar).
@@ -257,6 +272,9 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 - Depois do push, o site novo aparece em alguns minutos. Se algo parecer antigo, recarregue com Ctrl+F5; no celular, feche e abra o app.
 - **Firebase (sincronização):** 1) crie um projeto em console.firebase.google.com; 2) Authentication → Método de login → ative Google; 3) Authentication → Configurações → Domínios autorizados → adicione `gbsj17.github.io`; 4) Firestore Database → Criar banco (modo produção) e, em Regras, cole o conteúdo de `firestore.rules`; 5) Configurações do projeto → Seus apps → app da Web → copie `apiKey`, `authDomain`, `projectId` e `appId` para `src/firebaseConfig.ts`. Enquanto esse arquivo estiver vazio, a sincronização fica escondida.
 - O Firebase (cerca de 230 KB) só é baixado quando alguém entra na conta, então não pesa para quem não usa.
+- **Páginas pré-geradas e sitemap:** depois do build, `scripts/prerender.mjs` cria um HTML por página (personagens, armas e conjuntos vêm da API), o `sitemap.xml` e o `404.html`. Para aparecer no Google, cadastre o site no Search Console e envie `https://gbsj17.github.io/genshinworld/sitemap.xml`. O `robots.txt` não é necessário em páginas de projeto do GitHub Pages.
+- **Códigos:** `scripts/fetch-codes.mjs` roda no deploy (e todo dia) e grava `public/codes.json`. O log do Actions mostra quantos códigos cada fonte devolveu.
+- **Estatísticas:** para ligar, copie também o `measurementId` (Firebase → Configurações do projeto → Seus apps) para `src/firebaseConfig.ts`.
 
 ## 20. Desempenho
 
@@ -291,4 +309,4 @@ public/                     manifest, service worker (sw.js), ícones, banners.j
 
 ## 24. Ideias futuras
 
-Códigos de resgate e calendário de eventos, informações de áreas e mapas das novas versões, rotas indexáveis para buscadores e empacotar como app Android.
+Calendário de eventos e informações de áreas e mapas das novas versões.

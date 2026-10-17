@@ -6,7 +6,7 @@
 
 - **Address:** https://gbsj17.github.io/genshinworld/
 - **Created by** Genival Souza Júnior, part of RUNEbyte, 2026.
-- **Stack:** React 19, TypeScript, Vite 8, react-router-dom (HashRouter), GitHub Pages and GitHub Actions.
+- **Stack:** React 19, TypeScript, Vite 8, react-router-dom (path-based routes, pre-generated pages), Firebase (sign-in and cloud, optional), GitHub Pages and GitHub Actions.
 - **No own server:** it is a static site. Data comes from public APIs and from a file generated at deploy time (`public/banners.json`). What the user saves (favorites, theme, language) stays on their own device.
 - Hosted at `base: '/genshinworld/'` and installable as an app.
 
@@ -32,6 +32,10 @@ A summary of what each part of the site does and how to use it.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
 - **My build:** on the sheet's My build tab (next to Builds), make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
 - **My data:** in the menu. "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
+- **Artifact set page:** tapping a set opens its page, with the 2- and 4-piece bonus, the 5 pieces (flower, plume, sands, goblet and circlet) with icon, description and lore, and the characters that use the set in the site builds.
+- **EXP calculator:** in the menu. Pick character or weapon, the current and target level (and the rarity, for a weapon) to see the EXP needed and how many books or ores that takes, with the fewest items and also if you use a single kind. Tables come from the game data (`scripts/build-exp.mjs`). Mora cost is not included because it is not in those tables.
+- **Redeem codes:** in the menu. Lists active codes (refreshed daily at deploy by `scripts/fetch-codes.mjs`, from community sources), with a copy button and a shortcut to redeem on the official site. If no source answers, the previous list is kept. Some codes may have already expired.
+- **Visit statistics:** only show up if the `measurementId` is in the Firebase config. The site asks once if it may count visits; without a "Yes" (or with "do not track" on in the browser) nothing is sent. You can change the choice in My data.
 - **Sync across devices:** in My data (or "Sign in with Google" in the menu), sign in with your Google account. Builds, favorites, wishlist, teams and pity are saved in the cloud and show up on any device with the same account. Changes are sent automatically (about 2 seconds later). If the device and the cloud have different data, the site asks which version to keep. When you come back to the tab, if another device changed something, "Update" appears. Signing out does not delete anything from the device. It only shows up after Firebase is configured (see Deploy).
 - **Reduced data notice:** if the main source (genshin-db) does not respond and the site uses the backup list, a bar warns that the list is older and smaller. You can close it.
 - **Where to get it:** tapping a material (weapon page, material calculator and wishlist) opens a window with its source according to the database, the domain that drops it with the days it opens, whether it can be crafted and a button to the official HoYoLAB map (opens in another tab). The map is not embedded because its server blocks reading by other sites (CORS).
@@ -39,7 +43,7 @@ A summary of what each part of the site does and how to use it.
 
 ## 3. Menu, theme, language, installation and keyboard
 
-- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Pity, My data, Documentation, theme switch and language switch.
+- **Menu (three-line button):** Home, Favorites, Compare, Teams, Materials, Farm, Wishlist, Pity, EXP calculator, Redeem codes, My data, Documentation, theme switch and language switch.
 - **Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.
 - **Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
@@ -49,35 +53,42 @@ A summary of what each part of the site does and how to use it.
 
 ## 4. Routes
 
-The site uses `HashRouter`, so addresses contain `#` (required on GitHub Pages).
+The site uses regular addresses (`/farm`, `/weapon/Amos'%20Bow`). Each known page gets its own HTML at deploy time (with title and description) and there is a `sitemap.xml`; addresses outside the list fall back to `404.html`, which opens the app the same way. Old links with `#` (`/#/farm`) are redirected automatically.
 
-- `/#/` Home.
-- `/#/characters` character list.
-- `/#/character/:id` profile (e.g. `/#/character/albedo`). With `?tab=builds` it opens straight on the Builds tab and with `?tab=mine`, on the My build tab.
-- `/#/weapons` and `/#/artifacts` lists.
-- `/#/weapon/:name` weapon page (e.g. `/#/weapon/Aquila%20Favonia`).
-- `/#/favorites` favorites.
-- `/#/docs` documentation.
-- `/#/compare` compare characters or weapons (`?a=` and `?b=` characters, `?k=` weapons; the link is shareable).
-- `/#/teams` team builder (`?m=` ids, `?n=` name).
-- `/#/materials` material calculator (`?c=` character).
-- `/#/farm` today's farm (domains by weekday).
-- `/#/wishlist` wishlist.
-- `/#/pity` pity counter.
-- `/#/data` my data (export and import).
-- Any other address goes back to Home.
+- `/` Home.
+- `/characters` character list.
+- `/character/:id` profile (e.g. `/character/albedo`). With `?tab=builds` it opens straight on the Builds tab and with `?tab=mine`, on the My build tab.
+- `/weapons` and `/artifacts` lists.
+- `/weapon/:name` weapon page (e.g. `/weapon/Aquila%20Favonia`).
+- `/artifact/:name` artifact set page (e.g. `/artifact/Gladiator's%20Finale`).
+- `/favorites` favorites.
+- `/docs` documentation.
+- `/compare` compare characters or weapons (`?a=` and `?b=` characters, `?k=` weapons; the link is shareable).
+- `/teams` team builder (`?m=` ids, `?n=` name).
+- `/materials` material calculator (`?c=` character).
+- `/exp` EXP calculator.
+- `/codes` redeem codes.
+- `/farm` today's farm (domains by weekday).
+- `/wishlist` wishlist.
+- `/pity` pity counter.
+- `/data` my data (export, import, sync).
 
 ## 5. Project structure
 
 ```
 src/
-  App.tsx            routes (HashRouter), intro animation and footer
+  App.tsx            path-based routes, intro animation and footer
   Splash.tsx         animated intro (elements that become the logo)
   NewsPage.tsx       Home (animated banner, news, wish banners)
   HomePage.tsx       character list (filters, grid/list, favorites)
   CharacterPage.tsx  profile: overview, talents, constellations, builds, my build
   ItemsPage.tsx      weapons and artifacts (list, filters)
   WeaponPage.tsx     weapon page (/weapon/:name)
+  ArtifactPage.tsx   artifact set page (/artifact/:name)
+  ExpPage.tsx        EXP calculator (expCalc.ts, data/exp.json)
+  CodesPage.tsx      redeem codes (codes.ts)
+  analytics.ts       visit statistics (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
+  pageTitle.ts       browser tab title per page
   FavoritesPage.tsx  favorite characters, weapons and artifacts
   DocsPage.tsx       this documentation, in Portuguese or English
   ComparePage.tsx    compare two characters or two weapons (/compare)
@@ -113,6 +124,9 @@ src/
   *.css              styles per area; motion.css (animations), sheetpc.css (desktop profile)
 scripts/fetch-banners.mjs   generates public/banners.json
 scripts/build-docs.mjs      generates docs/*.md from src/data/docs.json
+scripts/prerender.mjs       per-route pages, sitemap.xml and 404.html (after the build)
+scripts/fetch-codes.mjs     generates public/codes.json (redeem codes)
+scripts/build-exp.mjs       generates src/data/exp.json (EXP tables)
 public/                     manifest, service worker (sw.js), icons, banners.json
 .github/workflows/deploy.yml
 ```
@@ -183,6 +197,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:wishlist` and `genshinworld:wish-weapons`: characters and weapons on the wishlist.
 - `genshinworld:pity`: pity counter for each banner and 5★ history.
 - `genshinworld:my-builds`: each character's own build.
+- `genshinworld:analytics`: your choice about visit counting (`yes` or `no`).
 - `genshinworld:splash` (session): marks that the intro has already shown.
 - **Service worker cache:** app files, images, API data and fonts.
 - `genshinworld:sync`: connected account and sync control (last known cloud version and whether there are changes to send).
@@ -257,6 +272,9 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - After a push, the new site appears in a few minutes. If something looks old, reload with Ctrl+F5; on mobile, close and reopen the app.
 - **Firebase (sync):** 1) create a project at console.firebase.google.com; 2) Authentication → Sign-in method → enable Google; 3) Authentication → Settings → Authorized domains → add `gbsj17.github.io`; 4) Firestore Database → Create database (production mode) and, under Rules, paste the contents of `firestore.rules`; 5) Project settings → Your apps → Web app → copy `apiKey`, `authDomain`, `projectId` and `appId` into `src/firebaseConfig.ts`. While that file is empty, sync stays hidden.
 - Firebase (about 230 KB) is only downloaded when someone signs in, so it adds no weight for people who don't use it.
+- **Pre-generated pages and sitemap:** after the build, `scripts/prerender.mjs` creates one HTML per page (characters, weapons and sets come from the API), the `sitemap.xml` and the `404.html`. To show up on Google, add the site to Search Console and submit `https://gbsj17.github.io/genshinworld/sitemap.xml`. A `robots.txt` is not needed on GitHub Pages project sites.
+- **Codes:** `scripts/fetch-codes.mjs` runs at deploy (and daily) and writes `public/codes.json`. The Actions log shows how many codes each source returned.
+- **Statistics:** to turn them on, also copy the `measurementId` (Firebase → Project settings → Your apps) into `src/firebaseConfig.ts`.
 
 ## 20. Performance
 
@@ -291,4 +309,4 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 
 ## 24. Future ideas
 
-Redeem codes and event calendar, area and map info for new versions, indexable routes for search engines and packaging as an Android app.
+Event calendar and area and map info for new versions.
