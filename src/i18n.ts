@@ -118,6 +118,7 @@ const DICT = {
   areaEmptyWeapons: ['Você ainda não marcou nenhuma arma. Use + Arma.', 'You have not marked any weapon yet. Use + Weapon.'],
   areaSynced: ['Sincronizado', 'Synced'],
   areaLocal: ['Só neste aparelho', 'This device only'],
+  ownWeaponIntro: ['Marque as armas que você tem, com o refinamento e o nível. Fica salvo na sua conta.', 'Mark the weapons you have, with refinement and level. It is saved to your account.'],
   ownWeaponSearch: ['Buscar arma', 'Search weapon'],
   ownRefine: ['Refinamento', 'Refinement'],
   ownRefineOf: ['Refinamento de {n}', 'Refinement of {n}'],

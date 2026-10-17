@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import type { CSSProperties } from 'react'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
 import ErrorMsg from './ErrorMsg'
@@ -6,6 +7,9 @@ import { t } from './i18n'
 import { ItemIcon } from './ItemIcon'
 import { useOwnedWeapons } from './ownedWeapons'
 import type { OwnedWeapon } from './ownedWeapons'
+
+type Scope = 'all' | 'yes' | 'no'
+const RARITY_COLORS: Record<number, string> = { 5: '#f0b232', 4: '#b58cf2', 3: '#4cc2f1', 2: '#74c2a8', 1: '#aab1c8' }
 
 const normalize = (s: string) =>
   s
@@ -15,12 +19,15 @@ const normalize = (s: string) =>
 
 function Row({ w, info, onToggle, onChange }: { w: ItemEntry; info?: OwnedWeapon; onToggle: () => void; onChange: (p: Partial<OwnedWeapon>) => void }) {
   return (
-    <li className="own__row">
+    <li className="own__row" style={{ '--ring': RARITY_COLORS[w.info.rarity] ?? '#d3bc8e' } as CSSProperties}>
       <div className="own__id">
         <ItemIcon kind="weapon" name={w.name} />
         <span className="own__name">
           <strong>{w.label}</strong>
-          <small>{'★'.repeat(w.info.rarity)}</small>
+          <small>
+            {'★'.repeat(w.info.rarity)}
+            {w.info.type ? ` · ${w.info.type}` : ''}
+          </small>
         </span>
         <button className="own__have" aria-pressed={Boolean(info)} onClick={onToggle}>
           {info ? `✓ ${t('ownYes')}` : t('ownYes')}
@@ -65,6 +72,7 @@ export default function WeaponPicker() {
   const [items, setItems] = useState<ItemEntry[] | null>(null)
   const [fail, setFail] = useState(false)
   const [query, setQuery] = useState('')
+  const [scope, setScope] = useState<Scope>('all')
 
   useEffect(() => {
     let active = true
@@ -78,13 +86,18 @@ export default function WeaponPicker() {
 
   const list = useMemo(() => {
     const q = normalize(query.trim())
-    return (items ?? []).filter((w) => normalize(`${w.label} ${w.name}`).includes(q))
-  }, [items, query])
+    return (items ?? []).filter(
+      (w) => (scope === 'all' || (scope === 'yes') === own.has(w.name)) && normalize(`${w.label} ${w.name}`).includes(q),
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, query, scope, own.owned])
 
   const have = (items ?? []).filter((w) => own.has(w.name)).length
 
   return (
     <section className="own">
+      <p className="tool__muted">{t('ownWeaponIntro')}</p>
+
       {fail && <ErrorMsg text={t('loadDetailsFail')} />}
       {!fail && !items && <p className="empty">{t('loading')}</p>}
       {items && (
@@ -98,6 +111,13 @@ export default function WeaponPicker() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
+            <div className="seg" role="tablist" aria-label={t('areaWeapons')}>
+              {(['all', 'yes', 'no'] as const).map((k) => (
+                <button key={k} role="tab" aria-selected={scope === k} onClick={() => setScope(k)}>
+                  {k === 'all' ? t('ownAll') : k === 'yes' ? t('ownYes') : t('ownNo')}
+                </button>
+              ))}
+            </div>
           </div>
           <p className="tool__muted" role="status" aria-live="polite">
             {t('ownWeaponCount', { n: have, total: items.length })}
