@@ -5,6 +5,7 @@ import { getAllCharacters, getSkillIcons, iconChain } from './api'
 import { t, weaponLabel } from './i18n'
 import { preloadImages } from './preload'
 import { useFavorites } from './favorites'
+import { useOwned } from './owned'
 import ErrorMsg from './ErrorMsg'
 import MenuButton from './MenuButton'
 import PcNav from './PcNav'
@@ -19,7 +20,7 @@ const FILTERS = [ALL, ...Object.keys(VISION_COLORS)]
 const VIEW_KEY = 'genshinworld:view'
 
 type View = 'grid' | 'list'
-type Scope = 'all' | 'favorites'
+type Scope = 'all' | 'favorites' | 'owned'
 
 const normalize = (text: string) =>
   text
@@ -118,6 +119,7 @@ export default function HomePage() {
     }
   })
   const { ids } = useFavorites()
+  const ownedMap = useOwned().owned
   const [skills, setSkills] = useState<Map<string, string[]> | null>(null)
 
   // Os ícones das habilidades só são buscados quando a lista é aberta
@@ -165,11 +167,11 @@ export default function HomePage() {
     const q = normalize(query.trim())
     return sorted.filter(
       (c) =>
-        (scope === 'all' || ids.includes(c.id)) &&
+        (scope === 'all' || (scope === 'owned' ? c.id in ownedMap : ids.includes(c.id))) &&
         (vision === ALL || c.vision === vision) &&
         normalize(`${c.name} ${c.enName}`).includes(q),
     )
-  }, [sorted, query, vision, scope, ids])
+  }, [sorted, query, vision, scope, ids, ownedMap])
 
   const favorites = sorted.filter((c) => ids.includes(c.id))
 
@@ -237,6 +239,9 @@ export default function HomePage() {
 
       <div className="home-filters">
       <div className="chips">
+        <button className="pill" aria-pressed={scope === 'owned'} onClick={() => setScope(scope === 'owned' ? 'all' : 'owned')}>
+          ✓ {t('ownYes')}
+        </button>
         {FILTERS.map((f) => (
           <button
             key={f}
@@ -293,7 +298,9 @@ export default function HomePage() {
             <p className="empty">
               {scope === 'favorites' && ids.length === 0
                 ? t('tapStarChar')
-                : t('noChars')}
+                : scope === 'owned' && Object.keys(ownedMap).length === 0
+                  ? t('ownIntro')
+                  : t('noChars')}
             </p>
           ) : view === 'grid' ? (
             <div className="cards">

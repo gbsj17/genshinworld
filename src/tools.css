@@ -1724,3 +1724,221 @@
   width: 100%;
   margin-top: 8px;
 }
+
+/* Minha área: abas e personagens que a pessoa tem */
+.area__tabs {
+  margin: 4px 0 14px;
+}
+
+.own__title {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.own__input {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+}
+
+.own__tools {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 6px;
+}
+
+.own__tools .own__input {
+  width: 100%;
+}
+
+.own__enka {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.own__enka > summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.own__enka p {
+  margin: 8px 0;
+}
+
+.own__uid {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.own__uid .own__input {
+  flex: 1;
+  min-width: 140px;
+}
+
+.own__found p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.own__list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.own__row {
+  display: grid;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.own__id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.own__id .thumb {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  box-shadow: 0 0 0 2px var(--ring, var(--line-strong));
+}
+
+.own__name {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.own__name strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.own__name small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.own__have {
+  flex: none;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.own__have[aria-pressed='true'] {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--on-accent);
+}
+
+.own__edit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.own__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.own__step b {
+  color: var(--gold);
+  font-size: 15px;
+}
+
+.own__step button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-deep);
+  color: var(--text);
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.own__step button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.own__lv {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.own__lv input {
+  width: 64px;
+  min-height: 34px;
+  padding: 0 8px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-deep);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+
+.own__row button:focus-visible,
+.own__lv input:focus-visible,
+.own__input:focus-visible,
+.own__enka summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+@media (min-width: 820px) {
+  .own__list {
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  }
+
+  .own__tools {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+.own__tools .seg button {
+  white-space: nowrap;
+}

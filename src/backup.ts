@@ -13,6 +13,7 @@ const KEYS = {
   'goal-chars': 'strings',
   'goal-weapons': 'strings',
   'goal-artifacts': 'strings',
+  owned: 'object',
   teams: 'array',
   pity: 'object',
   'my-builds': 'object',

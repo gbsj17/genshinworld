@@ -32,7 +32,8 @@ A summary of what each part of the site does and how to use it.
 - **Wishlist:** add the characters and weapons you want (with the same filters as the other pickers) and see the total materials for full ascension and the 3 talents of each character, up to the talent level you choose, plus the full ascension of each weapon. The list is saved on the device. "Details" opens the Materials calculator for that character.
 - **Pity counter:** choose the banner (Character, Weapon or Standard) and log pulls with +1 and +10. When a 5★ drops, tap the matching button (featured or other). The screen shows how many pulls are left to soft pity and the guaranteed 5★, whether the next one is a 50/50 or guaranteed, primogems spent and the latest 5★. There is Undo and Reset. Soft pity numbers are approximate and Capturing Radiance is not considered.
 - **My build:** on the sheet's My build tab (next to Builds), make your own: weapon (only the character's type), up to 2 artifact sets, main stat for Sands, Goblet and Circlet, substats in priority order and a note. Everything is saved on the device, per character. "Clear" deletes that character's build. "Share" copies a link with your build; whoever opens it sees a notice with the build and chooses "Use this build" or "Ignore" (nothing is sent to a server, the build is inside the link).
-- **My data:** tap the account card at the top of the menu. "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
+- **Data (tab of My area):** "Download my data" saves a .json file with favorites, teams, wishlist, pity and builds. "Choose file" imports that file on another device, replacing what exists (the file is checked first and nothing is written if it is wrong). Theme and language are not part of the backup.
+- **My area (Characters):** tap the account card at the top of the menu. On the Characters tab mark which ones you have ("Owned"), with constellation (C0 to C6) and level (1 to 90); you can search and filter by All, Owned and Not owned. The characters screen also has a "✓ Owned" filter. It stays on the device and is included in the backup and in sync. **Import by UID:** type your UID to bring in the characters on your in-game profile showcase, through Enka.Network (public, no password). Only showcase characters come (up to 8) and, for level and constellation to show up, you must turn on "Show character details" in the game. The site shows what it found and only saves when you tap "Add to my characters". The UID is not saved.
 - **Artifact set page:** tapping a set opens its page, with the 2- and 4-piece bonus, the 5 pieces (flower, plume, sands, goblet and circlet) with icon, description and lore, and the characters that use the set in the site builds.
 - **EXP calculator:** in the menu. Pick character or weapon, the current and target level (and the rarity, for a weapon) to see the EXP needed and how many books or ores that takes, with the fewest items and also if you use a single kind. Tables come from the game data (`scripts/build-exp.mjs`). Mora cost is not included because it is not in those tables.
 - **Redeem codes:** in the menu. Lists active codes (refreshed daily at deploy by `scripts/fetch-codes.mjs`, from community sources), with a copy button and a shortcut to redeem on the official site. If no source answers, the previous list is kept. Some codes may have already expired.
@@ -45,7 +46,7 @@ A summary of what each part of the site does and how to use it.
 
 ## 3. Menu, theme, language, installation and keyboard
 
-- **Menu (three-line button):** Home; the groups Plan (Favorites, Wishlist, Teams, Compare), Farm & materials (Materials, Today's farm, EXP calculator) and Wishes & codes (Pity, Redeem codes), which open and close on tap; Documentation, theme switch and language switch. At the top is the account card (photo, name and e-mail, with the Sign out button, or "Guest" with the Sign in with Google button); tapping it opens My data. On a short screen the menu scrolls.
+- **Menu (three-line button):** Home; the groups Plan (Favorites, Wishlist, Teams, Compare), Farm & materials (Materials, Today's farm, EXP calculator) and Wishes & codes (Pity, Redeem codes), which open and close on tap; Documentation, theme switch and language switch. At the top is the account card (photo, name and e-mail, with the Sign out button, or "Guest" with the Sign in with Google button); tapping it opens My area. On a short screen the menu scrolls.
 - **Mobile:** floating tab bar at the bottom (Home, Characters, Weapons, Artifacts and Search). The search button opens a search bar that searches within the current section. **Desktop:** fixed top menu, with the section search field.
 - **Theme:** dark or light sand. The choice is remembered; with no choice, the site opens in dark. The browser bar color on mobile follows the theme.
 - **Language:** PT-BR or EN-US. Switching reloads the page so all data comes in the right language. With no choice, it uses the browser language.
@@ -90,6 +91,7 @@ src/
   ExpPage.tsx        EXP calculator (expCalc.ts, data/exp.json)
   Goals.tsx          "Leveling up now" card on the home (goals.ts)
   LoginScreen.tsx    login screen (loginGate.ts, login.css)
+  OwnedPanel.tsx     characters you have (owned.ts) and import by UID (enka.ts)
   CodesPage.tsx      redeem codes (codes.ts)
   analytics.ts       visit statistics (AnalyticsPrompt.tsx, AnalyticsCard.tsx)
   pageTitle.ts       browser tab title per page
@@ -101,7 +103,7 @@ src/
   FarmPage.tsx       domains open by weekday (/farm)
   WishlistPage.tsx   wishlist with summed materials (/wishlist)
   PityPage.tsx       pity counter (/pity)
-  DataPage.tsx       export and import data (/data)      backup.ts   backup rules
+  DataPage.tsx       My area: characters and data (/data)      backup.ts   backup rules
   ApiNotice.tsx      notice when the backup source is used      apiStatus.ts
   MaterialSheet.tsx  "Where to get it" window for a material (useMaterialSheet.tsx)
   sync.ts            sync (Google sign-in + Firestore)      syncLogic.ts  conflict rule
@@ -200,6 +202,7 @@ public/                     manifest, service worker (sw.js), icons, banners.jso
 - `genshinworld:teams`: teams saved by the user on the Teams screen.
 - `genshinworld:wishlist` and `genshinworld:wish-weapons`: characters and weapons on the wishlist.
 - `genshinworld:goal-chars`, `genshinworld:goal-weapons`, `genshinworld:goal-artifacts`: "Leveling up" goals of the home card.
+- `genshinworld:owned`: characters you have, with constellation and level (My area).
 - `genshinworld:pity`: pity counter for each banner and 5★ history.
 - `genshinworld:my-builds`: each character's own build.
 - `genshinworld:analytics`: your choice about visit counting (`yes` or `no`).

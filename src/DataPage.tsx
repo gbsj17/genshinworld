@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { lazy, Suspense, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { buildBackup, restoreBackup } from './backup'
 import { t } from './i18n'
 import AnalyticsCard from './AnalyticsCard'
@@ -6,10 +7,13 @@ import MenuButton from './MenuButton'
 import SyncCard from './SyncCard'
 import PcNav from './PcNav'
 import TabBar from './TabBar'
+const OwnedPanel = lazy(() => import('./OwnedPanel'))
 import './tools.css'
 
 // "Meus dados": baixar tudo o que está salvo no aparelho e colocar de volta em outro.
 export default function DataPage() {
+  const [params, setParams] = useSearchParams()
+  const tab = params.get('tab') === 'data' ? 'data' : 'chars'
   const fileRef = useRef<HTMLInputElement>(null)
   const [msg, setMsg] = useState<{ text: string; bad?: boolean } | null>(null)
 
@@ -44,41 +48,60 @@ export default function DataPage() {
         <header className="home-top">
           <div>
             <h1 className="home-title">Genshin World</h1>
-            <span className="home-cap">{t('capData')}</span>
+            <span className="home-cap">{t('capArea')}</span>
           </div>
           <MenuButton />
         </header>
 
         <div className="tool__body farm">
-          <h1 className="tool__title">{t('data')}</h1>
+          <h1 className="tool__title">{t('area')}</h1>
+          <div className="seg area__tabs" role="tablist" aria-label={t('area')}>
+            <button role="tab" aria-selected={tab === 'chars'} onClick={() => setParams({}, { replace: true })}>
+              {t('areaTabChars')}
+            </button>
+            <button role="tab" aria-selected={tab === 'data'} onClick={() => setParams({ tab: 'data' }, { replace: true })}>
+              {t('areaTabData')}
+            </button>
+          </div>
+
+          {tab === 'chars' && (
+            <Suspense fallback={<p className="empty">{t('loading')}</p>}>
+              <OwnedPanel />
+            </Suspense>
+          )}
+
+          {tab === 'data' && (
+            <>
           <p className="tool__muted">{t('dataIntro')}</p>
 
-          <SyncCard />
-          <AnalyticsCard />
+              <SyncCard />
+              <AnalyticsCard />
 
-          <section className="mat__result data__box">
-            <h2>{t('dataExport')}</h2>
-            <p className="tool__muted">{t('dataExportHint')}</p>
-            <button className="tool-btn" onClick={exportAll}>{t('dataExportBtn')}</button>
-          </section>
+              <section className="mat__result data__box">
+                <h2>{t('dataExport')}</h2>
+                <p className="tool__muted">{t('dataExportHint')}</p>
+                <button className="tool-btn" onClick={exportAll}>{t('dataExportBtn')}</button>
+              </section>
 
-          <section className="mat__result data__box">
-            <h2>{t('dataImport')}</h2>
-            <p className="tool__muted">{t('dataImportHint')}</p>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="application/json,.json"
-              hidden
-              onChange={(e) => {
-                void importFile(e.target.files?.[0])
-                e.target.value = ''
-              }}
-            />
-            <button className="tool-btn" onClick={() => fileRef.current?.click()}>{t('dataImportBtn')}</button>
-          </section>
+              <section className="mat__result data__box">
+                <h2>{t('dataImport')}</h2>
+                <p className="tool__muted">{t('dataImportHint')}</p>
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="application/json,.json"
+                  hidden
+                  onChange={(e) => {
+                    void importFile(e.target.files?.[0])
+                    e.target.value = ''
+                  }}
+                />
+                <button className="tool-btn" onClick={() => fileRef.current?.click()}>{t('dataImportBtn')}</button>
+              </section>
 
-          {msg && <p className={msg.bad ? 'data__msg data__msg--bad' : 'data__msg'} role="status">{msg.text}</p>}
+              {msg && <p className={msg.bad ? 'data__msg data__msg--bad' : 'data__msg'} role="status">{msg.text}</p>}
+            </>
+          )}
         </div>
 
         <TabBar active={null} query="" onQuery={() => {}} noSearch />

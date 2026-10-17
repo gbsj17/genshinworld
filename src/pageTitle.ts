@@ -31,7 +31,7 @@ export const STATIC_TITLES: Record<string, Key> = {
   '/pity': 'pity',
   '/exp': 'exp',
   '/codes': 'codes',
-  '/data': 'data',
+  '/data': 'area',
 }
 
 export function staticTitle(pathname: string): string | undefined | null {
