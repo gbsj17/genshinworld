@@ -1,9 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllCharacters, iconChain } from './api'
+import { getAllCharacters, getSkillIcons, iconChain } from './api'
 import AreaModal from './AreaModal'
-import { Card } from './CharCards'
+import { Card, Row } from './CharCards'
 import { useFavorites } from './favorites'
 import { t } from './i18n'
 import { ItemIcon, ItemName } from './ItemIcon'
@@ -82,15 +82,16 @@ function Stat({ icon, label, value, sub, pct }: { icon: string; label: string; v
   )
 }
 
-const Section = ({ title, to, children }: { title: string; to?: string; children: React.ReactNode }) => (
+const Section = ({ title, to, right, children }: { title: string; to?: string; right?: React.ReactNode; children: React.ReactNode }) => (
   <section className="area__sec">
     <div className="area__sh">
       <h2>{title}</h2>
-      {to && (
-        <Link to={to} className="area__more">
-          {t('areaSeeAll')}
-        </Link>
-      )}
+      {right ??
+        (to && (
+          <Link to={to} className="area__more">
+            {t('areaSeeAll')}
+          </Link>
+        ))}
     </div>
     {children}
   </section>
@@ -107,6 +108,32 @@ export default function DataPage() {
   const ga = useFavorites('goalartifacts')
   const [chars, setChars] = useState<CharacterSummary[] | null>(null)
   const [modal, setModal] = useState<Modal>(null)
+  const [skills, setSkills] = useState<Map<string, string[]> | null>(null)
+  const [view, setView] = useState<'grid' | 'list'>(() => (localStorage.getItem('genshinworld:area-view') === 'list' ? 'list' : 'grid'))
+  const [all6, setAll6] = useState(false)
+  // colunas da grade: 6 no PC e 2 no celular (a grade mostra no máximo 2 fileiras; a lista, 4)
+  const [cols, setCols] = useState(() => (window.matchMedia('(min-width: 820px)').matches ? 6 : 2))
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 820px)')
+    const on = () => setCols(mq.matches ? 6 : 2)
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [])
+  useEffect(() => {
+    let active = true
+    getSkillIcons().then((m) => active && setSkills(m)).catch(() => undefined)
+    return () => {
+      active = false
+    }
+  }, [])
+  const changeView = (v: 'grid' | 'list') => {
+    setView(v)
+    try {
+      localStorage.setItem('genshinworld:area-view', v)
+    } catch {
+      // sem armazenamento: vale só nesta visita
+    }
+  }
 
   useEffect(() => {
     let active = true
@@ -128,6 +155,8 @@ export default function DataPage() {
   const hasPity = (pity.character?.total ?? 0) > 0 || (pity.weapon?.total ?? 0) > 0
   const byEl = new Map<string, number>()
   for (const c of mine) byEl.set(c.vision, (byEl.get(c.vision) ?? 0) + 1)
+  const limit = view === 'grid' ? cols * 2 : 4
+  const shown = all6 ? mine : mine.slice(0, limit)
   const name = sync.user?.name ?? t('accountGuest')
   const nOwned = Object.keys(own.owned).length
 
@@ -237,13 +266,48 @@ export default function DataPage() {
           </Section>
         )}
 
-        <Section title={t('areaChars')} to="/characters">
+        <Section
+          title={t('areaChars')}
+          right={
+            <div className="area__tools">
+              <button
+                className="view-toggle"
+                aria-label={view === 'grid' ? t('viewList') : t('viewGrid')}
+                onClick={() => changeView(view === 'grid' ? 'list' : 'grid')}
+              >
+                {view === 'grid' ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="4" y="4" width="7" height="7" rx="1.5" />
+                    <rect x="13" y="4" width="7" height="7" rx="1.5" />
+                    <rect x="4" y="13" width="7" height="7" rx="1.5" />
+                    <rect x="13" y="13" width="7" height="7" rx="1.5" />
+                  </svg>
+                )}
+              </button>
+              {mine.length > limit && (
+                <button className="area__more" aria-expanded={all6} onClick={() => setAll6((v) => !v)}>
+                  {all6 ? t('areaCollapse') : `${t('areaExpand')} (${mine.length})`}
+                </button>
+              )}
+            </div>
+          }
+        >
           {mine.length === 0 ? (
             <p className="empty">{chars ? t('areaEmptyChars') : t('loading')}</p>
-          ) : (
+          ) : view === 'grid' ? (
             <div className="area__grid">
-              {mine.map((c) => (
-                <Card key={c.id} c={c} own={own.owned[c.id]} goal={gc.ids.includes(c.id)} />
+              {shown.map((c) => (
+                <Card key={c.id} c={c} own={own.owned[c.id]} goal={gc.ids.includes(c.id)} skills={skills?.get(c.enName)} />
+              ))}
+            </div>
+          ) : (
+            <div className="vrows">
+              {shown.map((c) => (
+                <Row key={c.id} c={c} own={own.owned[c.id]} goal={gc.ids.includes(c.id)} skills={skills?.get(c.enName)} />
               ))}
             </div>
           )}

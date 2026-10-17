@@ -102,6 +102,8 @@ const DICT = {
   areaYes: ['Sim', 'Yes'],
   areaNo: ['Não', 'No'],
   areaSeeAll: ['Ver todos →', 'See all →'],
+  areaExpand: ['Ver todos', 'See all'],
+  areaCollapse: ['Recolher', 'Collapse'],
   areaAddChar: ['Personagem', 'Character'],
   areaAddWeapon: ['Arma', 'Weapon'],
   areaUid: ['Importar UID', 'Import UID'],

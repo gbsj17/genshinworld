@@ -165,6 +165,48 @@
   border-radius: 16px;
 }
 
+/* Habilidades (só no perfil) */
+.vcard__skills {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.vcard__skills .skill-dot,
+.vrow__skills .skill-dot {
+  display: block;
+  flex: none;
+  border-radius: 50%;
+  border: 1.5px solid var(--el);
+  background: var(--surface-deep);
+  overflow: hidden;
+  width: 26px;
+  height: 26px;
+  border-width: 1.5px;
+  border-color: var(--el);
+}
+
+.vcard__skills .skill-dot img,
+.vrow__skills .skill-dot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+[data-theme='light'] .vcard__skills .skill-dot img,
+[data-theme='light'] .vrow__skills .skill-dot img {
+  filter: brightness(0);
+}
+
+.vrow__skills {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
 /* Lista */
 .vrows {
   display: grid;
@@ -234,6 +276,12 @@
   backdrop-filter: none;
 }
 
+@media (min-width: 560px) {
+  .vrow__skills {
+    display: flex;
+  }
+}
+
 @media (max-width: 819px) {
   .vcard__link {
     aspect-ratio: 3 / 5;
@@ -260,6 +308,17 @@
   .vrow__link {
     gap: 20px;
     padding: 12px 0 12px 16px;
+  }
+
+  .vrow__skills {
+    gap: 10px;
+    margin-right: 6px;
+  }
+
+  .vrow__skills .skill-dot {
+    width: 44px;
+    height: 44px;
+    border-width: 2px;
   }
 
   .vrow__link .thumb {

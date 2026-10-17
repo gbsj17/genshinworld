@@ -222,7 +222,18 @@
   color: var(--gold);
 }
 
+.area__tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .area__more {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
   font-size: 13px;
   font-weight: 700;
   color: var(--gold);
@@ -493,7 +504,7 @@
   }
 
   .area__grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .area__wgrid {

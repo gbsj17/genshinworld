@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { iconChain } from './api'
@@ -58,6 +59,26 @@ function Chips({ c, goal }: { c: CharacterSummary; goal: boolean }) {
   )
 }
 
+// Ícones das 3 habilidades ativas (só aparecem quando a tela fornece os ícones)
+function SkillDot({ src }: { src: string }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return null
+  return (
+    <span className="skill-dot">
+      <img src={src} alt="" loading="lazy" onError={() => setFailed(true)} />
+    </span>
+  )
+}
+
+const Skills = ({ list, cls }: { list?: string[]; cls: string }) =>
+  list && list.length > 0 ? (
+    <span className={cls} aria-hidden="true">
+      {list.map((src) => (
+        <SkillDot key={src} src={src} />
+      ))}
+    </span>
+  ) : null
+
 const Pips = ({ n }: { n: number }) => (
   <span className="cx-pips" aria-hidden="true">
     {[0, 1, 2, 3, 4, 5].map((i) => (
@@ -67,7 +88,7 @@ const Pips = ({ n }: { n: number }) => (
 )
 
 // Card da grade: foto com o brilho do elemento, informações e, no rodapé, constelação e nível
-export function Card({ c, own, goal }: { c: CharacterSummary; own?: OwnedInfo; goal: boolean }) {
+export function Card({ c, own, goal, skills }: { c: CharacterSummary; own?: OwnedInfo; goal: boolean; skills?: string[] }) {
   return (
     <div className="vcard" style={elStyle(c)}>
       <Link to={`/character/${c.id}`} aria-label={c.name} className="vcard__link">
@@ -81,6 +102,7 @@ export function Card({ c, own, goal }: { c: CharacterSummary; own?: OwnedInfo; g
         <span className="vcard__chips">
           <Chips c={c} goal={goal} />
         </span>
+        <Skills list={skills} cls="vcard__skills" />
         {own ? (
           <span className="vcard__own">
             <Pips n={own.c} />
@@ -98,7 +120,7 @@ export function Card({ c, own, goal }: { c: CharacterSummary; own?: OwnedInfo; g
 }
 
 // Linha da lista: faixa com a cor do elemento
-export function Row({ c, own, goal }: { c: CharacterSummary; own?: OwnedInfo; goal: boolean }) {
+export function Row({ c, own, goal, skills }: { c: CharacterSummary; own?: OwnedInfo; goal: boolean; skills?: string[] }) {
   return (
     <div className="vrow" style={elStyle(c)}>
       <Link to={`/character/${c.id}`} aria-label={c.name} className="vrow__link">
@@ -113,6 +135,7 @@ export function Row({ c, own, goal }: { c: CharacterSummary; own?: OwnedInfo; go
           </span>
         </span>
       </Link>
+      <Skills list={skills} cls="vrow__skills" />
       <div className="vrow__rt">
         <StarButton id={c.id} name={c.name} />
         {own ? (
