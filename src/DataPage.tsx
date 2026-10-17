@@ -202,6 +202,7 @@ export default function DataPage() {
   const wShown = wAll ? wList : wList.slice(0, wLimit)
   const name = sync.user?.name ?? t('accountGuest')
   const nOwned = Object.keys(own.owned).length
+  const lv1 = Object.values(own.owned).filter((i) => i.lv <= 1).length
 
   return (
     <>
@@ -322,6 +323,14 @@ export default function DataPage() {
             </div>
           }
         >
+          {lv1 > 0 && (
+            <p className="area__hint">
+              {lv1 === 1 ? t('levelHint1') : t('levelHint', { n: lv1 })}{' '}
+              <button className="area__more" onClick={() => setModal('char')}>
+                {t('levelHintBtn')}
+              </button>
+            </p>
+          )}
           {mine.length === 0 ? (
             <p className="empty">{chars ? t('areaEmptyChars') : t('loading')}</p>
           ) : view === 'grid' ? (

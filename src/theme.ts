@@ -23,6 +23,25 @@ export function useTheme() {
       ?.setAttribute('content', BROWSER_BAR[theme])
   }, [theme])
 
+  // Sem escolha salva, acompanha o tema do sistema (se ele mudar com o app aberto).
+  useEffect(() => {
+    let saved: string | null = null
+    try {
+      saved = localStorage.getItem(KEY)
+    } catch {
+      // sem armazenamento: trata como sem escolha
+    }
+    if (saved === 'light' || saved === 'dark' || !window.matchMedia) return
+    const mq = window.matchMedia('(prefers-color-scheme: light)')
+    const on = () => {
+      const next: Theme = mq.matches ? 'light' : 'dark'
+      document.documentElement.setAttribute('data-theme', next)
+      setTheme(next)
+    }
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [])
+
   const toggle = useCallback(() => {
     const next: Theme = theme === 'dark' ? 'light' : 'dark'
     const root = document.documentElement

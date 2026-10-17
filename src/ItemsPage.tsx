@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { getAllItems } from './api'
 import type { ItemEntry } from './api'
 import { useFavorites } from './favorites'
@@ -14,6 +14,8 @@ import './charcards.css'
 import './items.css'
 
 const WEAPON_TYPES = ['', 'Sword', 'Claymore', 'Polearm', 'Bow', 'Catalyst']
+
+const PAGE = 48 // quantos cards aparecem de cada vez; o resto vem ao rolar
 
 const normalize = (text: string) =>
   text
@@ -32,6 +34,8 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
   const { isFavorite, toggle } = useFavorites(isWeapon ? 'weapons' : 'artifacts')
   const goals = useFavorites(isWeapon ? 'goalweapons' : 'goalartifacts')
   const ownW = useOwnedWeapons()
+  const [lim, setLim] = useState({ key: '', n: PAGE })
+  const sentinel = useRef<HTMLDivElement>(null)
   const [onlyOwned, setOnlyOwned] = useState(false)
   const [onlyGoal, setOnlyGoal] = useState(false)
   const [view, setView] = useState<'grid' | 'list'>(() => (localStorage.getItem('genshinworld:items-view') === 'list' ? 'list' : 'grid'))
@@ -73,6 +77,19 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
         normalize(`${e.label} ${e.name}`).includes(q),
     )
   }, [sorted, query, type, rarity, onlyOwned, onlyGoal, ownW.owned, goals.ids])
+
+  // o contador de cards volta ao primeiro bloco quando o filtro muda
+  const filterKey = [query, type, rarity, onlyOwned, onlyGoal, view, isWeapon].join('|')
+  const limit = lim.key === filterKey ? lim.n : PAGE
+
+  // quando o fim da lista aparece na tela, mostra mais um bloco
+  useEffect(() => {
+    const el = sentinel.current
+    if (!el || limit >= filtered.length || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver((e) => e[0]?.isIntersecting && setLim({ key: filterKey, n: limit + PAGE }), { rootMargin: '800px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [limit, filtered.length, filterKey])
 
   const rarities = isWeapon ? [5, 4, 3] : [5, 4]
 
@@ -149,7 +166,7 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
             <p className="empty">{t('nothingFound')}</p>
           ) : (
             <div className={view === 'grid' ? 'igrid' : 'vrows'}>
-              {filtered.map((e) => {
+              {filtered.slice(0, limit).map((e) => {
                 const props = {
                   kind,
                   name: e.name,
@@ -163,6 +180,11 @@ export default function ItemsPage({ kind }: { kind: 'weapon' | 'artifact' }) {
                 }
                 return view === 'grid' ? <ItemCard key={e.name} {...props} /> : <ItemRow key={e.name} {...props} />
               })}
+            </div>
+          )}
+          {limit < filtered.length && (
+            <div ref={sentinel} className="empty" aria-hidden="true">
+              {t('pageMore')}
             </div>
           )}
         </>

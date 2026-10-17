@@ -23,28 +23,6 @@
     gap: 18px;
   }
 
-  .char-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .char-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
-  }
-
-  .char-card__art {
-    height: 150px;
-  }
-
-  .char-card__art .thumb {
-    width: 112px;
-    height: 112px;
-  }
-
-  .row-item:hover {
-    background: var(--surface-deep);
-  }
-
   /* Lista: coluna central, sem o índice solto na borda da janela */
   .list {
     max-width: 760px;
@@ -114,11 +92,5 @@
   /* Barra de abas: fica mais discreta no PC */
   .tabbar {
     width: 440px;
-  }
-}
-
-@media (min-width: 820px) and (prefers-reduced-motion: reduce) {
-  .char-card {
-    transition: none;
   }
 }

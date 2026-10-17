@@ -76,16 +76,6 @@
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(140ms + var(--i, 0) * 80ms);
 }
 
-.drawer__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 16px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid var(--line);
-}
-
 .drawer__title {
   display: block;
   font-family: var(--brand);
@@ -93,13 +83,6 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--gold);
-}
-
-.drawer__sub {
-  display: block;
-  margin-top: 2px;
-  font-size: 12px;
-  color: var(--muted);
 }
 
 .drawer__nav {

@@ -205,63 +205,6 @@
   padding: 10px 20px 0;
 }
 
-.char-card {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-radius: 22px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  color: var(--text);
-  text-decoration: none;
-}
-
-.char-card__art {
-  position: relative;
-  height: 124px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: color-mix(in srgb, var(--card-accent) 22%, var(--panel));
-}
-
-.char-card__art .thumb {
-  width: 96px;
-  height: 96px;
-  border: 0;
-  background: transparent;
-}
-
-.char-card__body {
-  padding: 10px 14px 14px;
-}
-
-.char-card__body strong {
-  display: block;
-  font-size: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.char-card__body span {
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.rarity-pill {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: var(--badge-bg);
-  color: var(--stars);
-  font-size: 11px;
-  font-weight: 700;
-}
-
 .star-btn {
   position: absolute;
   top: 8px;
@@ -297,46 +240,6 @@
   font-weight: 700;
   color: var(--accent);
   scroll-margin-top: 8px;
-}
-
-.row-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  height: 72px;
-  border-bottom: 1px solid var(--line);
-  color: var(--text);
-  text-decoration: none;
-}
-
-.row-item .thumb {
-  width: 52px;
-  height: 52px;
-  border: 2px solid var(--card-accent);
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.row-item__body {
-  flex: 1;
-  min-width: 0;
-}
-
-.row-item__body strong {
-  display: block;
-  font-size: 16px;
-}
-
-.row-item__body span {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.row-item .star-btn {
-  position: static;
-  background: transparent;
-  backdrop-filter: none;
 }
 
 .alpha {
@@ -444,13 +347,6 @@
   .segment {
     transition: none;
   }
-}
-
-.app-logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  box-shadow: var(--shadow);
 }
 
 /* Itens e busca dividem o mesmo espaço; um sai e o outro entra */
@@ -586,12 +482,6 @@
 }
 
 /* Ícones das habilidades ativas na lista de personagens */
-.row-item__skills {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: none;
-}
 
 .skill-dot {
   width: 36px;
@@ -615,20 +505,9 @@
   filter: brightness(0);
 }
 
-@media (max-width: 560px) {
-  .row-item__skills {
-    display: none;
-  }
-}
-
 @media (min-width: 820px) {
   .skill-dot {
     width: 44px;
     height: 44px;
-  }
-
-  .row-item__skills {
-    gap: 10px;
-    margin-right: 12px;
   }
 }

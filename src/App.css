@@ -135,12 +135,6 @@
   background: var(--line-strong);
 }
 
-.sheet__badges {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .badge {
   width: 46px;
   height: 46px;

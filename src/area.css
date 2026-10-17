@@ -221,6 +221,12 @@
   color: var(--gold);
 }
 
+.area__hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .area__tools {
   display: flex;
   align-items: center;

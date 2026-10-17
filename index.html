@@ -38,6 +38,9 @@
         var t = localStorage.getItem('genshinworld:theme')
         if (t === 'light' || t === 'dark') {
           document.documentElement.setAttribute('data-theme', t)
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          // sem escolha salva: segue o tema do sistema
+          document.documentElement.setAttribute('data-theme', 'light')
         }
       } catch (e) {}
     </script>

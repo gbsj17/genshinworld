@@ -27,6 +27,7 @@ import { trackPage, useConsent } from './analytics'
 import { setTitle, staticTitle } from './pageTitle'
 import Footer from './Footer'
 import Splash from './Splash'
+import UpdateNotice from './UpdateNotice'
 import { MenuProvider } from './MenuProvider'
 import './App.css'
 import './responsive.css'
@@ -43,6 +44,7 @@ function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <Splash />
+      <UpdateNotice />
       <RouteTitle />
       <MenuProvider>
         <Suspense fallback={null}>

@@ -1485,7 +1485,6 @@
   text-decoration: none;
 }
 
-
 /* Sincronização (Meus dados) */
 .sync-card__google {
   display: inline-flex;
@@ -1726,14 +1725,6 @@
 }
 
 /* Minha área: abas e personagens que a pessoa tem */
-.area__tabs {
-  margin: 4px 0 14px;
-}
-
-.own__title {
-  margin: 0 0 4px;
-  font-size: 20px;
-}
 
 .own__input {
   min-height: 44px;
