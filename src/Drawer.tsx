@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import { lang, setLang, t } from './i18n'
 import { useInstall } from './install'
 import { useMenu } from './menuContext'
-import { signIn, useSync } from './sync'
+import { loginLater } from './loginGate'
+import { signIn, signOutSync, useSync } from './sync'
 import './drawer.css'
 
 // --i controla o atraso de cada item na animação de entrada (um depois do outro)
@@ -22,10 +23,8 @@ const I = {
   pity: 'M4 20V10M10 20V4M16 20v-8M22 20H2',
   exp: 'M4 18l5-6 4 3 7-9M15 6h5v5',
   codes: 'M3 9a2 2 0 002-2h14a2 2 0 002 2v0a2 2 0 000 6v0a2 2 0 00-2 2H5a2 2 0 00-2-2v0a2 2 0 000-6zM10 9v6M14 9v6',
-  data: 'M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 7v5c0 1.7 3.6 3 8 3s8-1.3 8-3V7M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5',
   docs: 'M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h7',
   user: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0',
-  login: 'M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3',
   plan: 'M5 4h14v16H5zM9 9h6M9 13h6M9 17h3',
 }
 
@@ -136,52 +135,70 @@ export default function Drawer() {
           </button>
         </div>
 
-        <nav className="drawer__nav">
-          <Item to="/" icon={I.home} label={t('home')} i={1} close={closeMenu} />
-          <Group label={t('menuPlan')} icon={I.plan} i={2}>
-            <Item to="/favorites" icon={I.fav} label={t('favorites')} i={2} close={closeMenu} sub />
-            <Item to="/wishlist" icon={I.wish} label={t('wishlist')} i={2} close={closeMenu} sub />
-            <Item to="/teams" icon={I.teams} label={t('teamBuilder')} i={2} close={closeMenu} sub />
-            <Item to="/compare" icon={I.compare} label={t('compare')} i={2} close={closeMenu} sub />
-          </Group>
-          <Group label={t('menuFarm')} icon={I.mats} i={3}>
-            <Item to="/materials" icon={I.mats} label={t('materials')} i={3} close={closeMenu} sub />
-            <Item to="/farm" icon={I.farm} label={t('farm')} i={3} close={closeMenu} sub />
-            <Item to="/exp" icon={I.exp} label={t('exp')} i={3} close={closeMenu} sub />
-          </Group>
-          <Group label={t('menuWishes')} icon={I.pity} i={4}>
-            <Item to="/pity" icon={I.pity} label={t('pity')} i={4} close={closeMenu} sub />
-            <Item to="/codes" icon={I.codes} label={t('codes')} i={4} close={closeMenu} sub />
-          </Group>
-          <Item to="/data" icon={I.data} label={t('data')} i={5} close={closeMenu} />
+        <div className="drawer__item drawer__acc" style={step(1)}>
+          <Link to="/data" className="drawer__accrow" onClick={closeMenu}>
+            {sync.user?.photo ? (
+              <img className="drawer__avatar drawer__avatar--lg" src={sync.user.photo} alt="" referrerPolicy="no-referrer" />
+            ) : (
+              <span className="drawer__avatar drawer__avatar--lg drawer__avatar--ph">
+                <Icon d={I.user} />
+              </span>
+            )}
+            <span className="drawer__accname">
+              <strong>{sync.user ? sync.user.name : t('accountGuest')}</strong>
+              <small>{sync.user ? sync.user.email : t('accountGuestSub')}</small>
+            </span>
+            <svg className="drawer__accgo" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </Link>
           {sync.status !== 'off' &&
             (sync.user ? (
-              <Link to="/data" className="drawer__item" style={step(6)} onClick={closeMenu}>
-                {sync.user.photo ? (
-                  <img className="drawer__avatar" src={sync.user.photo} alt="" referrerPolicy="no-referrer" />
-                ) : (
-                  <Icon d={I.user} />
-                )}
-                {t('syncAccount', { n: sync.user.name.split(' ')[0] })}
-              </Link>
+              <button
+                className="drawer__accbtn"
+                onClick={() => {
+                  loginLater() // quem saiu de propósito não leva a tela de login na cara
+                  void signOutSync()
+                  closeMenu()
+                }}
+              >
+                {t('syncSignOut')}
+              </button>
             ) : (
               <button
-                className="drawer__item"
-                style={step(6)}
+                className="drawer__accbtn drawer__accbtn--pri"
                 disabled={sync.status === 'loading'}
                 onClick={() => {
                   void signIn()
                   closeMenu()
                 }}
               >
-                <Icon d={I.login} />
                 {t('syncSignIn')}
               </button>
             ))}
-          <Item to="/docs" icon={I.docs} label={t('docs')} i={7} close={closeMenu} />
+        </div>
+
+        <nav className="drawer__nav">
+          <Item to="/" icon={I.home} label={t('home')} i={2} close={closeMenu} />
+          <Group label={t('menuPlan')} icon={I.plan} i={3}>
+            <Item to="/favorites" icon={I.fav} label={t('favorites')} i={3} close={closeMenu} sub />
+            <Item to="/wishlist" icon={I.wish} label={t('wishlist')} i={3} close={closeMenu} sub />
+            <Item to="/teams" icon={I.teams} label={t('teamBuilder')} i={3} close={closeMenu} sub />
+            <Item to="/compare" icon={I.compare} label={t('compare')} i={3} close={closeMenu} sub />
+          </Group>
+          <Group label={t('menuFarm')} icon={I.mats} i={4}>
+            <Item to="/materials" icon={I.mats} label={t('materials')} i={4} close={closeMenu} sub />
+            <Item to="/farm" icon={I.farm} label={t('farm')} i={4} close={closeMenu} sub />
+            <Item to="/exp" icon={I.exp} label={t('exp')} i={4} close={closeMenu} sub />
+          </Group>
+          <Group label={t('menuWishes')} icon={I.pity} i={5}>
+            <Item to="/pity" icon={I.pity} label={t('pity')} i={5} close={closeMenu} sub />
+            <Item to="/codes" icon={I.codes} label={t('codes')} i={5} close={closeMenu} sub />
+          </Group>
+          <Item to="/docs" icon={I.docs} label={t('docs')} i={6} close={closeMenu} />
         </nav>
 
-        <div className="drawer__item drawer__item--row" style={step(8)}>
+        <div className="drawer__item drawer__item--row" style={step(7)}>
           <span className="drawer__label">
             {t('theme')}
             <small>{isLight ? t('themeLight') : t('themeDark')}</small>
@@ -205,7 +222,7 @@ export default function Drawer() {
           </button>
         </div>
 
-        <div className="drawer__item drawer__item--row" style={step(9)}>
+        <div className="drawer__item drawer__item--row" style={step(8)}>
           <span className="drawer__label">{t('language')}</span>
           <div className="lang-switch" role="group" aria-label={t('language')}>
             <button aria-pressed={lang === 'pt'} onClick={() => setLang('pt')}>PT-BR</button>
@@ -215,7 +232,7 @@ export default function Drawer() {
         {available && (
           <button
             className="drawer__item drawer__item--btn"
-            style={step(10)}
+            style={step(9)}
             onClick={() => {
               closeMenu()
               void install()

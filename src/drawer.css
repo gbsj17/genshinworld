@@ -301,3 +301,102 @@ button.drawer__item--btn {
   border-radius: 0 12px 12px 0;
   font-weight: 600;
 }
+
+/* Cartão da conta no topo do menu */
+.drawer__item.drawer__acc {
+  display: grid;
+  gap: 10px;
+  align-items: stretch;
+  min-height: 0;
+  padding: 12px;
+  background: var(--surface-deep);
+  border: 1px solid var(--line);
+}
+
+.drawer__accrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.drawer__accrow:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.drawer__avatar--lg {
+  width: 44px;
+  height: 44px;
+  flex: none;
+}
+
+.drawer__avatar--ph {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
+}
+
+.drawer__accname {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.drawer__accname strong,
+.drawer__accname small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer__accname small {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.drawer__accgo {
+  flex: none;
+  color: var(--muted);
+}
+
+.drawer__accbtn {
+  min-height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.drawer__accbtn--pri {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--on-accent);
+}
+
+.drawer__accbtn:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.drawer__accbtn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* com o menu rolável, nada encolhe para caber: os itens mantêm o tamanho */
+.drawer__panel > * {
+  flex: none;
+}

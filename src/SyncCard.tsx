@@ -1,3 +1,4 @@
+import { loginLater } from './loginGate'
 import { signIn, signOutSync, syncNow, useSync } from './sync'
 import { t } from './i18n'
 
@@ -47,7 +48,10 @@ export default function SyncCard() {
             <button className="tool-btn" onClick={() => void syncNow()} disabled={s.status === 'loading' || s.status === 'saving'}>
               {t('syncNow')}
             </button>
-            <button className="tool-btn tool-btn--ghost" onClick={() => void signOutSync()}>{t('syncSignOut')}</button>
+            <button className="tool-btn tool-btn--ghost" onClick={() => {
+              loginLater()
+              void signOutSync()
+            }}>{t('syncSignOut')}</button>
           </div>
           <small className="tool__muted">{t('syncOutNote')}</small>
         </>

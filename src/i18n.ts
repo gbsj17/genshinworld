@@ -78,6 +78,8 @@ const DICT = {
   loginNever: ['Não quero me logar', "I don't want to sign in"],
   loginBusy: ['Entrando…', 'Signing in…'],
   loginError: ['Não foi possível entrar. Tente de novo.', 'Could not sign in. Try again.'],
+  accountGuest: ['Visitante', 'Guest'],
+  accountGuestSub: ['Dados só neste aparelho', 'Data on this device only'],
   menuPlan: ['Planejar', 'Plan'],
   menuFarm: ['Farm e materiais', 'Farm & materials'],
   menuWishes: ['Orações e códigos', 'Wishes & codes'],

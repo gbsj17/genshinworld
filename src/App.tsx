@@ -121,7 +121,7 @@ function LoginSlot() {
   const { status } = useSync()
   const [closed, setClosed] = useState(() => loginDismissed() || isCrawler())
   const [busy, setBusy] = useState(false)
-  if (!shouldShowLogin(status, closed, busy)) return null
+  if (!shouldShowLogin(status, closed || loginDismissed(), busy)) return null
   return (
     <Suspense fallback={null}>
       <LoginScreen busy={busy} onBusy={() => setBusy(true)} onClose={() => setClosed(true)} />
